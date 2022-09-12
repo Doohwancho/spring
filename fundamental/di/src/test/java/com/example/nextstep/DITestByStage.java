@@ -18,11 +18,11 @@ public class DITestByStage {
 
         final var actual = UserService0.join(user);
 
-        assertThat(actual.getAccount()).isEqualTo("gugu"); //true
+        assertThat(actual.getAccount()).isEqualTo("gugu");
 
         user.setAccount("haha");
 
-        assertThat(actual.getAccount()).isEqualTo("haha"); //true
+        assertThat(actual.getAccount()).isEqualTo("haha");
     }
 
     /*
@@ -70,7 +70,7 @@ public class DITestByStage {
     void stage2() {
         final var user = new User(1L, "gugu");
 
-        final UserDao2 userDao = new InMemoryUserDao2();
+        final UserDao2 userDao = new InMemoryUserDao2(); //UserDao2 interface먹였기 때문에, 다른 db에 datasource를 종류별로 붙여도, 모두 UserDao2로 추상화 가능
         final var userService = new UserService2(userDao);
 
         final var actual = userService.join(user);
@@ -103,4 +103,17 @@ public class DITestByStage {
         // then
         assertThat(actual.getAccount()).isEqualTo("gugu");
     }
+
+    /*
+
+    stage2 - constructor within interface
+
+    diff stage1 stage2
+
+    DAO에 interface먹임.
+    왜?
+    UserDao2 interface먹였기 때문에, 다른 db에 datasource를 종류별로 붙여도, 모두 UserDao2로 추상화 가능
+
+
+     */
 }
