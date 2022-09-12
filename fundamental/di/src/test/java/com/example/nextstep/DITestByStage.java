@@ -1,6 +1,8 @@
 package com.example.nextstep;
 
-import com.example.nextstep.di.stage0.UserService1;
+import com.example.nextstep.di.stage0.UserService0;
+import com.example.nextstep.di.stage1.UserDao1;
+import com.example.nextstep.di.stage1.UserService1;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -11,7 +13,7 @@ public class DITestByStage {
     void stage0() {
         final var user = new User(1L, "gugu");
 
-        final var actual = UserService1.join(user);
+        final var actual = UserService0.join(user);
 
         assertThat(actual.getAccount()).isEqualTo("gugu"); //true
 
@@ -22,9 +24,23 @@ public class DITestByStage {
 
     /*
 
+    stage0 - constructor injection(static reference)
+
     user 객체 만들고 UserDao1에 UserService1을 통해 dependency injection 했더니,
     user객체를 공유해서,
     user 객체의 정보가 달라져도, UserDao1에 바뀐 user객체의 정보를 볼 수 있다.
 
      */
+
+    @Test
+    void stage1() {
+        final var user = new User(1L, "gugu");
+
+        final var userDao = new UserDao1();
+        final var userService = new UserService1(userDao);
+
+        final var actual = userService.join(user);
+
+        assertThat(actual.getAccount()).isEqualTo("gugu");
+    }
 }

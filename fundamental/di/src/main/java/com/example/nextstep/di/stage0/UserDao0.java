@@ -5,7 +5,7 @@ import com.example.nextstep.User;
 import java.util.HashMap;
 import java.util.Map;
 
-class UserDao1 {
+class UserDao0 {
 
     private static final Map<Long, User> users = new HashMap<>();
 
