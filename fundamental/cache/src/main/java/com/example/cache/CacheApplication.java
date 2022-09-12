@@ -1,14 +1,13 @@
-package com.springboot.fundamental;
+package com.example.cache;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-
 @SpringBootApplication
-public class FundamentalApplication {
+public class CacheApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FundamentalApplication.class, args);
+		SpringApplication.run(CacheApplication.class, args);
 	}
 
 }

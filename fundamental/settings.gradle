@@ -1,1 +1,3 @@
 rootProject.name = 'fundamental'
+include 'spring-core'
+include 'cache'
