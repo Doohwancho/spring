@@ -7,7 +7,7 @@ modularize springboot fundamental concepts
 Approach
 
 a. overall process\
-b. HTTP Cache(cache-control + etag for static files)\
+b. HTTP Cache(cache-control + etag for static files) -- clear\
 c. Spring Boot Cache\
 d. thread\
 e. servlet\
@@ -30,7 +30,7 @@ todo
 b-1. 우테코 cache 예제 파악\
 b-2. 우테코 cache 예제 solution보고 개별 문제 풀기
 
-d-1. 우테코 di 예제 stage-n setting
+d-1. 우테코 di 예제 stage-n setting\
 d-2. 우테코 di 예제 stage-n 문제 해결
 
 

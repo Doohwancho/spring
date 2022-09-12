@@ -2,8 +2,8 @@ package com.example.nextstep;
 
 public class User {
 
-    private final long id;
-    private final String account;
+    private long id; //removed final for setter
+    private String account; //removed final for setter
 
     public User(long id, String account) {
         this.id = id;
@@ -16,5 +16,13 @@ public class User {
 
     public String getAccount() {
         return account;
+    }
+
+    public void setId(long id){
+        this.id = id;
+    }
+
+    public void setAccount(String account){
+        this.account = account;
     }
 }
