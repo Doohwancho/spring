@@ -43,7 +43,12 @@ class GreetingControllerTest {
         log.info("response body\n{}", response.getResponseBody());
     }
 
-    //http response header에 Transfer-Encoding을 넣어보내라는 말 같은데? gzip으로 요청보내고, 요청 오는것도 gzip으로 오고
+    //Q. http response header에 Transfer-Encoding을 넣어보내라는 말 같은데? gzip으로 요청보내고, 요청 오는것도 gzip으로 오고
+    //문제에서는 "chunked"라는 문자열을 transfer_encoding으로 보내라는 것 같은데?
+    //아니구나, transfer_encoding에 'chunked'라는게 있네.
+    //A.chunk encoding은 보내는 http request size가 너무 클 때, 쪼개서 보내는 것.
+
+    //A.application.yml에 compression enabled:true 한 후, min-response-size:10 설정하면, chunk로 잘라서 보냄
     @Test
     void testCompression() {
         final var response = webTestClient
