@@ -24,15 +24,15 @@ public class UserDao1 {
     }
 
     public void insert(User user) {
-        try (final var connection = dataSource.getConnection()) {
-            users.put(user.getId(), user);
+        try (final var connection = dataSource.getConnection()) { //dataSource의 connection이 있으면
+            users.put(user.getId(), user); //user을 넣어준다.
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public User findById(long id) {
-        try (final var connection = dataSource.getConnection()) {
+        try (final var connection = dataSource.getConnection()) { //dataSource의 connection이 있으면
             return users.get(id);
         } catch (SQLException e) {
             return null;
