@@ -24,7 +24,7 @@ l. WebFlux
 todo
 
 b-1. 우테코 cache 예제 파악\
-b-2. 우테코 cache 예제 solution보고 의도 파악
+b-2. 우테코 cache 예제 solution보고 개별 문제 풀기
 
 ---\
 reference

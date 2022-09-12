@@ -27,7 +27,9 @@ class GreetingControllerTest {
     @Autowired
     private WebTestClient webTestClient;
 
-    //기존 코드를 바꿔서 캐시를 아무것도 안넣고 반환하라는 문제 같은데?
+    //Q. 기존 코드를 바꿔서 캐시를 아무것도 안넣고 반환하라는 문제 같은데?
+
+    //A. CacheWebConfig.java 세팅하니까 해결됨. 왜?
     @Test
     void testNoCachePrivate() {
         final var response = webTestClient
@@ -59,6 +61,9 @@ class GreetingControllerTest {
     }
 
     //http response header에 'ETag'를 담아 보내라는거 같은데, Etag가 뭐야?
+
+    //A.
+    //ETag(entity tag)는 웹 서버가 주어진 URL의 콘텐츠가 변경되었는지 알려주고 이를 반환하는 HTTP 응답 헤더이다.
     @Test
     void testETag() {
         final var response = webTestClient
@@ -96,10 +101,12 @@ class GreetingControllerTest {
 
         final var etag = response.getResponseHeaders().getETag();
 
-        // 캐싱되었다면 "/resource-versioning/js/index.js"로 다시 호출했을때 HTTP status는 304를 반환한다. (304: there is no need to retransmit the requested resources)
+        // Etag봤는데 서버꺼랑 클라이언트꺼랑 같네? 캐싱 되었네?
+        // 캐싱되었다면 "/resource-versioning/js/index.js"로 다시 호출했을때 HTTP status는 304를 반환한다.
+        // (304: there is no need to 're-transmit' the requested resources)
         webTestClient.get()
                 .uri(uri)
-                .header(HttpHeaders.IF_NONE_MATCH, etag)
+                .header(HttpHeaders.IF_NONE_MATCH, etag) //If-None-Match - 클라이언트에서 캐싱된 ETag와 서버의 ETag가 다를 때 요청을 처리한다. || If-Match - 클라이언트에서 캐싱된 ETag와 서버의 ETag가 같을 때 요청을 처리한다.
                 .exchange()
                 .expectStatus()
                 .isNotModified();
