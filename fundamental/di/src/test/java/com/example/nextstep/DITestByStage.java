@@ -3,6 +3,9 @@ package com.example.nextstep;
 import com.example.nextstep.di.stage0.UserService0;
 import com.example.nextstep.di.stage1.UserDao1;
 import com.example.nextstep.di.stage1.UserService1;
+import com.example.nextstep.di.stage2.InMemoryUserDao2;
+import com.example.nextstep.di.stage2.UserDao2;
+import com.example.nextstep.di.stage2.UserService2;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -62,4 +65,42 @@ public class DITestByStage {
     2. 왜 DAO를 따로 관리하냐라고 물으면, DAO에 DataSource가 추가되어 db와 통신하기 때문. db통신하는 객체와 user관리하는 객체의 역할을 분리하기 위해서 랄까나?
 
      */
+
+    @Test
+    void stage2() {
+        final var user = new User(1L, "gugu");
+
+        final UserDao2 userDao = new InMemoryUserDao2();
+        final var userService = new UserService2(userDao);
+
+        final var actual = userService.join(user);
+
+        assertThat(actual.getAccount()).isEqualTo("gugu");
+    }
+
+    @Test
+    void stage2testAnonymousClass() {
+        // given
+        final var userDao = new UserDao2() {
+            private User user;
+
+            @Override
+            public void insert(User user) {
+                this.user = user;
+            }
+
+            @Override
+            public User findById(long id) {
+                return user;
+            }
+        };
+        final var userService = new UserService2(userDao);
+        final var user = new User(1L, "gugu");
+
+        // when
+        final var actual = userService.join(user);
+
+        // then
+        assertThat(actual.getAccount()).isEqualTo("gugu");
+    }
 }
