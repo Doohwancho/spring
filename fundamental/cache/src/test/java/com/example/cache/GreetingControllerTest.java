@@ -105,7 +105,10 @@ class GreetingControllerTest {
                 .expectStatus().isOk()
                 .expectHeader().exists(HttpHeaders.ETAG) //test fail: Response header 'ETag' does not exist
                 .expectHeader().cacheControl(CacheControl.maxAge(Duration.ofDays(365)).cachePublic()) //여기서 CacheControl을 쓰네. 최대 cache 보관일 365일로 정하는건가?
+                //Expected :max-age=31536000, public
+                //Actual   :null
                 .expectBody(String.class).returnResult();
+
 
         log.info("response body\n{}", response.getResponseBody());
 
@@ -115,11 +118,16 @@ class GreetingControllerTest {
         // 캐싱되었다면 "/resource-versioning/js/index.js"로 다시 호출했을때 HTTP status는 304를 반환한다.
         // (304: there is no need to 're-transmit' the requested resources)
         webTestClient.get()
-                .uri(uri)
+                .uri(uri) //"%s/%s/js/index.js", PREFIX_STATIC_RESOURCES, version.getVersion()
                 .header(HttpHeaders.IF_NONE_MATCH, etag) //If-None-Match - 클라이언트에서 캐싱된 ETag와 서버의 ETag가 다를 때 요청을 처리한다. || If-Match - 클라이언트에서 캐싱된 ETag와 서버의 ETag가 같을 때 요청을 처리한다.
                 .exchange()
                 .expectStatus()
-                .isNotModified();
+                .isNotModified(); //바뀌지 않았다.
+
+        //http://localhost:8080/resources/20220912202263/js/index.js 로 postman 써서 GET 요청 보내면,
+        //response header에
+        //cache-control에는 max-age=31536000, public 으로 나오고,
+        //etag에는 "0adf06cf637aff7c06810711225d7eec6"가 나온다.
     }
 }
 

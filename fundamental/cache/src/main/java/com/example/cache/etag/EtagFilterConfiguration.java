@@ -35,6 +35,16 @@ public class EtagFilterConfiguration { //서버 오기 직전 서브릿 단에�
 
     이렇게만 해주면,  해당 스프링부트 앱에서 제공하는 모든 응답에 etag 가 붙게 된다
 
+    요청 url에 따라 다른 etag가 붙는다.
+
+    http://localhost:8080/resources/20220912202263/js/index.js
+    로 요청하면, http response header에 etag는
+    0adf06cf637aff7c06810711225d7eec6
+    이건데,
+
+    http://localhost:8080/etag 이렇게 요청하면, etag는
+    06eccc9eb4256540f6d1f272ce2274316 이다
+
      */
 
     @Bean

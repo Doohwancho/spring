@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.allegro.tech.boot.autoconfigure.handlebars.HandlebarsHelper;
 
+//handlebar는 html 대체 template으로, <script src="{{staticUrls '/js/index.js'}}"></script> 에서 {{variable}] 쓸 때 쓴다.
 @HandlebarsHelper
 public class VersionHandlebarsHelper {
 
@@ -22,8 +23,8 @@ public class VersionHandlebarsHelper {
         this.version = version;
     }
 
-    public String staticUrls(String path, Options options) {
+    public String staticUrls(String path, Options options) { //resource-versioning.html에 <script src="{{staticUrls '/js/index.js'}}"></script> 에서 쓴다.
         log.debug("static url : {}", path); //디버그 시에만 어떤 static url path인지 보여준다.
-        return String.format("/resources/%s%s", version.getVersion(), path); //src="/resources/20220911222179/js/index.js" 이게 여기서 옴
+        return String.format("/resources/%s%s", version.getVersion(), path); //src="/resources/20220911222179/js/index.js" 이게 여기서 옴. 저 날짜(초단위까지)는 version이 만들어졌을 당시 시간
     }
 }

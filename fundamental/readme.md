@@ -7,17 +7,21 @@ modularize springboot fundamental concepts
 Approach
 
 a. overall process\
-b. cache\
-c. thread\
-d. servlet\
-e. reflection\
-f. DI\
-g. IOC\
-h. AOP\
-i. annotations\
-j. Filter, Interceptor\
-k. Exception\
-l. WebFlux
+b. HTTP Cache(cache-control + etag for static files)\
+c. Spring Boot Cache
+d. thread\
+e. servlet\
+f. reflection\
+g. DI\
+h. IOC\
+i. AOP\
+j. annotations\
+k. Filter, Interceptor\
+l. Exception\
+m. multipart\
+n. logging\
+o. cors\
+p. WebFlux
 
 
 ---\

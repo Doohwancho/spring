@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 @Component
 public class ResourceVersion {
 
-    private static final String DEFAULT_DATE_TIME_FORMAT = "yyyyMMddHHmmSS";
+    private static final String DEFAULT_DATE_TIME_FORMAT = "yyyyMMddHHmmSS"; //초단위까지 입력되서 unique하게 만들려는 거구나
 
     private String version;
 

@@ -3,5 +3,5 @@ handlebars:
 
 server:
   compression:
-    enabled: true
-    min-response-size: 10 # ?? ??? 2KB
+    enabled: true #Content-Encoding: gzip, #Transfer-Encoding: chunked
+    min-response-size: 10 # max 2KB
