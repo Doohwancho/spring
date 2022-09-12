@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.ShallowEtagHeaderFilter;
 
+import static com.example.cache.version.CacheBustingWebConfig.PREFIX_STATIC_RESOURCES; //캐시랑 이어진다
+
 /*
 
 what is Etag?
@@ -21,10 +23,28 @@ http request 소스가 달라지면, etag도 달라진다.
  */
 
 @Configuration
-public class EtagFilterConfiguration {
+public class EtagFilterConfiguration { //서버 오기 직전 서브릿 단에서 필터해주는 것
 
-//    @Bean
-//    public FilterRegistrationBean<ShallowEtagHeaderFilter> shallowEtagHeaderFilter() {
-//        return null;
-//    }
+    //http response header에 etag 담아서 보낸다. 어떻게?
+    /*
+
+    @Bean
+    public ShallowEtagHeaderFilter shallowEtagHeaderFilter() {
+        return new ShallowEtagHeaderFilter();
+    }
+
+    이렇게만 해주면,  해당 스프링부트 앱에서 제공하는 모든 응답에 etag 가 붙게 된다
+
+     */
+
+    @Bean
+    public FilterRegistrationBean<ShallowEtagHeaderFilter> shallowEtagHeaderFilter() {
+        final FilterRegistrationBean<ShallowEtagHeaderFilter> registration = new FilterRegistrationBean<>(); //필터에
+        registration.setFilter(new ShallowEtagHeaderFilter()); //etag 필터 담는다.
+        registration.addUrlPatterns( //해당 url 패턴이 날아올 떄에만, etag를 붙인다.
+                "/etag",  // /etag 이 때 붙이고,
+                PREFIX_STATIC_RESOURCES + "/*" // js, css 같은 정적 파일에 요청 날아올 때에 요 2케이스때 만 etag 붙인다.
+        );
+        return registration;
+    }
 }

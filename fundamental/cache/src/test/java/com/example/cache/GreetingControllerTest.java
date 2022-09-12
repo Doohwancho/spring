@@ -65,21 +65,26 @@ class GreetingControllerTest {
         log.info("response body\n{}", response.getResponseBody());
     }
 
-    //http response header에 'ETag'를 담아 보내라는거 같은데, Etag가 뭐야?
-
+    //Q. http response header에 'ETag'를 담아 보내라는거 같은데, Etag가 뭐야?
     //A.
     //ETag(entity tag)는 웹 서버가 주어진 URL의 콘텐츠가 변경되었는지 알려주고 이를 반환하는 HTTP 응답 헤더이다.
+
+    //Q. 어떻게 etag를 http response header에 담아서 보내지?
+    //A. EtagFilterConfiguration에 shallowEtagHeaderFilter() 적용
     @Test
     void testETag() {
         final var response = webTestClient
                 .get()
-                .uri("/etag")
+                .uri("/etag") // localhost:8080/etag 에 요청 보내면,
                 .exchange()
                 .expectStatus().isOk()
                 .expectHeader().exists(HttpHeaders.ETAG) //test fail: Response header 'ETag' does not exist
                 .expectBody(String.class).returnResult();
 
         log.info("response body\n{}", response.getResponseBody());
+        log.info("---------------------------");
+        log.info(response.getResponseHeaders().getETag()); //"06eccc9eb4256540f6d1f272ce2274316"
+        log.info("---------------------------");
     }
 
     /**
