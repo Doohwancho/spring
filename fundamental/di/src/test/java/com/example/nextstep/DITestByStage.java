@@ -6,11 +6,20 @@ import com.example.nextstep.di.stage1.UserService1;
 import com.example.nextstep.di.stage2.InMemoryUserDao2;
 import com.example.nextstep.di.stage2.UserDao2;
 import com.example.nextstep.di.stage2.UserService2;
+import com.example.nextstep.di.stage3.DIContext3;
+import com.example.nextstep.di.stage3.InMemoryUserDao3;
+import com.example.nextstep.di.stage3.UserService3;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.HashSet;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class DITestByStage {
+
+    private static final Logger log = LoggerFactory.getLogger(DITestByStage.class);
 
     @Test
     void stage0() {
@@ -114,6 +123,41 @@ public class DITestByStage {
     왜?
     UserDao2 interface먹였기 때문에, 다른 db에 datasource를 종류별로 붙여도, 모두 UserDao2로 추상화 가능
 
+
+     */
+
+    @Test
+    void stage3() throws Exception{
+//        final var user = new User(1L, "gugu");
+
+//        final DIContext3 diContext = createDIContext();
+//        final var userService = (UserService3)diContext.getBean(UserService3.class);
+
+//        log.info(userService.getClass().getName()); //null
+
+//        final var actual = userService.join(user);
+
+//        assertThat(actual.getAccount()).isEqualTo("gugu");
+    }
+
+    private DIContext3 createDIContext() {
+        var classes = new HashSet<Class<?>>();
+        classes.add(InMemoryUserDao3.class);
+        classes.add(UserService3.class);
+        return new DIContext3(classes);
+    }
+
+    /*
+
+    stage3 - context
+
+    diff stage2 stage3
+
+    context에 DAO, Service가 DI로 담기고, context가 User를 DI로 담긴 DAO를 DI로 담긴 Service를 관리한다.
+
+    DIContext3.java가 구현이 되지 않아서 위의 테스트 코드는 작동하지 않지만,
+
+    여튼 핵심은 Context가 Bean관리를 Set으로 하고, 컨텍스트에서 빈을 꺼내서, 가지고 논다.
 
      */
 }
