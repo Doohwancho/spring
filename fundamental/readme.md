@@ -9,7 +9,7 @@ Approach
 a. overall process\
 b. HTTP Cache(cache-control + etag for static files) -- clear\
 c. Spring Boot Cache\
-d. DI\
+d. DI -- clear\
 e. thread\
 f. servlet\
 g. reflection\
@@ -31,7 +31,8 @@ b-1. 우테코 cache 예제 파악\
 b-2. 우테코 cache 예제 solution보고 개별 문제 풀기
 
 d-1. 우테코 di 예제 stage-n setting\
-d-2. 우테코 di 예제 stage-n 문제 해결
+d-2. 우테코 di 예제 stage-n 문제 해결\
+d-3. context, package bean scanner 구현 안된거 구현
 
 e-1. 우테코 thread 예제 stage-n setting\
 e-2. 우테코 thread 예제 stage-n 분석
