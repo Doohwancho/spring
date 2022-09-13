@@ -180,4 +180,24 @@ public class DITestByStage {
         final var rootPackageName = DITestByStage.class.getPackage().getName();
         return DIContext4.createContextForPackage(rootPackageName);
     }
+
+
+    /*
+
+    stage4 - annotations
+
+    DI를 할 때 Bean 주입하는걸, 생성자 파라미터로 안하고 annotation을 이용해서(@Inject) 하는 걸 표현한 듯
+    이 예제도 DIContext4가 완성이 안되서 에러남.
+    ClassPathScanner또한 완성이 안되어 있다.
+
+
+    diff stage3 stage4
+
+    1. context객체 생성도 DI방식으로 엘레강스(?) 하게 바뀜
+    2. ClassPathScanner가 생김. 아마 DIContext4에서 .getBean()할 때, 어느 class path에 해당 bean 이 있는지 찾는거겠지?
+    그리고 다 찾았으면, 해당 클래스 이름으로 생성자 만들고, 생성자로 new instance()하는 거겠지? (DIContext에 Set<beans>에 없는 경우. 있으면 꺼내주고)
+    3. annotation이 생김. ClassPathScanner가 빈을 찾을 때 annotation으로 찾는가 봄(@Inject, @Service, @Repository)
+
+
+     */
 }
