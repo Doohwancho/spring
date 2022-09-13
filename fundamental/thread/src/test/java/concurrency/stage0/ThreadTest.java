@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Random;
+
+
 /**
  * 자바로 동시에 여러 작업을 처리할 때 스레드를 사용한다.
  * 스레드 객체를 직접 생성하는 방법부터 알아보자.
@@ -30,10 +33,37 @@ class ThreadTest {
         Thread thread = new ExtendedThread("hello thread");
 
         // 생성한 thread 객체를 시작한다.
-        thread.start();
+        thread.start(); //18:49:26.482 [Thread-3] INFO concurrency.stage0.ThreadTest - hello thread
 
         // thread의 작업이 완료될 때까지 기다린다.
         thread.join();
+    }
+
+    private static final class ExtendedThread extends Thread { //final class는 상속 불가 + 내부 method override 불가
+
+        private String message;
+
+        private static final Random random = new Random();
+
+        public ExtendedThread(final String message) {
+            this.message = message;
+        }
+
+        @Override
+        public void run() {
+            log.info(message);
+
+            //랜덤 딜레이 그냥 넣어봄.
+            String threadName = Thread.currentThread().getName();
+            System.out.println("- " + threadName + " has been started");
+            int delay = 1000 + random.nextInt(4000);
+            try {
+                Thread.sleep(delay); //1초 이상 6초 미만의 랜덤 딜레이
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("- " + threadName + " has been ended (" + delay + "ms)");
+        }
     }
 
     /**
@@ -46,27 +76,14 @@ class ThreadTest {
         Thread thread = new Thread(new RunnableThread("hello thread"));
 
         // 생성한 thread 객체를 시작한다.
-        thread.start();
+        thread.start(); //18:48:46.625 [Thread-3] INFO concurrency.stage0.ThreadTest - hello thread
 
         // thread의 작업이 완료될 때까지 기다린다.
         thread.join();
     }
 
-    private static final class ExtendedThread extends Thread {
 
-        private String message;
-
-        public ExtendedThread(final String message) {
-            this.message = message;
-        }
-
-        @Override
-        public void run() {
-            log.info(message);
-        }
-    }
-
-    private static final class RunnableThread implements Runnable {
+    private static final class RunnableThread implements Runnable { //final class는 상속 불가 + 내부 method override 불가
 
         private String message;
 
@@ -79,4 +96,18 @@ class ThreadTest {
             log.info(message);
         }
     }
+
+    /*
+
+    ---
+    extends Thread vs implement runnerable
+
+    둘 다 같은데,
+
+    자바에서는 다중 상속을 하용하지 않기 때문에, Thread 클래스를 확장하는 클래스는 다른 클래스를 상속받을 수 없습니다.
+    반면에 Runnable 인터페이스를 구현했을 경우에는 다른 인터페이스를 구현할 수 있을 뿐만 아니라,
+    다른 클래스도 상속받을 수 있습니다. 따라서 해당 클래스의 확장성이 중요한 상황이라면 Runnable 인터페이스를 구현하는 것이 더 바람직
+
+
+     */
 }
