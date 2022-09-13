@@ -9,6 +9,8 @@ import com.example.nextstep.di.stage2.UserService2;
 import com.example.nextstep.di.stage3.DIContext3;
 import com.example.nextstep.di.stage3.InMemoryUserDao3;
 import com.example.nextstep.di.stage3.UserService3;
+import com.example.nextstep.di.stage4.DIContext4;
+import com.example.nextstep.di.stage4.UserService4;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -130,7 +132,7 @@ public class DITestByStage {
     void stage3() throws Exception{
 //        final var user = new User(1L, "gugu");
 
-//        final DIContext3 diContext = createDIContext();
+//        final DIContext3 diContext = createDIContext3();
 //        final var userService = (UserService3)diContext.getBean(UserService3.class);
 
 //        log.info(userService.getClass().getName()); //null
@@ -140,7 +142,7 @@ public class DITestByStage {
 //        assertThat(actual.getAccount()).isEqualTo("gugu");
     }
 
-    private DIContext3 createDIContext() {
+    private DIContext3 createDIContext3() {
         var classes = new HashSet<Class<?>>();
         classes.add(InMemoryUserDao3.class);
         classes.add(UserService3.class);
@@ -160,4 +162,22 @@ public class DITestByStage {
     여튼 핵심은 Context가 Bean관리를 Set으로 하고, 컨텍스트에서 빈을 꺼내서, 가지고 논다.
 
      */
+
+
+    @Test
+    void stage4() {
+        final var user = new User(1L, "gugu");
+
+        final var diContext = createDIContext4();
+        final var userService = diContext.getBean(UserService4.class); //역시 diContext가 완성이 안되서 null 반환하고 에러남
+
+        final var actual = userService.join(user);
+
+        assertThat(actual.getAccount()).isEqualTo("gugu");
+    }
+
+    private static DIContext4 createDIContext4() {
+        final var rootPackageName = DITestByStage.class.getPackage().getName();
+        return DIContext4.createContextForPackage(rootPackageName);
+    }
 }
