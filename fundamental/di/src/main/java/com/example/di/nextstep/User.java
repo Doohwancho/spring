@@ -1,4 +1,4 @@
-package com.example.nextstep;
+package com.example.di.nextstep;
 
 public class User {
 

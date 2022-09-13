@@ -1,6 +1,6 @@
-package com.example.nextstep.di.stage2;
+package com.example.di.nextstep.stage2;
 
-import com.example.nextstep.User;
+import com.example.di.nextstep.User;
 import org.h2.jdbcx.JdbcDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

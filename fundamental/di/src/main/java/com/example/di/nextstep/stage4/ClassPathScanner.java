@@ -1,4 +1,4 @@
-package com.example.nextstep.di.stage4;
+package com.example.di.nextstep.stage4;
 
 import java.util.Set;
 

@@ -1,6 +1,6 @@
-package com.example.nextstep.di.stage0;
+package com.example.di.nextstep.stage0;
 
-import com.example.nextstep.User;
+import com.example.di.nextstep.User;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,22 +1,20 @@
-package com.example.nextstep.di.stage3;
-
-import com.example.nextstep.User;
-import org.h2.jdbcx.JdbcDataSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+package com.example.di.nextstep.stage1;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+
+import com.example.di.nextstep.User;
+import org.h2.jdbcx.JdbcDataSource;
+
 import java.util.Map;
 
-public class InMemoryUserDao3 implements UserDao3{
-    private static final Logger log = LoggerFactory.getLogger(InMemoryUserDao3.class);
+public class UserDao1 {
 
     private static final Map<Long, User> users = new HashMap<>();
 
     private final JdbcDataSource dataSource;
 
-    public InMemoryUserDao3() {
+    public UserDao1() {
         final var jdbcDataSource = new JdbcDataSource();
         jdbcDataSource.setUrl("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;");
         jdbcDataSource.setUser("");
@@ -26,18 +24,17 @@ public class InMemoryUserDao3 implements UserDao3{
     }
 
     public void insert(User user) {
-        try (final var connection = dataSource.getConnection()) {
-            users.put(user.getId(), user);
+        try (final var connection = dataSource.getConnection()) { //dataSource의 connection이 있으면
+            users.put(user.getId(), user); //user을 넣어준다.
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            e.printStackTrace();
         }
     }
 
     public User findById(long id) {
-        try (final var connection = dataSource.getConnection()) {
+        try (final var connection = dataSource.getConnection()) { //dataSource의 connection이 있으면
             return users.get(id);
         } catch (SQLException e) {
-            log.error(e.getMessage());
             return null;
         }
     }

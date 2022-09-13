@@ -1,6 +1,6 @@
-package com.example.nextstep.di.stage3;
+package com.example.di.nextstep.stage3;
 
-import com.example.nextstep.User;
+import com.example.di.nextstep.User;
 
 public interface UserDao3 {
     void insert(User user);

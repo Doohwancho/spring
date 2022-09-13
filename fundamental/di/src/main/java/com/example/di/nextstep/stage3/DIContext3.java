@@ -1,4 +1,4 @@
-package com.example.nextstep.di.stage3;
+package com.example.di.nextstep.stage3;
 
 import java.lang.reflect.Constructor;
 import java.util.Set;

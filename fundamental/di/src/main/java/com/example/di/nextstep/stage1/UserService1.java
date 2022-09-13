@@ -1,6 +1,6 @@
-package com.example.nextstep.di.stage1;
+package com.example.di.nextstep.stage1;
 
-import com.example.nextstep.User;
+import com.example.di.nextstep.User;
 
 public class UserService1 {
     private final UserDao1 userDao;
