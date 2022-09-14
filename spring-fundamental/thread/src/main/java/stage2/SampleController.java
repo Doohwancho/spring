@@ -9,6 +9,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+/*
+---
+what is AtomicInteger?
+
+멀티쓰레드 환경에서 동시성문제를 해결하기 위한 3가지 솔루션 중 하나.
+1. synchronized
+2. volatile
+3. Atomic Class
+
+
+ */
+
 @Controller
 public class SampleController {
 
