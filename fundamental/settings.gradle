@@ -1,6 +1,0 @@
-rootProject.name = 'fundamental'
-include 'spring-core'
-include 'http-cache'
-include 'di'
-include 'thread'
-
