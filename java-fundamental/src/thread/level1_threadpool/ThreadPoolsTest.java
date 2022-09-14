@@ -1,4 +1,4 @@
-package thread.threadpool;
+package thread.level1_threadpool;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;

@@ -1,4 +1,4 @@
-package thread.sync;
+package thread.level3_sync;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
