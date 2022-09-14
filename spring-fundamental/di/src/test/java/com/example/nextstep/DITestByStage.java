@@ -11,7 +11,6 @@ import com.example.di.nextstep.stage3.DIContext3;
 import com.example.di.nextstep.stage3.InMemoryUserDao3;
 import com.example.di.nextstep.stage3.UserService3;
 import com.example.di.nextstep.stage4.DIContext4;
-import com.example.di.nextstep.stage4.UserService4;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
