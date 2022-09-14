@@ -24,8 +24,9 @@ Todo
 
 
 e-1. thread basic
-d-2. thread pool
-e-x. concurrency
+e-2. thread pool
+e-3. synchronization
+e-4. concurrency
 
 
 ---\
