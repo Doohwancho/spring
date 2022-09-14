@@ -11,7 +11,7 @@ public class UserServlet {
         join(user);
     }
 
-    private void join(final User user) { //join() is capsulated
+    private synchronized void join(final User user) { //join() is capsulated //여러 쓰레드가 같은 UserServlet을 동시 참조하기 때문에, synchronized을 붙여주지 않으면 race condition 일어난다!
         if (!users.contains(user)) {
             users.add(user);
         }

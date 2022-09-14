@@ -40,8 +40,8 @@ public class ConcurrencyTest {
 
         // 이미 gugu로 가입한 사용자가 있어서 UserServlet.join() 메서드의 if절 조건은 false가 되고 크기는 1이다.
         // 하지만 디버거로 개별 스레드를 일시 중지하면 if절 조건이 true가 되고 크기가 2가 된다. 왜 그럴까?
-        System.out.println(userServlet.getUsers().size());
-        assertThat("user servlet has size of one", userServlet.getUsers().size() == 1);
+        System.out.println(userServlet.getUsers().size()); //유저가 2개가 아닌 1개인 이유는, UserServlet에 .join()에서 유저가 중복되면 add하지 말라는 명령어가 있기 때문.
+        assertThat("user servlet has size of one", userServlet.getUsers().size() == 1); //어쩔땐 1이었다가, 2었다가.. 근데 synchronized 쓰면 항상 1!
     }
 
     /*
@@ -53,62 +53,4 @@ public class ConcurrencyTest {
     A. How to solve them?
 
      */
-
-    public static class concurrencyTest {
-        private static final Logger log = LoggerFactory.getLogger(concurrencyTest.class);
-
-        // Non-volatile integer "result".
-        private int i;
-
-        @Test
-        public void main(String[] args) throws InterruptedException {
-            System.out.print("@#$@#$@#$@#$@#$@#$");
-            log.info("!@#!@#!#$@#%@#%@#%");
-            new concurrencyTest();
-        }
-
-        public concurrencyTest() throws InterruptedException {
-            Thread t1 = new Thread(new Runnable() {
-                public void run() {
-                    countUp();
-                }
-            }, "Thread-1");
-
-            Thread t2 = new Thread(new Runnable() {
-                public void run() {
-                    countDown();
-                }
-            }, "Thread-2");
-
-            t1.start();
-            t2.start();
-
-            // Wait for two threads to complete.
-            t1.join();
-            t2.join();
-
-            // Print out result.  With correct concurrency control we expect the result to
-            // be 0.  A non-zero result indicates incorrect use of concurrency.  Also note
-            // that the result may vary between runs because of this.
-            System.err.println("i: " + i);
-        }
-
-        private void countUp() {
-            // Increment instance variable i 1000,000 times.  The variable is not marked
-            // as volatile, nor is it accessed within a synchronized block and hence
-            // there is no guarantee that the value of i will be reconciled back to main
-            // memory following the increment.
-            for (int j=0; j<1000000; ++j) {
-                ++i;
-            }
-        }
-
-        private void countDown() {
-            // Decrement instance variable i 1000,000 times.  Same consistency problems
-            // as mentioned above.
-            for (int j=0; j<1000000; ++j) {
-                --i;
-            }
-        }
-    }
 }
