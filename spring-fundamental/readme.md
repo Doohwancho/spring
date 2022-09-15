@@ -7,10 +7,10 @@ modularize springboot fundamental concepts
 Approach
 
 a. overall process\
-b. HTTP Cache(cache-control + etag for static files) ---------- clear\
+b. HTTP Cache(cache-control + etag for static files) :white_check_mark:\
 c. Spring Boot Cache\
-d. DI ------------------------------------------------------------ clear but yet\
-e. thread ----------------------------------------------------------- clear\
+d. DI :white_check_mark:\
+e. thread :white_check_mark:\
 f. servlet\
 g. reflection\
 h. IOC\
