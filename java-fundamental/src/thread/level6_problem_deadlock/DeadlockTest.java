@@ -125,10 +125,12 @@ deadlock 해결방법 4가지
 
 
 내 생각엔,
-1. Mutual Exclusion을 구현한게 synchronized고,
+1. Mutual Exclusion의 개념적인건 Critical Section's Mutex이고, 구현한게 synchronized고,
 2. Hold and Wait는 기존에 race condition문제 그대로 인것 같고,(공유자원 쓰면 바로 제자리 돌려놔야하는데, 다른짓 하고 그걸 다른 쓰레드 들이 기다리니까 성능저하)
-3. Non Preemptive은 개념적인건 critical section이고 구현한건 synchronized나 Atomic Class인 것 같고,
-4. Circle Wait는 음.. 모르겠다. 
+	Thread.wait()로 쓰레드가 lock가지고 있으면 반환시키고, 
+	Thread.notify()로 대기상태인 쓰레드에게 다시 lock의 권한을 부여하고 수행하게 만들 수 있네?  
+3. Non Preemptive은 개념적인건 critical section's mutex이고 구현한건 synchronized나 Atomic Class인 것 같고,
+4. Circle Wait는 서순을 바꿔줘라. 
 
 
 

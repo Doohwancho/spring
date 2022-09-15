@@ -1,4 +1,4 @@
-package thread.level7_semaphore;
+package thread.level8_semaphore;
 
 import java.util.concurrent.Semaphore;
 
@@ -7,7 +7,10 @@ public class SemaphoreTest {
 	 * ---
 	 * what is semaphore?
 	 * 
-	 * 쓰레드 풀에서 동시에 실행하는 Thread 갯수를 제한하는 것. 
+	 * synchronized는 한번에 오직 하나의 쓰레드만 실행가능하다면, 
+	 * semaphore은 동시에 실행할 수 있는 쓰레드의 수를 제한할 수 있다. 
+	 * 
+	 *  
 	 * 
 	 * new Semaphore(3); 으로 3개로 제한하면,  
 	 * 
