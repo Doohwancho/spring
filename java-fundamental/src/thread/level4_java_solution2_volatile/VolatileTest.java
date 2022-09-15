@@ -1,4 +1,4 @@
-package thread.level4_solution2_volatile;
+package thread.level4_java_solution2_volatile;
 
 /**
  * ---

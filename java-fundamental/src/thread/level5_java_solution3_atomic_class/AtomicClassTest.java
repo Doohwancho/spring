@@ -1,4 +1,4 @@
-package thread.level5_solution3_atomicClass;
+package thread.level5_java_solution3_atomic_class;
 
 public class AtomicClassTest {
 	

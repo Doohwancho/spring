@@ -1,4 +1,4 @@
-package thread.level2_concurrency;
+package thread.level2_problem_race_condition;
 
 /**
  * 	---

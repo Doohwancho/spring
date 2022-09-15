@@ -1,4 +1,4 @@
-package thread.level0_basic;
+package thread.level0_basic_thread;
 
 
 import java.util.Random;
