@@ -1,4 +1,4 @@
-package thread.level8_semaphore;
+package thread.level9_semaphore;
 
 import java.util.concurrent.Semaphore;
 
@@ -7,8 +7,13 @@ public class SemaphoreTest {
 	 * ---
 	 * what is semaphore?
 	 * 
-	 * synchronized는 한번에 오직 하나의 쓰레드만 실행가능하다면, 
-	 * semaphore은 동시에 실행할 수 있는 쓰레드의 수를 제한할 수 있다. 
+	 * 
+	 * 
+	 * mutex나 semaphore나 critical section 구현 사례.
+	 * 
+	 * 
+	 * 근데 mutex는 화장실이 딱 한칸밖에 없어서, 10명이 오면 젤 먼저온 한놈만 들어갈 수 있다면, 
+	 * semaphore은 화장실이 3칸이라, 10명 오면, 선착순 3명씩 들어갈 수 있다. 
 	 * 
 	 *  
 	 * 
