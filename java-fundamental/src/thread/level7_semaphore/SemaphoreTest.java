@@ -1,4 +1,4 @@
-package thread.level6_semaphore;
+package thread.level7_semaphore;
 
 import java.util.concurrent.Semaphore;
 
