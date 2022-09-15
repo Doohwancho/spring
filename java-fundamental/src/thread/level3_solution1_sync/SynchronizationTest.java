@@ -39,7 +39,10 @@ class SynchronizationTest {
 
         private int sum = 0;
 
-        public synchronized void calculate() { //여기에 synchronized를 붙이는게 정답!. synchronized가 있으면 다중 쓰레드 환경에서도 한번에 한 쓰레드 밖에 접근할 수 없
+        //여기에 synchronized를 붙이는게 정답!. 
+        //synchronized가 있으면 다중 쓰레드 환경에서도 한번에 한 쓰레드 밖에 접근할 수 없다.
+        //동기화란, Critical Section(임계 영역)을 정해주는 것 
+        public synchronized void calculate() { 
             setSum(getSum() + 1);
         }
 
