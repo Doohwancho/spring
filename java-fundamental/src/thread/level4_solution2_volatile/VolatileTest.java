@@ -1,4 +1,4 @@
-package thread.level4_volatile;
+package thread.level4_solution2_volatile;
 
 /**
  * ---

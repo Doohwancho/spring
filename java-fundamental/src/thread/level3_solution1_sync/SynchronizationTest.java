@@ -1,4 +1,4 @@
-package thread.level3_sync;
+package thread.level3_solution1_sync;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -39,7 +39,7 @@ class SynchronizationTest {
 
         private int sum = 0;
 
-        public synchronized void calculate() { //여기에 synchronized를 붙이는게 정답!. only one thread per instance of the class can execute this method.
+        public synchronized void calculate() { //여기에 synchronized를 붙이는게 정답!. synchronized가 있으면 다중 쓰레드 환경에서도 한번에 한 쓰레드 밖에 접근할 수 없
             setSum(getSum() + 1);
         }
 
