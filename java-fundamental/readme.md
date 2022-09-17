@@ -34,6 +34,7 @@ Todo
 
 e-0. thread summary in my word :white_check_mark:\
 e-1. thread basic :white_check_mark:\
+e-1. thread basic: wait() && notify() :white_check_mark:\
 e-2. thread pool :white_check_mark:\
 e-3. concurrency :white_check_mark:\
 e-3. race condition :white_check_mark:\

@@ -46,6 +46,8 @@ C. problem - race condition
 D. Solution1. synchronized(동기화)
 
 
+
+
 Q. 한 자원에 여러 쓰레드가 동시 참조하는 문제를 어떻게 해결하지?
 
 A. Critical Section(임계 영역)을 정해주기.
@@ -71,8 +73,11 @@ volatile, Atomic Class보단 떨어지는 편.
 
 
 
+
+
 ---
 E. Solution2. volatile
+
 
 
 Q. Thread A,B,C가 같은 곳의 자원을 공유하는게 아니라,
@@ -144,6 +149,30 @@ G. diff thread pool semaphore
 세마포어는 거기에 더 얹어서, 실행하는 도중에 추가 명령어 입력 가능.
 
 semaphore = thread pool + aop
+
+
+
+
+---
+H. Thread State
+
+
+a. create new Thread
+	start() -> Runnable
+b. Runnable (while문으로 여러 쓰레드가 한 자원에 lock권한 얻으려고 집중공격 하는 상태)
+	wait() 
+		Runnable -> Waiting
+	yield()
+		해당 쓰레드는 다른 쓰레드에게 자원을 양보하게 된다. 
+c. Blocked (Running) 
+d. Waiting (한놈이 lock권한 받고 Running이니, notify()받을 떄 까지 대기하는 곳) 
+	notify()
+		Waiting -> Runnable
+	notifyAll() 
+		Waiting -> Runnable
+e. Time-Waiting (waiting for time-out notification) 
+
+f. Terminated (Running상태에서 run()메서드 종료되면 Dead상태가 된다)  
 
 
 

@@ -14,6 +14,15 @@ public class SynchronizedBlockTest {
 		kim.start();
 		lee.start();
 		
+		
+		try {
+			kang.join(); //.join()은 쓰레드 1,2,3이 끝날 때 까지 이걸 실행시킨 메인 메서드 기다리는 것. 
+			kim.join();
+			lee.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
 		long endTime = System.currentTimeMillis();
 		
 		System.out.println("총 걸린 시간: "+(endTime - startTime)+ " mili-seconds");
