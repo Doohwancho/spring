@@ -1,4 +1,4 @@
-package io;
+package io.byteIO;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -16,7 +16,7 @@ public class FileInputOutputStreamTestMultipleBytes {
 			fis = new FileInputStream("src/io/FileInputOutputStreamTestMultipleBytes.java");
 			fos = new FileOutputStream("file-output-stream.txt");
 			
-			int currentByte = -1;
+			int sizeOfByteRead = -1;
 			//why -1?
 			
 			//아스키 코드가 숫자 1~255까지잖아?
@@ -29,9 +29,9 @@ public class FileInputOutputStreamTestMultipleBytes {
 
 			//한번 읽을 때 1바이트씩 읽는게 아니라, 버퍼사이즈 512 byte 정해주면, 512byte씩 배열에 담아온다.
 						
-			while((currentByte = fis.read(buffer)) != -1) {
+			while((sizeOfByteRead = fis.read(buffer)) != -1) {
 				//.read() returns next byte of data, or -1 if end of file has reached.
-				fos.write(buffer, 0, currentByte); //버퍼에 최대 512byte 담아온 걸 한번에 덤핑
+				fos.write(buffer, 0, sizeOfByteRead); //버퍼에 최대 512byte 담아온 걸 인덱스 0부터 sizeOfByteRead까지 읽어 덤핑
 			}
 			
 		} catch(Exception e) {

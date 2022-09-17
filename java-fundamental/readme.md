@@ -9,17 +9,19 @@ modularize java
 Approach
 
 a. exception\
-b. enums\
-c. annotation\
-b. Collection\
+b. java util class\
+c. java time\
+d. Collection\
 e. thread :white_check_mark:\
-f. IO\
+f. IO :white_check_mark:\
 g. generics\
-h. lambda\
-i. stream\
-j. serialization
-k. garbage collector
-l. debugging 
+h. enums\
+i. annotation\
+j. lambda\
+k. stream\
+l. java socket programming\
+m. garbage collector\
+n. debugging 
 
 
 
@@ -46,7 +48,9 @@ f-1. io overall structure\
 f-2. File Input/Output Stream, read by single byte\
 f-3. File Input/Output Stream, read by buffer\
 f-4. DataOutputStream, decorator\
-f-5. BufferedReader
+f-5. BufferedReader\
+f-6. io between threads\
+f-x. serialization
 
 ---\
 Reference
@@ -70,5 +74,5 @@ f-2. [File Input/Output Stream](https://www.youtube.com/watch?v=fpOGpBywvR4&list
 f-3. [File Input/Output Stream with buffer size](https://www.youtube.com/watch?v=4DtJ1QcZZkI&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=17)\
 f-4. [DataOutputStream, decorator](https://www.youtube.com/watch?v=ewZhpmriRN8&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=19)\
 f-5. [BufferedReader](https://www.youtube.com/watch?v=vaOjTx5pPhY&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=20)
-
+f-6. io between threads - 자바의 정석 
 

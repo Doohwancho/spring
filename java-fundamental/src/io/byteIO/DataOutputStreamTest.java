@@ -1,4 +1,4 @@
-package io;
+package io.byteIO;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
