@@ -8,6 +8,7 @@ modularize java
 ---\
 Approach
 
+
 a. exception\
 b. java util class\
 c. java time\
@@ -25,8 +26,11 @@ n. debugging
 
 
 
+
 ---\
 Todo
+
+
 
 e-0. thread summary in my word :white_check_mark:\
 e-1. thread basic :white_check_mark:\
@@ -44,13 +48,16 @@ e-11. critical section - monitor :white_check_mark:\
 e-12. thread dump 떠서 데드락 확인  
 
 
-f-1. io overall structure\
-f-2. File Input/Output Stream, read by single byte\
-f-3. File Input/Output Stream, read by buffer\
-f-4. DataOutputStream, decorator\
-f-5. BufferedReader\
-f-6. io between threads\
-f-x. serialization
+
+f-1. io overall structure :white_check_mark:\
+f-2. File Input/Output Stream, read by single byte :white_check_mark:\
+f-3. File Input/Output Stream, read by buffer :white_check_mark:\
+f-4. DataOutputStream, decorator :white_check_mark:\
+f-5. BufferedReader :white_check_mark:\
+f-6. io between threads :white_check_mark:\
+f-7. serialization :white_check_mark:
+
+
 
 ---\
 Reference
@@ -74,5 +81,6 @@ f-2. [File Input/Output Stream](https://www.youtube.com/watch?v=fpOGpBywvR4&list
 f-3. [File Input/Output Stream with buffer size](https://www.youtube.com/watch?v=4DtJ1QcZZkI&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=17)\
 f-4. [DataOutputStream, decorator](https://www.youtube.com/watch?v=ewZhpmriRN8&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=19)\
 f-5. [BufferedReader](https://www.youtube.com/watch?v=vaOjTx5pPhY&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=20)
-f-6. io between threads - 자바의 정석 
+f-6. io between threads - 자바의 정석\ 
+f-7. serialization - 자바의 정석 
 
