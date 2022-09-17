@@ -17,6 +17,8 @@ f. IO
 g. lambda\
 h. stream\
 i. serialization
+j. garbage collector
+k. debugging 
 
 
 
@@ -40,6 +42,7 @@ e-12. thread dump 떠서 데드락 확인
 
 
 f-1. io overall structure
+f-2. File Input/Output Stream
 
 ---\
 Reference
@@ -55,3 +58,10 @@ e-9. [크리티컬 섹션, 뮤텍스, 세마포어 설명](https://do-rang.tisto
 e-10. [세마포어 설명](https://javaplant.tistory.com/30?category=789385)\
 e-11. [Monitor 설명](https://velog.io/@hosunghan0821/Java-Monitor)\
 e-12. [thread dump 떠서 데드락 확인](https://syundev.tistory.com/284?category=870166) 
+
+
+
+f-1. [io overall structure](https://www.youtube.com/watch?v=FqqzbRPSAks&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=15)\
+f-2. [File Input/Output Stream](https://www.youtube.com/watch?v=fpOGpBywvR4&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=16)
+
+
