@@ -43,7 +43,8 @@ e-12. thread dump 떠서 데드락 확인
 
 f-1. io overall structure\
 f-2. File Input/Output Stream, read by single byte\
-f-3. File Input/Output Stream, read by buffer
+f-3. File Input/Output Stream, read by buffer\
+f-4. DataOutputStream, decorator
 
 ---\
 Reference
@@ -64,5 +65,5 @@ e-12. [thread dump 떠서 데드락 확인](https://syundev.tistory.com/284?cate
 
 f-1. [io overall structure](https://www.youtube.com/watch?v=FqqzbRPSAks&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=15)\
 f-2. [File Input/Output Stream](https://www.youtube.com/watch?v=fpOGpBywvR4&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=16)\
-f-3. [File Input/Output Stream with buffer size](https://www.youtube.com/watch?v=4DtJ1QcZZkI&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=17)
-
+f-3. [File Input/Output Stream with buffer size](https://www.youtube.com/watch?v=4DtJ1QcZZkI&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=17)\
+f-4. [DataOutputStream, decorator](https://www.youtube.com/watch?v=ewZhpmriRN8&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=19)
