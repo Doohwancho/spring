@@ -38,6 +38,7 @@ e-2. thread pool :white_check_mark:\
 e-3. concurrency :white_check_mark:\
 e-3. race condition :white_check_mark:\
 e-4. synchronization :white_check_mark:\
+e-4. synchronized block for optimization :white_check_mark:\
 e-5. volatile :white_check_mark:\
 e-6. atomic integer :white_check_mark:\
 e-7. deadlock :white_check_mark:\
@@ -80,7 +81,7 @@ f-1. [io overall structure](https://www.youtube.com/watch?v=FqqzbRPSAks&list=PLz
 f-2. [File Input/Output Stream](https://www.youtube.com/watch?v=fpOGpBywvR4&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=16)\
 f-3. [File Input/Output Stream with buffer size](https://www.youtube.com/watch?v=4DtJ1QcZZkI&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=17)\
 f-4. [DataOutputStream, decorator](https://www.youtube.com/watch?v=ewZhpmriRN8&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=19)\
-f-5. [BufferedReader](https://www.youtube.com/watch?v=vaOjTx5pPhY&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=20)
+f-5. [BufferedReader](https://www.youtube.com/watch?v=vaOjTx5pPhY&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=20)\
 f-6. io between threads - 자바의 정석\ 
 f-7. serialization - 자바의 정석 
 
