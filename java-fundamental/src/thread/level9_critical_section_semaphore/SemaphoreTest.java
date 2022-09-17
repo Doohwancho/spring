@@ -1,4 +1,4 @@
-package thread.level9_semaphore;
+package thread.level9_critical_section_semaphore;
 
 import java.util.concurrent.Semaphore;
 
@@ -52,6 +52,19 @@ public class SemaphoreTest {
 	 * 
 	 * semaphore = thread pool + AOP
 	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * ---
+	 * semaphore 단점
+	 * 
+	 * 
+	 * hold and wait 전략(.wait(), .notify()) 로 공유자원에 대한 접근을 제한함. 
+	 * 근데 .wait()이랑 .notify() 서순이 어긋나거나 둘 중 하나라도 생략되면, 바로 데드락걸림. 
+	 * 이걸 정교하게 컨트롤하기 어렵기 때문에 모니터가 나옴. 
+	 *  
 	 */
     
 

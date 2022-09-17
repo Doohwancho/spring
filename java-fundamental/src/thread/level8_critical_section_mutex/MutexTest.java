@@ -1,4 +1,4 @@
-package thread.level8_mutex;
+package thread.level8_critical_section_mutex;
 
 //import java.util.concurrent.locks.ReentrantLock;
 
