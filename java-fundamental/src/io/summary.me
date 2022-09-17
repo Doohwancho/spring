@@ -1,0 +1,35 @@
+
+
+---
+전체 구조 
+input -> program -> output
+
+
+
+---
+io abstract class 구조
+
+
+- io
+	- byte
+		- inputstream
+			from file: FileInputStream
+			from array: ByteArrayInputStream
+			generalized for ez use, made in decorator: DataInputStream 
+		- outputstream
+			from file: OutputStream
+			from array: ByteArrayOutputStream
+			generalized for ez use, made in decorator: DataOutputStream
+	- char
+		- reader
+			from file: FileReader
+			from array: CharReader
+			generalized for ez use, made in decorator: BufferedReader
+				ex. ReadLine();
+		- writier
+			from file: FileWriter
+			from array: CharWriter
+			generalized for ez use, made in decorator: PrintWriter
+				ex. println();
+		
+

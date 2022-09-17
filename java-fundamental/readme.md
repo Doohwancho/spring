@@ -13,9 +13,10 @@ b. generics\
 c. enums\
 d. annotation\
 e. thread :white_check_mark:\
-f. lambda\
-g. stream\
-h. serialization
+f. IO
+g. lambda\
+h. stream\
+i. serialization
 
 
 
@@ -38,6 +39,7 @@ e-11. critical section - monitor :white_check_mark:\
 e-12. thread dump 떠서 데드락 확인  
 
 
+f-1. io overall structure
 
 ---\
 Reference
