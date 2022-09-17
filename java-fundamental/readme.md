@@ -41,8 +41,9 @@ e-11. critical section - monitor :white_check_mark:\
 e-12. thread dump 떠서 데드락 확인  
 
 
-f-1. io overall structure
-f-2. File Input/Output Stream
+f-1. io overall structure\
+f-2. File Input/Output Stream, read by single byte\
+f-3. File Input/Output Stream, read by buffer
 
 ---\
 Reference
@@ -62,6 +63,6 @@ e-12. [thread dump 떠서 데드락 확인](https://syundev.tistory.com/284?cate
 
 
 f-1. [io overall structure](https://www.youtube.com/watch?v=FqqzbRPSAks&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=15)\
-f-2. [File Input/Output Stream](https://www.youtube.com/watch?v=fpOGpBywvR4&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=16)
-
+f-2. [File Input/Output Stream](https://www.youtube.com/watch?v=fpOGpBywvR4&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=16)\
+f-3. [File Input/Output Stream with buffer size](https://www.youtube.com/watch?v=4DtJ1QcZZkI&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=17)
 
