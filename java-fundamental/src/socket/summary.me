@@ -1,0 +1,67 @@
+
+---
+what is web socket?
+
+
+전통적인 방식은 client->server 요청하면 server가 응답하는 '단방향' 통신. 
+
+근데 실시간 주가변화 표현하려면,  
+실시간으로 계속 api 요청하기보다, 2가지 해결책이 존재
+
+1. Server-Sent Event
+2. Socket 
+
+1. Server-Sent Event는 http통신은 원래 stateless인데, 3 way handshake이후, 중단하지 않고 유지하게 하는 것
+서버가 일방적으로 클라이언트에게 정보 보내는 것. (지속적 데이터 수신만 가능) 
+일종의 라디오 처럼.
+근데 단점은 서버->클라이언트 단방향. 
+
+그래서 다자 채팅 프로그램 같은건 이걸로 개발 못함. 
+
+
+2. Socket은 TCP 프로토콜로 실시간 '양방향' 통신 가능.
+
+처음에 연결한 이후,
+유저가 서버에게 요청 보내면,
+서버는 리스너 붙여놔서 대기했다가, 요청 받고 답장하는 식.
+vice versa
+
+
+
+---
+socket 통신 흐름
+
+
+A. TCP server start
+	1. socket()
+	2. bind()
+	3. listen()
+	4. accept()
+		blocks until conenction from client
+
+B.TCP Client  
+	5. socket()
+	6. connection() 
+		TCP connection establishment with Server
+	7. write() 
+		data request to server
+A. TCP server
+	8. read()
+		Process request 
+	9. write()
+		data(reply) to client
+B. TCP Client
+	10. read() 
+	11. close()
+		End_Of_File notification 
+A. TCP Server
+	12. read()
+	13. close()
+	
+
+
+
+
+
+
+ 

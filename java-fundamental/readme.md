@@ -10,19 +10,19 @@ Approach
 
 
 a. exception\
-b. java util class\
-c. java time\
-d. Collection\
+b. Collection\
+c. java util class\
+d. java time\
 e. thread :white_check_mark:\
 f. IO :white_check_mark:\
-g. generics\
-h. enums\
-i. annotation\
-j. lambda\
-k. stream\
-l. java socket programming\
-m. garbage collector\
-n. debugging 
+g. java socket programming\
+x. generics\
+x. enums\
+x. annotation\
+x. lambda\
+x. stream\
+x. garbage collector\
+x. debugging 
 
 
 
@@ -61,6 +61,8 @@ f-6. io between threads :white_check_mark:\
 f-7. serialization :white_check_mark:
 
 
+g-1. what is web socket? :white_check_mark:\
+g-2. java socket programming code :white_check_mark:
 
 ---\
 Reference
@@ -86,4 +88,8 @@ f-4. [DataOutputStream, decorator](https://www.youtube.com/watch?v=ewZhpmriRN8&l
 f-5. [BufferedReader](https://www.youtube.com/watch?v=vaOjTx5pPhY&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=20)\
 f-6. io between threads - 자바의 정석 \ 
 f-7. serialization - 자바의 정석 
+
+
+g-1. [what is web socket?](https://www.youtube.com/watch?v=yXPCg5eupGM)\
+g-2. [자바 소켓 통신(Socket)을 사용하는 이유와 동작 원리 및 코드](https://wildeveloperetrain.tistory.com/122)
 
