@@ -15,7 +15,7 @@ c. java util class\
 d. java time\
 e. thread :white_check_mark:\
 f. IO :white_check_mark:\
-g. java socket programming\
+g. java socket programming :white_check_mark:\
 x. generics\
 x. enums\
 x. annotation\
@@ -62,7 +62,8 @@ f-7. serialization :white_check_mark:
 
 
 g-1. what is web socket? :white_check_mark:\
-g-2. java socket programming code :white_check_mark:
+g-2. java socket programming code :white_check_mark:\
+g-3. chatting program :white_check_mark:
 
 ---\
 Reference
@@ -86,10 +87,10 @@ f-2. [File Input/Output Stream](https://www.youtube.com/watch?v=fpOGpBywvR4&list
 f-3. [File Input/Output Stream with buffer size](https://www.youtube.com/watch?v=4DtJ1QcZZkI&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=17)\
 f-4. [DataOutputStream, decorator](https://www.youtube.com/watch?v=ewZhpmriRN8&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=19)\
 f-5. [BufferedReader](https://www.youtube.com/watch?v=vaOjTx5pPhY&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=20)\
-f-6. io between threads - 자바의 정석 \ 
+f-6. io between threads - 자바의 정석\ 
 f-7. serialization - 자바의 정석 
 
 
 g-1. [what is web socket?](https://www.youtube.com/watch?v=yXPCg5eupGM)\
-g-2. [자바 소켓 통신(Socket)을 사용하는 이유와 동작 원리 및 코드](https://wildeveloperetrain.tistory.com/122)
-
+g-2. [자바 소켓 통신(Socket)을 사용하는 이유와 동작 원리 및 코드](https://wildeveloperetrain.tistory.com/122)\
+g-3. [TCP socket programming - chatting](https://lktprogrammer.tistory.com/64?category=672211)
