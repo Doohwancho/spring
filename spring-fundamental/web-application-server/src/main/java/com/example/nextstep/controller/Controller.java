@@ -1,4 +1,4 @@
-package com.example.nextstep.webserver.controller;
+package com.example.nextstep.controller;
 
 import com.example.nextstep.webserver.http.HttpRequest;
 import com.example.nextstep.webserver.http.HttpResponse;

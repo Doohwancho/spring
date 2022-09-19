@@ -6,7 +6,8 @@ build WAS from scratch
 
 
 ---
-flow-chart
+"/" flow-chart
+
 
 Q. what happen when I type "http://localhost:8080/" ?
 
@@ -52,3 +53,59 @@ Q. what happen when I type "http://localhost:8080/" ?
                 ex. index.html, hello world! -> [60, 33, 68, 79, 67, 84, 89, 80, 69, 32, 104, 116, 109, 108, 62, 10, 60, 104, 116, 109, 108, 32, 108, 97, 110, 103, 61, 34, 101, 110, 34, 62, 10, 60, 104, 101, 97, 100, 62, 10, 32, 32, 32, 32, 60, 109, 101, 116, 97, 32, 99, 104, 97, 114, 115, 101, 116, 61, 34, 85, 84, 70, 45, 56, 34, 62, 10, 32, 32, 32, 32, 60, 116, 105, 116, 108, 101, 62, 84, 105, 116, 108, 101, 60, 47, 116, 105, 116, 108, 101, 62, 10, 60, 47, 104, 101, 97, 100, 62, 10, 60, 98, 111, 100, 121, 62, 10, 32, 32, 105, 110, 100, 101, 120, 46, 104, 116, 109, 108, 33, 10, 60, 47, 98, 111, 100, 121, 62, 10, 60, 47, 104, 116, 109, 108, 62]
 
             dos.flush(); //버퍼를 비우면서, 버퍼안의 내용을 전송한다.
+
+
+---
+Q. /index.html 요청을 한번 보냈는데 여러 개의 추가 요청이 발생하는 이유
+
+서버가 웹 페이지를 구성하는 모든 자원(HTML, CSS, Javascript, 이미지 등)을 한번에 응답으로 보내지 않기 때문.
+응답을 받은 브라우저는 HTML 내용을 분석해 CSS, Javascript, image 등의 자원이 포함되어 있으면 서버에 해당 자원을 다시 요청함.
+
+
+---
+Q. Content-Type vs Accept?
+
+
+what is accept?
+the Accept header always indicates what kind of response from the server a client can accept.
+
+ex.
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
+
+
+
+
+what is content-type?
+
+
+HttpRequest, HttpResponse header에 담기는 놈.
+The "Content-Type" header field indicates the media type of the associated representation
+
+
+리소스의 미디어 타입(MIME 타입)을 나타냄
+POST, PUT 요청에서 클라이언트는 서버에게 어떤 유형의 데이터가 실제로 전송됐는지를 알려줌
+GET의 경우에는 Content-Type 헤더가 불필요. URI와 쿼리 파라미터로도 충분하기 때문.
+POST/PUT의 경우에는 데이터 형식이 xml, json 등 다양한 형태로 전달될 수 있기 때문에 필요.
+
+ex.
+Content-Type: text/html
+
+
+---
+register flow-chart
+
+
+1. Webserver
+    (중복 내용 위 flow-chart 참조)
+2. Request Handler
+    (중복 내용 위 flow-chart 참조)
+    a. RequestMapping
+        .put("/user/create") -> verify POST method in HttpMethod.java -> CreateUserController.java
+    b. doPost || doGet(Deprecated)
+        Database.java
+            addUser();
+        httpResponse.sendRedirect("/index.html");
+    c. HttpResponse.forward("/");
+

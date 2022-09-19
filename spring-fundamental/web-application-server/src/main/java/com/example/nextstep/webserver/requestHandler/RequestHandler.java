@@ -1,6 +1,6 @@
 package com.example.nextstep.webserver.requestHandler;
 
-import com.example.nextstep.webserver.controller.Controller;
+import com.example.nextstep.controller.Controller;
 import com.example.nextstep.webserver.http.HttpRequest;
 import com.example.nextstep.webserver.http.HttpResponse;
 import org.slf4j.Logger;

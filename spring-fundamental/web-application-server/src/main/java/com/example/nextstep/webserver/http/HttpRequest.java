@@ -1,6 +1,7 @@
 package com.example.nextstep.webserver.http;
 
 import com.example.nextstep.webserver.requestHandler.RequestHandler;
+import com.example.nextstep.webserver.util.HttpMethod;
 import com.example.nextstep.webserver.util.RequestLine;
 import com.example.nextstep.webserver.util.HttpRequestUtils;
 import com.example.nextstep.webserver.util.IOUtils;
@@ -99,5 +100,11 @@ public class HttpRequest {
     }
     public String getPath() {
         return requestLine.getPath();
+    }
+    public HttpMethod getMethod() {
+        return requestLine.getMethod();
+    }
+    public String getParameter(String key) {
+        return parameter.getOrDefault(key, "");
     }
 }
