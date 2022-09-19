@@ -107,4 +107,7 @@ public class HttpRequest {
     public String getParameter(String key) {
         return parameter.getOrDefault(key, "");
     }
+    public boolean isStaticFileRequest() {
+        return requestLine.getPath().contains(".");
+    }
 }

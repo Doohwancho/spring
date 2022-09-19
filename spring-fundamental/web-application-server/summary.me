@@ -109,3 +109,132 @@ register flow-chart
         httpResponse.sendRedirect("/index.html");
     c. HttpResponse.forward("/");
 
+
+
+---
+HTTP Status Code
+
+2XX : 성공. 클라이언트가 요청한 동작을 수신하여 이해했고 승낙했으며 성공적으로 처리
+3XX : 리다이렉션. 클라이언트는 요청을 마치기 위해 추가 동작이 필요
+4XX : 요청 오류. 클라이언트에 오류가 있음
+5XX : 서버 오류. 서버가 유효한 요청을 명백하게 수행하지 못했음
+
+
+
+
+---
+login && cookie
+
+1. http is stateless, connectionless -> 로그인 결과 기록 불가
+2. cookie in header 로 http request간 데이터 공유 -> 보안 이슈 존재
+3. session (grounded upon  cookie) -> 상태 데이터를 서버에 저장
+
+
+
+
+
+이 예제에서는 session과 cookie 중 cookie만 사용.
+ex.
+LoginController.java
+httpResponse.addHeader("Set-Cookie", "logined=true");
+
+
+
+유저가 HttpRequest보내면,
+HttpRequestUtils.parseCookies(getHeader("Cookie"));
+로 HttpRequestUtils.java에서 header 뜯어서 cookie 확인함.
+
+
+HttpRequestUtil에서 cookie 생성. Pair로. 코드는 아래와 같음.
+
+public static class Pair {
+    String key;
+    String value;
+
+    Pair(String key, String value) {
+        this.key = key.trim();
+        this.value = value.trim();
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((key == null) ? 0 : key.hashCode());
+        result = prime * result + ((value == null) ? 0 : value.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Pair other = (Pair) obj;
+        if (key == null) {
+            if (other.key != null)
+                return false;
+        } else if (!key.equals(other.key))
+            return false;
+        if (value == null) {
+            if (other.value != null)
+                return false;
+        } else if (!value.equals(other.value))
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Pair [key=" + key + ", value=" + value + "]";
+    }
+}
+
+key:value인 Pair이고,
+
+
+쿠키는 이렇게 생김.
+쿠키 키 : Idea-e3e12a8e, 값 : 7fa16e91-e91d-4168-8bfb-f747ad3be1f4
+
+저 hashCode()안에 코드가 쿠키 암호화 알고리즘인데
+이걸로 쿠키 생성하고 로그인한 유저 한해서 헤더에 넣어서 로그인 됬다는걸 확인
+
+
+
+보니까, 쿠키는 서버가 가지고있질 않네?
+애초에 로그인 기능 없었을 때도, 그냥 localhost:8080/에 GET 접속했을 때,
+Cookie: Idea-e3e12a8e=7fa16e91-e91d-4168-8bfb-f747ad3be1f4
+이 쿠키가 왔었어
+
+`
+what is cookie?
+
+쿠키는 웹사이트 접속시 접속자의 개인장치에 다운로드 되고 브라우저에 저장되는 작은 텍스트 파일입니다.
+웹사이트는 쿠키를 통해 접속자의 장치를 인식하고, 접속자의 설정과 과거 이용내역에 대한 일부 데이터를 저장합니다.
+일반적으로 쿠키에는 만료일이 있습니다.
+`
+
+근데 http response에 쿠키 넣어서 보내라는게 없는데 왜 있지?
+아 있네 LoginController에
+httpResponse.addHeader("Set-Cookie", "logined=true");
+
+로그인 하면, 쿠키 보내주고
+http request 왔을 때 쿠키 뜯어봐서 verify()됬으면 거기에 맞는 권한 주는거구나.
+
+컨트롤러에서 view로 model에 유저 정보 담아서 보낼 때,
+유저 쿠키 있으면, 로그인 권한 있는 화면 보여주고, 없으면 안보여주는 식으로
+view단에서 처리하는거군.
+
+
+

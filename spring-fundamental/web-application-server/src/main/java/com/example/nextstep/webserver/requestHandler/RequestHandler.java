@@ -31,9 +31,15 @@ public class RequestHandler extends Thread {
             HttpRequest request = new HttpRequest(in);
             HttpResponse response = new HttpResponse(out);
 
+            // static 파일 처리
+            if (request.isStaticFileRequest()) {
+                response.forward(request, request.getPath());
+                return;
+            }
+
             Controller controller = RequestMapping.getController(request.getPath());
             if (controller == null) {
-                log.info("controller == null, therefore default path redirected");
+                log.info("controller not found. therefore, default path redirected");
                 String path = getDefaultPath(request.getPath());
                 response.forward(request, path);
             } else {
