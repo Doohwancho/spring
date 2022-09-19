@@ -10,7 +10,7 @@ public class LoginController extends AbstractController {
     public void doPost(HttpRequest httpRequest, HttpResponse httpResponse) {
         User user = Database.findUserById(httpRequest.getParameter("userId"));
         if (user != null && user.getPassword().equals(httpRequest.getParameter("password"))) {
-            httpResponse.addHeader("Set-Cookie", "logined=true"); //쿠키로 로그인 정보 확인
+            httpResponse.addHeader("Set-Cookie", "logined=true"); //로그인 성공했으니까,쿠키 줄게!.
             httpResponse.sendRedirect("/index.html");
             return;
         }

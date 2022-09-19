@@ -43,6 +43,14 @@ public class HttpResponse {
         }
     }
 
+    public void forwardBody(HttpRequest request, String body) {
+        byte[] contents = body.getBytes();
+        String contentType = makeContentType(request);
+
+        response200Header(contents.length, contentType);
+        responseBody(contents);
+    }
+
     private String makeContentType(HttpRequest request) {
         String[] accepts = request.getHeader("Accept").split(",");
         String contentType = "*/*";
@@ -104,6 +112,7 @@ public class HttpResponse {
         } catch (IOException e) {
             log.error(e.getMessage());
         }
-
     }
+
+
 }

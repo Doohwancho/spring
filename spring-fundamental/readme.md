@@ -42,7 +42,7 @@ f-1. 깡통 WAS setup & 파악 :white_check_mark:\
 f-2. http://localhost:8080/index.html 로 접속했을 때, webapp/index.html 출력 :white_check_mark: \
 f-3. register using GET, POST :white_check_mark: \
 f-4. login with cookie :white_check_mark: \
-f-5. list(사용자 목록 출력) \
+f-5. list(사용자 목록 출력) by verifying cookie :white_check_mark: \
 f-x. cookie -> session 구현
 
 ---\

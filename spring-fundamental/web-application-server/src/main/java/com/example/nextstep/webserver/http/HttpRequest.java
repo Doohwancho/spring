@@ -110,4 +110,7 @@ public class HttpRequest {
     public boolean isStaticFileRequest() {
         return requestLine.getPath().contains(".");
     }
+    public boolean isLogin() {
+        return Boolean.parseBoolean(cookies.getOrDefault("logined", "false"));
+    }
 }
