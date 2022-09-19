@@ -1,4 +1,4 @@
-package com.example.nextstep.webserver;
+package com.example.nextstep.webserver.requestHandler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,12 +9,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-public class RequestHandler extends Thread { //client 한명 connection 당, 하나의 Request Handler, thread 할당
-    private static final Logger log = LoggerFactory.getLogger(RequestHandler.class);
+public class RequestHandler_Deprecated extends Thread { //client 한명 connection 당, 하나의 Request Handler, thread 할당
+    private static final Logger log = LoggerFactory.getLogger(RequestHandler_Deprecated.class);
 
     private Socket connection;
 
-    public RequestHandler(Socket connectionSocket) {
+    public RequestHandler_Deprecated(Socket connectionSocket) {
         this.connection = connectionSocket;
     }
 

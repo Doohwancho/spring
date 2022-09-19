@@ -1,0 +1,54 @@
+
+---
+objective
+
+build WAS from scratch
+
+
+---
+flow-chart
+
+Q. what happen when I type "http://localhost:8080/" ?
+
+1. WebServer 실행
+    서버 소켓에 8080포트 잡고, client 요청 기다림. (이 server_socket thread는 localhost:8080에 요청 온 것 처리만 하는 스레드)
+    client connection 받으면 쓰레드 하나 더 써서 소켓만들어 RequestHandler에게 넣어줌.
+
+2. RequestHandler
+    1. client에서 받은 HttpRequest 뜯어보기
+        RequestLine - method: GET path: /
+        headers
+            Connection: keep-alive
+            Cache-Control: max-age=0
+            sec-ch-ua: "Google Chrome";v="105", "Not)A;Brand";v="8", "Chromium";v="105"
+            sec-ch-ua-mobile: ?0
+            sec-ch-ua-platform: "macOS"
+            Upgrade-Insecure-Requests: 1
+            User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36
+            Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+            Sec-Fetch-Site: none
+            Sec-Fetch-Mode: navigate
+            Sec-Fetch-User: ?1
+            Sec-Fetch-Dest: document
+            Accept-Encoding: gzip, deflate, br
+            Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
+            Cookie: Idea-e3e12a8e=7fa16e91-e91d-4168-8bfb-f747ad3be1f4
+        cookies
+            키 : Idea-e3e12a8e, 값 : 7fa16e91-e91d-4168-8bfb-f747ad3be1f4
+        parameter
+            if http://localhost:8080/?id=awesome, then 파라미터 키 : id, 값 : awesome
+
+    2. client에게 보낼 HttpResponse 만들기
+        "./web-application-server/src/main/resources/" 에서 static file 찾아 요청 보낼 준비
+
+    3. RequestMapping에게 부탁해서 -> controller에게 부탁해서 HttpResponse를 올바른 incoming-url에 매치시켜 보내주기.
+        ex. localhost:8080/ -> localhost:8080/index.html
+        HttpResponse.forward(uri);
+            header
+                Content-Type: text/html
+                Content-Length
+                HTTP/1.1 200 OK
+            body in byte[]
+                ex. index.html, hello world! -> [60, 33, 68, 79, 67, 84, 89, 80, 69, 32, 104, 116, 109, 108, 62, 10, 60, 104, 116, 109, 108, 32, 108, 97, 110, 103, 61, 34, 101, 110, 34, 62, 10, 60, 104, 101, 97, 100, 62, 10, 32, 32, 32, 32, 60, 109, 101, 116, 97, 32, 99, 104, 97, 114, 115, 101, 116, 61, 34, 85, 84, 70, 45, 56, 34, 62, 10, 32, 32, 32, 32, 60, 116, 105, 116, 108, 101, 62, 84, 105, 116, 108, 101, 60, 47, 116, 105, 116, 108, 101, 62, 10, 60, 47, 104, 101, 97, 100, 62, 10, 60, 98, 111, 100, 121, 62, 10, 32, 32, 105, 110, 100, 101, 120, 46, 104, 116, 109, 108, 33, 10, 60, 47, 98, 111, 100, 121, 62, 10, 60, 47, 104, 116, 109, 108, 62]
+
+            dos.flush(); //버퍼를 비우면서, 버퍼안의 내용을 전송한다.

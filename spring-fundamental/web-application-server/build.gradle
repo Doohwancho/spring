@@ -16,6 +16,7 @@ dependencies {
     implementation "org.apache.tomcat.embed:tomcat-embed-jasper"
     implementation "ch.qos.logback:logback-classic"
     implementation "org.apache.commons:commons-lang3"
+    implementation group: 'com.google.guava', name: 'guava', version: '18.0'
 
     testImplementation "org.assertj:assertj-core"
     testImplementation("org.junit.platform:junit-platform-launcher:1.5.2")
