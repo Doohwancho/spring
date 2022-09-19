@@ -11,7 +11,7 @@ b. HTTP Cache(cache-control + etag for static files) :white_check_mark:\
 c. Spring Boot Cache\
 d. DI :white_check_mark:\
 e. thread :white_check_mark:\
-f. web application server \
+f. web application server :white_check_mark:\
 x. servlet\
 x. reflection\
 x. IOC\
@@ -43,7 +43,7 @@ f-2. http://localhost:8080/index.html 로 접속했을 때, webapp/index.html �
 f-3. register using GET, POST :white_check_mark: \
 f-4. login with cookie :white_check_mark: \
 f-5. list(사용자 목록 출력) by verifying cookie :white_check_mark: \
-f-x. cookie -> session 구현
+f-6. cookie -> session 구현 :white_check_mark: 
 
 ---\
 reference
@@ -58,4 +58,5 @@ f-1. 책: 자바 웹 프로그래밍 next step \
 f-2. [build MVP WAS from scratch by 깃헙 뜯어보기](https://github.dev/BryceYangS/web-application-server) \
 f-3. [register using GET, POST](https://github.dev/BryceYangS/web-application-server) \
 f-4. [login with cookie](https://github.dev/BryceYangS/web-application-server) \
-f-5. [list](https://github.dev/BryceYangS/web-application-server)
+f-5. [list](https://github.dev/BryceYangS/web-application-server) \
+f-6. [session](https://github.dev/minseokism/NextStep/tree/master/Chapter06)

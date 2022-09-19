@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.UUID;
 
 
 public class RequestHandler extends Thread {
@@ -31,10 +32,8 @@ public class RequestHandler extends Thread {
             HttpRequest request = new HttpRequest(in);
             HttpResponse response = new HttpResponse(out);
 
-            // static 파일 처리
-            if (request.isStaticFileRequest()) {
-                response.forward(request, request.getPath());
-                return;
+            if (request.getCookies().getCookies("JSESSIONID") == null) {
+                response.addHeader("Set-Cookie", "JSESSIONID=" + UUID.randomUUID());
             }
 
             Controller controller = RequestMapping.getController(request.getPath());

@@ -1,17 +1,16 @@
 package com.example.nextstep.webserver.http;
 
-import com.example.nextstep.webserver.requestHandler.RequestHandler;
-import com.example.nextstep.webserver.util.HttpMethod;
-import com.example.nextstep.webserver.util.RequestLine;
 import com.example.nextstep.webserver.util.HttpRequestUtils;
 import com.example.nextstep.webserver.util.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -112,5 +111,11 @@ public class HttpRequest {
     }
     public boolean isLogin() {
         return Boolean.parseBoolean(cookies.getOrDefault("logined", "false"));
+    }
+    public HttpCookie getCookies() {
+        return new HttpCookie(getHeader("Cookie"));
+    }
+    public HttpSession getSession() {
+        return (HttpSession) HttpSessions.getSession(getCookies().getCookies("JSESSIONID"));
     }
 }

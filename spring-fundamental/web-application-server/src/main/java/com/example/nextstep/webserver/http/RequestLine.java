@@ -1,5 +1,6 @@
-package com.example.nextstep.webserver.util;
+package com.example.nextstep.webserver.http;
 
+import com.example.nextstep.webserver.util.HttpRequestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

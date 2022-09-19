@@ -2,7 +2,7 @@ package com.example.nextstep.controller;
 
 import com.example.nextstep.webserver.http.HttpRequest;
 import com.example.nextstep.webserver.http.HttpResponse;
-import com.example.nextstep.webserver.util.HttpMethod;
+import com.example.nextstep.webserver.http.HttpMethod;
 
 public abstract class AbstractController implements Controller{
 

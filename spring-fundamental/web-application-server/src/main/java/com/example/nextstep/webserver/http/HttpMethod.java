@@ -1,4 +1,4 @@
-package com.example.nextstep.webserver.util;
+package com.example.nextstep.webserver.http;
 
 public enum HttpMethod {
     GET,

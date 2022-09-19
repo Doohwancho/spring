@@ -243,5 +243,64 @@ return Boolean.parseBoolean(cookies.getOrDefault("logined", "false"));
 
 
 
+---
+cookie -> session
+
+
+로그인하면 서버에서 클라이언트에게 쿠키를 준다.
+
+
+
+RequestHandler에서 HttpResponse보낼 때, "JSESSIONID"라는 쿠키 없으면, UUID로 만들어서 보낸다.
+if (request.getCookies().getCookies("JSESSIONID") == null) {
+    response.addHeader("Set-Cookie", "JSESSIONID=" + UUID.randomUUID());
+}
+
+로그인 안해도 모든 유저에게 JSESSIONID를 주나?
+
+cookie는 클라이언트에서 저장해놓고, 서버에 보낼 떄만 쓰는건데,
+session은 서버에서도 저장해놓고, 클라이언트꺼 왔을 때 비교해보는거라며?
+그럼 session(JSESSIONID)는 어디에 저장하나?
+
+
+HttpSessions에서 세션 관리하네.
+private static Map<String, HttpSession> sessions = new HashMap<String, HttpSession>();
+
+id: HttpSession으로 관리하는 듯.
+그리고 HttpSession 객체 안에는
+
+private Map<String, Object> values = new HashMap<String, Object>();
+id: session pw 로 관리하는 듯
+
+
+client의 세션과 서버에서 보관하는 세션의 비교는
+HttpRequest.getSession()하면,
+return (HttpSession) HttpSessions.getSession(getCookies().getCookies("JSESSIONID"));
+가 되서,
+HttpRequest에서 "JSESSIONID"라는 이름의 쿠키를 꺼내
+저 쿠키의 value를 키로 삼아
+HttpSessions.getSession(); 에서
+
+
+private static Map<String, HttpSession> sessions = new HashMap<String, HttpSession>();
+
+
+public static HttpSession getSession(String id) {
+    HttpSession session = sessions.get(id);
+
+    if (session == null) {
+        session = new HttpSession(id);
+        sessions.put(id, session);
+        return session;
+    }
+    return session;
+}
+
+여기서 session 꺼내오는 듯?
+
+
+저 값이 null이 아니라면, 로그인한 유저라는 말이니까, 유저 권한을 줄 듯.
+view단에서 저 권한 가진 사람만 특정 html을 보여준다거나.
+
 
 
