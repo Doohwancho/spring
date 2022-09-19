@@ -3,4 +3,5 @@ include 'spring-core'
 include 'http-cache'
 include 'di'
 include 'thread'
+include 'web-application-server'
 

@@ -11,17 +11,18 @@ b. HTTP Cache(cache-control + etag for static files) :white_check_mark:\
 c. Spring Boot Cache\
 d. DI :white_check_mark:\
 e. thread :white_check_mark:\
-f. servlet\
-g. reflection\
-h. IOC\
-i. AOP\
-j. annotations\
-k. Filter, Interceptor\
-l. Exception\
-m. multipart\
-n. logging\
-o. cors\
-p. WebFlux
+f. web application server \
+x. servlet\
+x. reflection\
+x. IOC\
+x. AOP\
+x. annotations\
+x. Filter, Interceptor\
+x. Exception\
+x. multipart\
+x. logging\
+x. cors\
+x. WebFlux
 
 
 ---\
@@ -37,6 +38,8 @@ d-3. context, package bean scanner 구현 안된거 구현
 e-1. 우테코 thread 예제 stage-n setting\
 e-2. 우테코 thread 예제 stage-n 분석
 
+f-1. 깡통 WAS setup & 파악 
+
 ---\
 reference
 
@@ -45,3 +48,5 @@ b. [우테코 - 만들면서 배우는 스프링 실습 코드 http cache](https
 d. [우테코 - 만들면서 배우는 스프링 실습 코드 di](https://github.com/woowacourse/jwp-hands-on)
 
 e. [우테코 - 만들면서 배우는 스프링 실습 코드 thread](https://github.com/woowacourse/jwp-hands-on)
+
+f. 책: 자바 웹 프로그래밍 next step 

@@ -87,7 +87,7 @@ f-2. [File Input/Output Stream](https://www.youtube.com/watch?v=fpOGpBywvR4&list
 f-3. [File Input/Output Stream with buffer size](https://www.youtube.com/watch?v=4DtJ1QcZZkI&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=17)\
 f-4. [DataOutputStream, decorator](https://www.youtube.com/watch?v=ewZhpmriRN8&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=19)\
 f-5. [BufferedReader](https://www.youtube.com/watch?v=vaOjTx5pPhY&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=20)\
-f-6. io between threads - 자바의 정석\ 
+f-6. io between threads - 자바의 정석 \ 
 f-7. serialization - 자바의 정석 
 
 
