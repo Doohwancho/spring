@@ -1,0 +1,36 @@
+
+---
+flow-chart
+
+1. Application.java
+    start tomcat
+2. Tomcat.java
+    start Connector.java
+3. Connector.java
+    - 관리하는 것
+        ServerSocket(port, accept_count);
+        DEFAULT_PORT = 8080;
+            - check port number if less than 65535
+        DEFAULT_ACCEPT_COUNT = 100;
+            - check current accept count is less than 100
+    Server_Socket이 client에서 accept()한 Socket을 Http1Processor로 보냄
+4. Http1Processor.java
+    outstream에 아래의 HttpResponse를 담는다.
+
+    final var response = String.join("\r\n",
+            "HTTP/1.1 200 OK ",
+            "Content-Type: text/html;charset=utf-8 ",
+            "Content-Length: " + responseBody.getBytes().length + " ",
+            "",
+            responseBody);
+
+    header에 Content-Type, Content-Length 있고, body에 responseBody 있다.
+
+    outputStream.flush(); 로 스트림의 버퍼를 비우며 client Socket으로 HttpResponse를 보낸다.
+
+    지금은 tomcat MVP라 컨트롤러고 뭐고 없어서 아직 이렇게만 구현되 있는 듯 하다.
+
+
+
+
+

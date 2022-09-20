@@ -30,7 +30,7 @@ public class Connector implements Runnable {
 
     private ServerSocket createServerSocket(final int port, final int acceptCount) {
         try {
-            final int checkedPort = checkPort(port);
+            final int checkedPort = validatePortNumLessThan65535(port);
             final int checkedAcceptCount = checkAcceptCount(acceptCount);
             return new ServerSocket(checkedPort, checkedAcceptCount);
         } catch (IOException e) {
@@ -40,13 +40,13 @@ public class Connector implements Runnable {
 
     public void start() {
         var thread = new Thread(this);
-        thread.setDaemon(true);
+        thread.setDaemon(true); //데몬은 백단에서 도는 쓰레드. 관련 쓰레드가 종료되면 같이 종료된다. ex. Tomcat 쓰레드 꺼지면 Connector 쓰레드도 같이 종료.
         thread.start();
         stopped = false;
     }
 
     @Override
-    public void run() {
+    public void run() { //thread.start();
         while (!stopped) {
             connect();
         }
@@ -60,7 +60,7 @@ public class Connector implements Runnable {
         }
     }
 
-    private void process(final Socket connection) {
+    private void process(final Socket connection) { //client에서 serverSocket.accept()로 받은 Socket은 변경이 안일어나나보다.
         if (connection == null) {
             return;
         }
@@ -78,7 +78,7 @@ public class Connector implements Runnable {
         }
     }
 
-    private int checkPort(final int port) {
+    private int validatePortNumLessThan65535(final int port) {
         final var MIN_PORT = 1;
         final var MAX_PORT = 65535;
 
