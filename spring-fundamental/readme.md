@@ -6,14 +6,19 @@ modularize springboot fundamental concepts
 ---\
 Approach
 
-a. overall process\
+f. web application server :white_check_mark:\
+g. tomcat\
+h. servlet
+
 b. HTTP Cache(cache-control + etag for static files) :white_check_mark:\
 c. Spring Boot Cache\
-d. DI :white_check_mark:\
 e. thread :white_check_mark:\
-f. web application server :white_check_mark:\
-x. servlet\
+i. servlet\
 x. reflection\
+d. DI :white_check_mark:
+
+a. overall process\
+x. JPA\
 x. IOC\
 x. AOP\
 x. annotations\
@@ -48,15 +53,51 @@ f-6. cookie -> session 구현 :white_check_mark:
 ---\
 reference
 
+f-1. 책: 자바 웹 프로그래밍 next step \
+f-2. [build MVP WAS from scratch by 깃헙 뜯어보기](https://github.dev/BryceYangS/web-application-server) \
+f-3. [register using GET, POST](https://github.dev/BryceYangS/web-application-server) \
+f-4. [login with cookie](https://github.dev/BryceYangS/web-application-server) \
+f-5. [list](https://github.dev/BryceYangS/web-application-server) \
+f-6. [session](https://github.dev/minseokism/NextStep/tree/master/Chapter06) \
+x.7. [to mvc format](https://github.dev/woowacourse/jwp-dashboard-http/tree/sihyung92)
+
+g-1. [우테코 - tomcat MVP setup](https://github.dev/woowacourse/jwp-dashboard-http)
+
+
 b. [우테코 - 만들면서 배우는 스프링 실습 코드 http cache](https://github.com/woowacourse/jwp-hands-on)
 
 d. [우테코 - 만들면서 배우는 스프링 실습 코드 di](https://github.com/woowacourse/jwp-hands-on)
 
 e. [우테코 - 만들면서 배우는 스프링 실습 코드 thread](https://github.com/woowacourse/jwp-hands-on)
 
-f-1. 책: 자바 웹 프로그래밍 next step \
-f-2. [build MVP WAS from scratch by 깃헙 뜯어보기](https://github.dev/BryceYangS/web-application-server) \
-f-3. [register using GET, POST](https://github.dev/BryceYangS/web-application-server) \
-f-4. [login with cookie](https://github.dev/BryceYangS/web-application-server) \
-f-5. [list](https://github.dev/BryceYangS/web-application-server) \
-f-6. [session](https://github.dev/minseokism/NextStep/tree/master/Chapter06)
+
+---
+x-1. [우테코 - servlet](https://github.dev/woowacourse/jwp-hands-on/tree/solution-3-servlet-reflection) 
+
+
+x-1. [우테코 - reflexion](https://github.dev/woowacourse/jwp-hands-on/tree/solution-3-servlet-reflection) \
+x-2. [reflection 이란?](https://papimon.tistory.com/82) \
+x-3. [reflection by meta coding](https://www.youtube.com/watch?v=P5fPc2tjOko&list=PL93mKxaRDidFGJu8IWsAAe0O7y6Yw9f5x&index=1)
+
+
+ 
+x-1. [우테코 -mvc 단계별 구현](https://github.com/jeonye/jwp-basic) \
+x-1. [우테코 - mvc 구현하기 start](https://github.dev/woowacourse/jwp-dashboard-mvc) \
+x-2. [우테코 - mvc 타인이 구현한 것1](https://github.dev/joelonsw/jwp-dashboard-mvc) \
+x-2. [우테코 - mvc 타인이 구현한 것2](https://github.dev/NewWisdom/jwp-dashboard-http/tree/step1) 
+
+x-1. [우테코 - jdbc 구현하기](https://github.com/woowacourse/jwp-dashboard-jdbc) \
+x-2. [우테코 - jdbc 구현하기 by joelonsw](https://github.com/joelonsw/jwp-dashboard-jdbc)
+
+x-1. [우테코 - jpa1](https://github.dev/jeonye/jwp-basic/tree/step5-qna-with-ajax-practice) \
+x-2. [우테코 - jpa2](https://github.dev/joelonsw/jwp-qna) \
+x-2. [우테코 - jpa3](https://github.dev/hyewoncc/jwp-qna)
+
+x-1. [우테코 - mvc 기본형](https://github.dev/minseokism/NextStep/tree/master/Chapter06) \
+x-1. [우테코 - 프레임워크 구현](https://github.com/woowacourse/jwp-mvc)
+
+x-1. [우테코 - DI 프레임워크 구현](https://github.com/woowacourse/jwp-di)
+
+x-1. [우테코 - 레거시 코드 리펙토링](https://github.com/woowacourse/jwp-refactoring)
+
+x-1. [우테코- 패킷 구현](https://github.dev/woowacourse/jwp-network)

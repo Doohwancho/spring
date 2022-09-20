@@ -4,4 +4,5 @@ include 'http-cache'
 include 'di'
 include 'thread'
 include 'web-application-server'
+include 'tomcat'
 
