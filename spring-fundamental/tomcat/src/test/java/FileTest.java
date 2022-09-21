@@ -4,7 +4,11 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -42,14 +46,14 @@ class FileTest {
      * File, Files 클래스를 사용하여 파일의 내용을 읽어보자.
      */
     @Test
-    void 파일의_내용을_읽는다() {
+    void 파일의_내용을_읽는다() throws IOException, URISyntaxException {
         final String fileName = "nextstep.txt";
 
-        // todo
-        final Path path = null;
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        final Path path = Paths.get(Objects.requireNonNull(classLoader.getResource(fileName)).toURI());
 
-        // todo
-        final List<String> actual = Collections.emptyList();
+        final List<String> actual = new java.util.ArrayList<>(Collections.emptyList());
+        actual.add(Files.readString(path));
 
         assertThat(actual).containsOnly("nextstep");
     }

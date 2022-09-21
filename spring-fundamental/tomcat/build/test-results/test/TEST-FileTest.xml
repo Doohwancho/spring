@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="File 클래스 학습 테스트" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-09-21T11:37:27" hostname="cho-choui-MacBookAir.local" time="0.033">
+<testsuite name="File 클래스 학습 테스트" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-09-21T11:41:55" hostname="cho-choui-MacBookAir.local" time="0.031">
   <properties/>
-  <testcase name="resource_디렉터리에_있는_파일의_경로를_찾는다()" classname="FileTest" time="0.033"/>
-  <system-out><![CDATA[20:37:27.599 [Test worker] INFO FileTest - /Users/cho-cho/dev/backend/spring/spring-fundamental/tomcat/build/resources/main/nextstep.txt
-]]></system-out>
+  <testcase name="파일의_내용을_읽는다()" classname="FileTest" time="0.031"/>
+  <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
