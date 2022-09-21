@@ -52,8 +52,8 @@ f-6. cookie -> session 구현 :white_check_mark:
 
 g-1. [우테코 - tomcat MVP setup](https://github.dev/woowacourse/jwp-dashboard-http) :white_check_mark:\
 g-2. tomcat MVP 분석 && 요구사항 파악 :white_check_mark:\
-g-3. tomcat MVP -> MVC + 분석 :white_check_mark:
-
+g-3. tomcat MVP -> MVC + 분석 :white_check_mark:\
+g-4. http://localhost:8080/index.html 페이지에 접근 가능하게 하기 :white_check_mark:
 
 ---\
 reference
@@ -68,7 +68,8 @@ x.7. [to mvc format](https://github.dev/woowacourse/jwp-dashboard-http/tree/sihy
 
 g-1. [우테코 - tomcat MVP setup](https://github.dev/woowacourse/jwp-dashboard-http) \
 g-2. tomcat MVP 분석 && 요구사항 파악\
-g-3. [tomcat MVP -> MVC + 분석](https://github.dev/woowacourse/jwp-dashboard-http/tree/2yujeong)
+g-3. [tomcat MVP -> MVC + 분석](https://github.dev/woowacourse/jwp-dashboard-http/tree/2yujeong) \
+g-4. [http://localhost:8080/index.html 페이지에 접근 가능하게 하기](https://github.dev/woowacourse/jwp-dashboard-http/tree/gyuchool)
 
 b. [우테코 - 만들면서 배우는 스프링 실습 코드 http cache](https://github.com/woowacourse/jwp-hands-on)
 
@@ -78,14 +79,11 @@ e. [우테코 - 만들면서 배우는 스프링 실습 코드 thread](https://g
 
 
 ---
-x-1. [우테코 - servlet](https://github.dev/woowacourse/jwp-hands-on/tree/solution-3-servlet-reflection) 
-
+x-1. [우테코 - servlet](https://github.dev/woowacourse/jwp-hands-on/tree/solution-3-servlet-reflection)
 
 x-1. [우테코 - reflexion](https://github.dev/woowacourse/jwp-hands-on/tree/solution-3-servlet-reflection) \
 x-2. [reflection 이란?](https://papimon.tistory.com/82) \
 x-3. [reflection by meta coding](https://www.youtube.com/watch?v=P5fPc2tjOko&list=PL93mKxaRDidFGJu8IWsAAe0O7y6Yw9f5x&index=1)
-
-
  
 x-1. [우테코 -mvc 단계별 구현](https://github.com/jeonye/jwp-basic) \
 x-1. [우테코 - mvc 구현하기 start](https://github.dev/woowacourse/jwp-dashboard-mvc) \

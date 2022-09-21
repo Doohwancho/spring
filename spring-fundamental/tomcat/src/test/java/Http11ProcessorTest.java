@@ -50,8 +50,8 @@ class Http11ProcessorTest {
         // then
         final URL resource = getClass().getClassLoader().getResource("static/index.html");
         var expected = "HTTP/1.1 200 OK \r\n" +
-                "Content-Type: text/html;charset=utf-8 \r\n" +
                 "Content-Length: 5564 \r\n" +
+                "Content-Type: text/html;charset=utf-8 \r\n" +
                 "\r\n"+
                 new String(Files.readAllBytes(new File(resource.getFile()).toPath()));
 
@@ -61,7 +61,7 @@ class Http11ProcessorTest {
 
 /*
 ---
-index()
+index() - FAIL
 
 failed
 expected ~/index.html
@@ -75,6 +75,7 @@ actual:
 
   "
 
+
 ---
 Q. 왜 테스트 index()에서 http status code 302떠서 실패하지?
 
@@ -84,9 +85,10 @@ prediction:
 바로 index.html로 안쏘고 return redirected "/" 처리됬나?
 
 
-answer:
+correction:
 -> 일단 302은 실패도 아니고, redirect도 아니다.
-HttpStatus에서 보면, FOUND(302, "Found"), 라고 되어있다. 고로 실패 아님.
+HttpStatus에서 보면, FOUND(302, "Found"), 라고 되어있다. 고로 실패는 아님.
+
 
 그리고 HomeController에서 보면,
 private static final String HOME_BODY = "Hello world!";
@@ -96,6 +98,7 @@ resources/index.html을 반환 안하고, "Hello world!" 반환하게 되어있�
 이걸 어떻게 resources/index.html을 반환하도록 만들지?
 
 
+
 HttpResponseEntity에서,
 1. HttpStatus
 2. HttpHeader
@@ -103,14 +106,18 @@ HttpResponseEntity에서,
 4. resource
 
 중에서, HomeController.java에서 넣는 "Hello world!"는 body가 아니라 resource로 넣어지네?
-
 그리고 ResponseEntity에서 ResponseEntity 반환할 때, createTextHtmlResponse()에서 여태껏 resource였던애가 body가 된다?!
 
 
 
 ---
-Q. 404.html이 출력되는데, 어디서 출력되는거지?
-ControllerAdvice인가?
+Q. 어떻게 하면, HomeController에서 ~/resources/static/index.html 반환하게 만들지?
+
+
+HomController에서 String resource = IOUtils.readResourceFile("/index"); 로 해당 url path에 대해 자원을 얻어 HandlerResponseEntity에 resource에 넣어 반환한다.
+IOUtils에서는 "/index" 받은걸 해당 프로젝트의 ~/resources/static/ 파일이 있는 곳으로 안내해준다.
+"/index"를 보고 "./tomcat/src/main/resources/static/index.html"을 찾은 후,
+return new String(Files.readAllBytes(new File(resource.getFile()).toPath())); 로 해당 html내용을 String으로 반환해서 HandlerResponseEntity에 resource에 저장한다.
 
 
 

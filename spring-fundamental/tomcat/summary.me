@@ -154,3 +154,16 @@ D. Http11Processor는 서버의 응답을 ResponseEntity-> HttpResponse 생성 �
 
 
 
+---
+Q. http://localhost:8080/index.html 페이지에 접근 가능하게 하기
+
+어떻게 하면, HomeController에서 ~/resources/static/index.html 반환하게 만들지?
+
+
+1. HomController에서 String resource = IOUtils.readResourceFile("/index"); 로 해당 url path에 대해 자원을 얻어 HandlerResponseEntity에 resource에 넣어 반환한다.
+2. IOUtils에서는 "/index" 받은걸 해당 프로젝트의 ~/resources/static/ 파일이 있는 곳으로 안내해준다.
+3. "/index"를 보고 "./tomcat/src/main/resources/static/index.html"을 찾은 후,
+4. return new String(Files.readAllBytes(new File(resource.getFile()).toPath())); 로 해당 html내용을 String으로 반환해서 HandlerResponseEntity에 resource에 저장한다.
+
+
+
