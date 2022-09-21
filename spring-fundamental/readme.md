@@ -53,7 +53,8 @@ f-6. cookie -> session 구현 :white_check_mark:
 g-1. [우테코 - tomcat MVP setup](https://github.dev/woowacourse/jwp-dashboard-http) :white_check_mark:\
 g-2. tomcat MVP 분석 && 요구사항 파악 :white_check_mark:\
 g-3. tomcat MVP -> MVC + 분석 :white_check_mark:\
-g-4. http://localhost:8080/index.html 페이지에 접근 가능하게 하기 :white_check_mark:
+g-4. http://localhost:8080/index.html 페이지에 접근 가능하게 하기 :white_check_mark:\
+g-5. test: resource_디렉터리에_있는_파일의_경로를_상대경로로_찾는다 :white_check_mark:
 
 ---\
 reference
@@ -69,7 +70,8 @@ x.7. [to mvc format](https://github.dev/woowacourse/jwp-dashboard-http/tree/sihy
 g-1. [우테코 - tomcat MVP setup](https://github.dev/woowacourse/jwp-dashboard-http) \
 g-2. tomcat MVP 분석 && 요구사항 파악\
 g-3. [tomcat MVP -> MVC + 분석](https://github.dev/woowacourse/jwp-dashboard-http/tree/2yujeong) \
-g-4. [http://localhost:8080/index.html 페이지에 접근 가능하게 하기](https://github.dev/woowacourse/jwp-dashboard-http/tree/gyuchool)
+g-4. [http://localhost:8080/index.html 페이지에 접근 가능하게 하기](https://github.dev/woowacourse/jwp-dashboard-http/tree/gyuchool) \
+g-5. [test: resource_디렉터리에_있는_파일의_경로를_'상대경로'로 찾는다](https://github.dev/woowacourse/jwp-dashboard-http/tree/gyuchool)
 
 b. [우테코 - 만들면서 배우는 스프링 실습 코드 http cache](https://github.com/woowacourse/jwp-hands-on)
 

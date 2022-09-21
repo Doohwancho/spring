@@ -167,3 +167,14 @@ Q. http://localhost:8080/index.html 페이지에 접근 가능하게 하기
 
 
 
+---
+Q. ~/resources/ 파일 경로 찾으려면, 어떻게 해야할까?
+
+
+ClassLoader classLoader = this.getClass().getClassLoader();
+final String actual = Objects.requireNonNull(classLoader.getResource(fileName)).getPath();
+
+
+원래 IOUtils에서 Controller에서 온 요청에 resource 경로 찾을 때, 절대 경로로 찾았었는데,
+상대경로로 해놔야 다른 환경에 deploy했을 때 깨질 확률이 더 적을 듯
+

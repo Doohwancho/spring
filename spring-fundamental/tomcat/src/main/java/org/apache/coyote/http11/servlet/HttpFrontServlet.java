@@ -46,13 +46,13 @@ public class HttpFrontServlet {
 
     private HandlerResponseEntity handleRequest(final HttpRequest httpRequest) {
         final RequestHandler handler = requestHandlerMapping.getHandler(httpRequest.getPath());
-        log.info("%%%%%%%%%%%%%%%%%%%%%%%%%");
+
         HandlerResponseEntity test = handler.handle(httpRequest);
 
-        log.info("http status: "+ test.getHttpStatus().getStatusCode()+""); //http status: 200  when "/"
-        log.info("http header: "+ test.getHttpHeader().toString()); //http header:  when "/"
-        log.info("http response body: "+ test.getBody()); //http response body:  when  "/" -> why not "Hello World!?"
-        log.info("http resource: "+ test.getResource().toString()); //http resource: Hello world!
+//        log.info("http status: "+ test.getHttpStatus().getStatusCode()+""); //http status: 200  when "/"
+//        log.info("http header: "+ test.getHttpHeader().toString()); //http header:  when "/"
+//        log.info("http response body: "+ test.getBody()); //http response body:  when  "/" -> why not "Hello World!?"
+//        log.info("http resource: "+ test.getResource().toString()); //http resource: Hello world!
 
         return test;
     }
