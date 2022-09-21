@@ -1,6 +1,6 @@
 
 ---
-flow-chart
+MVP flow-chart after B-g-1
 
 1. Application.java
     start tomcat
@@ -30,6 +30,126 @@ flow-chart
 
     지금은 tomcat MVP라 컨트롤러고 뭐고 없어서 아직 이렇게만 구현되 있는 듯 하다.
 
+
+
+
+---
+project structure after B-g-3
+
+
+
+.
+├── nextstep
+│        ├── Application.java
+│        └── jwp
+│            ├── controller
+│            │       ├── ControllerAdvice.java
+│            │       └── HomeController.java
+│            ├── db
+│            │       └── InMemoryUserRepository.java
+│            ├── exception
+│            │       ├── UnauthorizedException.java
+│            │       └── UncheckedServletException.java
+│            └── model
+│                └── User.java
+├── org
+│        └── apache
+│            ├── catalina
+│            │       ├── connector
+│            │       │       └── Connector.java
+│            │       └── startup
+│            │           └── Tomcat.java
+│            └── coyote
+│                ├── Processor.java
+│                └── http11
+│                    ├── Http11Processor.java
+│                    ├── handler
+│                    │       ├── HandlerResponseEntity.java
+│                    │       ├── HttpRequestHandler.java
+│                    │       ├── InputStreamHandler.java
+│                    │       ├── RequestHandler.java
+│                    │       └── RequestHandlerMapping.java
+│                    ├── request
+│                    │       ├── HttpRequest.java
+│                    │       ├── HttpRequestHeader.java
+│                    │       ├── HttpRequestLine.java
+│                    │       └── QueryParameter.java
+│                    ├── response
+│                    │       ├── HttpResponse.java
+│                    │       ├── HttpResponseHeader.java
+│                    │       ├── HttpStatusLine.java
+│                    │       └── ResponseEntity.java
+│                    ├── servlet
+│                    │       └── HttpFrontServlet.java
+│                    └── util
+│                        ├── HttpMethod.java
+│                        └── HttpStatus.java
+└── test.txt
+
+18 directories, 28 files
+
+
+
+
+새로 추가 된 것?
+
+
+일단 HttpRequest, HttpResponse가 생김.
+
+Tomcat이 만든 Socket을 원하는 도착지로 가져다 주는
+RequestHandler, RequestHandlerMapping도 생김.
+
+HttpFrontServlet는 RequestHandler를 관리하는 놈인가?
+DispatcherServlet의 초기 버전인건가?
+
+ControllerAdvice는 뭐지?
+컨트롤러 전용 AOP할 떄 쓰는 놈인가?
+
+
+
+
+
+---
+flow-chart after B-g-3(mvp implemented)
+
+
+
+A. client 요청 -> 서버의 쓰레드 생성 (중복 생략)
+    1. Application
+    2. Tomcat
+    3. Conenctor
+    4. Http1Processor
+
+
+B. input stream을 HttpRequest로 포장 후, FrontServlet에게 건내줌
+    5. InputStreamHandler <input stream -> HttpRequest>
+        a. return HttpRequest {
+            HttpRequestLine <http method, http version, path, query string 관리>
+            HttpRequestHeader <input stream의 헤더 전체 관리. cookie 포함>
+            readHttpRequestBody
+        }
+        b. HttpFrontServlet 생성 후, frontServlet.service(httpRequest);
+
+
+C. FrontServlet은 해당 HttpRequest 요청을 올바른 Controller에게 찾아 전해주고 ResponseEntity를 만들어 Http11Processor에게 반환
+    6. HttpFrontServlet
+        return ResponseEntity {
+            HandlerResponseEntity - handleRequest(httpRequest); < HttpRequest를 바탕으로 HttpResponse 생성하려고 함 (HttpStatus HttpHeader, body, resources) >
+            RequestHandlerMapping - handlers.put("/", HomeController.getInstance()); < HttpRequest path에 맞는 controller 찾아주려고 하는데, >
+                private static final Map<String, RequestHandler> handlers = new ConcurrentHashMap<>(); < 일단 RequestHandler 부터 찾아줌 >
+                    HttpRequestHandler < 왜냐하면 모든 controller는 HttpRequestHandler를 상속받고 있고, 얜 doGet(), doPost() 를 처리하기 때문 >
+                        HomeController < 여기서 "/"으로 들어온 HttpRequest에 대해 HttpResponse의 header, body에 어떤걸 넣을지 결정함 >
+                            HandlerResponseEntity < HttpStatus, HttpResponseHeader, body, resource 관리>
+
+            FrontServlet에서 받은 HttpResponse를 좀 더 가공해서 client에게 보내준다
+                FileHandler < HttpResponse에서 resource를 까서 path가 static file path면, (ex. /resources/static/js/...) static file 반환. >
+                ResponseEntity에서 headers.addHeader("Content-Type", "text/html"); 한 후, ResponseEntity 반환. 이 때, createTextHtmlResponse()에서 여태껏 resource였던애가 body가 된다!!
+        }
+        드디어 Http11Processor에 handleRequest(HttpRequest)가 끝남.
+
+D. Http11Processor는 서버의 응답을 ResponseEntity-> HttpResponse 생성 후 outstream으로 클라이언트에게 보내기
+    final HttpResponse httpResponse = HttpResponse.from(response);
+    writeResponse(outputStream, httpResponse.createResponse());
 
 
 

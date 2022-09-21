@@ -50,6 +50,11 @@ f-4. login with cookie :white_check_mark: \
 f-5. list(사용자 목록 출력) by verifying cookie :white_check_mark: \
 f-6. cookie -> session 구현 :white_check_mark: 
 
+g-1. [우테코 - tomcat MVP setup](https://github.dev/woowacourse/jwp-dashboard-http) :white_check_mark:\
+g-2. tomcat MVP 분석 && 요구사항 파악 :white_check_mark:\
+g-3. tomcat MVP -> MVC + 분석 :white_check_mark:
+
+
 ---\
 reference
 
@@ -61,8 +66,9 @@ f-5. [list](https://github.dev/BryceYangS/web-application-server) \
 f-6. [session](https://github.dev/minseokism/NextStep/tree/master/Chapter06) \
 x.7. [to mvc format](https://github.dev/woowacourse/jwp-dashboard-http/tree/sihyung92)
 
-g-1. [우테코 - tomcat MVP setup](https://github.dev/woowacourse/jwp-dashboard-http)
-g-2. tomcat MVP 분석 && 요구사항 파악
+g-1. [우테코 - tomcat MVP setup](https://github.dev/woowacourse/jwp-dashboard-http) \
+g-2. tomcat MVP 분석 && 요구사항 파악\
+g-3. [tomcat MVP -> MVC + 분석](https://github.dev/woowacourse/jwp-dashboard-http/tree/2yujeong)
 
 b. [우테코 - 만들면서 배우는 스프링 실습 코드 http cache](https://github.com/woowacourse/jwp-hands-on)
 
