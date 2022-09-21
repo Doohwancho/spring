@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="File 클래스 학습 테스트" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-09-21T11:41:55" hostname="cho-choui-MacBookAir.local" time="0.031">
-  <properties/>
-  <testcase name="파일의_내용을_읽는다()" classname="FileTest" time="0.031"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

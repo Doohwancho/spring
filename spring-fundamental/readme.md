@@ -55,7 +55,8 @@ g-2. tomcat MVP 분석 && 요구사항 파악 :white_check_mark:\
 g-3. tomcat MVP -> MVC + 분석 :white_check_mark:\
 g-4. http://localhost:8080/index.html 페이지에 접근 가능하게 하기 :white_check_mark:\
 g-5. test: resource_디렉터리에_있는_파일의_경로를_상대경로로_찾는다 :white_check_mark: \
-g-6. test: resource/static/nextstep.txt 파일을 File을 통해 읽기 :white_check_mark:
+g-6. test: resource/static/nextstep.txt 파일을 File을 통해 읽기 :white_check_mark: \
+g-7. 회원가입 :white_check_mark:
 
 ---\
 reference
@@ -73,7 +74,8 @@ g-2. tomcat MVP 분석 && 요구사항 파악\
 g-3. [tomcat MVP -> MVC + 분석](https://github.dev/woowacourse/jwp-dashboard-http/tree/2yujeong) \
 g-4. [http://localhost:8080/index.html 페이지에 접근 가능하게 하기](https://github.dev/woowacourse/jwp-dashboard-http/tree/gyuchool) \
 g-5. [test: resource_디렉터리에_있는_파일의_경로를_'상대경로'로 찾는다](https://github.dev/woowacourse/jwp-dashboard-http/tree/gyuchool) \
-g-6. [test: resource/static/nextstep.txt 파일을 File을 통해 읽기](https://github.dev/woowacourse/jwp-dashboard-http/tree/gyuchool)
+g-6. [test: resource/static/nextstep.txt 파일을 File을 통해 읽기](https://github.dev/woowacourse/jwp-dashboard-http/tree/gyuchool) \
+g-7. [register](https://github.dev/woowacourse/jwp-dashboard-http/tree/2yujeong)
 
 b. [우테코 - 만들면서 배우는 스프링 실습 코드 http cache](https://github.com/woowacourse/jwp-hands-on)
 
