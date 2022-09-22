@@ -13,7 +13,7 @@ h. servlet :white_check_mark:
 b. HTTP Cache(cache-control + etag for static files) :white_check_mark:\
 c. Spring Boot Cache\
 e. thread :white_check_mark:\
-x. reflection\
+i. reflection\
 d. DI :white_check_mark:
 
 a. overall process\
@@ -60,6 +60,9 @@ x-9. 로그인 with session & cookie
 
 h-1. 서브릿 예제 분석 :white_check_mark:
 
+i-1. 우테코 reflection 예제 :white_check_mark:\
+i-2. what is reflection? 
+
 ---\
 reference
 
@@ -84,11 +87,11 @@ h-1. [우테코 - servlet solution](https://github.dev/woowacourse/jwp-hands-on/
 
 b. [우테코 - 만들면서 배우는 스프링 실습 코드 http cache](https://github.com/woowacourse/jwp-hands-on)
 
-d. [우테코 - 만들면서 배우는 스프링 실습 코드 di](https://github.com/woowacourse/jwp-hands-on)
-
 e. [우테코 - 만들면서 배우는 스프링 실습 코드 thread](https://github.com/woowacourse/jwp-hands-on)
 
+i. [우테코 - reflection 예제](https://github.dev/woowacourse/jwp-hands-on)
 
+d. [우테코 - 만들면서 배우는 스프링 실습 코드 di](https://github.com/woowacourse/jwp-hands-on)
 
 ---
 
