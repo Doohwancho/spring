@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.servlet.ServletTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2022-09-15T13:24:54" hostname="cho-choui-MacBookAir.local" time="0.923">
+<testsuite name="com.example.servlet.ServletTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2022-09-22T12:36:25" hostname="cho-choui-MacBookAir.local" time="0.859">
   <properties/>
-  <testcase name="testSharedCounter()" classname="com.example.servlet.ServletTest" time="0.923">
+  <testcase name="testSharedCounter()" classname="com.example.servlet.ServletTest" time="0.859">
     <failure message="org.opentest4j.AssertionFailedError: &#10;expected: 200&#10; but was: 404" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: 
 expected: 200
  but was: 404
 	at java.base@11.0.16.1/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at java.base@11.0.16.1/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
 	at java.base@11.0.16.1/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at app//com.example.servlet.ServletTest.testSharedCounter(ServletTest.java:32)
+	at app//com.example.servlet.ServletTest.testSharedCounter(ServletTest.java:24)
 	at java.base@11.0.16.1/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base@11.0.16.1/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base@11.0.16.1/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -63,11 +63,15 @@ expected: 200
 	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
 	at app//org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
 	at app//org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
-	at app//org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:229)
-	at app//org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$6(DefaultLauncher.java:197)
-	at app//org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:211)
-	at app//org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:191)
-	at app//org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:107)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
+	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:53)
 	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:99)
 	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:79)
 	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:75)
@@ -92,25 +96,24 @@ expected: 200
 	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
 </failure>
   </testcase>
-  <system-out><![CDATA[22:24:55.251 [Test worker] INFO com.example.servlet.ServletTest - (GET http://localhost:8080/shared-counter) 404
-]]></system-out>
-  <system-err><![CDATA[9월 15, 2022 10:24:54 오후 org.apache.coyote.AbstractProtocol init
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[9월 22, 2022 9:36:25 오후 org.apache.coyote.AbstractProtocol init
 정보: Initializing ProtocolHandler ["http-nio-8080"]
-9월 15, 2022 10:24:54 오후 org.apache.catalina.core.StandardService startInternal
+9월 22, 2022 9:36:26 오후 org.apache.catalina.core.StandardService startInternal
 정보: Starting service [Tomcat]
-9월 15, 2022 10:24:54 오후 org.apache.catalina.core.StandardEngine startInternal
+9월 22, 2022 9:36:26 오후 org.apache.catalina.core.StandardEngine startInternal
 정보: Starting Servlet engine: [Apache Tomcat/9.0.65]
-9월 15, 2022 10:24:54 오후 org.apache.catalina.startup.ContextConfig getDefaultWebXmlFragment
+9월 22, 2022 9:36:26 오후 org.apache.catalina.startup.ContextConfig getDefaultWebXmlFragment
 정보: No global web.xml found
-9월 15, 2022 10:24:55 오후 org.apache.jasper.servlet.TldScanner scanJars
+9월 22, 2022 9:36:26 오후 org.apache.jasper.servlet.TldScanner scanJars
 정보: At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
-9월 15, 2022 10:24:55 오후 org.apache.coyote.AbstractProtocol start
+9월 22, 2022 9:36:26 오후 org.apache.coyote.AbstractProtocol start
 정보: Starting ProtocolHandler ["http-nio-8080"]
-9월 15, 2022 10:24:55 오후 org.apache.coyote.AbstractProtocol pause
+9월 22, 2022 9:36:26 오후 org.apache.coyote.AbstractProtocol pause
 정보: Pausing ProtocolHandler ["http-nio-8080"]
-9월 15, 2022 10:24:55 오후 org.apache.catalina.core.StandardService stopInternal
+9월 22, 2022 9:36:26 오후 org.apache.catalina.core.StandardService stopInternal
 정보: Stopping service [Tomcat]
-9월 15, 2022 10:24:55 오후 org.apache.coyote.AbstractProtocol stop
+9월 22, 2022 9:36:26 오후 org.apache.coyote.AbstractProtocol stop
 정보: Stopping ProtocolHandler ["http-nio-8080"]
 ]]></system-err>
 </testsuite>

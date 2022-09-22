@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.923s</div>
+<div class="counter">0.859s</div>
 <p>duration</p>
 </div>
 </td>
@@ -67,10 +67,7 @@
 <a href="#tab1">Tests</a>
 </li>
 <li>
-<a href="#tab2">Standard output</a>
-</li>
-<li>
-<a href="#tab3">Standard error</a>
+<a href="#tab2">Standard error</a>
 </li>
 </ul>
 <div id="tab0" class="tab">
@@ -85,7 +82,7 @@ expected: 200
 	at java.base@11.0.16.1/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at java.base@11.0.16.1/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
 	at java.base@11.0.16.1/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at app//com.example.servlet.ServletTest.testSharedCounter(ServletTest.java:32)
+	at app//com.example.servlet.ServletTest.testSharedCounter(ServletTest.java:24)
 	at java.base@11.0.16.1/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base@11.0.16.1/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base@11.0.16.1/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -140,11 +137,15 @@ expected: 200
 	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
 	at app//org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
 	at app//org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
-	at app//org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:229)
-	at app//org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$6(DefaultLauncher.java:197)
-	at app//org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:211)
-	at app//org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:191)
-	at app//org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:107)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
+	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:53)
 	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:99)
 	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:79)
 	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:75)
@@ -183,38 +184,31 @@ expected: 200
 </thead>
 <tr>
 <td class="failures">testSharedCounter()</td>
-<td class="failures">0.923s</td>
+<td class="failures">0.859s</td>
 <td class="failures">failed</td>
 </tr>
 </table>
 </div>
 <div id="tab2" class="tab">
-<h2>Standard output</h2>
-<span class="code">
-<pre>22:24:55.251 [Test worker] INFO com.example.servlet.ServletTest - (GET http://localhost:8080/shared-counter) 404
-</pre>
-</span>
-</div>
-<div id="tab3" class="tab">
 <h2>Standard error</h2>
 <span class="code">
-<pre>9월 15, 2022 10:24:54 오후 org.apache.coyote.AbstractProtocol init
+<pre>9월 22, 2022 9:36:25 오후 org.apache.coyote.AbstractProtocol init
 정보: Initializing ProtocolHandler [&quot;http-nio-8080&quot;]
-9월 15, 2022 10:24:54 오후 org.apache.catalina.core.StandardService startInternal
+9월 22, 2022 9:36:26 오후 org.apache.catalina.core.StandardService startInternal
 정보: Starting service [Tomcat]
-9월 15, 2022 10:24:54 오후 org.apache.catalina.core.StandardEngine startInternal
+9월 22, 2022 9:36:26 오후 org.apache.catalina.core.StandardEngine startInternal
 정보: Starting Servlet engine: [Apache Tomcat/9.0.65]
-9월 15, 2022 10:24:54 오후 org.apache.catalina.startup.ContextConfig getDefaultWebXmlFragment
+9월 22, 2022 9:36:26 오후 org.apache.catalina.startup.ContextConfig getDefaultWebXmlFragment
 정보: No global web.xml found
-9월 15, 2022 10:24:55 오후 org.apache.jasper.servlet.TldScanner scanJars
+9월 22, 2022 9:36:26 오후 org.apache.jasper.servlet.TldScanner scanJars
 정보: At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
-9월 15, 2022 10:24:55 오후 org.apache.coyote.AbstractProtocol start
+9월 22, 2022 9:36:26 오후 org.apache.coyote.AbstractProtocol start
 정보: Starting ProtocolHandler [&quot;http-nio-8080&quot;]
-9월 15, 2022 10:24:55 오후 org.apache.coyote.AbstractProtocol pause
+9월 22, 2022 9:36:26 오후 org.apache.coyote.AbstractProtocol pause
 정보: Pausing ProtocolHandler [&quot;http-nio-8080&quot;]
-9월 15, 2022 10:24:55 오후 org.apache.catalina.core.StandardService stopInternal
+9월 22, 2022 9:36:26 오후 org.apache.catalina.core.StandardService stopInternal
 정보: Stopping service [Tomcat]
-9월 15, 2022 10:24:55 오후 org.apache.coyote.AbstractProtocol stop
+9월 22, 2022 9:36:26 오후 org.apache.coyote.AbstractProtocol stop
 정보: Stopping ProtocolHandler [&quot;http-nio-8080&quot;]
 </pre>
 </span>
@@ -227,7 +221,7 @@ expected: 200
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 7.5</a> at 2022. 9. 15. 오후 10:24:55</p>
+<a href="http://www.gradle.org">Gradle 7.5</a> at 2022. 9. 22. 오후 9:36:27</p>
 </div>
 </div>
 </body>

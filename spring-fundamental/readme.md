@@ -8,7 +8,7 @@ Approach
 
 f. web application server :white_check_mark:\
 g. tomcat :white_check_mark:\
-h. servlet
+h. servlet :white_check_mark:
 
 b. HTTP Cache(cache-control + etag for static files) :white_check_mark:\
 c. Spring Boot Cache\
@@ -58,6 +58,8 @@ g-7. 회원가입 :white_check_mark:\
 g-8. 여러 궁금증 해소 :white_check_mark:\
 x-9. 로그인 with session & cookie 
 
+h-1. 서브릿 예제 분석 :white_check_mark:
+
 ---\
 reference
 
@@ -78,6 +80,8 @@ g-6. [test: resource/static/nextstep.txt 파일을 File을 통해 읽기](https:
 g-7. [register](https://github.dev/woowacourse/jwp-dashboard-http/tree/2yujeong) \
 g-8. [login with session & cookie](https://github.dev/woowacourse/jwp-dashboard-http/tree/2yujeong)
 
+h-1. [우테코 - servlet solution](https://github.dev/woowacourse/jwp-hands-on/tree/solution-3-servlet-reflection)
+
 b. [우테코 - 만들면서 배우는 스프링 실습 코드 http cache](https://github.com/woowacourse/jwp-hands-on)
 
 d. [우테코 - 만들면서 배우는 스프링 실습 코드 di](https://github.com/woowacourse/jwp-hands-on)
@@ -85,8 +89,8 @@ d. [우테코 - 만들면서 배우는 스프링 실습 코드 di](https://githu
 e. [우테코 - 만들면서 배우는 스프링 실습 코드 thread](https://github.com/woowacourse/jwp-hands-on)
 
 
+
 ---
-x-1. [우테코 - servlet](https://github.dev/woowacourse/jwp-hands-on/tree/solution-3-servlet-reflection)
 
 x-1. [우테코 - reflexion](https://github.dev/woowacourse/jwp-hands-on/tree/solution-3-servlet-reflection) \
 x-2. [reflection 이란?](https://papimon.tistory.com/82) \

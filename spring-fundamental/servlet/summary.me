@@ -1,0 +1,56 @@
+
+톰켓이 의도대로 돌지 않아 실전 테스트는 못했지만,
+코드보고 유추한걸 정리.
+
+---
+takeaway 1
+
+@WebServlet(name = "sharedCounterServlet", urlPatterns = "/shared-counter")
+
+서블릿은 RequestMapper 쓰는것 대신, 저 annotation으로 incoming url을 캐치한다.
+
+
+---
+takeaway 2
+
+모든 서블릿은 life cycle (init -> service -> destroy) 순으로 진행되며,
+init은 파라미터로 Config 받고,
+service는 HttpServletRequest, HttpServletResponse를 받는다.
+
+
+---
+takeaway 3
+
+diff LocalCounterServlet vs SharedCounterServlet
+
+서블렛에서 인스턴스 변수 쓰면, 멀티 쓰레드에 의해 위험하니, 가급적 service()안에 로컬로 쓰거나,
+synchronized를 붙여주자.
+
+
+
+---
+takeaway 4
+
+서블릿에서 필터는 이런식으로 건다.
+
+@WebFilter("/*")
+public class CharacterEncodingFilter implements Filter {
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        request.getServletContext().log("doFilter() 호출");
+        request.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        chain.doFilter(request, response);
+    }
+}
+
+
+/* -> 모든 incoming url에 대해
+ServletRequest, ServletResponse에 UTF-8 인코딩 적용 후,
+필터 체인에 request, response에 각각 걸어준다.
+
+
+
+
+
