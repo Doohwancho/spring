@@ -25,7 +25,12 @@ public class HomeController extends HttpRequestHandler {
     @Override
     public HandlerResponseEntity doGet(final HttpRequest httpRequest, final HttpResponseHeader responseHeader) {
         String resource = IOUtils.readResourceFile("/index");
-        return HandlerResponseEntity.createWithResource(resource); //? -> 이걸 어떻게 /index.html로 바꿀 수 있지?
+
+//        log.info("inside HomeController's doGet");
+//        log.info(httpRequest.getHeaders().getCookies().toString());
+//        return HandlerResponseEntity.createWithResource(httpRequest.getHeader(), resource); //여기에서 헤더를 넣는게 좋을까? 아니면 여긴 컨트롤러니까 다른 곳에서 넣는게 좋을까? 다른 곳에서 넣는게 좋겠지? SessionManager 저기에서 처리하면 좋을 것 같은데
+//        return HandlerResponseEntity.createWithResource(new HttpResponseHeader(httpRequest.getHeaders(), httpRequest.getCookies()) , resource);
+        return HandlerResponseEntity.createWithResource(resource);
     }
 
     @Override

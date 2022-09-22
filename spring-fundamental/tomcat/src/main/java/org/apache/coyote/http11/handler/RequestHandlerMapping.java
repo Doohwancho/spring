@@ -1,7 +1,6 @@
 package org.apache.coyote.http11.handler;
 
 import nextstep.jwp.controller.HomeController;
-import nextstep.jwp.controller.UserController;
 import nextstep.jwp.exception.UncheckedServletException;
 
 import java.util.Map;
@@ -14,7 +13,7 @@ public class RequestHandlerMapping {
 
     static {
         handlers.put("/", HomeController.getInstance());
-        handlers.put("/register", UserController.getInstance());
+//        handlers.put("/register", UserController.getInstance());
 //        handlers.put("/login", LoginController.getInstance());
     }
 

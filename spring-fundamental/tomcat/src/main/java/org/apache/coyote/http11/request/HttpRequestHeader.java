@@ -1,11 +1,16 @@
 package org.apache.coyote.http11.request;
 
-import java.net.HttpCookie;
+import jakarta.servlet.http.Cookie;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class HttpRequestHeader {
+
+    private static final Logger log = LoggerFactory.getLogger(HttpRequestHeader.class);
 
     private static final int NAME_INDEX = 0;
     private static final int VALUE_INDEX = 1;
@@ -17,7 +22,7 @@ public class HttpRequestHeader {
         this.headers = headers;
     }
 
-    public static HttpRequestHeader from(final List<String> rawHeader) {
+    public static HttpRequestHeader from(final List<String> rawHeader) { //undo static! its for logging temporarily!
         final Map<String, Object> parsedHeaders = new HashMap<>();
 
         for (final String header : rawHeader) {
@@ -25,7 +30,9 @@ public class HttpRequestHeader {
         }
 
 //        if (parsedHeaders.containsKey("Cookie")) {
-//            parsedHeaders.put("Cookie", HttpCookie.from(parsedHeaders.get("Cookie").toString()));
+//            log.info(parsedHeaders.containsKey("Cookie")+""); //true
+//            log.info(parsedHeaders.get("Cookie").toString()); //Idea-e3e12a8e=7fa16e91-e91d-4168-8bfb-f747ad3be1f4
+//            parsedHeaders.put("Cookie", Cookie.from(parsedHeaders.get("Cookie").toString()));
 //        }
 
         return new HttpRequestHeader(parsedHeaders);
@@ -50,11 +57,12 @@ public class HttpRequestHeader {
         return (String) headers.get(headerName);
     }
 
-//    public HttpCookie getCookies() {
+//    public Cookie getCookies() {
 //        if (headers.containsKey("Cookie")) {
-//            return (HttpCookie) headers.get("Cookie");
+//            return (Cookie) headers.get("Cookie");
 //        }
-//        return HttpCookie.createEmptyCookie();
+//        return Cookie.createEmptyCookie();
 //    }
+
 }
 

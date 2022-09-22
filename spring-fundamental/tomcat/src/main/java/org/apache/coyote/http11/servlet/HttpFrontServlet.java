@@ -37,7 +37,8 @@ public class HttpFrontServlet {
 
     public ResponseEntity service(final HttpRequest httpRequest) {
         try {
-            final HandlerResponseEntity response = handleRequest(httpRequest);
+            HandlerResponseEntity response = handleRequest(httpRequest);
+//            final HandlerResponseEntity responseWithCookie = handleCookie(response);
             return createResponseEntity(response);
         } catch (final Exception exception) {
             return controllerAdvice.handleException(exception.getClass());
@@ -56,6 +57,13 @@ public class HttpFrontServlet {
 
         return test;
     }
+
+//    private HandlerResponseEntity handleCookie(HttpRequest httpRequest, HandlerResponseEntity response){
+//        //I want Cookie
+//        response.getHttpHeader().addCookie(httpRequest.getCookies().getCookie(), final String value);
+//
+//        return response;
+//    }
 
     private ResponseEntity createResponseEntity(final HandlerResponseEntity response)
             throws IOException {

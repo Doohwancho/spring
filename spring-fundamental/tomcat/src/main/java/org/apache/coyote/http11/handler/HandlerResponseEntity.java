@@ -22,12 +22,12 @@ public class HandlerResponseEntity {
         this.resource = resource;
     }
 
-    public static HandlerResponseEntity createWithResource(final HttpResponseHeader headers, final String resource) {
-        return new HandlerResponseEntity(HttpStatus.OK, headers, EMPTY_BODY, resource); //안넣는게 아니라 resource로 넣네?
+    public static HandlerResponseEntity createWithResource(final String resource) {
+        return createWithResource(new HttpResponseHeader(new HashMap<>()), resource); //body는 안넣네? header가 비었네?
     }
 
-    public static HandlerResponseEntity createWithResource(final String resource) {
-        return createWithResource(new HttpResponseHeader(new HashMap<>()), resource); //body는 안넣네?
+    public static HandlerResponseEntity createWithResource(final HttpResponseHeader headers, final String resource) {
+        return new HandlerResponseEntity(HttpStatus.OK, headers, EMPTY_BODY, resource); //안넣는게 아니라 resource로 넣네?
     }
 
     public static HandlerResponseEntity createRedirectResponse(final HttpStatus httpStatus,

@@ -1,6 +1,7 @@
 package org.apache.coyote.http11.request;
 
-import java.net.HttpCookie;
+import jakarta.servlet.http.Cookie;
+
 import java.util.UUID;
 
 public class HttpRequest {
@@ -28,7 +29,7 @@ public class HttpRequest {
     }
 
 //    public Session getSession() {
-//        final HttpCookie cookies = getCookies();
+//        final Cookie cookies = getCookies();
 //        if (cookies.contains("JSESSIONID")) {
 //            return new Session(cookies.getCookie("JSESSIONID"));
 //        }
@@ -51,7 +52,9 @@ public class HttpRequest {
         return headers.getHeader(headerName);
     }
 
-//    public HttpCookie getCookies() {
+    public HttpRequestHeader getHeaders() { return headers; }
+
+//    public Cookie getCookies() {
 //        return headers.getCookies();
 //    }
 
