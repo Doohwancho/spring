@@ -14,7 +14,7 @@ e. thread :white_check_mark:\
 f. web application server :white_check_mark:\
 g. tomcat :white_check_mark:\
 h. servlet :white_check_mark:\
-i. reflection(-> annotation && di) :white_check_mark:\
+i. reflection(annotation -> {di, applicationContext, dispatcher, RequestMapping, componentScan} + DTO) :white_check_mark:\
 x. IOC\
 x. AOP\
 x. Filter, Interceptor\
@@ -60,8 +60,8 @@ h-1. 서브릿 예제 분석 :white_check_mark:
 i-1. 우테코 reflection 예제 :white_check_mark:\
 i-2. simple di framework using reflection :white_check_mark:\
 i-3. 우테코 reflection 예제 해결 :white_check_mark:\
-i-4. copy reflection by meta coding :white_check_mark:
-
+i-4. copy reflection by meta coding :white_check_mark:\
+i-5. analyze reflection by meta coding - implement Dispatcher, componentScan + DTO :white_check_mark:
 
 ---\
 reference
@@ -95,7 +95,7 @@ i-1. [우테코 - reflection 예제](https://github.dev/woowacourse/jwp-hands-on
 i-2. [10분 테코톡 - 파랑, 아키의 리플렉션 -> mvp di framework 분석](https://www.youtube.com/watch?v=67YdHbPZJn4&t=469s) \
 i-3. [우테코 - reflexion 예제 문제 해결](https://github.dev/woowacourse/jwp-hands-on/tree/solution-3-servlet-reflection) \
 i-4. [copy reflection by meta coding](https://github.dev/codingspecialist/Reflection-Controller) \
-i-5. [analyze reflection by meta coding](https://www.youtube.com/watch?v=P5fPc2tjOko&list=PL93mKxaRDidFGJu8IWsAAe0O7y6Yw9f5x&index=1)
+i-5. [analyze reflection by meta coding - implement Dispatcher, componentScan + DTO](https://www.youtube.com/watch?v=P5fPc2tjOko&list=PL93mKxaRDidFGJu8IWsAAe0O7y6Yw9f5x&index=1)
 
 
 

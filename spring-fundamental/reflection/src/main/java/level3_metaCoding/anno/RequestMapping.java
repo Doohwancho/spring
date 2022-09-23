@@ -8,5 +8,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})
 public @interface RequestMapping {
-    String uri();
+    String uri(); //@RequestMapping(uri = "/user/join") 아 이렇게 쓰이는구나
 }

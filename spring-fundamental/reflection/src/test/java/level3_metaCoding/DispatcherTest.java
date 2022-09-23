@@ -33,7 +33,7 @@ public class DispatcherTest implements Filter {
         String endPoint = request.getRequestURI().replaceAll(request.getContextPath(), "");
         System.out.println("엔드포인트 : " + endPoint);
 
-        List<Class> controllerList = componentScan();
+        List<Class> controllerList = componentScan(); //현재 JVM에 런타임으로 돌고있는 모든 쓰레드의 클래스 이름 까서, 특정 패키지 안에 controller면 reflection으로 객체 생성해서 한 List에 담아 모든 컨트롤러 관리함
 
         for (Class controller : controllerList) {
             Annotation[] controllerAnnotations = controller.getAnnotations();
@@ -63,9 +63,9 @@ public class DispatcherTest implements Filter {
                                         path = (String) method.invoke(controllerInstance);
                                     }
 
-                                    System.out.println("path : " + path);
-                                    RequestDispatcher dis = request.getRequestDispatcher(path);
-                                    dis.forward(request, response);
+                                    System.out.println("path : " + path); //UserController에서 public String join(JoinDto dto) {} 처리 후, "/" 반환
+                                    RequestDispatcher dis = request.getRequestDispatcher(path); //해당 주소로 RequestDispatcher가 resources/static/에 view에 요청 보냄.
+                                    dis.forward(request, response); //view 반환
                                     break; // 더 이상 메서드를 리플렉션 할 필요 없어서 빠져나감.
                                 } catch (Exception e) {
                                     e.printStackTrace();

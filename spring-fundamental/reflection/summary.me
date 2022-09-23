@@ -88,3 +88,132 @@ RUNTIME : 클래스 파일에 존재. JVM이 런타임 실행 중, 감시 가능
 클래스, 필드, 메서드 위에 주석을 달아놓는 느낌.
 그리고 런타임 때 reflection으로 해당 어노테이션 주석 달은 놈을
 그 주석에 맞게 따로 처리하는 것.
+
+
+
+---
+reflection -> ApplicationContext
+
+
+ApplicationContext는 런타임 때, reflection으로
+@Autowired가 붙은 애들 다 가져와서, 객체 만들고 일괄관리
+
+만약 리플렉션이 없었다면,
+새 객체, 빈 만들 때 마다, ApplicationContext.list.add(new_bean); 뭐 이런식으로 더해줘야겠지?
+
+
+
+
+public class ApplicationContext {
+
+    private final static Class[] EMPTY_PARAM = new Class[]{};
+
+    public static <T> T getInstance(Class<T> clazz) throws Exception { //Class<T>에서 Class가 리플렉션. .class파일 말고 JVM에서 런타임에서 도는 생성된 모든 클래스를 관리해주는 애가 Class
+        T instance = createInstance(clazz); //type을 T로 받고 리턴도 T로하는 이유는, OrderRepository object = ApplicationContext.getInstance(OrderRepository.class); 에서 OrderRepository.class로 받은 타입을 결국 고대로 리턴하기 때문.
+        Field[] fields = clazz.getDeclaredFields();
+        for(Field field: fields){ //이 필드가 Autowired.java에 @Target(ElementType.FIELD) 이거구나!
+            if(field.getAnnotation(Autowired.class) != null){
+                Object fieldInstance = createInstance(field.getType()); //@Autowired가 붙은 필드의 객체 생성.
+                field.setAccessible(true); //그 객체의 생성자가 가령 private일 지라도, public으로 취급함.
+                field.set(instance, fieldInstance); //OrderService.class 객체에 @Autowired붙은 필드인 orderRepository에 OrderRepository객체를 주입하는 것.
+            }
+        }
+        return instance;
+    }
+
+    private static <T> T createInstance(Class<T> clazz) throws Exception {
+        return clazz.getConstructor(EMPTY_PARAM).newInstance(); //reflection을 써서 해당 클래스의 빈 생성자, 기본생성자를 가지고 객체 생성하는 것
+    }
+}
+
+
+
+
+
+
+
+---
+reflection -> Dispatcher(filter)
+
+
+/reflection/user에 파라미터의 값을
+1. username, password만 담아서 보내면, loginDto가 와서 "/user/login"으로 가고,
+2. username, password, email까지 담아서 보내면, joinDto가 와서 "/user/join"으로 보냄.
+와!
+
+
+
+User -> Filter(Dispatcher) -> Controller
+
+
+유저가 HttpRequest에 유저 정보 담아서 "/reflection/user" 요청하면,
+필터링에서 "/user"만 뽑아서
+UserController에 보내서 userList(); 메서드 실행시키는건,
+이미 컴파일 때 정해져있어서 리플렉션 필요 없다.
+
+
+근데 이렇게 짜면 귀찮은게,
+UserController에 메서드 하나 추가시킬 대 마다, Dispatcher에 incoming url에 대해 하나하나 매핑시키는 코드도 추가해줘야 함. 수동으로.
+리플렉션 쓰면, incoming url에 대해 얘가 찾는 적합한 메서드를(어노테이션이 붙었건 클래스 이름이 어떻건) JVM런타임에서 알아서 찾아서 매칭해줌.
+
+"/user"
+"/login"
+"/join"
+incoming url에 대해서 컨트롤러 메서드에 3번 매핑하는건,
+메서드 갯수가 3개이면 수동으로 하지.
+근데 메서드가 100만개면, 언제 다 수동으로 추가하고 앉아있을거야.
+
+
+그리고 같은 HttpRequest를 받더라도, 어떨 땐 동일 클래스에 A라는 메서드 실행하고, 다른 경우엔 B라는 메서드 실행하고
+이거 if-else 언제 다 짜고있을거야.
+
+
+
+Q. 어떻게 reflection이 RequestMapping에서 동작함?
+1. "/user"가 들어왔네?
+2. 어노테이션 붙은 놈 중에서, @RequestMapping("/user") 가 붙은 메서드 다 찾아내
+3. 그 함수 실행시켜
+
+
+
+---
+dto
+
+로그인같은거 할 때, 그냥 User VO쓰지, 왜 굳이 DTO 따로 만들어서 씀?
+
+User(기준점, 원자)는 필드가 4갠데,
+    private int id;
+    private String username;
+    private String password;
+    private String email;
+
+회원가입할 땐 4개 다 받고,
+로그인할 땐, email을 null값으로 받겠지?
+
+필드 값이 null값이면, 나중에 실수 할 수 있다. validation 체크가 힘들기 때문.
+이게 요 상황에서 null이어도 되는건가? 분간이 힘듬.
+그래서 통신할 땐, 정확하게 받을 수 있는 데이터만 가지고 통신해야 함.
+그래서 쓰는게 data transfer object, dto
+
+
+
+
+**DTO는 null값이 있는 파라미터가 있으면 안된다!**
+
+
+또한, DTO를 특정 상황별로 구분하면, reflection쓸 때 좋다.
+UserController.register(User);
+UserController.login(User);
+
+이게 아니라,
+
+UserController.register(LoginDto);
+UserController.register(RegisterDto);
+
+이런식으로 reflection으로 구분해서 넣을거거든.
+
+
+
+
+---
+reflection -> componentScan()
