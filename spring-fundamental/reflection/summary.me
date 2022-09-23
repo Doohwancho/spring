@@ -1,0 +1,90 @@
+
+---
+what is reflection?
+
+
+거울속에 비친 상.
+실체 = .class
+거울 속 비친 상 = JVM안에 런타임동안 돌던 .class로 실체화된 Class 객체들.
+
+
+java는 static type language인데 컴파일 타임에 막상 클래스 타입이 any이어서 좀 곤란하거나,
+런타임 때 클래스, 그 안의 필드 조작해야할 때 쓴다.
+
+
+예를들어,
+Annotation같은 주석같은 놈들을 클래스던 필드던 붙여주고,
+(ex. @Autowired 같은 놈들 )
+런타임 때, 동적으로 객체 주입해야하는 순간이 오면,
+
+public class OrderService {
+    @Autowired
+    OrderRepository orderRepository;
+}
+
+뭐 이런식으로,
+
+이 때, 런타임 때, JVM안에 모든 클래스를 관리하는 Class를 reflection으로 불러서
+Class에서 OrderService를 찾고,
+그 안에 필드 중에서 @Autowired라는 어노테이션이 붙은 필드를 찾아서,
+OrderRepository라는 객체를 Class에서 찾아
+파라미터 없는 간단한 생성자로 객체 만들어 주입시키는 것.
+
+이런식으로 di가 동작한다.
+
+
+---
+why not to use reflection?
+
+
+컴파일 시간에 일반 메서드 호출 시간보다,
+런타임 때 리플렉션으로 클래스 찾고 조작하고 주입하고 하는게 성능 훨씬 더 느리다. (24배정도라는데)
+
+그리고 ApplicationContext.java를 보면 알텐데,
+코드가 지저분해진다.
+가독성 구려짐.
+
+OOP에서 중요시하는 추상화도 파괴한다.
+내부 노출시키잖아.
+그로인해 객체 불변성도 못지킨다.
+
+괜히 다른 언어에 리플랙션 기능이 없는게 아니다.
+꼭 필요할 때만 쓰자.
+
+
+
+
+---
+custom annotation
+
+
+- why use?
+    하나에 코드에 변경사항만 다른 버전인 어노테이션으로 감싸서 관리 (whereas 버전별로 프로젝트 통째로 복사하지 말고)
+- why not to use?
+    의도가 숨겨져있는 커스텀 어노테이션을 덕지덕지 붙이는건 되도록이면 자제하자!
+
+
+
+
+1. 정의
+
+@Target({ElementType.CONSTRUCTOR, ElementType.FIELD, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Inject {
+    boolean required() default true;
+}
+
+
+@Inject는 생성자, 인스턴스 필드, 메서드 위에 붙일 수 있고,
+런타임에서 동작하나보네.
+
+@Retention: 어노테이션이 유지되는 기간을 지정하는데 사용
+SOURCE : 소스 파일에만 존재.
+RUNTIME : 클래스 파일에 존재. JVM이 런타임 실행 중, 감시 가능하게 하는 것
+
+
+
+어노테이션은 주석같은 개념.
+클래스, 필드, 메서드 위에 주석을 달아놓는 느낌.
+그리고 런타임 때 reflection으로 해당 어노테이션 주석 달은 놈을
+그 주석에 맞게 따로 처리하는 것.
