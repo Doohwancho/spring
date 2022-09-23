@@ -1,0 +1,27 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+      
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/security?serverTimezone=Asia/Seoul
+    username: cho
+    password: doohwancho
+    
+  #mvc:
+  #  view:
+  #    prefix: /templates/ #.mustache의 uri에 앞에 붙는 것.  /template/ 폴더 안에 있다 
+  #    suffix: .mustache #mvc 뷰의 확장자는 .mustache 
+
+  jpa:
+    hibernate:
+      ddl-auto: create #create update none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
