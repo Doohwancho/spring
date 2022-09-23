@@ -1,0 +1,5 @@
+ƒ19:06:22.543 [Test worker] INFO org.reflections.Reflections - Reflections took 24 ms to scan 2 urls, producing 5 keys and 6 values
+Y19:06:22.553 [Test worker] INFO example.ReflectionsTest - example.JdbcQuestionRepository
+O19:06:22.554 [Test worker] INFO example.ReflectionsTest - example.MyQnaService
+U19:06:22.554 [Test worker] INFO example.ReflectionsTest - example.JdbcUserRepository
+P19:06:22.554 [Test worker] INFO example.ReflectionsTest - example.QnaController
