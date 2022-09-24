@@ -1,0 +1,54 @@
+
+---
+A. setup: google api console OAuth credential
+
+
+google oauth GET url : http://127.0.0.1:8080/login/oauth2/code/google       ---- (/oauth2/code/ 는 고정. )
+google oauth client id : 813348777913-2r7civeuh6g279qbha30ipmsn4n4v2ph.apps.googleusercontent.com
+google oauth client secret : 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
+ 
+ 
+---
+B. 스프링 시큐리티 세션과 authentication 객체 구조 
+
+
+Security Session
+	Authentication
+		1. UserDetails : 일반 로그인 하면, 여기로 정보가 들어간다 
+		2. OAuth2User : OAuth로 로그인하면, 여기로 정보가 들어간다. 
+		
+
+---		
+C. PrincipalDetails implements UserDetails, OAuth2User
+
+
+problem: 일반 로그인과 OAuth 두개를 따로 처리 곤란 + 파라미터 관리 곤란
+
+public @ResponseBody String testLogin(@AuthenticationPrincipal UserDetails userDetails, @AuthenticationPrincipal OAuth2User oauth) {
+
+	//Problem:
+	//파라미터 너무 길다.
+	//또한 일반 로그인과 OAuth로그인 따로 처리하려면, if-else문 들어간다. 
+	
+	//solution: UserDetails과 OAuth2User를 공통 부모 삼는 자식을 만들자!
+	
+	//PrincipalDetails을 보면, implements UserDetails, OAuth2User 둘 다 받음.
+	//얘는 일반로그인할 떄, PrincipalDetailsService에서 loadUserByUsername()에서 return new PrincipalDetails(user); 이렇게 처리됨.
+	//또한 OAuth로그인 할 떄에도, PrincipalOauth2UserService에서 
+} 
+
+
+
+---
+D. 구글로 로그인하면 그 정보 써서 자동으로 회원가입 하기
+
+
+
+PrincipalOauth2UserService.processOAuth2User() 보면,
+
+OAuth정보 가져다가 회원가입하고, 
+
+맨 마지막엔 return new PrincipalDetails(user, oAuth2User.getAttributes()); 까지 해준다.
+
+
+
