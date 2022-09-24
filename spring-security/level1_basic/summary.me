@@ -1,12 +1,6 @@
----
-table of content
-
-
-A,B,C -> 초기설정 
-D~ -> 내가 적은 것 
 
 ---
-A. MySQL workbench DB 및 사용자 생성
+A. 프로젝트 초기설정: MySQL workbench DB 및 사용자 생성
 
 1. set global validate_password.policy=LOW;       -> 비밀번호 길이가 8자 이상이기만 하면 
 2. create user 'cho'@'%' identified by 'doohwancho';
@@ -15,42 +9,103 @@ A. MySQL workbench DB 및 사용자 생성
 5. use security;
 
 
----
-B. SecurityConfig.java 권한 설정 방법
-
-// protected void configure(HttpSecurity http) 함수 내부에 권한 설정법
-.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN') and hasRole('ROLE_USER')")
-.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
 
 
 ---
-C. 컨트롤러의 함수에 직접 권한 설정 하는 방법
+B. 프로젝트 초기설정: url을 ~/resources/static/~.html에 매핑하기
 
-// 특정 주소 접근시 권한 및 인증을 위한 어노테이션 활성화 SecurityConfig.java에 설정
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 
-// 컨트롤러에 어노테이션 거는 법
-@PostAuthorize("hasRole('ROLE_MANAGER')")
-@PreAuthorize("hasRole('ROLE_MANAGER')")
-@Secured("ROLE_MANAGER")
+WebMvcConfig에서 view resolver 가져와서 설정.
+
+classpath, utf-8, suffix 설정
 
 
 
 
 ---
-D. 스프링 시큐리티 도입하는 순간, 내 url 모든게 잠기네?
+C. 스프링 시큐리티 도입하는 순간, 내 url 모든게 잠기네?
 
 
-localhost:8080/login 에 들어가면, 잠겨있음.
+localhost:8080/ 에 들어가면, 잠겨있음.
 
 id: user
 pw: Using generated security password: 5937b1fb-ce53-43ec-8f63-c17a1f970fcb (프로젝트 실행시키면 로그에 뜸) 
 
-이렇게 쳐야 들어가짐 ㄸ 
+이렇게 쳐야 들어가짐 ㄸ
 
 
- 
+
+
+---
+D. 로그인시 유저 세션 관리 
+
+
+
+SecurityConfig에서 .loginPage("/login") 이 incoming url에 대해, .loginProcessingUrl("/loginProc") 로 내부 처리함.
+
+로그인한 유저의 세션관리는 스프링 시큐리티가 어떻게 관리하느냐?
+
+security session에서 일괄 관리하는데, 그 객체의 타입은 무조건 Authentication이어야 하고,
+UserDetails가 Authentication에 호환됨.
+
+Security-Session(Authentication(UserDetails(PrincipalDetail(User)))));
+
+이런 식인 셈인데,
+로그인할 때, .loginProcessingUrl("/loginProc") 가 작동하면,
+PrincipalDetailsService에 loadUserByUsername()가 내부적으로 처리됨.
+자세한건 주석 적어놨으니 뜯어봐. 
+
+
+
+
+
+---
+E. password encryptor
+
+
+회원가입할 때, 비밀번호 암호화 해야지? 
+
+
+먼저 SecurityConfig.java에서 
+
+@Bean
+public BCryptPasswordEncoder encodePwd() {
+	return new BCryptPasswordEncoder();
+}
+	
+처리 하면, 빈이 등록되서 다른곳에서 쓸 수 있음.
+
+
+
+ex. IndexController에서 
+
+@Autowired
+private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+String encPassword = bCryptPasswordEncoder.encode(rawPassword);
+
+이런식으로 사용 가능. 
+
+
+Controller에서 회원가입 POST REQUEST오면, BCryptPasswordEncoder로 비밀번호 암호화 해서 db에 유저 정보 저장. 
+
+
+
+
+
+---
+F. 컨트롤러의 함수에 직접 권한 설정 하는 방법
+
+
+SecurityConfig.java에서, 
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+
+붙이면, 컨트롤러에서 특정 페이지 접근권한 어노테이션 걸 수 있다.
+
+@PostAuthorize("hasRole('ROLE_MANAGER')")
+@PreAuthorize("hasRole('ROLE_MANAGER')")
+@Secured("ROLE_MANAGER")
+
 
 
 

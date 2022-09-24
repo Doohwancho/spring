@@ -20,22 +20,22 @@ e. jwt
 ---\
 todos 
 
-a-1. springboot security project setup\
-a-x. configure\ 
-a-x. authentication\
-a-x. authorization\
-a-x. remember-me\
-a-x. password encoding
+a-1. springboot security project setup :white_check_mark:\
+a-2. basic register :white_check_mark:\ 
+a-3. password encryptor :white_check_mark:\
+a-4. basic login :white_check_mark:\
+a-5. 페이지 접근 권한 설정 :white_check_mark:\ 
+a-x. remember-me
 
 
 ---\
 reference
 
-a-1. [spring boot security project init by meta coding](https://github.dev/codingspecialist/Sringboot-Security-Basic-V1) \
+a-1~5. [spring boot security project init by meta coding](https://github.dev/codingspecialist/Sringboot-Security-Basic-V1) \
 a-x. [초보자가 이해하는 스프링 시큐리티](https://okky.kr/articles/382738) \
 a-x. [서버 유저 패스워드 관리하는 법.youtube](https://www.youtube.com/watch?v=7gWgpRYobtQ&list=PLDV-cCQnUlIbH2r12z_ZE2xAChDw3nASv&index=8)
 
-b-1.[세션, 쿠키로 로그인을 어떻게 유지시키는가?.youtube](https://www.youtube.com/watch?v=cWUtMHTKdj0)
+b-1. [세션, 쿠키로 로그인을 어떻게 유지시키는가?.youtube](https://www.youtube.com/watch?v=cWUtMHTKdj0)
 
 d-1. [spring boot security oauth v2 by meta coding](https://github.dev/codingspecialist/Springboot-Security-OAuth2.0-V2) \
 d-2. [spring boot security oauth v2 by meta coding](https://github.dev/codingspecialist/Springboot-Security-OAuth2.0-V3) 
