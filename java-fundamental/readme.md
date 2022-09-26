@@ -67,8 +67,9 @@ g-3. chatting program :white_check_mark:
 
 
 h-1. what is generics? :white_check_mark:\
-h-2. generic method
-h-3. wild card
+h-2. generic method :white_check_mark:\
+h-3. T extends X && T super X :white_check_mark:\
+h-4. wild card
 
 
 
@@ -94,7 +95,7 @@ f-2. [File Input/Output Stream](https://www.youtube.com/watch?v=fpOGpBywvR4&list
 f-3. [File Input/Output Stream with buffer size](https://www.youtube.com/watch?v=4DtJ1QcZZkI&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=17)\
 f-4. [DataOutputStream, decorator](https://www.youtube.com/watch?v=ewZhpmriRN8&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=19)\
 f-5. [BufferedReader](https://www.youtube.com/watch?v=vaOjTx5pPhY&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=20)\
-f-6. io between threads - 자바의 정석\ 
+f-6. io between threads - 자바의 정석\
 f-7. serialization - 자바의 정석 
 
 
@@ -103,5 +104,5 @@ g-2. [자바 소켓 통신(Socket)을 사용하는 이유와 동작 원리 및 �
 g-3. [TCP socket programming - chatting](https://lktprogrammer.tistory.com/64?category=672211)
 
 
-h-1. [제네릭 기본](https://www.youtube.com/watch?v=Vv0PGUxOzq0)
+h-1~3. [제네릭 기본, generic method, T extends X && T super X](https://www.youtube.com/watch?v=Vv0PGUxOzq0)\
 
