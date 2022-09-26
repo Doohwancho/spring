@@ -110,5 +110,5 @@ g-3. [TCP socket programming - chatting](https://lktprogrammer.tistory.com/64?ca
 
 
 h-1~4. [제네릭 기본, generic method, T extends X && T super X, wild card](https://www.youtube.com/watch?v=Vv0PGUxOzq0)\
-h-5. example) builder pattern in abstract class - effective java
-h-6. generic method advanced 
+h-5. example) builder pattern in abstract class - effective java\
+h-6. [generic method advanced](https://devlog-wjdrbs96.tistory.com/201)
