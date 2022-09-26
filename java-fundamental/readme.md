@@ -61,15 +61,18 @@ f-6. io between threads :white_check_mark:\
 f-7. serialization :white_check_mark:
 
 
+
 g-1. what is web socket? :white_check_mark:\
 g-2. java socket programming code :white_check_mark:\
 g-3. chatting program :white_check_mark:
 
 
+
 h-1. what is generics? :white_check_mark:\
 h-2. generic method :white_check_mark:\
 h-3. T extends X && T super X :white_check_mark:\
-h-4. wild card :white_check_mark:
+h-4. wild card :white_check_mark:\
+h-5. example) builder pattern in abstract class :white_check_mark:
 
 
 
@@ -99,10 +102,12 @@ f-6. io between threads - 자바의 정석\
 f-7. serialization - 자바의 정석 
 
 
+
 g-1. [what is web socket?](https://www.youtube.com/watch?v=yXPCg5eupGM)\
 g-2. [자바 소켓 통신(Socket)을 사용하는 이유와 동작 원리 및 코드](https://wildeveloperetrain.tistory.com/122)\
 g-3. [TCP socket programming - chatting](https://lktprogrammer.tistory.com/64?category=672211)
 
 
-h-1~4. [제네릭 기본, generic method, T extends X && T super X, wild card](https://www.youtube.com/watch?v=Vv0PGUxOzq0)
 
+h-1~4. [제네릭 기본, generic method, T extends X && T super X, wild card](https://www.youtube.com/watch?v=Vv0PGUxOzq0)\
+h-5. example) builder pattern in abstract class - effective java
