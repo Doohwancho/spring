@@ -4,7 +4,8 @@ Objective
 modularize springboot fundamental concepts
 
 ---\
-Approach
+Concepts
+
 
 a. overall process\
 b. HTTP Cache(cache-control + etag for static files) :white_check_mark:\
@@ -22,11 +23,15 @@ x. Exception\
 x. multipart\
 x. logging\
 x. cors\
-x. WebFlux
+x. WebFlux\
+x. logging framework\
+x. read documentation\
+x. core spring annotations\
+x. scheduling
 
 
 ---\
-todo
+Todo
 
 b-1. 우테코 cache 예제 파악 :white_check_mark:\
 b-2. 우테코 cache 예제 solution보고 개별 문제 풀기 :white_check_mark:

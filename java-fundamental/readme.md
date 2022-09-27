@@ -1,12 +1,12 @@
 ---\
 Objective
 
-modularize java
+modularize concepts in java
 
 
 
 ---\
-Approach
+Concepts 
 
 
 a. exception\
@@ -21,9 +21,10 @@ x. enums\
 x. annotation\
 x. lambda\
 x. stream\
+x. immutable object\
 x. garbage collector\
 x. debugging 
-
+x. how jvm works
 
 
 

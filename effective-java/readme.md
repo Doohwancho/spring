@@ -3,12 +3,13 @@
 Objective
 
 
-modularize effective java
+modularize concepts from book:"effective java"
+
 
 
 
 ---\
-todos
+concepts
 
 
 

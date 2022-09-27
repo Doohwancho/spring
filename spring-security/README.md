@@ -1,12 +1,12 @@
 ---\
 Objective
 
-modularize spring-security 
+modularize concepts in spring-security 
 
 
 
 ---\
-Approach
+Concepts
 
 a. spring security basics :white_check_mark:\
 b. cookie\
@@ -18,7 +18,7 @@ e. jwt
 
 
 ---\
-todos 
+Todos
 
 a-1. springboot security project setup :white_check_mark:\
 a-2. basic register :white_check_mark:\
@@ -32,6 +32,9 @@ d-1. 일반 로그인 UserDetails 처리 :white_check_mark:\
 d-2. google oauth 설정 :white_check_mark:\
 d-3. UserDetails와 OAuth2를 하나의 객체로 관리 :white_check_mark:\
 d-4. 구글 OAuth로 로그인하면 자동 회원가입 :white_check_mark:
+
+e-2. jwt project clone + curiousities list up :white_check_mark
+
 
 ---\
 reference
