@@ -1,0 +1,95 @@
+---
+concepts
+
+jwt?
+
+
+
+---
+Q1. pom.xml에서 디펜던시에
+
+<dependency>
+	<groupId>com.auth0</groupId>
+	<artifactId>java-jwt</artifactId>
+	<version>3.4.1</version>
+</dependency>
+
+이렇게 추가되있는데, 얘가 jwt 라이브러린가? 
+
+
+
+
+
+JwtAuthorizationFilter.java에서 
+
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+
+String username = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(token)
+				.getClaim("username").asString();
+
+이렇게 쓰는듯? 
+
+jwt이라는게 암호화 알고리즘인가? 
+
+
+---
+Q2. jwt가 뭐지?
+
+자바 웹 토큰의 약자인가?
+웹 토큰이면 cookie랑 비슷한 개념인건가?
+
+유저가 로그인 성공하면, 서버가 유저한테 쿠키 보내주고,
+유저는 이때부터 계속 서버로 쿠키 보내는데,
+그걸 바탕으로 서버가 세션 관리하는?
+
+이건 그냥 쿠키 & 세션이잖아. 
+뭐가 다른데? 
+
+
+---
+Q3. CORS가 뭐지?
+
+
+
+---
+Q4. CSRF가 뭐지?
+
+
+---
+Q5. JwtAuthorizationFilter? what is authorization anyway?
+
+authorization은 회원가입할 때, ROLE_USER, ROLE_MANAGER, ROLE_ADMIN 권한부여하는거 아냐? 
+
+JwtAuthorizationFilter 보니까, 유저가 서버한테 HttpRequest보낼 때, 헤더에 jwt토큰 담아서 보내면,
+서버가 복호화 해서 서버가 가지고 있는 토큰이랑 맞나 보네?
+
+
+근데 이거 세션 아님?
+
+암호화가 들어간 세션인건가? 
+세션에 암호화가 없었나? 
+쿠키 & 세션부터 봐야할 것 같다. 
+
+
+
+---
+Q6. JwtAuthenticationFilter? what is authentication anyway?
+
+
+일단 Authentication은 로그인했다고 주장하는 이놈이 진짜 유저가 맞는지 확인하는거 아닌가?
+JwtAuthorizationFilter 보면, 로그인 주장하는 유저가 보낸 id,pw를 헤더에 유저정보로 받아서
+authenticationManager.authenticate() 하는데,
+쟤가 내부적으로 어떻게 돌지?
+
+그냥 유저 정보 담은 jwt토큰 넣어주면 장땡인건가? 
+
+
+
+
+
+
+
+
+
+
