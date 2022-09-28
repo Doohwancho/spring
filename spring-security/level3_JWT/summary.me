@@ -419,4 +419,126 @@ ip주소 몇에 포트번호 몇에 어떤 규칙으로 통신할 때 패킷 보
 
 
 
+---
+what is JWT?
+
+
+
+cookie -> session -> jwt 한단계 업그레이드된 보안 방법인듯? 
+
+
+공식문서에서 보면 ECDSA라는 암호화 방식을 쓴다네. 
+json은 Base64Url로 암호화, 복호화 한다네.
+내용을 Base64Url로 암호화 한다는데, 내용을 암호화 하는게 jwt의 주요 목적이 아니라,
+보낸 이가 client가 맞는지 authenticate하는게 jwt의 목적인듯?
+
+그걸 세션처럼 db io가 필요하지 않고 서버에서 간단히 secret key의 .equals()를 통해서 검증하는 것. 
+
+
+
+---
+Structure of JWT?
+
+
+1. header
+2. payload
+3. signiture
+
+
+
+
+1. header엔, 어떤 알고리즘을 사용했는지. 
+{
+	"alg":"HS256",
+	"typ":"JWT"
+}
+
+알고리즘은 HS256을 사용했고, 타입은 JWT 타입이다.
+
+
+
+2. payload엔, 클레임이 있음 
+
+2-a. 등록된 클레임 (필수는 아닌데 권장됨. 발행자는 누구고, etc) 
+2-b. 개임 클레임 (여기에 유저 정보 넣어서 보내는 것) 
+ 
+
+
+3. signiture엔, 
+
+HMACSHA256(
+	base64UrlEncode(header) + "." + 
+	base64UrlEncode(payload),
+	secret 
+)
+
+
+저 secret은 private key임.(서버만 알고있는 jwt secret key) 
+
+
+
+
+---
+how JWT works?
+
+
+1. 먼저 클라이언트가 로그인 시도 후 성공함.
+	그러면 서버가 클라이언트에게 기존에 세션 방식 땐 {setCookie: {JSESSION: "ASDFASDLKFASJDG-ASLDKFJASDLKFJ"}} 이렇게 줬었는데, 이걸 대신해서 JWT토큰을 줌. 
+	jwt 토큰에 헤더는 HS256 담겨있겠고, payload는 유저 아이디 담겨있겠지? 
+
+2. JWT token에서 세번째 signiture에 header, payload, 서버만 아는 secret 담겨 있잖아? 
+	header, payload를 base64Url로 암호화 시켜서 시크릿이랑 합쳐. 
+	encoded_header+encoded_payload+secret 를 합쳐서 HS256로 암호화 해. 
+	(이렇게 어떤 내용에 시크릿 키 더해서 암호화 하는 방식을 'HMAC 암호화' 라고 함)
+
+3. 이 jwt토큰을 클라이언트에게 보냄. 그럼 이 jwt토큰을 클라이언트는 웹 브라우저 로컬 스토리지에 https://jwt.io에 저장함.  
+
+4. client->server 요청시, jwt token 담아서 보냄. 세션처럼. 
+
+5. 서버는 이 jwt를 어떻게 authenticate 하냐면, 아까 jwt token에 3. signiture에 encoded_header+encoded_payload+secret 를 HS256으로 암호화 했던걸 복호화 해서, 저 secret이 서버에서 보관하던 secret과 동일한지 확인.
+(아 그래서 payload안의 내용 (ex. 유저아이디)는 걍 base64Url로 암호화 해서 해커한테 보여줘도 어짜피 secret 키 검증을 못하니까 괜찮구나) 
+(결국 JWT방식을 내용을 암호화 하는게 목적이 아니라, 보낸이가 맞는지 확인하는 전자서명을 목적으로 만들어졌구나)
+
+
+
+
+---
+how RSA in JWT works?
+
+
+client, server의 private key를 jwt로 어떻게 안전하게 보내지?
+
+jwt token은
+1. header
+2. payload
+3. signiture
+
+로 구성되는데,
+원래는 header="HS256", payload="user info" signiture=header + payload + server_secret 이었다면,
+RSA방식으로 각자의 secret key를 jwt token으로 보낼 땐,
+3. signiture은 비우고,
+1. header = "RSA", 2. payload="private key" 로 보냄.
+
+
+
+
+---
+그래서 JWT가 session보다 장점이 뭔데?
+
+
+
+세션은 로드밸런싱 때문에 서버가 여러개로 갈리면, 여러 서버가 유저 세션을 동기화해서 가지고 있기 어려우니까,
+세션 전용 디비 써야하는데, db query io가 엄청 느리다 그랬잖아?
+
+근데 jwt는 어느 서버든, secret 문자열 값만 알고 있으면, 
+jwt token에서 client가 보냈다는걸 authenticate 할 수 있으니까, 
+user authentication을 db io까지 안가고 서버 RAM에서 static하게 .equals()로 비교검증해서 훨~씬 빠름.
+
+
+
+
+
+
+
+
 
