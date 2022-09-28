@@ -43,7 +43,12 @@ e-8. what is RFC document? :white_check_mark:\
 e-9. what is jwt? :white_check_mark:\
 e-10. structure of jwt :white_check_mark:\
 e-11. how RSA in jwt works? :white_check_mark:\
-e-12. how jwt solved problem of session? :white_check_mark\
+e-12. how jwt solved problem of session? :white_check_mark:\
+e-13. what is bearer? :white_check_mark\
+e-14. jwtAuthenticationFilte :white_check_mark\r
+e-15. jwtAuthorizationFilter :white_check_mark\
+e-x. springboot(jwt+Oauth2)\
+e-x. springboot+react(jwt+Oauth2)
 
 ---\
 reference
@@ -58,6 +63,7 @@ b-1. [세션, 쿠키로 로그인을 어떻게 유지시키는가?.youtube](http
 d-1~4. [spring boot security oauth v2 by meta coding](https://github.dev/codingspecialist/Springboot-Security-OAuth2.0-V2)
 
 e-1. [jwt, token based login.youtube](https://www.youtube.com/watch?v=zC5dLbZMAW0) \
-e-2~12. [springboot security jwt easy by meta coding](https://github.dev/codingspecialist/Springboot-Security-JWT-Easy)
-
+e-2~15. [springboot security jwt easy by meta coding](https://github.dev/codingspecialist/Springboot-Security-JWT-Easy)\
+e-x. [springboot(jwt+Oauth2)](https://github.com/codingspecialist/Springboot-Oauth2.0-Facebook-Google-Login-JWT)\
+e-x. [springboot+react(jwt+Oauth2)](https://github.com/codingspecialist/Springboot-JWT-React-OAuth2.0-Eazy)
 

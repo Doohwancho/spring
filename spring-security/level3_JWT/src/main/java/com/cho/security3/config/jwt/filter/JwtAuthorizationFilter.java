@@ -1,4 +1,4 @@
-package com.cho.security3.config.jwt;
+package com.cho.security3.config.jwt.filter;
 
 import java.io.IOException;
 
@@ -17,9 +17,17 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
 import com.cho.security3.config.auth.PrincipalDetails;
+import com.cho.security3.config.jwt.JwtProperties;
 import com.cho.security3.model.User;
 import com.cho.security3.repository.UserRepository;
 
+
+/*
+ * 스프링 시큐리티 필터에서, 권한 || 인증 필요한 페이지 접근하면, 무조건 BasicAuthenticationFilter를 거쳐야 함.
+ * ROLE_USER 이런 애들 있잖아. 
+ * 
+ * 이 필터를 통해 이 client 권한 있다라고 증명하는 것 
+ */
 
 // 인가
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
@@ -31,10 +39,15 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
 		this.userRepository = userRepository;
 	}
 	
+	//JwtAuthenticationFilter에서 보낸 Bearer ${jwt token} 보낸걸, 
+	//유저가 ROLE_MANAGER 같은 권한 필요한 페이지에 HttpRequest 요청시, 헤더에 Authorization: 위에 Bearer jwt 담아 보내는데,
+	//저 Authorization 헤더에 jwt 토큰을 가져다가 읽어서, 해당유저가 맞고 권한있다고 인증하는 것. 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
+		
 		String header = request.getHeader(JwtProperties.HEADER_STRING);
+		
 		if(header == null || !header.startsWith(JwtProperties.TOKEN_PREFIX)) {
 			chain.doFilter(request, response);
                         return;
@@ -52,7 +65,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
 			User user = userRepository.findByUsername(username);
 			
 			// 인증은 토큰 검증시 끝. 인증을 하기 위해서가 아닌 스프링 시큐리티가 수행해주는 권한 처리를 위해 
-			// 아래와 같이 토큰을 만들어서 Authentication 객체를 강제로 만들고 그걸 세션에 저장!
+			// 아래와 같이 토큰을 만들어서 Authentication 객체를 강제로 만들고 그걸 스프링 시큐리티 세션에 저장!
+			// 왜? PrincipalDetails를 시큐리티 컨텍스트에 안담으면, 권한관리(특정 페이지는 ROLE_USER만 들어오고, ROLE_MANAGER만 들어오고 등..) 가 안되기 때문.
 			PrincipalDetails principalDetails = new PrincipalDetails(user);
 			Authentication authentication =
 					new UsernamePasswordAuthenticationToken(

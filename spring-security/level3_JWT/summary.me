@@ -1,11 +1,3 @@
----
-concepts
-
-how session works? 
-what is cia?
-what is jwt?
-
-
 
 ---
 Q1. pom.xml에서 디펜던시에
@@ -18,6 +10,10 @@ Q1. pom.xml에서 디펜던시에
 
 이렇게 추가되있는데, 얘가 jwt 라이브러린가? 
 
+
+A. jwt토큰 암호화 하는데,
+header, payload, signiture에서 base64Url로 각각 암호화 한 후, 수동으로 합치는게 귀찮으니까,
+이걸 자동으로 해주는 라이브러리를 쓰는 것.  
 
 
 
@@ -32,7 +28,7 @@ String username = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().v
 
 이렇게 쓰는듯? 
 
-jwt이라는게 암호화 알고리즘인가? 
+
 
 
 ---
@@ -49,17 +45,48 @@ Q2. jwt가 뭐지?
 뭐가 다른데? 
 
 
+
+A. 아래에 자세히 설명해놓음. 
+
+
 ---
 Q3. CORS가 뭐지?
 
 
 
----
-Q4. CSRF가 뭐지?
+@Configuration
+public class CorsConfig {
+
+   @Bean
+   public CorsFilter corsFilter() {
+      UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+      CorsConfiguration config = new CorsConfiguration();
+      config.setAllowCredentials(true); //내 서버가 응답할 때, json을 자바스크립트에서 처리할 수 있게 설정하는 것. 이게 false면 js axiom등으로 요청와도 response가 안감. 
+      config.addAllowedOrigin("*"); // 모든 ip에 응답하겠다. e.g. http://domain1.com
+      config.addAllowedHeader("*"); // 모든 header에 응답을 허용하겠다. 
+      config.addAllowedMethod("*"); // 모든 post, get, delete, put, patch, 요청을 허용하겠다 라는 뜻. 
+
+      source.registerCorsConfiguration("/api/**", config);
+      return new CorsFilter(source);
+   }
+
+}
 
 
+SecurityConfig.java에서 
+
+http.addFilter(corsConfig.corsFilter())
+
+서브릿 필터에 걸어서 쓰네? 
+HttpRequest에 대해, 보안 때문에 제한사항 거는 놈인듯? 
+
+
+
+
+
 ---
-Q5. JwtAuthorizationFilter? what is authorization anyway?
+Q4. JwtAuthorizationFilter? what is authorization anyway?
+
 
 authorization은 회원가입할 때, ROLE_USER, ROLE_MANAGER, ROLE_ADMIN 권한부여하는거 아냐? 
 
@@ -76,7 +103,7 @@ JwtAuthorizationFilter 보니까, 유저가 서버한테 HttpRequest보낼 때, 
 
 
 ---
-Q6. JwtAuthenticationFilter? what is authentication anyway?
+Q5. JwtAuthenticationFilter? what is authentication anyway?
 
 
 일단 Authentication은 로그인했다고 주장하는 이놈이 진짜 유저가 맞는지 확인하는거 아닌가?
@@ -85,6 +112,43 @@ authenticationManager.authenticate() 하는데,
 쟤가 내부적으로 어떻게 돌지?
 
 그냥 유저 정보 담은 jwt토큰 넣어주면 장땡인건가? 
+
+
+
+A. 
+
+Authorization = 권한 부여 
+Authentication = 인증 
+
+
+1. Authentication
+인증은 로그인 한 직후, server->client로 유저가 jwt token 보내주잖아?
+그걸 JwtAuthenticationFilter 여기서 처리함.
+
+client->server 유저가 매 HttpRequest 에 Header에 jwt token담아서 보내는데,
+그게 서버꺼랑 일치하는지 인증하는 것도 여기서 처리함.
+
+
+
+2. Authorization
+
+유저가 ROLE_USER, ROLE_MANAGER같은 권한 요구되는 페이지에 접근할 때, 
+JwtAuthorizationFilter extends BasicAuthenticationFilter 여기를 거침.
+
+HttpRequestHeader에 Authorization: jwt token 까서 secret 키가 서버의 secret키와 일치하는지 확인한 후,
+일치하면 권한 맞다고 해줌. 
+
+
+
+또한, jwt쓰면 유저 정보를 스프링 시큐리티 세션에서 관리하는게 아니기 때문에,
+컨트롤러에서 @Principal 못쓰니까,
+여기서 수동으로 PrincipalDetails 만들어서,
+SecurityContextHolder.getContext().setAuthentication(authentication); 
+로 유저 정보를 스프링 시큐리티 세션 컨텍스트에 넣어줘야함. 
+
+  
+  
+  
 
 
 
@@ -486,10 +550,25 @@ how JWT works?
 	그러면 서버가 클라이언트에게 기존에 세션 방식 땐 {setCookie: {JSESSION: "ASDFASDLKFASJDG-ASLDKFJASDLKFJ"}} 이렇게 줬었는데, 이걸 대신해서 JWT토큰을 줌. 
 	jwt 토큰에 헤더는 HS256 담겨있겠고, payload는 유저 아이디 담겨있겠지? 
 
-2. JWT token에서 세번째 signiture에 header, payload, 서버만 아는 secret 담겨 있잖아? 
+2. JWT token에서 
+
+	첫번째 header, 두번째 payload는 각각 base64Url로 암호화 함. 
+	
+	세번째 signiture에는 header, payload, 서버만 아는 secret 담겨 있잖아? 
 	header, payload를 base64Url로 암호화 시켜서 시크릿이랑 합쳐. 
-	encoded_header+encoded_payload+secret 를 합쳐서 HS256로 암호화 해. 
+	base64Url_header+base64Url_payload+secret 를 합쳐서 HS256로 암호화 해. 
 	(이렇게 어떤 내용에 시크릿 키 더해서 암호화 하는 방식을 'HMAC 암호화' 라고 함)
+	
+	결국, 
+	
+	jwt{
+		base64Url(header),
+		base64Url(payload),
+		base64Url(HS256( base64Url(header)+base64Url(payload)+ secret )
+	}
+	
+	이렇게 보내지게 됨. 
+	
 
 3. 이 jwt토큰을 클라이언트에게 보냄. 그럼 이 jwt토큰을 클라이언트는 웹 브라우저 로컬 스토리지에 https://jwt.io에 저장함.  
 
@@ -538,7 +617,24 @@ user authentication을 db io까지 안가고 서버 RAM에서 static하게 .equa
 
 
 
+---
+bearer, authorization 방식의 진화
 
+1. cookie 방식
+2. http basic 방식 -> https basic 방식 
+3. bearer 방식 
+
+
+
+client->server로 나 ROLE_MANAGER 있는 유저야! 라는걸
+권한인증 어떻게 하지?
+ 
+http basic 방식은 HttpRequestHeader에
+
+쿠키는 탈취 가능함 + 동일 도메인에서만 요청 올 때에만 발동함. CORS정책 때문. 다른 도메인에서 같은 쿠키 보내면 서버측에서 거부함.
+세션은 위에 적은 세션 단점 때문에 안좋고 
+https basic 방식은 headers에 {authorization: id, pw} 매 요청마다 암호화 해서 보내는건데, 아무래도 매 요청마다 id,pw 담아서 보내는게 보안상 좀... 아무리 암호화 한다고 해도..
+Bearer은 id,pw 보내는거 대신, 서버에서 n분마다 발급하는 토큰 보내는 것. id,pw보다 안전한게, 특정 시간 지나면 만료되니까, http basic 방식보다 그나마 안전함.  
 
 
 
