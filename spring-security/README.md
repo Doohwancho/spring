@@ -34,12 +34,12 @@ d-3. UserDetails와 OAuth2를 하나의 객체로 관리 :white_check_mark:\
 d-4. 구글 OAuth로 로그인하면 자동 회원가입 :white_check_mark:
 
 e-2. jwt project clone + curiousities list up :white_check_mark:\
-e-3. what is cookie?\
-e-4. what is session? how it works? when does it end? weakness?\
-e-5. what is cia?\
-e-6. what is RSA?\
-e-7. how does 전자 문서 서명 work from RSA?\
-e-8. what is RFC document?
+e-3. what is cookie? :white_check_mark:\
+e-4. what is session? how it works? when does it end? weakness? :white_check_mark:\
+e-5. what is cia? :white_check_mark:\
+e-6. what is RSA? :white_check_mark:\
+e-7. how does 전자 문서 서명 work from RSA? :white_check_mark:\
+e-8. what is RFC document? :white_check_mark:
 
 
 
@@ -56,6 +56,6 @@ b-1. [세션, 쿠키로 로그인을 어떻게 유지시키는가?.youtube](http
 d-1~4. [spring boot security oauth v2 by meta coding](https://github.dev/codingspecialist/Springboot-Security-OAuth2.0-V2)
 
 e-1. [jwt, token based login.youtube](https://www.youtube.com/watch?v=zC5dLbZMAW0) \
-e-2~7. [springboot security jwt easy by meta coding](https://github.dev/codingspecialist/Springboot-Security-JWT-Easy)
+e-2~8. [springboot security jwt easy by meta coding](https://github.dev/codingspecialist/Springboot-Security-JWT-Easy)
 
 
