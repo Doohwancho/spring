@@ -1,16 +1,16 @@
 package com.example.nextstep;
 
 import com.example.di.nextstep.User;
-import com.example.di.nextstep.stage0.UserService0;
-import com.example.di.nextstep.stage1.UserDao1;
-import com.example.di.nextstep.stage1.UserService1;
-import com.example.di.nextstep.stage2.InMemoryUserDao2;
-import com.example.di.nextstep.stage2.UserDao2;
-import com.example.di.nextstep.stage2.UserService2;
-import com.example.di.nextstep.stage3.DIContext3;
-import com.example.di.nextstep.stage3.InMemoryUserDao3;
-import com.example.di.nextstep.stage3.UserService3;
-import com.example.di.nextstep.stage4.DIContext4;
+import com.example.di.nextstep.jwp.stage0.UserService0;
+import com.example.di.nextstep.jwp.stage1.UserDao1;
+import com.example.di.nextstep.jwp.stage1.UserService1;
+import com.example.di.nextstep.jwp.stage2.InMemoryUserDao2;
+import com.example.di.nextstep.jwp.stage2.UserDao2;
+import com.example.di.nextstep.jwp.stage2.UserService2;
+import com.example.di.nextstep.jwp.stage3.DIContext3;
+import com.example.di.nextstep.jwp.stage3.InMemoryUserDao3;
+import com.example.di.nextstep.jwp.stage3.UserService3;
+import com.example.di.nextstep.jwp.stage4.DIContext4;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

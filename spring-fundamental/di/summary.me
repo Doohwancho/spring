@@ -1,0 +1,110 @@
+===
+DI-1. field injection - @Autowired
+
+
+---
+how @Autowired works?
+
+Servlet Context가 new UserController()할 때,
+reflection으로 UserController에 @RestController 붙은거보고,
+UserController()안에 내용 다 살피다가,
+@Autowired  annotation을 보고, DI해줌.
+
+
+
+
+---
+why we don't use @Autowired anymore?
+
+
+
+1. 순환참조 문제 해결 불가
+
+A->B->C->A ...
+
+이런식으로 순환참조 일어라는걸 @Autowired는 컴파일 타임 때 감지하지 못함.
+그러다 런타임 때, java.lang.StackOverFlowError: null 하면서 뻥 터짐 =_=;;
+
+solution: DI-3: constructor 방법을 쓰면 컴파일 때 순환참조 에러가 잡힘.
+
+
+
+2. junit으로 테스트 하기 어렵기 때문.
+
+왜 테스트하기 어렵지?
+
+예를들어 Controller는 ServiceImpl을 @Autowired로 DI 받는다고 가정하자.
+
+컨트롤러 테스트코드 짤 때, SerivceImpl을 Mock으로 해서 내가 원하는 input만 넣고 싶다면?
+@Autowired은 끈끈하게 붙어있기 때문에, new Controller를 한 시점에 이미 SerivceImpl가 주입되어있어서,
+Mock ServiceImpl을 못넣겠지?
+
+근데 만약에 생성자 주입이었다면,
+new MockServiceImpl().return("desired output");
+new Controller(MockServiceImpl()); 할 수 있잖아?
+
+
+
+
+
+
+
+===
+DI-2. setter injection
+
+
+---
+how setter injection works?
+
+
+
+Controller의 생성자가 아닌 '메서드'에서 this.service = service; 로 되어있고,
+Main에서 Controller생성 이후,
+controller.setService(new ServiceImpl1());
+controller.setService(new ServiceImpl2());
+
+이런식으로 implements Service만 된다면, 아무 서비스나 DI로 끼워넣을 수 있음.
+
+
+
+---
+why bad?
+
+1.
+service주입 안해도 Controller는 생성 가능.
+만약 컨트롤러 생성하고 Controller.callService(); 했는데
+Service가 DI 안되있었다면, NullPointerException!
+
+2.
+Controller객체 생성했을 시점에, '무조건' Service 객체를 주입받았었어야 함.
+이 문제를 해결한게 DI-3: constructor injection
+
+
+
+
+
+===
+DI-3. constructor injection
+
+
+장점1. Null pointer Exception을 compile time에서 감지
+
+DI-2. setter injection의 문제를 해결하기 위해,
+Controller 객체 생성 시, 생성자에 Service DI를 박아버림으로써,
+NullPointerException의 가능성 원천 차단.
+
+객체 생성 시점에 DI가 안되면 컴파일 에러 뜸.
+
+
+장점2. immutable
+또한 DI Service를 아래와 같이 final로 선언하기 때문에,
+private final Service service;
+
+누군가가 나중에 런타임 때 Controller에 Service객체 바꿔치기도 못함.
+
+
+장점3. 순환참조 감지 가능
+순환참조시 앱 구동 실패함
+
+
+장점4. 테스트 코드 작성 용이
