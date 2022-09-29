@@ -1,0 +1,93 @@
+===
+A. Controller
+
+
+table of Contents for Controller
+
+1. x-www-form-urlencoded -> request.getParamter()
+2. plain/text (raw) -> String data
+3. application/json -> @RequestBody User user
+4. @PathVariable @GET("/user/{id}") -> @PathVariable id
+
+
+
+
+---
+Q. x-www-form-urlencoded 으로 보내면?
+
+
+x-www-form-urlencoded => request.getParamter()
+
+라는데, 이게 뭐지?
+
+Postman에서 HttpRequest보낼 떄, 여러 옵션 있잖아?(raw도 있고, form-data도 있고, binary도 있고, etc)  그 중 하나.
+
+
+
+A. UserController.save()에서,
+
+원래는
+public CommonDto<?> save(String username, String password, String phone) {}
+
+이렇게 되어있는데, 스프링 파라미터에 일반적인 자료형으로 적혀있으면,
+client->server로 HttpRequest요청 보낼 떄, x-www-form-urlencoded 이 형식으로 보내는데,
+이 형식을 파싱해서, 아래에
+"String username, String password, String phone"
+리플렉션에서 알아서 적절한 파라미터에 값을 넣어줌.
+와!
+
+String username에 request.getParameter(username) 해서 넣어주고,
+String password엔 request.getParameter(password) 해서 넣어주고,
+String phone엔 request.getParameter(phone) 해서 넣어줌.
+
+
+
+---
+Q. text/plain 으로 보내면?
+
+만약에 Postman에서 HttpRequest를 raw로 보낸다면,
+ex.
+username: abc, password: abc, phone: 123
+
+이렇게 보내면?
+
+A. @RequestBody + String 으로 받음.
+
+ex.
+public void save(@RequestBody String data){} 로 받음.
+
+근데, 한줄짜리 String으로 오기 때문에, 수동 파싱 해줘서 써야 함.
+그래서 raw타입으로 보내지 말고, application/json로 주고받자.
+
+
+---
+Q. application/json으로 보내면?
+
+
+A. @RequestBody로 받는데, String 말고 Object로 받아야 함.
+
+ex.
+
+Postman에서 HttpRequest에 raw타입으로 보내되,
+
+{
+    "username":"cho",
+    "password":"1234",
+    "phone":"010-1234-1234"
+}
+이렇게 보내면, header가 자동으로 application/json으로 바뀜.
+
+public void save(@RequestBody User user){}
+
+이렇게 받음.
+
+
+
+---
+@PathVariable
+
+@Get("/user/{id}")
+
+에서, {} 안에 있는거 파싱해서 id만 쏙 빼옴
+
+(@PathVariable id int)
