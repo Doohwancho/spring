@@ -1,19 +1,19 @@
 ===
+Table of Contents
+
+
 A. Controller
-
-
-table of Contents for Controller
 
 1. x-www-form-urlencoded -> request.getParamter()
 2. plain/text (raw) -> String data
 3. application/json -> @RequestBody User user
 4. @PathVariable @GET("/user/{id}") -> @PathVariable id
-
+5. @CrossOrigin
 
 
 
 ---
-Q. x-www-form-urlencoded 으로 보내면?
+A-1. x-www-form-urlencoded 으로 보내면?
 
 
 x-www-form-urlencoded => request.getParamter()
@@ -43,7 +43,7 @@ String phone엔 request.getParameter(phone) 해서 넣어줌.
 
 
 ---
-Q. text/plain 으로 보내면?
+A-2. text/plain 으로 보내면?
 
 만약에 Postman에서 HttpRequest를 raw로 보낸다면,
 ex.
@@ -61,7 +61,7 @@ public void save(@RequestBody String data){} 로 받음.
 
 
 ---
-Q. application/json으로 보내면?
+A-3. application/json으로 보내면?
 
 
 A. @RequestBody로 받는데, String 말고 Object로 받아야 함.
@@ -84,10 +84,22 @@ public void save(@RequestBody User user){}
 
 
 ---
-@PathVariable
+A-4. @PathVariable
 
 @Get("/user/{id}")
 
 에서, {} 안에 있는거 파싱해서 id만 쏙 빼옴
 
 (@PathVariable id int)
+
+---
+A-5. @CrossOrigin
+
+
+사람들이 client 브라우저단에서 js로 ajax call로 HttpRequest에 워낙 장난질 많이 하니까,
+서버 내부에서 하는 거 제외하고,
+서버 외부에서 자바스크립트로 HttpRequest 못하게 원천봉쇄하는게 CORS정책.
+
+
+@CrossOrigin은 CORS정책 안쓰겠다는 뜻.
+.html에서 $.ajax{} 로 HttpRequest 손수 만들어서 보내려고할 떄 사용.
