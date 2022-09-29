@@ -16,9 +16,9 @@ f. web application server :white_check_mark:\
 g. tomcat :white_check_mark:\
 h. servlet :white_check_mark:\
 i. reflection(annotation -> {di, applicationContext, dispatcher, RequestMapping, componentScan} + DTO) :white_check_mark:\
-x. IOC\
-x. AOP\
+j. AOP\
 x. Filter, Interceptor\
+x. IOC\
 x. Exception\
 x. multipart\
 x. logging\
@@ -68,6 +68,8 @@ i-3. 우테코 reflection 예제 해결 :white_check_mark:\
 i-4. copy reflection by meta coding :white_check_mark:\
 i-5. analyze reflection by meta coding - implement Dispatcher, componentScan + DTO :white_check_mark:
 
+j-1. project init - meta coding aop :white_check_mark:
+
 ---\
 reference
 
@@ -102,7 +104,7 @@ i-3. [우테코 - reflexion 예제 문제 해결](https://github.dev/woowacourse
 i-4. [copy reflection by meta coding](https://github.dev/codingspecialist/Reflection-Controller) \
 i-5. [analyze reflection by meta coding - implement Dispatcher, componentScan + DTO](https://www.youtube.com/watch?v=P5fPc2tjOko&list=PL93mKxaRDidFGJu8IWsAAe0O7y6Yw9f5x&index=1)
 
-
+j-1. [project init - meta coding aop](https://github.dev/codingspecialist/Springboot-Special-Lecture)
 
 ---
 

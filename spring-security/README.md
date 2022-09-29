@@ -12,7 +12,7 @@ a. spring security basics :white_check_mark:\
 b. cookie\
 c. session\
 d. OAuth :white_check_mark:\
-e. jwt
+e. jwt :white_check_mark:
 
 
 
