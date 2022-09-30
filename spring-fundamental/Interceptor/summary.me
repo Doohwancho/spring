@@ -1,0 +1,88 @@
+---
+interceptor vs filter
+
+
+1. filter
+
+@Override
+public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+        throws IOException, ServletException {
+    System.out.println("필터1");
+    chain.doFilter(request, response);
+}
+
+filter는 HttpRequest가 DispatcherServlet으로 전달되기 전, tomcat(web container)에게 실행됨.
+doFilter는 파라미터로 FilterChain chain을 받는데,
+처리한 이후,
+chain.doFilter()로 다음 체인 안에 필터로 보냄.
+
+
+그리고 코드를 자세히 보면, 필터는 HttpRequest, HttpResponse 조작 가능. null을 넣는다던지. (인터셉터는 안됨)
+그래서 필터는 보통
+1. 보안 인증/인가 작업
+2. 모든 요청에 대한 logging, 검사
+3. 이미지/데이터 압축 및 문자열 인코딩
+4. Spring과 무관하게 전역적으로 처리해야하는 기능들(보안검사 XSS, etc)
+
+등, HttpRequest에 직접 관여하는 작업을 함.
+
+
+2. interceptor
+
+filter체인이 다 끝나고, HttpRequest가 web context에서 spring context로 넘어온 이후,
+DispatcherServlet이 Controller을 호출하기 전, 후에 요청을 가공할 때, interceptor을 쓴다.
+
+DispatcherServlet -> Interceptor -> Controller
+
+이미 Security chain, filter chain 다 거치고 온 놈이라,
+Principal 객체같은 애들이 다 가공된 시점이라, 가져오면 있을껄?
+whereas security filter chain앞에 박아둔 custom filter는 principal 객체 없을거아냐.
+
+
+
+Interceptor Handler의 Interface는 다음과 같다.
+
+
+public interface HandlerInterceptor {
+
+    default boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+        throws Exception {
+
+        return true;
+    }
+
+    default void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+        @Nullable ModelAndView modelAndView) throws Exception {
+    }
+
+    default void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
+        @Nullable Exception ex) throws Exception {
+    }
+}
+
+
+1. preHandle == 컨트롤러 이전에 처리해야 하는 전처리 작업
+2. postHandle == 컨트롤러 직후 후처리 작업. 특히 ModelView 객체 조작해야할 때 사용한다곤 하는데 사실 쓸 일 거의 없다. 중간에 예외 발생하면 postHandle() 호출 안함.
+3. afterCompletion == finally같은 존재. 예외 발생해도 afterCompletion() 무조건 호출함.
+
+
+
+코드를 자세히 보면, HttpRequest, HttpResponse 조작 불가능. return true나 void로 되어있잖아.
+그래서 인터셉터는 주로
+1. API 호출에 대한 로깅 검사
+2. 컨트롤러 정보 넘겨줄 때 전처리
+3. 세부적인 보안,인증,인가 공통작업
+4. 다양한 목적으로 API호출에 대한 정보 기록할 때 등..
+
+처리함.
+
+
+
+---
+interceptor vs AOP
+
+
+
+AOP에서 reflection으로 컨트롤러 처리하기 가능은한데, 번거롭잖아?
+쉬운 인터셉터 쓰자.
+

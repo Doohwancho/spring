@@ -3,6 +3,24 @@ Objective
 
 modularize springboot fundamental concepts
 
+
+---\
+Approach
+
+
+1. overall process
+2. tomcat
+3. servlet
+4. reflection
+5. di
+6. spring security
+7. aop
+8. filter
+9. interceptor
+10. httpcache
+11. springboot cache
+
+
 ---\
 Concepts
 
@@ -17,8 +35,9 @@ g. tomcat :white_check_mark:\
 h. servlet :white_check_mark:\
 i. reflection(annotation -> {di, applicationContext, dispatcher, RequestMapping, componentScan} + DTO) :white_check_mark:\
 j. AOP :white_check_mark:\
-k. Filter, Interceptor\
+k. Filter\
 l. spring-annotation\
+m. Interceptor\
 x. IOC\
 x. dispatcher\
 x. Exception\
@@ -81,6 +100,7 @@ j-5. vo 그냥 안쓰고 dto 따로 설계하는 이유 :white_check_mark:\
 j-6. sentry :white_check_mark:\
 j-7. Message Converter :white_check_mark:
 
+k-1. filter init :white_check_mark:
 
 l-1. controller: x-www-form-urlencoded -> (String id, String pw) :white_check_mark:\
 l-2. controller: text/plain(raw) -> @RequestBody String data :white_check_mark:\
@@ -88,6 +108,9 @@ l-3. controller: application/json -> @RequestBody User user :white_check_mark:\
 l-4. controller: @PathVariable :white_check_mark:\
 l-5. controller: @CrossOrigin :white_check_mark:\
 l-6. controller: @Valid :white_check_mark:
+
+m-1. interceptor init :white_check_mark:\
+m-2. interceptor vs filter
 
 ---\
 reference
@@ -124,8 +147,12 @@ i-3. [우테코 - reflexion 예제 문제 해결](https://github.dev/woowacourse
 i-4. [copy reflection by meta coding](https://github.dev/codingspecialist/Reflection-Controller) \
 i-5. [analyze reflection by meta coding - implement Dispatcher, componentScan + DTO](https://www.youtube.com/watch?v=P5fPc2tjOko&list=PL93mKxaRDidFGJu8IWsAAe0O7y6Yw9f5x&index=1)
 
+k-1. [filter init](https://blog.naver.com/getinthere/222094919059)
+
 j-1~7. [project init - meta coding aop](https://github.dev/codingspecialist/Springboot-Special-Lecture)
 
+m-1. [interceptor init](https://blog.naver.com/PostView.naver?blogId=getinthere&logNo=221718319587&categoryNo=42&parentCategoryNo=0&viewDate=&currentPage=8&postListTopCurrentPage=&from=postList&userTopListOpen=true&userTopListCount=10&userTopListManageOpen=false&userTopListCurrentPage=8) \
+m-2. [interceptor vs filter vs aop](https://mangkyu.tistory.com/173)
 
 ---
 
