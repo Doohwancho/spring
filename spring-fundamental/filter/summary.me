@@ -1,0 +1,42 @@
+---
+Q.Filter는 Bean에 수동 등록해줘야 하나?
+
+
+
+client -> server 로 HttpRequest보낼 때,
+먼저 tomcat, servlet이 관리하는 web context에서 Filter처리가 끝나면,
+그 이후에 spring context에 들어가서 Dispatcher Servlet으로 가는거잖아?
+
+그러면 Bean은 spring context 안에서 관리하는건데,
+filter는 web context에서 작동하는 놈이니까, @Bean등록이 불가능하겠네?
+
+
+---
+spring level
+
+A. ㅇㅇ 원래는 필터는 스프링 빈 등록 불가능 했음.
+
+그러다가, DelegatingFilterProxy가 등장하면서, spring context에서 필터를 빈 등록 가능하게 됨.
+
+1. Filter 구현체가 스프링 빈으로 등록됨
+2. ServletContext가 Filter 구현체를 갖는 DelegatingFilterProxy를 생성함
+3. ServletContext가 DelegatingFilterProxy를 서블릿 컨테이너에 필터로 등록함
+4. 요청이 오면 DelegatingFilterProxy가 필터 구현체에게 요청을 위임하여 필터 처리를 진행함
+
+
+public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+
+   public void onStartup(ServletContext servletContext) throws ServletException {
+      super.onStartup(servletContext);
+      servletContext.addFilter("myFilter", DelegatingFilterProxy.class);
+   }
+}
+
+이런식으로 MyFilter를 DelegatingFilterProxy에 등록해서 썼었음.
+
+
+---
+springboot level
+
+스프링 부트가 톰캣같은 서브릿 컨테이너까지 관리하면서, 필터체인까지 빈으로 등록해서 관리해줌. 개꿀!
+

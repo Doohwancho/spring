@@ -35,9 +35,9 @@ g. tomcat :white_check_mark:\
 h. servlet :white_check_mark:\
 i. reflection(annotation -> {di, applicationContext, dispatcher, RequestMapping, componentScan} + DTO) :white_check_mark:\
 j. AOP :white_check_mark:\
-k. Filter\
+k. Filter :white_check_mark:\
 l. spring-annotation\
-m. Interceptor\
+m. Interceptor :white_check_mark:\
 x. IOC\
 x. dispatcher\
 x. Exception\
@@ -100,7 +100,8 @@ j-5. vo 그냥 안쓰고 dto 따로 설계하는 이유 :white_check_mark:\
 j-6. sentry :white_check_mark:\
 j-7. Message Converter :white_check_mark:
 
-k-1. filter init :white_check_mark:
+k-1. filter init :white_check_mark:\
+k-2. DelegatingFilterProxy로 Filter를 빈에 등록 :white_check_mark:
 
 l-1. controller: x-www-form-urlencoded -> (String id, String pw) :white_check_mark:\
 l-2. controller: text/plain(raw) -> @RequestBody String data :white_check_mark:\
@@ -110,7 +111,7 @@ l-5. controller: @CrossOrigin :white_check_mark:\
 l-6. controller: @Valid :white_check_mark:
 
 m-1. interceptor init :white_check_mark:\
-m-2. interceptor vs filter
+m-2. interceptor vs filter vs aop :white_check_mark:
 
 ---\
 reference
@@ -147,7 +148,8 @@ i-3. [우테코 - reflexion 예제 문제 해결](https://github.dev/woowacourse
 i-4. [copy reflection by meta coding](https://github.dev/codingspecialist/Reflection-Controller) \
 i-5. [analyze reflection by meta coding - implement Dispatcher, componentScan + DTO](https://www.youtube.com/watch?v=P5fPc2tjOko&list=PL93mKxaRDidFGJu8IWsAAe0O7y6Yw9f5x&index=1)
 
-k-1. [filter init](https://blog.naver.com/getinthere/222094919059)
+k-1. [filter init](https://blog.naver.com/getinthere/222094919059) \
+k-2. [DelegatingFilterProxy로 Filter를 빈에 등록](https://mangkyu.tistory.com/221?category=761302)
 
 j-1~7. [project init - meta coding aop](https://github.dev/codingspecialist/Springboot-Special-Lecture)
 
@@ -182,10 +184,11 @@ x-1. [우테코 - 레거시 코드 리펙토링](https://github.com/woowacourse/
 
 x-1. [우테코- 패킷 구현](https://github.dev/woowacourse/jwp-network)
 
+x-1. logging - sentry
 
-x-1. dispatcher
-    ..가 하는 일
-    1. 주소 매핑
-    2. reflection으로 IoC컨테이너에 @Controller 등 어노테이션 붙은 빈들 집어넣음.
+x-1. dispatcher\
+    ..가 하는 일\
+    1. 주소 매핑\
+    2. reflection으로 IoC컨테이너에 @Controller 등 어노테이션 붙은 빈들 집어넣음.\
     3. 해당 빈의 메서드들이 요구하는 parameter랑 HttpRequest의 값을 비교해서 DI해줌
     
