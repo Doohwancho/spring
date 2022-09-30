@@ -9,6 +9,7 @@ A. Controller
 3. application/json -> @RequestBody User user
 4. @PathVariable @GET("/user/{id}") -> @PathVariable id
 5. @CrossOrigin
+6. @Valid
 
 
 
@@ -103,3 +104,17 @@ A-5. @CrossOrigin
 
 @CrossOrigin은 CORS정책 안쓰겠다는 뜻.
 .html에서 $.ajax{} 로 HttpRequest 손수 만들어서 보내려고할 떄 사용.
+
+
+---
+A-6. @Valid
+
+vo User를 HttpRequest, HttpResponse나,
+save,update,list 등 다른 상황에서 다른 필드가 필요하고,
+각 필드마다 다른 상황에서 @Valid 조건이 다르니까,
+JoinReqDto, SaveReqDto 등으로 구분해서,
+각각 다른 필드에 각각 다른 @Valid 넣어줌.
+
+@Valid넣어준건 public CommonDto<?> save(@Valid @RequestBody JoinReqDto dto, BindingResult bindingResult) {}
+이렇게 컨트롤러에서 받고,
+@Valid 체크는 aop.BindingAdvice.validCheck()에서 함.

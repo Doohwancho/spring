@@ -1,13 +1,18 @@
 package com.cho.annotation.controller;
 
+import com.cho.annotation.domain.CommonDto;
+import com.cho.annotation.domain.JoinReqDto;
 import com.cho.annotation.domain.User;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
-public class Controller {
+import javax.validation.Valid;
+
+
+@Controller
+public class UserController {
 
 
     //case1) x-www-form-urlencoded
@@ -29,6 +34,7 @@ public class Controller {
     }
 
 
+    //case4) @PathVariable
     // http://localhost:8080/user/2
     @GetMapping("/user/{id}")
     public void findById(@PathVariable int id) { //@PathVariable은 저 url에서 {}로만 감싸면, {id}를 int로 파싱해서 넣어줌.
@@ -39,5 +45,13 @@ public class Controller {
     @GetMapping("/user")
     public void corsHandler(){
 
+    }
+
+
+    @CrossOrigin
+    @PostMapping("/user")
+    public CommonDto<?> save(@Valid @RequestBody JoinReqDto dto, BindingResult bindingResult) {
+//        userRepository.save(dto);
+        return new CommonDto<>(HttpStatus.CREATED.value(), "ok");
     }
 }
