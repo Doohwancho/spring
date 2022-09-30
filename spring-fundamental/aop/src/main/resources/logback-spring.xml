@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property name="LOGS_ABSOLUTE_PATH" value="./logs" />
+    <property name="LOGS_ABSOLUTE_PATH" value="./logs" /> <!-- 센트리가 로그파일 만들 때 마다, 프로젝트 폴더에 logs/라는 폴더가 생기고 그 안에 저장할 것 -->
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender"> <!-- 콘솔로 찍어! -->
         <layout class="ch.qos.logback.classic.PatternLayout">
             <Pattern>[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{36} - %msg%n</Pattern>
         </layout>
     </appender>
 
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender"> <!-- 파일로 로그를 남겨! 센트리가 로그파일 날짜별로 폴더 알아서 만들어서 관리해줌. -->
         <file>${LOGS_ABSOLUTE_PATH}/logback.log</file>
         <encoder>
             <pattern>[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{35} - %msg%n</pattern>
@@ -16,17 +16,17 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${LOGS_ABSOLUTE_PATH}/logback.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>5MB</maxFileSize>
+                <maxFileSize>5MB</maxFileSize> <!-- 5MB 넘어가면 새 로그파일 생성 -->
             </timeBasedFileNamingAndTriggeringPolicy>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
     </appender>
 
-    <root level="INFO">
+    <root level="INFO"> <!-- 모든 프로젝트 패키지에서 log.info 레벨 이상이면, 콘솔에 출력하겠다. -->
         <appender-ref ref="STDOUT" />
     </root>
 
-    <logger name="com.cos.person.config" level="WARN">
+    <logger name="com.cos.person.config" level="WARN"> <!-- 이 패키지에서 발생하는 log.warn() 이상 레벨은 전부 저 위에 FILE로 저장하겠다. ,  -->
         <appender-ref ref="FILE" />
     </logger>
 

@@ -7,4 +7,5 @@ include 'web-application-server'
 include 'tomcat'
 include 'servlet'
 include 'reflection'
+include 'spring-annotation'
 

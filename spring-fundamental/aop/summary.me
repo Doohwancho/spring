@@ -1,0 +1,227 @@
+---
+Q1. what is aop?
+
+
+guess)
+
+프로그램 실행이 라이프사이클을 갖는다고 했을 때,
+init(), service(), destory() 이렇겠지?
+프로그램 실행(service()) 전, 중간, 후에 필터처럼 다른 프로그램 실행시키려는게 aop 아님?
+
+해당 프로그램의 실행시간 후-전 해서 얼마나 걸리는지 보거나,
+로그 찍거나 할 때 쓰거나,
+스프링 시큐리티에서 해당 프로그램 실행 전, 유저가 권한있는지 확인하기 위해 Authorization() 실행하거나,
+특정 페이지 접근하기 직전에, jwt토큰이나 세션 같은걸로 인증(authenticate)할 때나
+로그인 이후 jwt 토큰 보내줘야 할 때나,
+
+요롤 때 쓰는게 aop 아님?
+
+
+A.
+
+대략 맞음. 함수 앞,뒤로 적용되는 필터인데,
+1. 유효성 검사
+2. 로그
+3. 세션 체크
+등...
+
+을 해야하는데, 세션 체크 빼고 유효성 검사나 로깅은 모든 함수에 공통적으로 적용되니까,
+그 부분만 빼서 메서드화 해놓은게 aop
+
+
+
+AOP라는 용어의 뜻은, 관점 지향 프로그램.
+
+내가 중요시하는 특정 관점 빼고 나머진 무시하겠다라는 뜻.
+
+예를들어, '유저 정보' 보는 메서드가 있는데,
+거기에 다른 별개 기능인 1. 유효성 검사, 2. 로깅 필요하다면,
+'유저 정보' 보는 기능만 남기고, 나머지 것들을 aop 공통기능으로 빼서 관리하겠다라는 것.
+
+---
+Q2. 언제 필터쓰고 언제 AOP씀?
+
+함수에 앞만 쓰고 싶으면 필터쓰고, (전처리용. 성에 앞문 들어올 때만 필터 적용됨.)
+앞, 뒤 다 쓰고싶으면 AOP써라. (성 들어온 이후, 메서드 앞, 뒤는 aop 써라)
+
+
+왜냐면 필터만으로는 뒤를 처리 못함.
+reflection+filter 하면 함수 뒤까지 처리 가능은 할텐데, 너무 복잡해지니까.
+AOP쓰자. 이미 만들어져 있으니까.
+
+
+
+---
+Q3. MyExceptionHandler?
+
+
+원래 래거시 스프링에서는 Controller에서 db에 .save(), .update() 등... 한 후,
+잘못된걸 try~catch 로 처리해서,
+에러처리를 일일이 다 했어야 했는데,
+
+AOP로 MyExceptionHandler로,
+특정 에러가 일어났을 때, 저 컨트롤러에서 별개로 처리하면,
+기존에 UserController가 매우 심플해지고, 부하가 나뉜다.
+
+
+
+
+@ControllerAdvice하면,
+컨트롤러 실행 전 후에, aop로 필터거는건가?
+
+
+
+근데 프로젝트 실행시키면, 계속
+Error creating bean with name 'handlerExceptionResolver'
+이거 뜨는데, 어떻게 해결하지?
+
+
+
+---
+Q4. Message Converter?
+
+
+Controller에서,
+
+
+@GetMapping("/user")
+public List<User> findAll() {
+    return userRepository.findAll(); // MessageConverter (JavaObject -> Json String)
+}
+
+MessageConverter가 List<User>인 Java Object를 Json으로 바꿔서 반환해줌.
+
+Springboot는 Message Converter가 기본으로 구비되있고,
+스프링 레거시는 수동 설정해줘야 함.
+
+
+
+
+
+---
+Q5. BindingAdvice.validCheck()?
+
+
+guess)
+컨트롤러 전,후에 @Around로 필터 걸어서
+에러있으면 서버 콘솔에 에러로그찍고, sentry로도 찍고
+404 반환하는거 같은데,
+설명 더 들어봐야할 듯.
+
+ProceedingJoinPoint 얘를 reflection으로 처리하는거 같은데,
+얘가 정확히 뭔질 모르겠네.
+controller method 실행시킬 때 어떤 메서드 실행시키고, 어떤 args들어가고에 대한 정보 담는 녀석 같긴 한데.
+
+
+
+Ans)
+
+clinet->server 로 HttpRequest 보낼 때,
+값을 아래 3형태로 보내면,
+1. x-www-form-urlencoded
+2. raw type
+3. application/json
+
+그걸 @RequestBody 로 받아서 처리하잖아?
+
+근데, 여기에 값이 제대로 들어갔는지, null은 없는지,
+String의 최대 길이를 초과하는지 등을 체크해야한단 말야?
+
+그래서 쓰는게 @Valid
+
+@Valid @RequestBody JoinReqDto dto, BindingResult bindingResult하면,
+
+JoinReqDto에 필드에 걸린 @Valid 체크를 한 후,
+검사 결과를 BidningResult에 담아서 반환함.
+
+
+
+JoinReqDto를 보면, 아래 조건 걸려있잖아?
+@NotNull(message = "유저네임 키값이 없습니다.")
+@NotBlank(message = "유저네임을 입력하세요.")
+@Size(max = 20, message = "유저네임 길이를 초과하였습니다.")
+
+만약 AOP의 BindingAdvice.validCheck() 에서
+reflection으로 받은 HttpRequest의 파라미터값이, 저 조건에 어긋난다?
+그러면 bindingResult에 담김.
+얘를 가지고 에러처리하는 것.
+
+
+
+---
+Q6. DTO 따로 설계하는 이유?
+
+
+
+그냥 VO인 User 쓰지,
+왜 귀찮게 JoinReqDto 따로, UpdateReqDto 따로, CommonDto 따로 설계하는거야?
+
+
+AOP로 @Valid 체크하기 편하기도 하고,
+다른 상황에서 다른 @Valid 설정을 유연하게 못하잖아?
+
+예를들어서, User 하나만 쓰면,
+회원가입할 때 id에 @valid()로 username은 null이면 안되고 등 제한을 거는데,
+update할 땐, username이 null이면 안된다는 제한이 필요 없을 수 있잖아?
+
+
+
+
+
+
+
+---
+Q7. sentry?
+
+
+guess)
+
+logging framework인거 같은데
+
+그럼 log4j랑 뭐가 다른거지?
+
+
+
+logback-spring.xml?
+
+sentry 전용 config 파일인가?
+
+log4j처럼 로그 레벨에 따라 policy 다르게 적용하는게 보이네.
+
+
+
+Ans)
+BindingAdvice.validCheck() 할 때,
+@Valid에 에러나서 에러처리한 이후에,
+에러 로그를 파일로 남기고 싶을 때 쓰는게 센트리.
+
+log.warn(), log.error(), log.debug() 이런 애들을,
+Sentry.captureMessage(type+"."+method+"() => 필드 : "+error.getField()+", 메시지 : "+error.getDefaultMessage());
+
+이런식으로 센트리로 캡쳐하면,
+
+/resources/logback-spring.xml에 설정해높으면,
+
+센트리가 로그를 날짜별로 폴더 만들어서 스마트하게 관리해줌.
+
+
+
+---
+Q8. sentry의 로그파일을 서버 안 파일 말고 웹으로 보기
+
+
+logback-spring.xml로 센트리 설정하면,
+로그파일을 서버 안에 센트리가 날짜별로 폴더 만들어서 저장하는데,
+에러터져서 그 로그 파일 보려면,
+서버 안에 접속해서, 해당 폴더로 가서 봐야하잖아?
+
+근데 그러지 말고,
+이 로그를 디비에 저장한 후 웹에서 보면 더 편할거아냐?
+
+그래서 sentry.io에서 시키는대로,
+pom.xml에 sentry 추가하고,
+해당 사이트 가입 후, 프로젝트에 스프링부트 프로젝트 등록해서 연동해주면,
+로그파일이 서버에 저장되기도 하지만,
+sentry.io에서 실시간 확인 가능하다.
+(대신 n일 지나면 유료)
+

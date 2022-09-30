@@ -4,6 +4,8 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <option name="delegatedBuild" value="true" />
+        <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
@@ -13,6 +15,7 @@
             <option value="$PROJECT_DIR$/http-cache" />
             <option value="$PROJECT_DIR$/reflection" />
             <option value="$PROJECT_DIR$/servlet" />
+            <option value="$PROJECT_DIR$/spring-annotation" />
             <option value="$PROJECT_DIR$/spring-core" />
             <option value="$PROJECT_DIR$/thread" />
             <option value="$PROJECT_DIR$/tomcat" />

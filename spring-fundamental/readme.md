@@ -16,9 +16,11 @@ f. web application server :white_check_mark:\
 g. tomcat :white_check_mark:\
 h. servlet :white_check_mark:\
 i. reflection(annotation -> {di, applicationContext, dispatcher, RequestMapping, componentScan} + DTO) :white_check_mark:\
-j. AOP\
-x. Filter, Interceptor\
+j. AOP :white_check_mark:\
+k. Filter, Interceptor\
+l. spring-annotation\
 x. IOC\
+x. dispatcher\
 x. Exception\
 x. multipart\
 x. logging\
@@ -38,7 +40,10 @@ b-2. 우테코 cache 예제 solution보고 개별 문제 풀기 :white_check_mar
 
 d-1. 우테코 di 예제 stage-n setting :white_check_mark:\
 d-2. 우테코 di 예제 stage-n 문제 해결 :white_check_mark:\
-d-3. context, package bean scanner 구현 안된거 구현 :white_check_mark:
+d-3. context, package bean scanner 구현 안된거 구현 :white_check_mark:\
+d-4. field injection :white_check_mark:\
+d-5. setter injection :white_check_mark:\
+d-6. consturctor injection :white_check_mark:
 
 e-1. 우테코 thread 예제 stage-n setting :white_check_mark:\
 e-2. 우테코 thread 예제 stage-n 분석 :white_check_mark:
@@ -68,14 +73,29 @@ i-3. 우테코 reflection 예제 해결 :white_check_mark:\
 i-4. copy reflection by meta coding :white_check_mark:\
 i-5. analyze reflection by meta coding - implement Dispatcher, componentScan + DTO :white_check_mark:
 
-j-1. project init - meta coding aop :white_check_mark:
+j-1. project init - meta coding aop :white_check_mark:\
+j-2. filter vs aop :white_check_mark:\
+j-3. MyExceptionHandler :white_check_mark:\
+j-4. @Valid in JoinReqDto at BindingAdvice.validationCheck() :white_check_mark:\
+j-5. vo 그냥 안쓰고 dto 따로 설계하는 이유 :white_check_mark:\
+j-6. sentry :white_check_mark:\
+j-7. Message Converter :white_check_mark:
+
+
+l-1. controller: x-www-form-urlencoded -> (String id, String pw) :white_check_mark:\
+l-2. controller: text/plain(raw) -> @RequestBody String data :white_check_mark:\
+l-3. controller: application/json -> @RequestBody User user :white_check_mark:\
+l-4. controller: @PathVariable :white_check_mark:\
+l-5. controller: @CrossOrigin :white_check_mark:\
+l-6. controller: @Valid :white_check_mark:
 
 ---\
 reference
 
 b. [우테코 - 만들면서 배우는 스프링 실습 코드 http cache](https://github.com/woowacourse/jwp-hands-on)
 
-d. [우테코 - 만들면서 배우는 스프링 실습 코드 di](https://github.com/woowacourse/jwp-hands-on)
+d. [우테코 - 만들면서 배우는 스프링 실습 코드 di](https://github.com/woowacourse/jwp-hands-on) \
+d. [field, setter, constructor injections comparison](https://yaboong.github.io/spring/2019/08/29/why-field-injection-is-bad/)
 
 e. [우테코 - 만들면서 배우는 스프링 실습 코드 thread](https://github.com/woowacourse/jwp-hands-on)
 
@@ -104,7 +124,8 @@ i-3. [우테코 - reflexion 예제 문제 해결](https://github.dev/woowacourse
 i-4. [copy reflection by meta coding](https://github.dev/codingspecialist/Reflection-Controller) \
 i-5. [analyze reflection by meta coding - implement Dispatcher, componentScan + DTO](https://www.youtube.com/watch?v=P5fPc2tjOko&list=PL93mKxaRDidFGJu8IWsAAe0O7y6Yw9f5x&index=1)
 
-j-1. [project init - meta coding aop](https://github.dev/codingspecialist/Springboot-Special-Lecture)
+j-1~7. [project init - meta coding aop](https://github.dev/codingspecialist/Springboot-Special-Lecture)
+
 
 ---
 
@@ -133,3 +154,11 @@ x-1. [우테코 - DI 프레임워크 구현](https://github.com/woowacourse/jwp-
 x-1. [우테코 - 레거시 코드 리펙토링](https://github.com/woowacourse/jwp-refactoring)
 
 x-1. [우테코- 패킷 구현](https://github.dev/woowacourse/jwp-network)
+
+
+x-1. dispatcher
+    ..가 하는 일
+    1. 주소 매핑
+    2. reflection으로 IoC컨테이너에 @Controller 등 어노테이션 붙은 빈들 집어넣음.
+    3. 해당 빈의 메서드들이 요구하는 parameter랑 HttpRequest의 값을 비교해서 DI해줌
+    
