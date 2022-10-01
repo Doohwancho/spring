@@ -12,8 +12,8 @@ a. spring security basics :white_check_mark:\
 b. cookie\
 c. session\
 d. OAuth :white_check_mark:\
-e. jwt :white_check_mark:
-f. authentication
+e. jwt :white_check_mark:\
+f. authentication :white_check_mark:
 
 
 
@@ -45,12 +45,12 @@ e-10. structure of jwt :white_check_mark:\
 e-11. how RSA in jwt works? :white_check_mark:\
 e-12. how jwt solved problem of session? :white_check_mark:\
 e-13. what is bearer? :white_check_mark\
-e-14. jwtAuthenticationFilte :white_check_mark\r
+e-14. jwtAuthenticationFilte :white_check_mark\
 e-15. jwtAuthorizationFilter :white_check_mark\
 e-x. springboot(jwt+Oauth2)\
 e-x. springboot+react(jwt+Oauth2)
 
-f-1. spring security authentication process  
+f-1. spring security authentication process :white_check_mark:\
 f-2. token 기반 authentication
 
 ---\
@@ -70,5 +70,5 @@ e-2~15. [springboot security jwt easy by meta coding](https://github.dev/codings
 e-x. [springboot(jwt+Oauth2)](https://github.com/codingspecialist/Springboot-Oauth2.0-Facebook-Google-Login-JWT)\
 e-x. [springboot+react(jwt+Oauth2)](https://github.com/codingspecialist/Springboot-JWT-React-OAuth2.0-Eazy)
 
-f-1. [spring security authentication process](https://mangkyu.tistory.com/77?category=761302)
+f-1. [spring security authentication process](https://mangkyu.tistory.com/77?category=761302) \
 f-2. [token 기반 authentication](https://mangkyu.tistory.com/57)

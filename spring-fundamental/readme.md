@@ -17,8 +17,9 @@ Approach
 7. aop
 8. filter
 9. interceptor
-10. httpcache
-11. springboot cache
+10. lifecycle
+11. httpcache
+12. springboot cache
 
 
 ---\
@@ -48,7 +49,6 @@ x. cors\
 x. WebFlux\
 x. logging framework\
 x. read documentation\
-x. core spring annotations\
 x. scheduling
 
 

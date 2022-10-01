@@ -7,19 +7,20 @@ on mysql db,
 2. application.properties에서 DB username과 password를 개인에 맞게 변경
 3. start spring app server
 4. http://localhost:8080/user/init    -> create admin user
-5. index 페이지 접속 후 로그인 
+5. mysql에서 use security -> select * from user; 로 admin 계정 생긴지 확인 
+6. index 페이지 접속 후 로그인 
 	adminEmail: admin@naver.com
 	adminPassword: test
 	
 	userEmail: user@naver.com
 	userPassword: test
-6. http://localhost:8080/admin? 로 접속 가능!
+7. http://localhost:8080/admin? 로 접속 가능!
 	
 	
 	
 	
 ---
-A. guess authentication process
+A. guess 'session based' authentication process
 
 
 
@@ -48,10 +49,63 @@ A-b. login
 6. CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter 인데, 생성자 인자로 AuthenticationManager를 받음. 
 	AuthenticationManager 얘는 아까 security setup에서 등록한 CustomAuthenticationProvider에서 아이디, 비밀번호 검증하는 애가 내장된 듯. 
 	attemptAuthentication()로, 아이디, 비밀번호 집어넣음. 
+	HttpRequest에 담긴 아이디, 비번을 검증하기 위해 서버는 디비에 jpa query로 아이디, 비번 꺼내오는데, UserDetailsServiceImpl implements UserDetailsService 여기에서 loadUserByUsername()로 하는 듯.
+	잘 보면, 꺼낼 때, UserDetailsVO implements UserDetails로 담아서 꺼내옴. UserDetails엔 Authority 관련, isAccountNonLocked() 이런 메서드 담김. 
+	물론 UserDtails로 만들다 실패하면 UserNotFoundException로 Exception 처리. 
+	
 7. 검증 완료되면, 아까 등록해둔 http.formLogin().successForwardUrl("/index") 작동.  
 
 
 
 
 ---
-B. real authentication process
+B. real 'session based' authentication process
+
+
+1. HttpRequest
+2. AuthenticationFilter
+3. UsernamePasswordAuthenticationToken
+4. Provider Manager implements AuthenticationManager <<Interface>>
+5. AuthenticationProvider
+6. UserDetailsSerivce
+7. User implements UserDetails <<Interface>>
+6. return UserDetailsSerivce
+5. return AuthenticationProvider
+4. return Provider Manager implements AuthenticationManager <<Interface>>
+8. Authentication inside SecurityContext inside SecurityContextHolder
+9. LoginSuccessHandler
+
+
+
+2. AuthenticationFilter 은  아까 5번에 .addFilterBefore(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);인듯?
+CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter 인데, 생성자 인자로 AuthenticationManager를 받음.
+attemptAuthentication()로, 아이디, 비밀번호 집어넣어 검증하는데, 얘기 실행되면,
+
+3. UsernamePasswordAuthenticationToken이 아까 .addFilterBefore(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);로 다음차례니까 실행되는거고,
+	여기서 보통 패스워드 길이, 특수문자 포함했는지, null인지 등 유효성검사 한다는데,
+	보통 이런건 프론트단에서 처리하는게 좋으므로 스킵. 
+
+4. AuthenticationManager에서 AuthenticationProvider을 부르는데, 아까 CustomAuthenticationProvider 등록해놓은걸 쓰겠지.
+
+5. CustomAuthenticationProvider에서 .authenticate(Authentication authentication) 함. 
+	여기서 본격적으로 HttpRequest에 담긴 id,pw랑 db에 id,pw랑 비교하는데,
+	jpa query로 가져오는건 UserDetailsServiceImpl이고,
+	db에서 꺼낸 UserVO를 UserDetails로 감싸서 전해줌. 왜냐면, isBadCredential()같은 메서드 오버라이드 해줘야해서.
+	여튼 passwordEncoder로 비밀번호 비교함.
+	근데 BCryptPasswordEncoder얘가 단방향 해쉬로 알고있는데, HttpRequest에 담긴 비번을 얘로 해쉬화 해서 db에 담긴 해쉬값이랑 비교할 듯?
+	그러면 DBA는 유저의 비밀번호를 모르는거네? 해쉬는 복호화 불가능하니까. 좋네? 
+6. 아이디, 비번 일치해서 .authenticate()가 성공하면, Authentication를 반환하다가, 로그인 성공 메서드인 onAuthenticationSuccess로 감
+	반환된 Authentication 객체를 SecurityContextHolder의 Contetx에 저장해 줌. 
+	나중에 @Principal 이런 애들로 유저 정보를 SecurityContextHolder 여기서 꺼내는 건가 봄.
+	SecurityContextHolder는 스프링 시큐리티의 세션 메니저로 이해하면 됨. 
+
+
+
+
+
+
+
+
+
+
+
