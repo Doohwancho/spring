@@ -38,6 +38,7 @@ j. AOP :white_check_mark:\
 k. Filter :white_check_mark:\
 l. spring-annotation\
 m. Interceptor :white_check_mark:\
+n. lifecycle :white_check_mark:\
 x. IOC\
 x. dispatcher\
 x. Exception\
@@ -113,6 +114,10 @@ l-6. controller: @Valid :white_check_mark:
 m-1. interceptor init :white_check_mark:\
 m-2. interceptor vs filter vs aop :white_check_mark:
 
+n-1. lifecycle: InitializingBean, DisposableBean :white_check_mark:\
+n-2. lifecycle: @PostConstruct, @PreDestroy :white_check_mark:
+
+
 ---\
 reference
 
@@ -155,6 +160,10 @@ j-1~7. [project init - meta coding aop](https://github.dev/codingspecialist/Spri
 
 m-1. [interceptor init](https://blog.naver.com/PostView.naver?blogId=getinthere&logNo=221718319587&categoryNo=42&parentCategoryNo=0&viewDate=&currentPage=8&postListTopCurrentPage=&from=postList&userTopListOpen=true&userTopListCount=10&userTopListManageOpen=false&userTopListCurrentPage=8) \
 m-2. [interceptor vs filter vs aop](https://mangkyu.tistory.com/173)
+
+n-1. [lifecycle: InitializingBean, DisposableBean](https://mangkyu.tistory.com/126?category=761302) \
+n-2. [lifecycle: @PostConstruct, @PreDestroy](https://mangkyu.tistory.com/126?category=761302) 
+
 
 ---
 
