@@ -1,0 +1,57 @@
+---
+Q. how to setup?
+
+
+on mysql db,
+1. CREATE DATABASE security DEFAULT CHARSET UTF8;
+2. application.properties에서 DB username과 password를 개인에 맞게 변경
+3. start spring app server
+4. http://localhost:8080/user/init    -> create admin user
+5. index 페이지 접속 후 로그인 
+	adminEmail: admin@naver.com
+	adminPassword: test
+	
+	userEmail: user@naver.com
+	userPassword: test
+6. http://localhost:8080/admin? 로 접속 가능!
+	
+	
+	
+	
+---
+A. guess authentication process
+
+
+
+A-a. spring security setup
+1. WebSecurityConfig에서 BCryptPasswordEncoder를 빈등록 해줌
+2. customAuthenticationFilter()을 빈등록 해줌. 
+	얘가 나중에 로그인할 때, 아이디 패스워드 받아서 디비에 jpa query 때려서 얻은 아이디, 패스워드 값과 비교 검증하는 놈
+3. CustomLoginSuccessHandler 도 빈등록 해줌. 
+	로그인 성공하면 "/about"으로 보냄. 
+4. CustomAuthenticationProvider도 빈등록 해줌. 
+	근데 빈 등록이 동적임. configure(AuthenticationManagerBuilder authenticationManagerBuilder){}인데, 빌더에 런타임 때 빌드하는 식. 
+
+	CustomAuthenticationProvider(userDetailsService, bCryptPasswordEncoder()) -> 유저 디테일 서비스와 비밀번호 암호화 하는 애를 주입받음.
+	여기에서 Authentication객체 안에 아이디, 비밀번호를 .authenticate()함.  어떻게?
+	userDetailsService.loadUserByUsername(userEmail) + if (!passwordEncoder.matches(userPw, userDetailsVO.getPassword()))
+	이런식으로 jpa로 db query해서 가져온 값과 비교. 
+	
+
+A-b. login
+1. client->server HttpRequest, GET "localhost:8080/user/loginView"
+2. UserController redirect GET "localhost:8080/user/loginView" to "user/login";
+3. WebMvcConfig.addResourceHandlers()로 resources/ 폴더의 classpath 설정했던걸 보고 src/main/resources/user/login.html 반환
+4. login.html에서 client는 아이디, 비밀번호 입력, 엔터 
+5. WebSecurityConfig에서 http.loginForm().loginPage("/user/loginView") 에 필터가 걸림. 
+	.addFilterBefore(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class); 로 UsernamePasswordAuthenticationFilter 이전에 customAuthenticationFilter 이 필터 등록  
+6. CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter 인데, 생성자 인자로 AuthenticationManager를 받음. 
+	AuthenticationManager 얘는 아까 security setup에서 등록한 CustomAuthenticationProvider에서 아이디, 비밀번호 검증하는 애가 내장된 듯. 
+	attemptAuthentication()로, 아이디, 비밀번호 집어넣음. 
+7. 검증 완료되면, 아까 등록해둔 http.formLogin().successForwardUrl("/index") 작동.  
+
+
+
+
+---
+B. real authentication process
