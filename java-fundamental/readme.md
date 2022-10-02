@@ -17,11 +17,9 @@ e. thread :white_check_mark:\
 f. IO :white_check_mark:\
 g. java socket programming :white_check_mark:\
 h. generics :white_check_mark:\
+i. functional\
 x. enums\
 x. annotation\
-x. lambda\
-x. stream\
-x. immutable object\
 x. garbage collector\
 x. debugging 
 x. how jvm works
@@ -76,6 +74,14 @@ h-4. wild card :white_check_mark:\
 h-5. example) builder pattern in abstract class :white_check_mark:\
 h-6. generic method advanced :white_check_mark:
 
+i-1. functional programming theory: 불변객체, 순수함수, 고차함수, embedded iteratable :white_check_mark:\
+i-x. lambda\
+i-x. stream\
+i-x. immutable object\
+i-x. functional interface - Function\
+i-x. functional interface - Consumer\
+i-x. functional interface - Predicate\
+i-x. functional interface - Supplier
 
 ---\
 Reference
@@ -113,3 +119,6 @@ g-3. [TCP socket programming - chatting](https://lktprogrammer.tistory.com/64?ca
 h-1~4. [제네릭 기본, generic method, T extends X && T super X, wild card](https://www.youtube.com/watch?v=Vv0PGUxOzq0)\
 h-5. example) builder pattern in abstract class - effective java\
 h-6. [generic method advanced](https://devlog-wjdrbs96.tistory.com/201)
+
+
+i-1. [자바 코드로 보는 함수형 프로그래밍](https://warpgate3.tistory.com/entry/%EC%9E%90%EB%B0%94%EC%BD%94%EB%93%9C%EB%A1%9C-%EB%B3%B4%EB%8A%94-%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-Functional-Programming-in-Java) 
