@@ -76,8 +76,7 @@ h-6. generic method advanced :white_check_mark:
 
 i-1. functional programming theory: 불변객체, 순수함수, 고차함수, embedded iteratable :white_check_mark:\
 i-2. lambda :white_check_mark:\
-i-x. stream\
-i-x. immutable object\
+i-3. stream :white_check_mark:\
 i-x. functional interface - Function\
 i-x. functional interface - Consumer\
 i-x. functional interface - Predicate\
@@ -121,4 +120,7 @@ h-5. example) builder pattern in abstract class - effective java\
 h-6. [generic method advanced](https://devlog-wjdrbs96.tistory.com/201)
 
 
-i-1. [자바 코드로 보는 함수형 프로그래밍](https://warpgate3.tistory.com/entry/%EC%9E%90%EB%B0%94%EC%BD%94%EB%93%9C%EB%A1%9C-%EB%B3%B4%EB%8A%94-%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-Functional-Programming-in-Java) 
+i-1. [자바 코드로 보는 함수형 프로그래밍](https://warpgate3.tistory.com/entry/%EC%9E%90%EB%B0%94%EC%BD%94%EB%93%9C%EB%A1%9C-%EB%B3%B4%EB%8A%94-%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-Functional-Programming-in-Java) \
+i-3. [자바 스트림 예제](https://madplay.github.io/post/java-streams-examples)
+
+ 
