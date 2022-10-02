@@ -1,4 +1,4 @@
-package functional.theory.pure_function;
+package functional.theory.high_order_function;
 
 import java.util.Objects;
 import java.util.function.BiFunction;

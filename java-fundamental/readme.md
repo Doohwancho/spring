@@ -17,7 +17,7 @@ e. thread :white_check_mark:\
 f. IO :white_check_mark:\
 g. java socket programming :white_check_mark:\
 h. generics :white_check_mark:\
-i. functional\
+i. functional programming\
 x. enums\
 x. annotation\
 x. garbage collector\
@@ -75,7 +75,7 @@ h-5. example) builder pattern in abstract class :white_check_mark:\
 h-6. generic method advanced :white_check_mark:
 
 i-1. functional programming theory: 불변객체, 순수함수, 고차함수, embedded iteratable :white_check_mark:\
-i-x. lambda\
+i-2. lambda :white_check_mark:\
 i-x. stream\
 i-x. immutable object\
 i-x. functional interface - Function\
