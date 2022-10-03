@@ -33,11 +33,16 @@ public class ImmutableTest {
 
 input -> computation -> output에서
 
+인자로 받은 데이터는 call by value여야 하고,
+call by reference여도, 기존 객체를 건드리지 않아야 함.
+기존객체 쓰려면 기존객체를 새 객체에 deep copy해서 새 객체 써야 함. 
+왜냐면 기존객체 참조하던 다른 함수들이 피볼 수 있으니까. 
+
 predictability 높혀서 예측가능하게 하고 신뢰가능하게 하기 때문에 불변객체 사용.
+-> 인자 데이터 안건드림 -> no side effect -> immutable, stateless -> great for multi-thread env
 
 
-
-
+ex. 
 만약 기존에 List에 원소를 추가하고싶으면?
 
 기존 List를 새로운 List 객체에 deepcopy한 후, 원소 추가해서 새로운 객체 반환함. 
