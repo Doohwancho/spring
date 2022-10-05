@@ -1,4 +1,4 @@
-package functional.applied_examples.optional;
+package functional.optional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,7 +96,10 @@ why use optional?
 sophisticated way of handling 'null' in java
 
 
-Optional == null까지 감싸는 wrapper class
+Optional == null까지 감싸는 wrapper class.
+stream에서 .method1().method2().method3() ... 이렇게 결과값을 순차반환할 때,
+중간에 null이 발생한다면?
+Optional쓰면, null이 발생해도 에러안나고 내부적으로 처리해줌.  
 
 
 장점1)

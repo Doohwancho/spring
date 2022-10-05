@@ -2,7 +2,7 @@ package functional.closure;
 
 import java.util.function.Supplier;
 
-public class Closure {
+public class Example1 {
 
     static void closure() {
         final var supplier = outerMethod(); //outerMethod() 호출 후, 소멸 
@@ -36,7 +36,18 @@ public class Closure {
 
 /*
 
+---
+what is closure?
+
+
+함수 끝났는데 outer function scope에 접근 가능.
+
+
+
+
+---
 Q. 어떻게 outerMethod()가 끝났는데, 로컬변수 .get()가능?
+
 
 -> Supplier를 get()하면, 종료된 함수의 로컬변수 가져올 수 있음.
 

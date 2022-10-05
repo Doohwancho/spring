@@ -1,4 +1,4 @@
-package functional.theory.recursion;
+package functional.recursion;
 
 public class HeadRecursion {
 	public static void main(String[] args) {

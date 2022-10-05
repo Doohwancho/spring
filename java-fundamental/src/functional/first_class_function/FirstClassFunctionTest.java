@@ -1,4 +1,4 @@
-package functional.theory.first_class_function;
+package functional.first_class_function;
 
 public class FirstClassFunctionTest {
 	@FunctionalInterface

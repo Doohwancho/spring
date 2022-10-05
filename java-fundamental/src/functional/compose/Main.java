@@ -1,4 +1,4 @@
-package functional.theory.compose;
+package functional.compose;
 
 import java.util.function.Function;
 import java.util.function.Predicate;

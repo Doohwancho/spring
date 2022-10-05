@@ -1,4 +1,4 @@
-package functional.theory.not_iterable;
+package functional.not_iterable;
 
 import java.util.List;
 

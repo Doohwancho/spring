@@ -1,4 +1,4 @@
-package functional.theory.immutable;
+package functional.immutable;
 
 import java.util.ArrayList;
 import java.util.Arrays;

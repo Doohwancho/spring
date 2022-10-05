@@ -1,4 +1,4 @@
-package functional.theory.pure_function;
+package functional.pure_function;
 
 public class PureFunctionTest {
 	private String name = "무명소졸"; 

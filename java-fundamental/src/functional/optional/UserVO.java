@@ -1,4 +1,4 @@
-package functional.applied_examples.optional;
+package functional.optional;
 
 public class UserVO {
 	
