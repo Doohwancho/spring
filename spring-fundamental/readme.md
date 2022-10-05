@@ -113,7 +113,10 @@ l-6. controller: @Valid :white_check_mark:\
 l-7. controller: @Controller vs @RestController :white_check_mark:\ 
 l-8. controller: @RequestParam :white_check_mark:\
 l-9. controller: @RequestBody :white_check_mark:\
-l-10. controller: @ModelAttribute :white_check_mark:
+l-10. controller: @ModelAttribute :white_check_mark:\
+l-11. context: @Bean :white_check_mark:\
+l-12. context: @Configuration :white_check_mark:\
+l-13. context: @Component :white_check_mark:\
 
 m-1. interceptor init :white_check_mark:\
 m-2. interceptor vs filter vs aop :white_check_mark:
@@ -163,7 +166,8 @@ k-2. [DelegatingFilterProxy로 Filter를 빈에 등록](https://mangkyu.tistory.
 j-1~7. [project init - meta coding aop](https://github.dev/codingspecialist/Springboot-Special-Lecture)
 
 l-7. [@Controller vs @RestController](https://mangkyu.tistory.com/49?category=761302) \
-l-8~10. [@RequestBody, @ModelAttribute, @RequestParam의 차이](https://mangkyu.tistory.com/72?category=761302)
+l-8~10. [@RequestBody, @ModelAttribute, @RequestParam의 차이](https://mangkyu.tistory.com/72?category=761302) \
+l-11~13. [@Bean, @Configuration, @Component](https://mangkyu.tistory.com/75?category=761302)
 
 m-1. [interceptor init](https://blog.naver.com/PostView.naver?blogId=getinthere&logNo=221718319587&categoryNo=42&parentCategoryNo=0&viewDate=&currentPage=8&postListTopCurrentPage=&from=postList&userTopListOpen=true&userTopListCount=10&userTopListManageOpen=false&userTopListCurrentPage=8) \
 m-2. [interceptor vs filter vs aop](https://mangkyu.tistory.com/173)

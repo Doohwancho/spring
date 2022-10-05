@@ -15,6 +15,14 @@ A. Controller
 9. @ModelAttribute
 
 
+B. context
+
+1. @Bean
+2. @Configuration
+3. @Component
+
+
+
 
 
 ---
@@ -147,3 +155,46 @@ client가 form으로 보낼 때 사용.
 body에 있는 정보를 파라미터에 바인딩 하기 위해 사용
 
 
+
+
+
+---
+B-1,2. @Bean & @Configuration
+
+spring ioc container에 객체 등록하기 위해 빈 씀.
+.getBean()등으로 이름을 가져오거나 id도 있고, bean 생성 때 생성자에 주입할 파라미터받는 .property도 있네.
+
+수동으로 스프링 컨테이너에 빈을 등록하는 방법
+개발자가 직접 제어가 불가능한 라이브러리를 빈으로 등록할 때 불가피하게 사용
+
+클래스 위에 @Bean 붙여서 사용하거나,
+메서드 위에 @Bean붙이려면, 해당 클래스에 @Configuration 붙여줘야 가능.
+왜냐면 그냥 @Bean만 붙이면, @Bean메소드 호출마다 새로운 객체 생성해서 반환해준다고 함. @Configuration 안에 있는 @Bean은 싱글턴을 보장한다고 함.
+
+주로 메서드나 클래스를 전역적으로 사용하고싶은때 빈 붙여주면, 프로젝트 시작한 후, reflection이 @Bean 어노테이션 붙은애들
+슥 훑어서 ioc container에 객체 추가해서 관리하나봄.
+
+spring app 시작시 log4j2의 로그레벨을 info말고 debug로 하면, 빈 등록도 주르륵 볼 수 있는거같던데.
+
+
+@Configuration
+public class ResourceConfig {
+
+    @Bean
+    public MangKyuResource mangKyuResource() {
+        return new MangKyuResource();
+    }
+
+}
+
+뭐 이런식으로 사용함.
+
+
+---
+B-3. @Component
+
+자동으로 빈 등록하는 방법.
+
+component scan에 적용되는 놈들 타게팅.
+
+자식들은 @Configuration, @Controller, @Service, @Repository이 있음.
