@@ -1,4 +1,4 @@
-package functional.applied_examples.lazy_evalution;
+package functional.lambda.lazy_evalution;
 
 import java.util.function.Supplier;
 
