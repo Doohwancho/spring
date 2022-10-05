@@ -109,7 +109,8 @@ l-2. controller: text/plain(raw) -> @RequestBody String data :white_check_mark:\
 l-3. controller: application/json -> @RequestBody User user :white_check_mark:\
 l-4. controller: @PathVariable :white_check_mark:\
 l-5. controller: @CrossOrigin :white_check_mark:\
-l-6. controller: @Valid :white_check_mark:
+l-6. controller: @Valid :white_check_mark:\
+l-6. controller: @Controller vs @RestController :white_check_mark: 
 
 m-1. interceptor init :white_check_mark:\
 m-2. interceptor vs filter vs aop :white_check_mark:
