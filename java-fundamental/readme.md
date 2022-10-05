@@ -74,13 +74,24 @@ h-4. wild card :white_check_mark:\
 h-5. example) builder pattern in abstract class :white_check_mark:\
 h-6. generic method advanced :white_check_mark:
 
-i-1. functional programming theory: 불변객체, 순수함수, 고차함수, embedded iteratable :white_check_mark:\
-i-2. lambda :white_check_mark:\
-i-3. stream :white_check_mark:\
-i-x. functional interface - Function\
-i-x. functional interface - Consumer\
-i-x. functional interface - Predicate\
-i-x. functional interface - Supplier
+i-1. 불변객체 :white_check_mark:\
+i-2. 순수함수 :white_check_mark:\
+i-3. 고차함수 :white_check_mark:\
+i-4. embedded iteratable :white_check_mark:\
+i-5. lambda :white_check_mark:\
+i-6. stream :white_check_mark:\
+i-7. closure :white_check_mark:\
+i-8. optional :white_check_mark:\
+i-9. lazy evaluation :white_check_mark:\
+i-10. compose :white_check_mark:\
+i-11. recursion :white_check_mark:\
+i-12. currying :white_check_mark:\
+i-13. functor :white_check_mark:\
+i-14. functional interface - Predicate :white_check_mark:\
+i-15. functional interface - Consumer :white_check_mark:\
+i-16. functional interface - Supplier :white_check_mark:\
+i-17. functional interface - Function :white_check_mark:\
+i-x. monad
 
 ---\
 Reference
@@ -120,7 +131,10 @@ h-5. example) builder pattern in abstract class - effective java\
 h-6. [generic method advanced](https://devlog-wjdrbs96.tistory.com/201)
 
 
-i-1. [자바 코드로 보는 함수형 프로그래밍](https://warpgate3.tistory.com/entry/%EC%9E%90%EB%B0%94%EC%BD%94%EB%93%9C%EB%A1%9C-%EB%B3%B4%EB%8A%94-%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-Functional-Programming-in-Java) \
-i-3. [자바 스트림 예제](https://madplay.github.io/post/java-streams-examples)
-
+i-1~4. [자바 코드로 보는 함수형 프로그래밍](https://warpgate3.tistory.com/entry/%EC%9E%90%EB%B0%94%EC%BD%94%EB%93%9C%EB%A1%9C-%EB%B3%B4%EB%8A%94-%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-Functional-Programming-in-Java) \
+i-6. [자바 스트림 예제](https://madplay.github.io/post/java-streams-examples) \
+i-9. [lazy evaluation](https://sthwin.tistory.com/21#:~:text=%EC%9E%90%EB%B0%94%EC%97%90%EC%84%9C%20%EC%9D%BC%EA%B8%89%ED%95%A8%EC%88%98%EC%97%90%20%EA%B0%80%EC%9E%A5%20%EA%B0%80%EA%B9%8C%EC%9A%B4%20%EA%B2%83%EC%9D%B4%20%EB%9E%8C%EB%8B%A4%ED%91%9C%ED%98%84%20%28Lambda,expressions%29%EC%9D%B4%EB%8B%A4.Function%2CConsumer%2CPredicate%2CSupplier%EC%99%80%20%EA%B0%99%EC%9D%80%20%ED%95%A8%EC%88%98%ED%98%95%20%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4%EB%93%A4%EC%9D%B4%20%EC%A4%80%EB%B9%84%EB%90%98%EC%96%B4%20%EC%9E%88%EC%9C%BC%EB%A9%B0java.util.function%ED%8C%A8%ED%82%A4%EC%A7%80%20%EB%82%B4%EC%97%90%20%EC%A1%B4%EC%9E%AC%ED%95%9C%EB%8B%A4.) \
+i-14~17. [functional interface most frequently used](https://yhmane.tistory.com/203) \
+i-x. [monad](https://www.youtube.com/channel/UCrlZnbV0o2cnUNWdEORTxsw/videos) \
+i-x. [3분 모나드](https://overcurried.com/3%EB%B6%84%20%EB%AA%A8%EB%82%98%EB%93%9C/)
  

@@ -51,7 +51,7 @@ e-x. springboot(jwt+Oauth2)\
 e-x. springboot+react(jwt+Oauth2)
 
 f-1. spring security authentication process :white_check_mark:\
-f-2. token 기반 authentication
+f-2. token 기반 authentication :white_check_mark:
 
 ---\
 reference
