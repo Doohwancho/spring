@@ -40,4 +40,8 @@ ex. In the sentence "We went to the airport", "went to the airport" is the predi
 검증할 때 쓰는앤가보네?
 
 
+
+Predicate<T> : <T> -> Boolean
+
+
 */
