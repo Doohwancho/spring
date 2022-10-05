@@ -14,6 +14,11 @@ public class Main {
 
 /*
 
+Supplier<T> : lazy evaluation
+
+
+
+
 closure, lazy evaluation에서 쓰이는 것 처럼,
 
 
