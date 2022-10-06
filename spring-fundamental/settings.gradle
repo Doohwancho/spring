@@ -11,4 +11,5 @@ include 'spring-annotation'
 include 'filter'
 include 'Interceptor'
 include 'lifecycle'
+include 'spring-cache'
 

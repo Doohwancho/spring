@@ -17,11 +17,11 @@ e. thread :white_check_mark:\
 f. IO :white_check_mark:\
 g. java socket programming :white_check_mark:\
 h. generics :white_check_mark:\
-i. functional programming\
+i. functional programming :question:\
 x. enums\
 x. annotation\
 x. garbage collector\
-x. debugging 
+x. debugging\
 x. how jvm works
 
 

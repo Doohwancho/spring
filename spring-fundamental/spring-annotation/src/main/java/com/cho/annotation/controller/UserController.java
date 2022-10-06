@@ -65,6 +65,7 @@ public class UserController {
 
         // searchKeyWord는 required가 false이기 때문에 없을 수도 있으므로, 없다면 기본값이 할당된다.
 //        return ResponseEntity.ok(boardService.getBoardList(searchKeyWord1));
+        return null;
     }
 
     //A-8. @RequestBody

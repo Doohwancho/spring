@@ -19,6 +19,7 @@
             <option value="$PROJECT_DIR$/reflection" />
             <option value="$PROJECT_DIR$/servlet" />
             <option value="$PROJECT_DIR$/spring-annotation" />
+            <option value="$PROJECT_DIR$/spring-cache" />
             <option value="$PROJECT_DIR$/spring-core" />
             <option value="$PROJECT_DIR$/thread" />
             <option value="$PROJECT_DIR$/tomcat" />

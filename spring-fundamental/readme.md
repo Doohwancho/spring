@@ -28,7 +28,7 @@ Concepts
 
 a. overall process\
 b. HTTP Cache(cache-control + etag for static files) :white_check_mark:\
-c. Spring Boot Cache\
+c. Spring Boot Cache :white_check_mark:\
 d. DI :white_check_mark:\
 e. thread :white_check_mark:\
 f. web application server :white_check_mark:\
@@ -57,6 +57,8 @@ Todo
 
 b-1. 우테코 cache 예제 파악 :white_check_mark:\
 b-2. 우테코 cache 예제 solution보고 개별 문제 풀기 :white_check_mark:
+
+c-1. spring 내장 cache :white_check_mark:
 
 d-1. 우테코 di 예제 stage-n setting :white_check_mark:\
 d-2. 우테코 di 예제 stage-n 문제 해결 :white_check_mark:\
@@ -110,18 +112,21 @@ l-3. controller: application/json -> @RequestBody User user :white_check_mark:\
 l-4. controller: @PathVariable :white_check_mark:\
 l-5. controller: @CrossOrigin :white_check_mark:\
 l-6. controller: @Valid :white_check_mark:\
-l-7. controller: @Controller vs @RestController :white_check_mark:\ 
+l-7. controller: @Controller vs @RestController :white_check_mark:\
 l-8. controller: @RequestParam :white_check_mark:\
 l-9. controller: @RequestBody :white_check_mark:\
 l-10. controller: @ModelAttribute :white_check_mark:\
 l-11. context: @Bean :white_check_mark:\
 l-12. context: @Configuration :white_check_mark:\
 l-13. context: @Component :white_check_mark:\
+l-14. cache: @Cacheable :white_check_mark:\
+l-15. cache: @CachePut :white_check_mark:\
+l-16. cache: @CacheEvict :white_check_mark:
 
 m-1. interceptor init :white_check_mark:\
 m-2. interceptor vs filter vs aop :white_check_mark:
 
-n-1. lifecycle: InitializingBean, DisposableBean :white_check_mark:\
+n-1. lifecycle: InitializingBean, DisposableBean :white_check_mark:\
 n-2. lifecycle: @PostConstruct, @PreDestroy :white_check_mark:
 
 
@@ -129,6 +134,8 @@ n-2. lifecycle: @PostConstruct, @PreDestroy :white_check_mark:
 reference
 
 b. [우테코 - 만들면서 배우는 스프링 실습 코드 http cache](https://github.com/woowacourse/jwp-hands-on)
+
+c. [spring 내장 cache](https://github.dev/namusik/TIL-SampleProject/tree/main/Cache/%EC%8A%A4%ED%94%84%EB%A7%81%EB%B6%80%ED%8A%B8%20Cache%20%EC%98%88%EC%A0%9C)
 
 d. [우테코 - 만들면서 배우는 스프링 실습 코드 di](https://github.com/woowacourse/jwp-hands-on) \
 d. [field, setter, constructor injections comparison](https://yaboong.github.io/spring/2019/08/29/why-field-injection-is-bad/)
@@ -167,7 +174,8 @@ j-1~7. [project init - meta coding aop](https://github.dev/codingspecialist/Spri
 
 l-7. [@Controller vs @RestController](https://mangkyu.tistory.com/49?category=761302) \
 l-8~10. [@RequestBody, @ModelAttribute, @RequestParam의 차이](https://mangkyu.tistory.com/72?category=761302) \
-l-11~13. [@Bean, @Configuration, @Component](https://mangkyu.tistory.com/75?category=761302)
+l-11~13. [@Bean, @Configuration, @Component](https://mangkyu.tistory.com/75?category=761302) \
+l-14~16. [@Cacheable, @CachePut, @CacheEvict](https://mangkyu.tistory.com/179?category=761302)
 
 m-1. [interceptor init](https://blog.naver.com/PostView.naver?blogId=getinthere&logNo=221718319587&categoryNo=42&parentCategoryNo=0&viewDate=&currentPage=8&postListTopCurrentPage=&from=postList&userTopListOpen=true&userTopListCount=10&userTopListManageOpen=false&userTopListCurrentPage=8) \
 m-2. [interceptor vs filter vs aop](https://mangkyu.tistory.com/173)

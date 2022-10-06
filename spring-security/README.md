@@ -44,9 +44,9 @@ e-9. what is jwt? :white_check_mark:\
 e-10. structure of jwt :white_check_mark:\
 e-11. how RSA in jwt works? :white_check_mark:\
 e-12. how jwt solved problem of session? :white_check_mark:\
-e-13. what is bearer? :white_check_mark\
-e-14. jwtAuthenticationFilte :white_check_mark\
-e-15. jwtAuthorizationFilter :white_check_mark\
+e-13. what is bearer? :white_check_mark:\
+e-14. jwtAuthenticationFilte :white_check_mark:\
+e-15. jwtAuthorizationFilter :white_check_mark:\
 e-x. springboot(jwt+Oauth2)\
 e-x. springboot+react(jwt+Oauth2)
 
