@@ -93,7 +93,8 @@ i-2. simple di framework using reflection :white_check_mark:\
 i-3. 우테코 reflection 예제 해결 :white_check_mark:\
 i-4. copy reflection by meta coding :white_check_mark:\
 i-5. analyze reflection by meta coding - implement Dispatcher, componentScan + DTO :white_check_mark:\
-i-6. reflection으로 DispatcherServlet extends HttpServlet 만들기 :white_check_mark:
+i-6. reflection으로 DispatcherServlet extends HttpServlet 만들기 :white_check_mark:\
+i-7. reflection으로 ComponentScan 만들기 :white_check_mark:
 
 j-1. project init - meta coding aop :white_check_mark:\
 j-2. filter vs aop :white_check_mark:\
@@ -170,7 +171,8 @@ i-1. [우테코 - reflection 예제](https://github.dev/woowacourse/jwp-hands-on
 i-2. [10분 테코톡 - 파랑, 아키의 리플렉션 -> mvp di framework 분석](https://www.youtube.com/watch?v=67YdHbPZJn4&t=469s) \
 i-3. [우테코 - reflexion 예제 문제 해결](https://github.dev/woowacourse/jwp-hands-on/tree/solution-3-servlet-reflection) \
 i-4. [copy reflection by meta coding](https://github.dev/codingspecialist/Reflection-Controller) \
-i-5. [analyze reflection by meta coding - implement Dispatcher, componentScan + DTO](https://www.youtube.com/watch?v=P5fPc2tjOko&list=PL93mKxaRDidFGJu8IWsAAe0O7y6Yw9f5x&index=1)
+i-5. [analyze reflection by meta coding - implement Dispatcher, componentScan + DTO](https://www.youtube.com/watch?v=P5fPc2tjOko&list=PL93mKxaRDidFGJu8IWsAAe0O7y6Yw9f5x&index=1) \
+i-7. [reflection으로 ComponentScan 만들기 by meta coding](https://blog.naver.com/PostView.naver?blogId=getinthere&logNo=221841916039&categoryNo=42&parentCategoryNo=0&viewDate=&currentPage=6&postListTopCurrentPage=&from=postList&userTopListOpen=true&userTopListCount=10&userTopListManageOpen=false&userTopListCurrentPage=6)
 
 k-1. [filter init](https://blog.naver.com/getinthere/222094919059) \
 k-2. [DelegatingFilterProxy로 Filter를 빈에 등록](https://mangkyu.tistory.com/221?category=761302)
