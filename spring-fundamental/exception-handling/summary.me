@@ -1,0 +1,102 @@
+
+---
+Q. 에러 핸들링 전체 구조
+
+Service같은 곳에서 에러날만한 곳에 함수형+람다로 throw new CustomException()
+
+ex.
+public Product getProduct(String id) {
+    return repository.findById(id).orElseThrow(()->
+            new NoSuchElementFoundException(getLocalMessage(I18Constants.NO_ITEM_FOUND.getKey(), id)));
+}
+
+
+그럼 해당 CustomException 클래스에서 에러 메시지를 받음과 동시에 @ResponseStatus로 404인지 500인지 등 결정함
+
+@ResponseStatus(value = HttpStatus.NOT_FOUND)
+public class NoSuchElementFoundException extends RuntimeException {
+    public NoSuchElementFoundException(String message){
+        super(message);
+    }
+}
+
+@Controller 하위에 서비스가 작동하다 에러난거니,
+Controller를 AOP하는 @ControllerAdvice로 선언한 GlobalExceptionHandler가 에러를 일괄처리함.
+
+이 방식은 일괄처리해서 관리도 편하고,
+그냥 response 404 error 보내는 것 보다,
+HttpStatus도 바꿀 수 있고,
+HttpResponseBody의 payload에 에러 내용을 자세히 적을 수 있어서 더 유연하다. (ErrorResponse에 private List<ValidationError> errors; 랑 stackTrace 참조)
+
+
+
+
+
+
+---
+Q. @ResponseStatus
+
+
+@ResponseStatus(value = HttpStatus.NOT_FOUND)
+public class NoSuchElementFoundException extends RuntimeException {
+    public NoSuchElementFoundException(String message){
+        super(message);
+    }
+}
+
+HttpResponse의 404이든 500이든 상태 전할 때, custom exception에 붙이는 어노테이션이네.
+
+
+
+---
+Q. @RestControllerAdvice 는 왜 쓰는겨?
+
+@RestController에서 Exception처리까지 해주면, 너무 부하가 크니까,
+Exception 처리 전용 컨트롤러 따로 빼서 (GlobalExceptionHandler) 처리하는 것
+한곳에서 에러를 일괄처리하니까, 편하고 유지보수에도 좋음.
+별도의 try~catch문도 없어서 깔끔함.
+
+
+Advice는 AOP에서 옴.
+컨트롤러 어드바이스는, 컨트롤러 메서드 실행 앞 뒤에 aop의 interrupt써줌.
+Exception 처리에 딱이네.
+
+이 ExceptionHandlerAOP를
+1. @ControllerAdvice("com.reflectoring.controller") 로 컨트롤러에만 특정 가능. 아님
+2. @ControllerAdvice(annotations = Advised.class): 로 @Advise단 애들에만 특정 적용 가능
+
+
+
+---
+Q. @RestControllerAdvice 로 Error Handling Logic Flow
+
+1. error 발생!
+2. if @ExceptionHandler within that @Controller, its handled by @ExceptionHandler. if not, look for @ControllerAdvice
+3. if @ResponseStatus is in @ControllerAdvice, ResponseStatusExceptionResolver handles error. if not, exception is handled by DefaultHandlerExceptionResolver
+4. return response to client
+
+
+
+
+
+---
+Q. 서버 에러 로그를 response payload에 첨가해서 보내는 방법.
+
+application.yml
+
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: on_trace_param
+    include-exception: true
+
+
+GET http://localhost:8080/product/1?trace=true
+{
+   "status":404,
+   "message":"Item with id 1 not found",
+   "stackTrace":"io.reflectoring.exception.exception.NoSuchElementFoundException: Item with id 1 not found\n\tat io.reflectoring.exception.service.ProductService.lambda$getProduct$0(ProductService.java:24) ...
+}
+
+

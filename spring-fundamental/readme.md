@@ -37,12 +37,12 @@ h. servlet :white_check_mark:\
 i. reflection(annotation -> {di, applicationContext, dispatcher, RequestMapping, componentScan} + DTO) :white_check_mark:\
 j. AOP :white_check_mark:\
 k. Filter :white_check_mark:\
-l. spring-annotation\
+l. spring-annotation :white_check_mark:\
 m. Interceptor :white_check_mark:\
 n. lifecycle :white_check_mark:\
+o. exception-handling :white_check_mark:\
 x. IOC\
 x. dispatcher\
-x. Exception\
 x. multipart\
 x. logging\
 x. cors\
@@ -121,7 +121,10 @@ l-12. context: @Configuration :white_check_mark:\
 l-13. context: @Component :white_check_mark:\
 l-14. cache: @Cacheable :white_check_mark:\
 l-15. cache: @CachePut :white_check_mark:\
-l-16. cache: @CacheEvict :white_check_mark:
+l-16. cache: @CacheEvict :white_check_mark:\
+l-17. error-handling : @ExceptionHandler :white_check_mark:\
+l-18. error-handling: @ControllerAdvice :white_check_mark:\
+l-19. error-handling: @ResponseStatus :white_check_mark:
 
 m-1. interceptor init :white_check_mark:\
 m-2. interceptor vs filter vs aop :white_check_mark:
@@ -129,6 +132,8 @@ m-2. interceptor vs filter vs aop :white_check_mark:
 n-1. lifecycle: InitializingBean, DisposableBean :white_check_mark:\
 n-2. lifecycle: @PostConstruct, @PreDestroy :white_check_mark:
 
+o-1. exception handling project init
+o-2. exception handling 부가 설명
 
 ---\
 reference
@@ -182,6 +187,9 @@ m-2. [interceptor vs filter vs aop](https://mangkyu.tistory.com/173)
 
 n-1. [lifecycle: InitializingBean, DisposableBean](https://mangkyu.tistory.com/126?category=761302) \
 n-2. [lifecycle: @PostConstruct, @PreDestroy](https://mangkyu.tistory.com/126?category=761302) 
+
+o-1. [exception handling project init](https://github.dev/thombergs/code-examples/tree/master/spring-boot/exception-handling) \
+o-2. [exception handling 부가 설명](https://mangkyu.tistory.com/204?category=761302)
 
 
 ---

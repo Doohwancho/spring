@@ -12,4 +12,5 @@ include 'filter'
 include 'Interceptor'
 include 'lifecycle'
 include 'spring-cache'
+include 'exception-handling'
 
