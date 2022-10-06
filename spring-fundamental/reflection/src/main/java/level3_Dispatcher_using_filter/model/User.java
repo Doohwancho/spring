@@ -1,4 +1,4 @@
-package level3_metaCoding.model;
+package level3_Dispatcher_using_filter.model;
 
 public class User {
     private int id;

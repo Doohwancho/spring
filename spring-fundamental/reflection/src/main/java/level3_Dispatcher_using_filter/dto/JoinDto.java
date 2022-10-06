@@ -1,12 +1,13 @@
-package level3_metaCoding.dto;
+package level3_Dispatcher_using_filter.dto;
 
-public class LoginDto {
+public class JoinDto {
     private String username;
     private String password;
+    private String email;
 
     @Override
     public String toString() {
-        return "LoginDto [username=" + username + ", password=" + password + "]";
+        return "JoinDto [username=" + username + ", password=" + password + ", email=" + email + "]";
     }
 
     public String getUsername() {
@@ -20,5 +21,11 @@ public class LoginDto {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

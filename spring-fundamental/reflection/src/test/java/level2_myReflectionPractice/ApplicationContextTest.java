@@ -1,5 +1,8 @@
 package level2_myReflectionPractice;
 
+import level2_ApplicationContext.ApplicationContext;
+import level2_ApplicationContext.OrderRepository;
+import level2_ApplicationContext.OrderService;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;

@@ -42,7 +42,6 @@ m. Interceptor :white_check_mark:\
 n. lifecycle :white_check_mark:\
 o. exception-handling :white_check_mark:\
 x. IOC\
-x. dispatcher\
 x. multipart\
 x. logging\
 x. cors\
@@ -93,7 +92,8 @@ i-1. 우테코 reflection 예제 :white_check_mark:\
 i-2. simple di framework using reflection :white_check_mark:\
 i-3. 우테코 reflection 예제 해결 :white_check_mark:\
 i-4. copy reflection by meta coding :white_check_mark:\
-i-5. analyze reflection by meta coding - implement Dispatcher, componentScan + DTO :white_check_mark:
+i-5. analyze reflection by meta coding - implement Dispatcher, componentScan + DTO :white_check_mark:\
+i-6. reflection으로 DispatcherServlet extends HttpServlet 만들기 :white_check_mark:
 
 j-1. project init - meta coding aop :white_check_mark:\
 j-2. filter vs aop :white_check_mark:\
@@ -132,8 +132,8 @@ m-2. interceptor vs filter vs aop :white_check_mark:
 n-1. lifecycle: InitializingBean, DisposableBean :white_check_mark:\
 n-2. lifecycle: @PostConstruct, @PreDestroy :white_check_mark:
 
-o-1. exception handling project init
-o-2. exception handling 부가 설명
+o-1. exception handling project init :white_check_mark:\
+o-2. exception handling 부가 설명 :white_check_mark:
 
 ---\
 reference
@@ -175,12 +175,12 @@ i-5. [analyze reflection by meta coding - implement Dispatcher, componentScan + 
 k-1. [filter init](https://blog.naver.com/getinthere/222094919059) \
 k-2. [DelegatingFilterProxy로 Filter를 빈에 등록](https://mangkyu.tistory.com/221?category=761302)
 
-j-1~7. [project init - meta coding aop](https://github.dev/codingspecialist/Springboot-Special-Lecture)
+j-1,2,3,4,5,6,7. [project init - meta coding aop](https://github.dev/codingspecialist/Springboot-Special-Lecture)
 
 l-7. [@Controller vs @RestController](https://mangkyu.tistory.com/49?category=761302) \
-l-8~10. [@RequestBody, @ModelAttribute, @RequestParam의 차이](https://mangkyu.tistory.com/72?category=761302) \
-l-11~13. [@Bean, @Configuration, @Component](https://mangkyu.tistory.com/75?category=761302) \
-l-14~16. [@Cacheable, @CachePut, @CacheEvict](https://mangkyu.tistory.com/179?category=761302)
+l-8,9,10. [@RequestBody, @ModelAttribute, @RequestParam의 차이](https://mangkyu.tistory.com/72?category=761302) \
+l-11,12,13. [@Bean, @Configuration, @Component](https://mangkyu.tistory.com/75?category=761302) \
+l-14,15,16. [@Cacheable, @CachePut, @CacheEvict](https://mangkyu.tistory.com/179?category=761302)
 
 m-1. [interceptor init](https://blog.naver.com/PostView.naver?blogId=getinthere&logNo=221718319587&categoryNo=42&parentCategoryNo=0&viewDate=&currentPage=8&postListTopCurrentPage=&from=postList&userTopListOpen=true&userTopListCount=10&userTopListManageOpen=false&userTopListCurrentPage=8) \
 m-2. [interceptor vs filter vs aop](https://mangkyu.tistory.com/173)
@@ -227,4 +227,7 @@ x-1. dispatcher\
     1. 주소 매핑\
     2. reflection으로 IoC컨테이너에 @Controller 등 어노테이션 붙은 빈들 집어넣음.\
     3. 해당 빈의 메서드들이 요구하는 parameter랑 HttpRequest의 값을 비교해서 DI해줌
-    
+
+
+x-x. [springboot source code 분석하기](https://mangkyu.tistory.com/210?category=761302) \
+x-x. [source code 기반 spring ioc analysis](https://www.fatalerrors.org/a/source-code-analysis-of-spring-ioc-container.html)

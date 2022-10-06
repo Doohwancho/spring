@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>인덱스페이지</h1>
+<h1>main.jsp 페이지입니다</h1>
+<h2>username : ${username}</h2>
+<h2>isLogin : ${principal.username}</h2>
 </body>
 </html>
