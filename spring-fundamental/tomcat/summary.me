@@ -305,3 +305,50 @@ private void writeResponse(final OutputStream outputStream, final String respons
     outputStream.flush(); //step5) output stream에 담긴 정보 전송 후, stream 비우기.
 }
 
+
+
+
+---
+Q. catalina vs coyote?
+
+뭔 차이지?
+
+- catalina/
+    - connector/
+        - Connector.java
+    - startup/
+        - Tomcat.java
+
+
+- coyote/
+    - handler/
+        - RequestHandlerMapping.java
+        - HttpRequestHandler.java
+    - request/
+        - HttpRequest.java
+    - response/
+        - HttpResponse.java
+    - servlet/
+        - HttpFrontServlet.java
+    -Http11Processor.java
+
+
+카탈리나는 Tomcat 서버 시작하는 애. Connector.java라는 쓰레드 여러개 실행시켜서, client->server의 HttpRequest를 받아 coyote에 Http11Processor에게 넘겨주는 역할
+
+코요테는 Http11Processor가 쓰레드 1개당 HttpRequest1개의 전체 사이클을 관리, 처리함.
+FrontServlet주는것부터 해서, FrontServlet이 MappingHandler로 적절한 Controller찾아서 보내고,
+Spring context내에서 해당 HttpRequest에 대한 처리를 Controller, Service, Repository가 해서 결과값을 주면,
+coyote에 Http11Processor가 해당 HttpResponse를 outputstream에 담아 server->client로 보내는 역할을 함.
+
+
+
+카탈리나는 tomcat의 서브릿 컨테이너.
+코요테는 해당 컨테이너 안에서 Http 1.1 protocol을 담당하며, spring context와 통신하는 역할.
+즉,
+
+client -> catalinia -> coyote -> spring context
+
+
+coyote는 Http1.1 전용 이니까, 다른 프로토콜에 대한 커넥터도 만들어서 카탈리나에 끼울 수 있겠네?
+
+
