@@ -5,28 +5,10 @@ modularize springboot fundamental concepts
 
 
 ---\
-Approach
-
-
-1. overall process
-2. tomcat
-3. servlet
-4. reflection
-5. di
-6. spring security
-7. aop
-8. filter
-9. interceptor
-10. lifecycle
-11. httpcache
-12. springboot cache
-
-
----\
 Concepts
 
 
-a. overall process\
+a. build mvc framework\
 b. HTTP Cache(cache-control + etag for static files) :white_check_mark:\
 c. Spring Boot Cache :white_check_mark:\
 d. DI :white_check_mark:\
@@ -44,11 +26,11 @@ o. exception-handling :white_check_mark:\
 x. IOC\
 x. multipart\
 x. logging\
-x. cors\
-x. WebFlux\
 x. logging framework\
-x. read documentation\
-x. scheduling
+x. scheduling\
+x. springboot-actuator\
+x. WebFlux\
+x. spring-on-docker
 
 
 ---\
@@ -84,7 +66,9 @@ g-5. test: resource_디렉터리에_있는_파일의_경로를_상대경로로_�
 g-6. test: resource/static/nextstep.txt 파일을 File을 통해 읽기 :white_check_mark: \
 g-7. 회원가입 :white_check_mark:\
 g-8. 여러 궁금증 해소 :white_check_mark:\
-x-9. 로그인 with session & cookie 
+g-9. fix: http://localhost:8080/static/nextstep.txt 했을 때, static file 반환 안되던 문제 해결 :white_check_mark:\
+g-x. 로그인 with session & cookie 
+
 
 h-1. 서브릿 예제 분석 :white_check_mark:
 
@@ -233,3 +217,7 @@ x-1. dispatcher\
 
 x-x. [springboot source code 분석하기](https://mangkyu.tistory.com/210?category=761302) \
 x-x. [source code 기반 spring ioc analysis](https://www.fatalerrors.org/a/source-code-analysis-of-spring-ioc-container.html)
+
+x-x. [springboot actuator crashcourse](https://www.youtube.com/watch?v=LQlypTjmgZM) \
+x-x. [springboot actuator github code](https://reflectoring.io/spring-boot-info-endpoint/) \
+x-x. [healthcheck using actuator && prometheus](https://reflectoring.io/spring-boot-health-check/) 

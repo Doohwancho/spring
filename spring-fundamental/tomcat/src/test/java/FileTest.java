@@ -1,4 +1,3 @@
-import org.apache.coyote.http11.util.IOUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -31,7 +30,7 @@ class FileTest {
      */
     @Test
     void resource_디렉터리에_있는_파일의_상대경로를_찾는다() {
-        final String fileName = "nextstep.txt";
+        final String fileName = "static/nextstep.txt";
 
         ClassLoader classLoader = this.getClass().getClassLoader();
         final String actual = Objects.requireNonNull(classLoader.getResource(fileName)).getPath();
@@ -47,7 +46,7 @@ class FileTest {
      */
     @Test
     void 파일의_내용을_읽는다() throws IOException, URISyntaxException {
-        final String fileName = "nextstep.txt";
+        final String fileName = "static/nextstep.txt";
 
         ClassLoader classLoader = this.getClass().getClassLoader();
         final Path path = Paths.get(Objects.requireNonNull(classLoader.getResource(fileName)).toURI());

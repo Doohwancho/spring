@@ -79,7 +79,9 @@ public class Http11Processor implements Runnable, Processor {
             throws IOException {
         final String path = httpRequest.getPath();
 
+        log.info(path);
         if (FileHandler.isStaticFilePath(path)) {
+            log.info("true");
             return FileHandler.createFileResponse(path);
         }
 

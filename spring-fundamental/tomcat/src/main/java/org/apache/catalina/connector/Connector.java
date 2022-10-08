@@ -18,7 +18,6 @@ public class Connector implements Runnable {
 
     private final ServerSocket serverSocket;
     private boolean stopped;
-
     public Connector() {
         this(DEFAULT_PORT, DEFAULT_ACCEPT_COUNT);
     }
