@@ -172,7 +172,7 @@ Q. ~/resources/ 파일 경로 찾으려면, 어떻게 해야할까?
 
 
 ClassLoader classLoader = this.getClass().getClassLoader();
-final String actual = Objects.requireNonNull(classLoader.getResource(fileName)).getPath();
+final String actual = Objects.requireNonNull(classLoader.getResource(fileName)).getPath(); //where fileName == "static/nextstep.txt"
 
 
 원래 IOUtils에서 Controller에서 온 요청에 resource 경로 찾을 때, 절대 경로로 찾았었는데,
@@ -199,6 +199,9 @@ public ResponseEntity service(final HttpRequest httpRequest) {
 
 ResponseEntity가 안만들어졌거나, 만들던 도중에 에러나면,
 controllerAdvice.handleException(exception.getClass());
+
+ControllerAdvice보면, 각종 CustomException이 static{} 안에 맵핑되어있고,
+StatusCode에 따라 적합한 Exception을 반환하도록 되어있음.
 
 
 ---
@@ -271,4 +274,34 @@ css도 static파일이라 말이 안되는데?
 
 음 근데 cdn은 서버에 요청하는게 아니라, 저 cdn서버에 요청하는거니까, 총 5개가 요청들어와야 하지 않나? 왜 7개지?
 
+
+
+---
+Q. io stream vs buffer difference?
+
+
+입출력 스트림은 client->server, server->client로 단방향으로 한방에 보내는 것.
+buffer는 보내기 전에, 중간단계에 잠깐 담아놨다가, 준비되면 보내는 것.
+
+Http11Processor에 process에서 보면,
+
+@Override
+public void process(final Socket connection) {
+    try (final var bufferedReader = new BufferedReader(
+            new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8)); //step1) inputstream from client to buffer
+         final var outputStream = connection.getOutputStream()) {
+        final HttpRequest httpRequest = InputStreamHandler.createRequest(bufferedReader); //step2) buffer에 담긴 정보를 가지고 HttpRequest만들기
+        final ResponseEntity response = handleRequest(httpRequest); //step3) HttpRequest에 대한 정보를 토대로 controller에서 서비스랑 지지고 볶고 해서 HttpResponse 생성
+        final HttpResponse httpResponse = HttpResponse.from(response);
+
+        writeResponse(outputStream, httpResponse.createResponse()); //step4) HttpResponse를 output stream에 담기
+    } catch (final IOException | UncheckedServletException | IllegalArgumentException e) {
+        log.error(e.getMessage(), e);
+    }
+}
+
+private void writeResponse(final OutputStream outputStream, final String response) throws IOException {
+    outputStream.write(response.getBytes());
+    outputStream.flush(); //step5) output stream에 담긴 정보 전송 후, stream 비우기.
+}
 

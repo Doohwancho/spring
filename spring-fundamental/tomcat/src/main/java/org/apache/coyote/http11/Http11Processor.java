@@ -63,13 +63,13 @@ public class Http11Processor implements Runnable, Processor {
     @Override
     public void process(final Socket connection) {
         try (final var bufferedReader = new BufferedReader(
-                new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8));
+                new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8)); //step1) inputstream from client to buffer
              final var outputStream = connection.getOutputStream()) {
-            final HttpRequest httpRequest = InputStreamHandler.createRequest(bufferedReader);
-            final ResponseEntity response = handleRequest(httpRequest);
+            final HttpRequest httpRequest = InputStreamHandler.createRequest(bufferedReader); //step2) buffer에 담긴 정보를 가지고 HttpRequest만들기
+            final ResponseEntity response = handleRequest(httpRequest); //step3) HttpRequest에 대한 정보를 토대로 controller에서 서비스랑 지지고 볶고 해서 HttpResponse 생성
             final HttpResponse httpResponse = HttpResponse.from(response);
 
-            writeResponse(outputStream, httpResponse.createResponse());
+            writeResponse(outputStream, httpResponse.createResponse()); //step4) HttpResponse를 output stream에 담기
         } catch (final IOException | UncheckedServletException | IllegalArgumentException e) {
             log.error(e.getMessage(), e);
         }
@@ -79,9 +79,7 @@ public class Http11Processor implements Runnable, Processor {
             throws IOException {
         final String path = httpRequest.getPath();
 
-        log.info(path);
         if (FileHandler.isStaticFilePath(path)) {
-            log.info("true");
             return FileHandler.createFileResponse(path);
         }
 
@@ -91,6 +89,6 @@ public class Http11Processor implements Runnable, Processor {
 
     private void writeResponse(final OutputStream outputStream, final String response) throws IOException {
         outputStream.write(response.getBytes());
-        outputStream.flush();
+        outputStream.flush(); //step5) output stream에 담긴 정보 전송 후, stream 비우기.
     }
 }

@@ -20,10 +20,7 @@ public class FileHandler {
     private static final Logger log = LoggerFactory.getLogger(FileHandler.class);
 
     public static boolean isStaticFilePath(final String resource) {
-//        log.info(resource);
         final URL url = FileHandler.class.getClassLoader().getResource(resource.substring(1));
-//        log.info(url.toString());
-//        log.info(url.getPath());
         return url != null && resource.contains(".");
     }
 
