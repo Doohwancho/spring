@@ -14,7 +14,7 @@ public class Connector implements Runnable {
     private static final Logger log = LoggerFactory.getLogger(Connector.class);
 
     private static final int DEFAULT_PORT = 8080;
-    private static final int DEFAULT_ACCEPT_COUNT = 100;
+    private static final int DEFAULT_ACCEPT_COUNT = 100; //server socket이 관리하는 쓰레드풀의 갯수는 총 100개. 한번에 100개의 소켓 핸들링한다.
 
     private final ServerSocket serverSocket;
     private boolean stopped;
@@ -23,7 +23,7 @@ public class Connector implements Runnable {
     }
 
     public Connector(final int port, final int acceptCount) {
-        this.serverSocket = createServerSocket(port, acceptCount);
+        this.serverSocket = createServerSocket(port, acceptCount); //server socket이 핸들링할 총 socket갯수르 정하는 것 == threadpool 생성
         this.stopped = false;
     }
 
@@ -31,7 +31,7 @@ public class Connector implements Runnable {
         try {
             final int checkedPort = validatePortNumLessThan65535(port);
             final int checkedAcceptCount = checkAcceptCount(acceptCount);
-            return new ServerSocket(checkedPort, checkedAcceptCount);
+            return new ServerSocket(checkedPort, checkedAcceptCount); //server socket이 핸들링할 총 socket갯수르 정하는 것 == threadpool 생성
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

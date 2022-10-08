@@ -352,3 +352,21 @@ client -> catalinia -> coyote -> spring context
 coyote는 Http1.1 전용 이니까, 다른 프로토콜에 대한 커넥터도 만들어서 카탈리나에 끼울 수 있겠네?
 
 
+
+
+---
+Q. server socket의 threadpool
+
+
+Application -> Tomcat -> Connector
+이 순으로 실행하는데,
+
+Connector에서 먼저 ServerSocket을 만들 때, default port를 8080으로 정하고, 총 관리할 포트 갯수를 100개로 정함.
+이게 thread pool 생성하는 것.
+
+미리 import java.net.ServerSocket; 에서 내부적으로 소켓 100개 생성해놓고, 쓰레드풀에 대기상태로 있게 하다가, client->server로 HttpRequest오면, 소켓 하나씩 붙이는 것.
+그러다 요청이 끝나면, 자원을 반환하지 않고, 다음 차례 client가 써야하니까, thread pool에서 반환하지 않고 socket을 가지고 있음.
+
+
+
+
