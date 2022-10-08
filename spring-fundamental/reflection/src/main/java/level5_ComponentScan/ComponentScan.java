@@ -1,7 +1,5 @@
 package level5_ComponentScan;
 
-import level2_ApplicationContext.Autowired;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.stream.Stream;
 

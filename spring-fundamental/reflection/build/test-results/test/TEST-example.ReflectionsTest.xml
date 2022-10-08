@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="example.ReflectionsTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-09-23T10:06:22" hostname="cho-choui-MacBookAir.local" time="0.048">
+  <properties/>
+  <testcase name="TODO 클래스 레벨에 @Controller, @Service, @Repository 애노테이션이 설정되어 모든 클래스 찾아 로그로 출력한다." classname="example.ReflectionsTest" time="0.048"/>
+  <system-out><![CDATA[19:06:22.543 [Test worker] INFO org.reflections.Reflections - Reflections took 24 ms to scan 2 urls, producing 5 keys and 6 values
+19:06:22.553 [Test worker] INFO example.ReflectionsTest - example.JdbcQuestionRepository
+19:06:22.554 [Test worker] INFO example.ReflectionsTest - example.MyQnaService
+19:06:22.554 [Test worker] INFO example.ReflectionsTest - example.JdbcUserRepository
+19:06:22.554 [Test worker] INFO example.ReflectionsTest - example.QnaController
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

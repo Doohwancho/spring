@@ -10,7 +10,7 @@ Concepts
 
 a. spring security basics :white_check_mark:\
 b. cookie\
-c. session :white_check_mark\
+c. session :white_check_mark:\
 d. OAuth :white_check_mark:\
 e. jwt :white_check_mark:\
 f. authentication :white_check_mark:\
@@ -28,7 +28,7 @@ a-5. 페이지 접근 권한 설정 :white_check_mark:\
 a-x. remember-me
 a-x. spring security overall structure
 
-c-1. build session manager in tomcat from scratch :white_check_mark\
+c-1. build session manager in tomcat from scratch :white_check_mark:\
 c-x. 로그인에 성공하면 HTTP Reponse의 헤더에 Set-Cookie가 존재한다.\
 c-x. 서버에 세션을 관리하는 클래스가 있고, 쿠키로부터 전달 받은 JSESSIONID 값이 저장된다.\
 c-x. Executors로 Thread Pool 적용\

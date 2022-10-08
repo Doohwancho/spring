@@ -1,7 +1,5 @@
 package level5_ComponentScan;
 
-import level3_Dispatcher_using_filter.controller.UserController;
-
 public class SpringApplication {
     public static void main(String[] args) {
         // 1. 스프링이 모든 패키지의 클래스를 스캔함. (객체)
