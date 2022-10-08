@@ -8,7 +8,7 @@ modularize springboot fundamental concepts
 Concepts
 
 
-a. build mvc framework\
+a. mvc framework from scratch :white_check_mark:\
 b. HTTP Cache(cache-control + etag for static files) :white_check_mark:\
 c. Spring Boot Cache :white_check_mark:\
 d. DI :white_check_mark:\
@@ -35,6 +35,8 @@ x. spring-on-docker
 
 ---\
 Todo
+
+a-1. build mvc framework from scratch :white_check_mark:
 
 b-1. 우테코 cache 예제 파악 :white_check_mark:\
 b-2. 우테코 cache 예제 solution보고 개별 문제 풀기 :white_check_mark:
@@ -124,6 +126,8 @@ o-2. exception handling 부가 설명 :white_check_mark:
 
 ---\
 reference
+
+a-1. [build mvc framework from scratch](https://github.dev/yeon-06/jwp-dashboard-mvc/tree/step3)
 
 b. [우테코 - 만들면서 배우는 스프링 실습 코드 http cache](https://github.com/woowacourse/jwp-hands-on)
 

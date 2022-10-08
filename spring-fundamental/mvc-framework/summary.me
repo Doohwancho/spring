@@ -1,0 +1,92 @@
+
+
+---
+Q. my first guess on mvc framework
+
+
+
+NextstepServletContainerInitializer에서 스프링 컨테이너 시작할 때,
+onStartup() 부터가 reflection으로 @WebApplicationInitializer 붙은 애들을 동작시키는구나.
+
+
+Annotation은 Controller있고,
+RequestParam이랑 PathVariable은 아마 컨트롤러에서 HttpRequest URL처리할 때 쓰거나, json->POJO 객체 매핑할 떄 쓰일테고. reflection으로.
+RequestMapping은 DispatcherServlet이 HandlerMapping을 통해 HttpRequest URL에 대해 올바른 Controller 매칭 시킬 떄 쓰겠지?
+
+
+DispatcherServlet을 보니까, HandlerMapping이랑 HandlerApapter를 따로 주입받네?
+HandlerAdapter는 뭐지?
+아 HandlerMapping은 Controller찾아주는 애고,
+HandlerAdapter는 ModelAndView 찾아주는 앤가?
+
+보니까 AnnotationHandlerMapping은 ControllerScanner을 통해서 @Controller붙은 클래스 다 스캔뜬 다음,
+그 클래스 내부에서 @RequestMapping 붙은 메서드 다 스캔해서
+해당 메서드를 가지고 HandlerKey, HandlerExecution를 만든 후, 그걸
+AnnotationHandlerMapping.handlerExecutions 이라는 맵에 담아 보관하네
+
+
+AnnotationHandlerAdapter 얘도 결국 HandlerExecution의 형태로 핸들러 어답터 리턴하네?
+
+
+
+view/는 기본적으로 ModelAndView에서 view.render()로 모델을 jsp랑 결합해서 html로 만드는듯?
+
+JsonView는 RestController에서 api처럼 작동하니까,
+view.render()할 때,
+utf-8만 설정해주고,
+Map에 담긴 모델 정보를 String으로 바꿔서 outstream.flush()하네.
+
+
+JspView는 모델(Map)에 담긴 정보를 HttpServletRequest에 attributes에 아래 같이 담아서,
+
+model.keySet().forEach(key -> {
+    log.debug("attribute name : {}, value : {}", key, model.get(key));
+    request.setAttribute(key, model.get(key));
+});
+
+forward(request, response);
+
+다시 Controller로 보내는건가? 그리고 컨트롤러가 얘를 다시 ModelAndView로 보내면, 거기서 본격적으로 view.render()해서 server->client 보내는건가?
+아 JspView보면 private static final String REDIRECT_PREFIX = "redirect:"; 이렇게 박혀있네.
+JspView는 일단 비지니스로직에서 받은 모델을 HttpRequest의 Attribute에 담아서 ViewResolver에 보낸 후,
+거기서 ModelAndView -> view.render()하는 듯?
+
+
+코드 보면,
+final RequestDispatcher requestDispatcher = request.getRequestDispatcher(viewName);
+requestDispatcher.forward(request, response);
+
+Business Logic 끝나고 Model이랑 ViewName 가져오면,
+해당 ViewName에 알맞는 ViewResolver에 JspView를 보내고,
+ViewResolver에서 ModelAndView를 만들어서 view.render(model, request, response); 하는 거 같은데.
+근데 이번엔 JspView.render()가 Dispatcher을 통해 ViewResolver로 보내지는게 아니라, client에게 보내지는듯?
+
+
+---
+Q. 실제 spring mvc 구조
+
+1. client -> DispatcherServlet (HttpRequest)
+2. HandlerMapping (chooses appropriate handler for matched controller)
+3. HandlerAdapter (얘는 ModelAndView만 보내는게 아니라, HandlerMapping은 Controller만 찾아주고, 나머지 Controller나 ModelAndView 직접 찾아주는 애가 얘구나)
+4. Controller
+5. Service
+6. Repository
+7. Database
+6. return { Repository } with model
+5. return { Service } with model
+4. return { Controller } with model, View name
+8. HandlerAdapter returns ModelAndView with 1. View(which will be either JspView or JsonView in the future), 2. model
+9. ViewResolver (이건 이 프로젝트엔 구현된게 없네?)
+10. DispatcherServlet -> View. (view references data from Model)
+11. outstream.flush() (server->client)
+
+
+
+
+
+---
+Q. Tests
+
+sample/TestController 가 임의로 만들어본 컨트롤런데, AnnotationHandlerMappingTest에서 잘 만들고 HandlerMapping도 잘 테스트 됨.
+
+JsonViewTest를 보면, 1. View랑 2. Model 넣어서 view.render() 돌린 결과값이 utf-8이고, model 결과값과 일치함을 확인할 수 있음.

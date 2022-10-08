@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/filter" />
             <option value="$PROJECT_DIR$/http-cache" />
             <option value="$PROJECT_DIR$/lifecycle" />
+            <option value="$PROJECT_DIR$/mvc-framework" />
             <option value="$PROJECT_DIR$/reflection" />
             <option value="$PROJECT_DIR$/servlet" />
             <option value="$PROJECT_DIR$/spring-annotation" />

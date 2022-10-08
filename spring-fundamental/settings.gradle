@@ -13,4 +13,5 @@ include 'Interceptor'
 include 'lifecycle'
 include 'spring-cache'
 include 'exception-handling'
+include 'mvc-framework'
 
