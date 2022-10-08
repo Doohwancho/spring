@@ -67,7 +67,9 @@ g-6. test: resource/static/nextstep.txt 파일을 File을 통해 읽기 :white_c
 g-7. 회원가입 :white_check_mark:\
 g-8. 여러 궁금증 해소 :white_check_mark:\
 g-9. fix: http://localhost:8080/static/nextstep.txt 했을 때, static file 반환 안되던 문제 해결 :white_check_mark:\
-g-x. 로그인 with session & cookie 
+g-10. io stream vs buffer difference? :white_check_mark:\
+g-11. catalina vs coyote :white_check_mark:\
+g-12. server socket의 threadpool :white_check_mark:
 
 
 h-1. 서브릿 예제 분석 :white_check_mark:
@@ -147,7 +149,9 @@ g-4. [http://localhost:8080/index.html 페이지에 접근 가능하게 하기](
 g-5. [test: resource_디렉터리에_있는_파일의_경로를_'상대경로'로 찾는다](https://github.dev/woowacourse/jwp-dashboard-http/tree/gyuchool) \
 g-6. [test: resource/static/nextstep.txt 파일을 File을 통해 읽기](https://github.dev/woowacourse/jwp-dashboard-http/tree/gyuchool) \
 g-7. [register](https://github.dev/woowacourse/jwp-dashboard-http/tree/2yujeong) \
-g-8. [login with session & cookie](https://github.dev/woowacourse/jwp-dashboard-http/tree/2yujeong)
+g-8. [login with session & cookie](https://github.dev/woowacourse/jwp-dashboard-http/tree/2yujeong) \
+g-10. [io stream vs buffer difference](https://yeonyeon.tistory.com/267) \
+g-11. [Query String 파싱](https://yeonyeon.tistory.com/276?category=1004438)
 
 h-1. [우테코 - servlet solution](https://github.dev/woowacourse/jwp-hands-on/tree/solution-3-servlet-reflection)
 

@@ -1,0 +1,66 @@
+
+---
+회원가입 -> 로그인 과정 
+
+1. http://localhost:8080/register 
+
+아이디: "gugu", 
+이메일: "hkkang@woowahan.com"
+비밀번호: "password"
+
+회원가입하면, 
+
+http://localhost:8080/login.html 로 redirect 해준다.
+
+
+여기서 gugu, password 치고 로그인하면,
+
+http://localhost:8080/index.html
+로 redirect 해주는데,
+
+
+여기서 다시 http://localhost:8080/login 로 접속해도,
+이젠 세션이 있기 때문에, 다시 로그인 안해도 된다. 바로 
+http://localhost:8080/index.html 로 redirect 해준다.
+
+
+
+
+
+
+---
+session이 어떻게 관리되고 있는가?	
+
+
+1. 회원가입 
+Application -> Tomcat -> Connector(server socket이 threadpool 생성) -> Http11Processor
+-> RequestMapping -> Controller for HttpRequest.url -> RegisterController.doPost() 에서 validateDuplicateUser()로 회원가입 하려는 유저가 기존 유저랑 안겹치는지 확인한 후, 유저 정보를 db에 저장한 후, generateSuccessResponse()로 /login.html로 반환함.
+
+
+2. 로그인 
+Application -> Tomcat -> Connector(server socket이 threadpool 생성) -> Http11Processor
+-> RequestMapping -> Controller for HttpRequest.url -> LoginController.doGet() 에서 "./login.html"로 redirect 
+-> login.html에서 아이디, 패스워드 입력 후 로그인 POST 시도 -> 
+
+다시,
+Application -> Tomcat -> Connector(server socket이 threadpool 생성) -> Http11Processor
+-> RequestMapping -> Controller for HttpRequest.url -> LoginController.doPost() 에서, 아이디, 비밀번호를 서버 db의 유저 id,pw와 매칭시키고, 맞으면
+세션을 생성.
+jSessionId는 UUID로 랜덤으로 만들고, Map에 유저 정보 저장해서, 
+
+해서 서버 세션 메니저에 저장한 후, HttpResponse에 세션을 담아서 server->client로 보내줌.
+
+
+
+3. 다시 로그인 시도
+ Application -> Tomcat -> Connector(server socket이 threadpool 생성) -> Http11Processor
+-> RequestMapping -> Controller for HttpRequest.url -> LoginController.doGet() 에서 JSESSION을 서버것과 비교한 후, 맞으면, /login.html페이지로 보내지 말고, 바로 /index.html페이지로 보냄.
+
+현재 구현된 코드에서는 "client에서 날아온 세션과 서버에서 보관하는 세션의 비교 후, 다르면 /login.html로 보내는 코드"가 구현되있진 않음.
+
+
+
+
+
+
+
