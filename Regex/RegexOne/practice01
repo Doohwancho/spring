@@ -1,0 +1,11 @@
+Match	3.14529	Success
+Match	-255.34	Success
+Match	128	Success
+Match	1.9e10	Success
+Match	123,340.00	Success
+Skip	720p
+
+
+answer : ^\-?(\d+(\,\d+)*)(\.\d+(e\d+)?)?$
+
+

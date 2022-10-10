@@ -1,0 +1,27 @@
+Q. match digits only
+
+ex1) abc123xyz
+ex2) define "123"
+ex3) var g = 123;
+
+
+answer1) 123
+
+answer2) \d+
+
+why?
+
+\d : any digit
++ : one or more repetitions
+
+answer3) [0-9]+
+
+why?
+
+[0-9] : number 0 to 9
++ : one or more repetitions
+
+what if test case if abc123xyz1234 and only want to replace "123" and not "4"?
+
+
+answer:[0-3]+

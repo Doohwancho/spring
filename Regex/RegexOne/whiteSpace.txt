@@ -1,0 +1,21 @@
+Match	1.   abc	Success
+Match	2.	abc	Success
+Match	3.           abc	Success
+Skip	4.abc
+
+
+answer : \s+abc
+
+why?
+
+\s : any whitespaces
++ : one or more
+
+
+
+additionals
+
+\n : enter
+\t : tab
+\r : return
+\S : any non-whitespace character

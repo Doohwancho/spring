@@ -1,0 +1,26 @@
+1) positive look behind
+(?<=The).
+The이후 나타나는 것 아무거나 1개 뽑을때
+
+2) negative look behind
+(?<!The). 
+The 이후에 나타나는것 한 캐릭터 빼고 전부
+
+3) positive look ahead
+.(?=The)
+The 이전에 나오는 캐릭터 하나
+
+
+
+ex1) 확장자 명을 제외한 파일명 모두 출력(스페이스바 주의)
+apple.txt
+banana.pdf hello.abc
+annyoung/notMe.yec
+
+answer : [^\s]+(?=\..{3})
+
+why? 
+
+.??? 확장자 나오는것 이전에 스페이스바 제외 모두
+
+

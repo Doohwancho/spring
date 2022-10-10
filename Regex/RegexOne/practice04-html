@@ -1,0 +1,8 @@
+Capture	<a>This is a link</a>	a	Success
+Capture	<a href='https://regexone.com'>Link</a>	a	Success
+Capture	<div class='test_style'>Test</div>	div	Success
+Capture	<div>Hello <span>world</span></div>	div	Success
+
+Q: capture html tag inside <>
+
+answer : (?<=\<)(\w+)   or    <(\w+)

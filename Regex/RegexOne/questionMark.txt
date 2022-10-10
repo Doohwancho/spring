@@ -1,0 +1,15 @@
+Match	1 file found?	Success
+Match	2 files found?	Success
+Match	24 files found?	Success
+Skip	No files found.	To be completed
+
+
+answer : \d+ files? found\?
+
+
+why?
+
+\d : any digits
++ : one or more
+? : optional. ex) files? will find both "file" and "files"
+\ : write special characters as written

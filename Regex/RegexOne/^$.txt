@@ -1,0 +1,18 @@
+Match	Mission: successful	Success
+Skip	Last Mission: unsuccessful	To be completed
+Skip	Next Mission: successful upon capture of target
+
+
+answer : ^Mission: successful$
+
+
+why?
+
+^X : starts with X
+X$ : ends with X
+
+when do we use it?
+
+when we need specific word or character
+
+ex) when we only want 'successful' out of 'successful's and 'unsuccessful's

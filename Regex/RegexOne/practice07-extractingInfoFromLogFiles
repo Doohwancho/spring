@@ -1,0 +1,13 @@
+Skip	W/dalvikvm( 1553): threadid=1: uncaught exception		To be completed
+Skip	E/( 1553): FATAL EXCEPTION: main		To be completed
+Skip	E/( 1553): java.lang.StringIndexOutOfBoundsException		To be completed
+Capture	E/( 1553):   at widget.List.makeView(ListView.java:1727)	makeView ListView.java 1727	Success
+Capture	E/( 1553):   at widget.List.fillDown(ListView.java:652)	fillDown ListView.java 652	Success
+Capture	E/( 1553):   at widget.List.fillFrom(ListView.java:709)	fillFrom ListView.java 709	Success
+
+
+
+
+answer : (\w+)\(([\w+\.]+)\:(\d+)\)$
+
+

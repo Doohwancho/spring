@@ -1,0 +1,11 @@
+Skip	.bash_profile		To be completed
+Skip	workspace.doc		To be completed
+Capture	img0912.jpg	img0912 jpg	Success
+Capture	updated_img0912.png	updated_img0912 png	Success
+Skip	documentation.html		To be completed
+Capture	favicon.gif	favicon gif	Success
+Skip	img0912.jpg.tmp		To be completed
+Skip	access.lock
+
+
+answer : (.*)\.(jpg|png|gif)$

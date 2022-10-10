@@ -1,0 +1,15 @@
+Q. "can man fan dan ran pan" 에서 "can man fan" 만 추출하기
+
+answer : ^[^d|r|p]+
+
+
+왜?
+
+^X : X로 시작해야 함
++ : 1개 이상의 캐릭터가 있어야 함
+[^X] : X로 시작하는 것 제외
+| : or
+
+
+
+answer2: [^drp]an

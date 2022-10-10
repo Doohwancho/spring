@@ -1,0 +1,9 @@
+Match	wazzzzzup	Success
+Match	wazzzup	Success
+Skip	wazup
+
+answer : waz{3,5}up
+
+why?
+
+z{3,5} : 'z' should appear at least 3 times, and less or equal to 5 times

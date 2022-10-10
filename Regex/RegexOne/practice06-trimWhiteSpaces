@@ -1,0 +1,13 @@
+Capture				The quick brown fox...	The quick brown fox...	Success
+Capture	   jumps over the lazy dog.	jumps over the lazy dog.
+
+
+
+Q: trim all whitespaces
+
+answer : \s*(([a-zA-Z]+\s?)+\.+)
+
+
+answer2 : ^\s*(.*)\s*$
+
+스페이스로 구분되있는걸 빼고 내용만 추출하는 방법

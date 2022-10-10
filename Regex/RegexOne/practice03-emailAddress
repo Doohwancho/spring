@@ -1,0 +1,21 @@
+Capture	tom@hogwarts.com	tom	Success
+Capture	tom.riddle@hogwarts.com	tom.riddle	Success
+Capture	tom.riddle+regexone@hogwarts.com	tom.riddle	Success
+Capture	tom@hogwarts.eu.com	tom	Success
+Capture	potter@hogwarts.com	potter	Success
+Capture	harry@hogwarts.com	harry	Success
+Capture	hermione+regexone@hogwarts.com
+
+
+@이후에 것들 빼고 아이디 중에서 +이전에 것들만 뽑아내기
+
+answer : ([^\+\@]+)(\+\w+)?\@((\w+\.)?\w+\.com)
+
+[^\+\@]+은 @랑+를 제외한 모두를 묶어줌
+
+
+
+answer2 : ^([\w\.]*)
+
+이메일 전체 말고 이메일 아이디만 뽑는 방법
+

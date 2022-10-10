@@ -1,0 +1,20 @@
+match 
+1. abcdefg
+2. abcde
+3. abc
+
+answer: abc(.*)
+
+why?
+
+abc : letters in common
+() : group-ing
+. : any character
+* : zero or more repetition
+
+Q1. why * instead of +?
+because + works when there is one or more repetitions,
+and 3rd example(abc) has no letter or digits after 'c'
+
+if you want to use '+' sign, there must be at least single character after 'c'
+
