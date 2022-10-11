@@ -19,6 +19,7 @@ g. java socket programming :white_check_mark:\
 h. generics :white_check_mark:\
 i. functional programming :question:\
 j. SOLID :white_check_mark:\
+k. Clean Code :soon:\
 x. enums\
 x. annotation\
 x. garbage collector\
@@ -93,42 +94,45 @@ i-16. functional interface - Supplier :white_check_mark:\
 i-17. functional interface - Function :white_check_mark:\
 i-x. monad
 
-j-1. baeldung SOLID :white_check_mark:
+j-1. baeldung SOLID :white_check_mark:\
+
+k-1. 이유와 솔루션으로 정리하는 객체지향 생활체조 원칙 :white_check_mark:\
+k-2. rule of 6
 
 ---\
 Reference
 
-e-1. [thread basic](https://github.com/woowacourse/jwp-hands-on)\
-e-2. [thread pool](https://github.com/woowacourse/jwp-hands-on)\
-e-3. [race condition](https://hudi.blog/race-condition-critical-section-mutual-exclusion/)\
-e-4. [synchronization](https://github.com/woowacourse/jwp-hands-on)\
-e-5. [Volatile 이란?](https://ttl-blog.tistory.com/238)\
-e-6. [Atomic Class에서 CAS란?](https://javaplant.tistory.com/23#:~:text=AtomicInteger%EB%9E%80%20%EC%9B%90%EC%9E%90%EC%84%B1%EC%9D%84,%ED%95%98%EA%B8%B0%20%EC%9C%84%ED%95%B4%EC%84%9C%20%EA%B3%A0%EC%95%88%EB%90%9C%20%EB%B0%A9%EB%B2%95%EC%9D%B4%EB%8B%A4.)\
-e-7. [자바 쓰레드 교착상태](https://math-coding.tistory.com/175)\
-e-9. [크리티컬 섹션, 뮤텍스, 세마포어 설명](https://do-rang.tistory.com/90)\
-e-10. [세마포어 설명](https://javaplant.tistory.com/30?category=789385)\
-e-11. [Monitor 설명](https://velog.io/@hosunghan0821/Java-Monitor)\
+e-1. [thread basic](https://github.com/woowacourse/jwp-hands-on) \
+e-2. [thread pool](https://github.com/woowacourse/jwp-hands-on) \
+e-3. [race condition](https://hudi.blog/race-condition-critical-section-mutual-exclusion/) \
+e-4. [synchronization](https://github.com/woowacourse/jwp-hands-on) \
+e-5. [Volatile 이란?](https://ttl-blog.tistory.com/238) \
+e-6. [Atomic Class에서 CAS란?](https://javaplant.tistory.com/23#:~:text=AtomicInteger%EB%9E%80%20%EC%9B%90%EC%9E%90%EC%84%B1%EC%9D%84,%ED%95%98%EA%B8%B0%20%EC%9C%84%ED%95%B4%EC%84%9C%20%EA%B3%A0%EC%95%88%EB%90%9C%20%EB%B0%A9%EB%B2%95%EC%9D%B4%EB%8B%A4.) \
+e-7. [자바 쓰레드 교착상태](https://math-coding.tistory.com/175) \
+e-9. [크리티컬 섹션, 뮤텍스, 세마포어 설명](https://do-rang.tistory.com/90) \
+e-10. [세마포어 설명](https://javaplant.tistory.com/30?category=789385) \
+e-11. [Monitor 설명](https://velog.io/@hosunghan0821/Java-Monitor) \
 e-12. [thread dump 떠서 데드락 확인](https://syundev.tistory.com/284?category=870166) 
 
 
 
-f-1. [io overall structure](https://www.youtube.com/watch?v=FqqzbRPSAks&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=15)\
-f-2. [File Input/Output Stream](https://www.youtube.com/watch?v=fpOGpBywvR4&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=16)\
-f-3. [File Input/Output Stream with buffer size](https://www.youtube.com/watch?v=4DtJ1QcZZkI&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=17)\
-f-4. [DataOutputStream, decorator](https://www.youtube.com/watch?v=ewZhpmriRN8&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=19)\
-f-5. [BufferedReader](https://www.youtube.com/watch?v=vaOjTx5pPhY&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=20)\
-f-6. io between threads - 자바의 정석\
+f-1. [io overall structure](https://www.youtube.com/watch?v=FqqzbRPSAks&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=15) \
+f-2. [File Input/Output Stream](https://www.youtube.com/watch?v=fpOGpBywvR4&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=16) \
+f-3. [File Input/Output Stream with buffer size](https://www.youtube.com/watch?v=4DtJ1QcZZkI&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=17) \
+f-4. [DataOutputStream, decorator](https://www.youtube.com/watch?v=ewZhpmriRN8&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=19) \
+f-5. [BufferedReader](https://www.youtube.com/watch?v=vaOjTx5pPhY&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=20) \
+f-6. io between threads - 자바의 정석 \
 f-7. serialization - 자바의 정석 
 
 
 
-g-1. [what is web socket?](https://www.youtube.com/watch?v=yXPCg5eupGM)\
-g-2. [자바 소켓 통신(Socket)을 사용하는 이유와 동작 원리 및 코드](https://wildeveloperetrain.tistory.com/122)\
+g-1. [what is web socket?](https://www.youtube.com/watch?v=yXPCg5eupGM) \
+g-2. [자바 소켓 통신(Socket)을 사용하는 이유와 동작 원리 및 코드](https://wildeveloperetrain.tistory.com/122) \
 g-3. [TCP socket programming - chatting](https://lktprogrammer.tistory.com/64?category=672211)
 
 
 
-h-1~4. [제네릭 기본, generic method, T extends X && T super X, wild card](https://www.youtube.com/watch?v=Vv0PGUxOzq0)\
+h-1~4. [제네릭 기본, generic method, T extends X && T super X, wild card](https://www.youtube.com/watch?v=Vv0PGUxOzq0) \
 h-5. example) builder pattern in abstract class - effective java\
 h-6. [generic method advanced](https://devlog-wjdrbs96.tistory.com/201)
 
@@ -140,6 +144,10 @@ i-14~17. [functional interface most frequently used](https://yhmane.tistory.com/
 i-x. [monad](https://www.youtube.com/channel/UCrlZnbV0o2cnUNWdEORTxsw/videos) \
 i-x. [3분 모나드](https://overcurried.com/3%EB%B6%84%20%EB%AA%A8%EB%82%98%EB%93%9C/)
  
- 
-j-1. [이유와 솔루션으로 정리하는 객체지향 생활체조 원칙](https://hudi.blog/thoughtworks-anthology-object-calisthenics/)
- 
+j-1. [A Solid Guide to SOLID Principles](https://www.baeldung.com/solid-principles) \
+
+k-1. [이유와 솔루션으로 정리하는 객체지향 생활체조 원칙](https://hudi.blog/thoughtworks-anthology-object-calisthenics/) \
+k-2. [rule of 6](https://davidamos.dev/the-rule-of-six/) \
+k-x. Code Complete 2 \
+k-x. Refactoring 2 \
+k-x. Working Effectively with Legacy Code
