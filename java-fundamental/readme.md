@@ -18,6 +18,7 @@ f. IO :white_check_mark:\
 g. java socket programming :white_check_mark:\
 h. generics :white_check_mark:\
 i. functional programming :question:\
+j. SOLID :white_check_mark:\
 x. enums\
 x. annotation\
 x. garbage collector\
@@ -66,7 +67,6 @@ g-2. java socket programming code :white_check_mark:\
 g-3. chatting program :white_check_mark:
 
 
-
 h-1. what is generics? :white_check_mark:\
 h-2. generic method :white_check_mark:\
 h-3. T extends X && T super X :white_check_mark:\
@@ -92,6 +92,8 @@ i-15. functional interface - Consumer :white_check_mark:\
 i-16. functional interface - Supplier :white_check_mark:\
 i-17. functional interface - Function :white_check_mark:\
 i-x. monad
+
+j-1. baeldung SOLID :white_check_mark:
 
 ---\
 Reference
@@ -137,4 +139,7 @@ i-9. [lazy evaluation](https://sthwin.tistory.com/21#:~:text=%EC%9E%90%EB%B0%94%
 i-14~17. [functional interface most frequently used](https://yhmane.tistory.com/203) \
 i-x. [monad](https://www.youtube.com/channel/UCrlZnbV0o2cnUNWdEORTxsw/videos) \
 i-x. [3분 모나드](https://overcurried.com/3%EB%B6%84%20%EB%AA%A8%EB%82%98%EB%93%9C/)
+ 
+ 
+j-1. [이유와 솔루션으로 정리하는 객체지향 생활체조 원칙](https://hudi.blog/thoughtworks-anthology-object-calisthenics/)
  

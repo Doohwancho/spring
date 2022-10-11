@@ -1,0 +1,95 @@
+
+---
+what is SOLID?
+
+
+1. Single Responsibility = 모든 메서드 한 클래스에 때려박지마!
+2. Open Closed = 확장성 있게 짜되, 변경은 최소화 하게 짜라(== 연역법)
+3. Liskov Substitution = 상속, 오버라이딩 남발하지말고 extends는 신중하게 설계한 뒤에 써. (== 결합도 낮춰)
+4. Interface Segregation = 인터페이스에 기능 다 떄려박지말고 기능도 최소한 잘게 나눠서 필요한 기능만 골라먹어.
+5. Dependency Inversion Principle = DI써서 결합도 낮춰라.
+
+
+SOLID 나만의 한줄요약: "꼭 필요한 기능'만'을 점진적으로 붙여나가되, 최대한 잘게 나눠서 결합도를 낮추고 응집도를 높히자."
+
+
+---
+1. Single Responsibility
+
+
+class should only have one responsibility
+
+
+
+why?
+
+1. 낮은 결합도, 높은 응집도
+2. 그러므로 organize하기 편함
+3. 그러므로 unit test하기 편함
+
+
+
+
+
+---
+2. Open Closed
+
+
+classes should be open for extension but closed for modification.
+
+
+기존 코드 건들인다? -> 에러 확률 증가
+근데 확장은 하고 싶다.
+어떻게 해야함?
+
+-> 연역법으로 짜면 됨.
+최소한 기능만 연역적으로 붙여나가면,
+나중에 새로운 기능 붙일 때, 기존 코드 수정해야하는 출혈 최소화 가능
+
+
+---
+3. Liskov Substitution
+
+
+자식객체가 부모객체를 완전히 대체 가능해야한다.
+
+부모가 있고 부모를 상속받은 자식이 있으면,
+부모 객체를 자식으로 바꿔도 프로그램이 안깨져야 한다는 것.
+
+
+예제 참조.
+
+이것 역시 결론은 무지성 상속하지 말라네.
+무지성 상속 방지 == 결합도 낮춘다랑 동의어인듯.
+
+
+---
+4. Interface Segregation
+
+
+인터페이스에 기능들 모조리 다 때려박아서
+인터페이스 implements 받은 객체들이 자기들이 쓰지도 않을 기능들까지 구현 강제하지 말고,
+
+인터페이스당 분리를 최대한 잘게, 거의 single responsibility 급으로 나눠서,
+꼭 필요한 기능만 implements 해서 개별로 받게 하자.
+
+이것 역시 1. 분리 잘해라 2. 결합도 낮춰라랑 같은 맥락인듯
+
+
+---
+5. Dependency Inversion Principle
+
+
+instead of high-level modules depending on low-level modules, both will depend on abstractions
+
+???
+
+goal: decoupling
+
+
+생성자에서 = new Object()로 객체 넣으면, 강한 결합도 == bad
+DI로 외부에서 자유롭게 어떤 Object든 상황에 맞게 유기적으로 넣을수 있게 하는게 결합도 낮춘다.
+
+결국 결합도 낮추라는 말이네.
+
+
