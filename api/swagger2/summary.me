@@ -1,0 +1,48 @@
+
+---
+swagger2 install on xml
+
+
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger2</artifactId>
+    <version>2.7.0</version>
+</dependency>
+
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger-ui</artifactId>
+    <version>2.7.0</version>
+</dependency>
+
+
+
+
+---
+swagger2 annotations
+
+AccountController.java
+
+1. @Api("Account Controller API V1") <on class>
+2. @ApiOperation(value="회원가입", notes = "유저 회원가입") <on method>
+3. @ApiImplicitParam <on method>
+4. @ApiParam(value = "회원 한 명의 정보를 갖는 객체", required = true) <on param>
+    4-1. @ApiModelProperty(value = "") <on VO>
+
+
+
+
+---
+swagger2 접속 후 확인
+
+http://localhost:8080/swagger-ui.html
+
+
+
+---
+api 상세 정보 기입
+
+
+SwaggerConfig에서 case2) case3 확인
+
+
