@@ -113,7 +113,8 @@ l-15. cache: @CachePut :white_check_mark:\
 l-16. cache: @CacheEvict :white_check_mark:\
 l-17. error-handling : @ExceptionHandler :white_check_mark:\
 l-18. error-handling: @ControllerAdvice :white_check_mark:\
-l-19. error-handling: @ResponseStatus :white_check_mark:
+l-19. error-handling: @ResponseStatus :white_check_mark:\
+l-20. domain: @Embedded :white_check_mark:
 
 m-1. interceptor init :white_check_mark:\
 m-2. interceptor vs filter vs aop :white_check_mark:

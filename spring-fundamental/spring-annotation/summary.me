@@ -2,7 +2,7 @@
 Table of Contents
 
 
-A. Controller
+a. Controller
 
 1. x-www-form-urlencoded -> request.getParamter()
 2. plain/text (raw) -> String data
@@ -15,31 +15,34 @@ A. Controller
 9. @ModelAttribute
 
 
-B. context
+b. context
 
 1. @Bean
 2. @Configuration
 3. @Component
 
 
-C. cache
+c. cache
 
 1. @@Cacheable
 2. @CachePut
 3. @CacheEvict
 
 
-D. error
+d. error
 1. @ExceptionHandler
 2. @ControllerAdvice
 3. @ResponseStatus
 
 
+e. domain
+1. @Embedded
+
 
 
 
 ---
-A-1. x-www-form-urlencoded 으로 보내면?
+a-1. x-www-form-urlencoded 으로 보내면?
 
 
 x-www-form-urlencoded => request.getParamter()
@@ -69,7 +72,7 @@ String phone엔 request.getParameter(phone) 해서 넣어줌.
 
 
 ---
-A-2. text/plain 으로 보내면?
+a-2. text/plain 으로 보내면?
 
 만약에 Postman에서 HttpRequest를 raw로 보낸다면,
 ex.
@@ -87,7 +90,7 @@ public void save(@RequestBody String data){} 로 받음.
 
 
 ---
-A-3. application/json으로 보내면?
+a-3. application/json으로 보내면?
 
 
 A. @RequestBody로 받는데, String 말고 Object로 받아야 함.
@@ -110,7 +113,7 @@ public void save(@RequestBody User user){}
 
 
 ---
-A-4. @PathVariable
+a-4. @PathVariable
 
 @Get("/user/{id}")
 
@@ -119,7 +122,7 @@ A-4. @PathVariable
 (@PathVariable id int)
 
 ---
-A-5. @CrossOrigin
+a-5. @CrossOrigin
 
 
 사람들이 client 브라우저단에서 js로 ajax call로 HttpRequest에 워낙 장난질 많이 하니까,
@@ -132,7 +135,7 @@ A-5. @CrossOrigin
 
 
 ---
-A-6. @Valid
+a-6. @Valid
 
 vo User를 HttpRequest, HttpResponse나,
 save,update,list 등 다른 상황에서 다른 필드가 필요하고,
@@ -145,15 +148,16 @@ JoinReqDto, SaveReqDto 등으로 구분해서,
 @Valid 체크는 aop.BindingAdvice.validCheck()에서 함.
 
 
+
 ---
-A-7. @RequestParam
+a-7. @RequestParam
 
 @RequestParam은 1개의 HTTP 요청 파라미터를 받기 위해서 사용한다.
 @RequestParam은 필수 여부가 true이기 때문에 반드시 해당 파라미터가 전송되어야 하며, 파라미터가 전송되지 않으면 400 에러가 발생한다.
 
 
 ---
-A-8. @RequestBody
+a-8. @RequestBody
 
 클라이언트가 전송하는 Json(application/json) 형태의 HTTP Body를 Java 객체로 변환시켜주는 역할을 한다.
 
@@ -162,7 +166,7 @@ ObjectMapper을 쓰는데, 내부적으로 reflection을 사용하기 때문에 
 
 
 ---
-A-9. @ModelAttribute
+a-9. @ModelAttribute
 
 client가 form으로 보낼 때 사용.
 body에 있는 정보를 파라미터에 바인딩 하기 위해 사용
@@ -172,7 +176,7 @@ body에 있는 정보를 파라미터에 바인딩 하기 위해 사용
 
 
 ---
-B-1,2. @Bean & @Configuration
+b-1,2. @Bean & @Configuration
 
 spring ioc container에 객체 등록하기 위해 빈 씀.
 .getBean()등으로 이름을 가져오거나 id도 있고, bean 생성 때 생성자에 주입할 파라미터받는 .property도 있네.
@@ -204,7 +208,7 @@ public class ResourceConfig {
 
 
 ---
-B-3. @Component
+b-3. @Component
 
 자동으로 빈 등록하는 방법.
 
@@ -215,13 +219,22 @@ component scan에 적용되는 놈들 타게팅.
 
 
 ---
-C-1~3 cache related
+c-1~3 cache related
 
 spring-cache/ 프로젝트 참조
 
 
 --
-D-1~3. error related
+c-1~3. error related
 
 spring-annotation/ 프로젝트 참조
+
+
+---
+e-1. @Embedded
+dto에 password를 BcryptEncryptor나 다른 관련 메서드를 Password라는 클래스 만들어서 일괄관리하고싶거나,
+address1, address2, zipcode를 Address 클래스로 일괄적으로 묶어서 관리하고 싶은 경우, 사용한다.
+
+User.java, Password.java, Address.java 참고.
+더 자세한 use-case는 /jpa/spring-jpa-best-practices-cheese10yun 참고.
 

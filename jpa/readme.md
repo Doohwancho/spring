@@ -10,7 +10,7 @@ Modularize JPA
 concepts in jpa 
 
 
-a. annotations :soon:
+a. annotations :soon:\
 b. @Valid -> error handling :white_check_mark:
 
 x. What is Spring Data JPA\
