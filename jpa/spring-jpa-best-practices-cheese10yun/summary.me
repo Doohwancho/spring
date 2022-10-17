@@ -1,0 +1,21 @@
+
+
+---
+annotations
+
+
+VO
+
+a. on class
+@Entity
+@Table(name = "account")
+
+b. on fields
+@Id
+@GeneratedValue - auto-increment
+@Email
+@Column(name = "email", nullable = false, unique = true) - db 제약사항 설정
+@Temporal(TemporalType.TIMESTAMP)
+@CreationTimestamp - 생성시 jvm 시간 기준으로 Timestamp 생성
+@UpdateTimestamp - update시 jvm 시간 기준으로 Timestamp 생성
+
