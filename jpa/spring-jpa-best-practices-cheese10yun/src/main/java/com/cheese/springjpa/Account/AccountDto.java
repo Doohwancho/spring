@@ -1,10 +1,14 @@
 package com.cheese.springjpa.Account;
 
+import com.cheese.springjpa.Account.model.Address;
+import com.cheese.springjpa.Account.model.Password;
+import com.cheese.springjpa.Account.model.Email;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.Valid;
 
 public class AccountDto {
     /*
@@ -19,9 +23,9 @@ public class AccountDto {
     @ApiModel(value = "회원 정보", description = "아이디, 이름, 비밀번호, 이메일, 주소, 가입날짜를 가진 Domain Class")
     public static class SignUpReq {
 
-        @Email
+        @Valid
         @ApiModelProperty(value = "이메일", example = "mail@gmail.com", required = true)
-        private String email;
+        private Email email;
 
         @NotEmpty
         @ApiModelProperty(value = "이름", example = "doohwan", required = true)
@@ -31,31 +35,33 @@ public class AccountDto {
         @ApiModelProperty(value = "성", example = "cho", required = true)
         private String lastName;
 
-        @NotEmpty
+
         @ApiModelProperty(value = "비밀번호", example = "1234", required = false)
         private String password;
 
-        @NotEmpty
-        @ApiModelProperty(value = "주소1", example = "address1", required = true)
-        private String address1;
 
-        @NotEmpty
-        @ApiModelProperty(value = "주소2", example = "address2", required = true)
-        private String address2;
+        @Valid
+        private Address address;
 
-        @NotEmpty
-        @ApiModelProperty(value = "집코드", example = "zip code", required = true)
-        private String zip;
+//        @NotEmpty
+//        @ApiModelProperty(value = "주소1", example = "address1", required = true)
+//        private String address1;
+//
+//        @NotEmpty
+//        @ApiModelProperty(value = "주소2", example = "address2", required = true)
+//        private String address2;
+//
+//        @NotEmpty
+//        @ApiModelProperty(value = "집코드", example = "zip code", required = true)
+//        private String zip;
 
         @Builder
-        public SignUpReq(String email, String firstName, String lastName, String password, String address1, String address2, String zip) {
+        public SignUpReq(Email email, String fistName, String lastName, String password, Address address) {
             this.email = email;
-            this.firstName = firstName;
+            this.firstName = fistName;
             this.lastName = lastName;
             this.password = password;
-            this.address1 = address1;
-            this.address2 = address2;
-            this.zip = zip;
+            this.address = address;
         }
 
         public Account toEntity() {
@@ -63,47 +69,40 @@ public class AccountDto {
                     .email(this.email)
                     .firstName(this.firstName)
                     .lastName(this.lastName)
-                    .password(this.password)
-                    .address1(this.address1)
-                    .address2(this.address2)
-                    .zip(this.zip)
+                    .password(Password.builder().value(this.password).build())
+                    .address(this.address)
                     .build();
         }
 
     }
 
+
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class MyAccountReq {
-        private String address1;
-        private String address2;
-        private String zip;
+        private Address address;
 
         @Builder
-        public MyAccountReq(String address1, String address2, String zip) {
-            this.address1 = address1;
-            this.address2 = address2;
-            this.zip = zip;
+        public MyAccountReq(final Address address) {
+            this.address = address;
         }
 
     }
 
     @Getter
     public static class Res {
-        private String email;
+        private com.cheese.springjpa.Account.model.Email email;
+        private Password password;
         private String firstName;
         private String lastName;
-        private String address1;
-        private String address2;
-        private String zip;
+        private Address address;
 
         public Res(Account account) {
             this.email = account.getEmail();
             this.firstName = account.getFirstName();
             this.lastName = account.getLastName();
-            this.address1 = account.getAddress1();
-            this.address2 = account.getAddress2();
-            this.zip = account.getZip();
+            this.address = account.getAddress();
+            this.password = account.getPassword();
         }
     }
 }

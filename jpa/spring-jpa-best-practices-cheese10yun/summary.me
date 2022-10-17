@@ -73,3 +73,93 @@ controller에 @Valid에서 제한사항 체크 중, @NotNull에 걸려서,
 message에 "입력값이 올바르지 않습니다." 는 ErrorCode.java에서 옴
 
 
+
+---
+@Embeddable로 Address, Email, Password 객체화
+
+
+
+원래 dto가 이렇게 생겼잖아?
+
+{
+  "address1": "address1",
+  "address2": "address2",
+  "email": "mail@gmail.com",
+  "firstName": "doohwan",
+  "lastName": "cho",
+  "password": "1234",
+  "zip": "zip code"
+}
+
+
+근데 여기서 address, password, email을 한단계 더 객체화 시켜서, 관리하는 것.
+그럼 구조가 이렇게 됨.
+
+{
+  "address": {
+    "address1": "address1",
+    "address2": "address2",
+    "zip": "zip code"
+  },
+  "email": {
+    "address": "string"
+  },
+  "firstName": "string",
+  "lastName": "string",
+  "password": {
+    "expiration": true,
+    "expirationDate": "2022-10-17T09:30:06.848Z",
+    "failedCount": 0,
+    "ttl": 0,
+    "value": "1234"
+  }
+}
+
+근데 왜 굳이 이렇게 객체화 또 시킴?
+
+Address같은 경우에, address1, address2, zip 통합관리 해줘야 하잖아.
+Password도 보면, BCryptPasswordEncoder로 encrypt하고 복호화 하고 처리하는 로직 다른 클래스에서 관리 안하고, 여기에서 비밀번호 값과 관리 메서드 일괄관리하는 것.
+
+
+여튼 swagger2로 register하면, 이렇게 response 옴
+
+{
+  "email": {
+    "address": "mail@gmail.com"
+  },
+  "password": {
+    "value": "$2a$10$91xowRb891uwr7h90qwZCOU7B54.RnihsPukMKWRxF1wblVV2KGG.",
+    "expirationDate": {
+      "dayOfYear": 304,
+      "dayOfWeek": "MONDAY",
+      "month": "OCTOBER",
+      "dayOfMonth": 31,
+      "hour": 18,
+      "minute": 31,
+      "second": 2,
+      "nano": 263000000,
+      "year": 2022,
+      "monthValue": 10,
+      "chronology": {
+        "id": "ISO",
+        "calendarType": "iso8601"
+      }
+    },
+    "failedCount": 0,
+    "ttl": 1209604,
+    "expiration": false
+  },
+  "firstName": "doohwan",
+  "lastName": "cho",
+  "address": {
+    "address1": "address1",
+    "address2": "address2",
+    "zip": "zip code"
+  }
+}
+
+
+AccountDto.Res에서 password만 숨기면 딱이겠다.
+
+
+

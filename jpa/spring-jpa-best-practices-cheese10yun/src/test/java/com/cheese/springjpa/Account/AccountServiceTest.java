@@ -1,6 +1,9 @@
 package com.cheese.springjpa.Account;
 
 import com.cheese.springjpa.Account.exception.AccountNotFoundException;
+import com.cheese.springjpa.Account.exception.EmailDuplicationException;
+import com.cheese.springjpa.Account.model.Address;
+import com.cheese.springjpa.Account.model.Email;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -37,6 +40,20 @@ public class AccountServiceTest {
         //then
         verify(accountRepository, atLeastOnce()).save(any(Account.class));
         assertThatEqual(dto, account);
+
+        //커버리지를 높이기 위한 임시 함수
+        account.getId();
+    }
+
+    @Test(expected = EmailDuplicationException.class)
+    public void create_중복된_이메일_경우_EmailDuplicationException() {
+        //given
+        final AccountDto.SignUpReq dto = buildSignUpReq();
+        given(accountRepository.findByEmail(any())).willReturn(dto.toEntity());
+
+        //when
+        accountService.create(dto);
+
     }
 
     @Test
@@ -73,40 +90,60 @@ public class AccountServiceTest {
         final Account account = accountService.updateMyAccount(anyLong(), dto);
 
         //then
-        assertThat(dto.getAddress1(), is(account.getAddress1()));
-        assertThat(dto.getAddress2(), is(account.getAddress2()));
-        assertThat(dto.getZip(), is(account.getZip()));
+        assertThat(dto.getAddress().getAddress1(), is(account.getAddress().getAddress1()));
+        assertThat(dto.getAddress().getAddress2(), is(account.getAddress().getAddress2()));
+        assertThat(dto.getAddress().getZip(), is(account.getAddress().getZip()));
     }
 
+    @Test
+    public void isExistedEmail_존재하는이메일_ReturnTrue() {
+        //given
+        final AccountDto.SignUpReq signUpReq = buildSignUpReq();
+        given(accountRepository.findByEmail(any())).willReturn(signUpReq.toEntity());
 
+        //when
+        final boolean existedEmail = accountService.isExistedEmail(any());
+
+        //then
+        verify(accountRepository, atLeastOnce()).findByEmail(any());
+        assertThat(existedEmail, is(true));
+    }
 
     private AccountDto.MyAccountReq buildMyAccountReq() {
         return AccountDto.MyAccountReq.builder()
-                .address1("주소수정")
-                .address2("주소수정2")
-                .zip("061-233-444")
+                .address(buildAddress("주소수정", "주소수정2", "061-233-444"))
                 .build();
     }
 
     private void assertThatEqual(AccountDto.SignUpReq signUpReq, Account account) {
-        assertThat(signUpReq.getAddress1(), is(account.getAddress1()));
-        assertThat(signUpReq.getAddress2(), is(account.getAddress2()));
-        assertThat(signUpReq.getZip(), is(account.getZip()));
+        assertThat(signUpReq.getAddress().getAddress1(), is(account.getAddress().getAddress1()));
+        assertThat(signUpReq.getAddress().getAddress2(), is(account.getAddress().getAddress2()));
+        assertThat(signUpReq.getAddress().getZip(), is(account.getAddress().getZip()));
         assertThat(signUpReq.getEmail(), is(account.getEmail()));
         assertThat(signUpReq.getFirstName(), is(account.getFirstName()));
         assertThat(signUpReq.getLastName(), is(account.getLastName()));
-        assertThat(signUpReq.getPassword(), is(account.getPassword()));
     }
 
     private AccountDto.SignUpReq buildSignUpReq() {
         return AccountDto.SignUpReq.builder()
-                .address1("서울")
-                .address2("성동구")
-                .zip("052-2344")
-                .email("email")
-                .firstName("남윤")
+                .address(buildAddress("서울", "성동구", "052-2344"))
+                .email(buildEmail("email"))
+                .fistName("남윤")
                 .lastName("김")
                 .password("password111")
                 .build();
+    }
+
+    private Email buildEmail(final String email) {
+        return Email.builder().address(email).build();
+    }
+
+    private Address buildAddress(String address1, String address2, String zip) {
+        return Address.builder()
+                .address1(address1)
+                .address2(address2)
+                .zip(zip)
+                .build();
+
     }
 }
