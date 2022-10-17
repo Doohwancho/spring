@@ -45,6 +45,7 @@ b-2. [@Embeddable로 Address, Email, Password 객체화](https://github.dev/chee
 
 c-1. [one to many 맛보기](https://github.dev/cheese10yun/spring-jpa-best-practices/tree/step-05)
 
-d-1. [Properties 설정값 가져오기](https://github.com/cheese10yun/spring-jpa-best-practices/blob/master/doc/step-10.md)
+d-1. [Properties 설정값 가져오기](https://github.com/cheese10yun/spring-jpa-best-practices/blob/master/doc/step-10.md) \
+d-2. [Properties split by environments: local, dev, prod](https://github.com/cheese10yun/spring-jpa-best-practices/blob/master/doc/step-11.md)
 
 x-x. [amigoscode spring-data-jpa-course 뜯어보기](https://github.com/amigoscode/spring-data-jpa-course)

@@ -252,3 +252,16 @@ not to do) AntiSamplePropertiesRunner.java
 SampleProperties에선 커스텀으로 정의한 @Email도 쓸 수 있잖어.
 data-jackson-binding의 도움을 받을 수 있음.
 
+
+
+
+---
+D-2. local, dev, production 환경 나눠서 관리하기.
+
+공통사항만 application.yml에 남기고,
+나머지 다른점은(다른 디비 쓴다거나, 다른 유저 아이디, 비밀번호 쓴다거나...)를 application-{env}.yml에 나눠서 관리
+
+프로젝트 실행 시, intellij라면, Edit Configuration의 VM Option에서
+-DSpring.profiles.active=local    설정해주고,
+Active Profiles 는 local로 설정해주어야 한다.
+
