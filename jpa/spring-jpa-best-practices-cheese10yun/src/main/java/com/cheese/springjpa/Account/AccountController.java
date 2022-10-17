@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("accounts")
 @Api("Account Controller API V1")
@@ -31,7 +33,7 @@ public class AccountController {
             @ApiResponse(code = 409, message = "The request was valid but NiFi was not in the appropriate state to process it. Retrying the same request later may be successful.")
         }
     )
-    public AccountDto.Res signUp(@RequestBody @ApiParam(value = "회원 한 명의 정보를 갖는 객체", required = false) final AccountDto.SignUpReq dto) {
+    public AccountDto.Res signUp(@RequestBody @Valid @ApiParam(value = "회원 한 명의 정보를 갖는 객체", required = false) final AccountDto.SignUpReq dto) {
         return new AccountDto.Res(accountService.create(dto));
     }
 

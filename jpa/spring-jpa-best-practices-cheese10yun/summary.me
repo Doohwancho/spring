@@ -1,21 +1,75 @@
 
 
 ---
-annotations
+A. annotations
 
-
-VO
-
-a. on class
+a. VO on class
 @Entity
 @Table(name = "account")
 
-b. on fields
+
+b. VO on fields
 @Id
 @GeneratedValue - auto-increment
 @Email
 @Column(name = "email", nullable = false, unique = true) - db 제약사항 설정
+@NotEmpty
 @Temporal(TemporalType.TIMESTAMP)
 @CreationTimestamp - 생성시 jvm 시간 기준으로 Timestamp 생성
 @UpdateTimestamp - update시 jvm 시간 기준으로 Timestamp 생성
+
+
+
+
+---
+B. @Valid -> error 처리
+
+
+vo에 @NotEmpty같은 조건 달고,
+controller 파라미터에 @Valid 달아서, 조건에 부합하는지 체크,
+틀리면, error 처리를 하는데,
+@ControllerAdvice 를 써서 ErrorExceptionController로 컨트롤러에 프록시 담.
+특정 exception이 발생하면, 캐치해서 에러 처리해주는 함수 작성. (ex. @ExceptionHandler(EmailDuplicationException.class)가 캐치)
+
+
+Q. 근데 왜 별개로 에러 처리해줘야해? 기본 기능 쓰면 안돼?
+A.
+기본 에러 response엔 시스템 정보같은 보여주기 껄끄러운 정보들도 잡다하게 들어가있고, 포멧도 제각각임.
+결국 error response 처리를 프론트엔드에서 해줘야 하는데, 포멧 통일시켜주려면, 커스텀으로 만드는게 좋다.
+error response template은 ErrorResponse.java임.
+
+
+example)
+
+swagger2로 post register에 다음과 같이 필드 하나 빼고 보내면, (firstname이 비어있음)
+
+{
+  "address1": "address1",
+  "address2": "address2",
+  "email": "mail@gmail.com",
+  "firstName": "",
+  "lastName": "cho",
+  "password": "1234",
+  "zip": "zip code"
+}
+
+
+controller에 @Valid에서 제한사항 체크 중, @NotNull에 걸려서,
+
+{
+  "message": "입력값이 올바르지 않습니다.",
+  "code": "???",
+  "status": 400,
+  "errors": [
+    {
+      "field": "firstName",
+      "value": "",
+      "reason": "반드시 값이 존재하고 길이 혹은 크기가 0보다 커야 합니다."
+    }
+  ]
+}
+
+이런 response가 날아옴.
+message에 "입력값이 올바르지 않습니다." 는 ErrorCode.java에서 옴
+
 

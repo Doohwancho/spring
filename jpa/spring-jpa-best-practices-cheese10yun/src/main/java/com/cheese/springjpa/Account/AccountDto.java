@@ -3,6 +3,8 @@ package com.cheese.springjpa.Account;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class AccountDto {
     /*
@@ -16,18 +18,32 @@ public class AccountDto {
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     @ApiModel(value = "회원 정보", description = "아이디, 이름, 비밀번호, 이메일, 주소, 가입날짜를 가진 Domain Class")
     public static class SignUpReq {
+
+        @Email
         @ApiModelProperty(value = "이메일", example = "mail@gmail.com", required = true)
         private String email;
+
+        @NotEmpty
         @ApiModelProperty(value = "이름", example = "doohwan", required = true)
         private String firstName;
+
+        @NotEmpty
         @ApiModelProperty(value = "성", example = "cho", required = true)
         private String lastName;
+
+        @NotEmpty
         @ApiModelProperty(value = "비밀번호", example = "1234", required = false)
         private String password;
+
+        @NotEmpty
         @ApiModelProperty(value = "주소1", example = "address1", required = true)
         private String address1;
+
+        @NotEmpty
         @ApiModelProperty(value = "주소2", example = "address2", required = true)
         private String address2;
+
+        @NotEmpty
         @ApiModelProperty(value = "집코드", example = "zip code", required = true)
         private String zip;
 

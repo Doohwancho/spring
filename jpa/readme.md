@@ -11,6 +11,7 @@ concepts in jpa
 
 
 a. annotations :soon:
+b. @Valid -> error handling :white_check_mark:
 
 x. What is Spring Data JPA\
 x. Connect to a real database and not in memory DB\
@@ -36,5 +37,7 @@ Todos
 
 a-1. [spring-jpa best practices by cheese10yun 뜯어보기](https://github.com/cheese10yun/spring-jpa-best-practices) \
 a-2. [jpa annotations on vo, dto](https://github.com/cheese10yun/spring-jpa-best-practices/blob/master/doc/step-01.md)
+
+b-1. [@Valid -> error handling](https://github.com/cheese10yun/spring-jpa-best-practices/blob/master/doc/step-02.md)
 
 x-x. [amigoscode spring-data-jpa-course 뜯어보기](https://github.com/amigoscode/spring-data-jpa-course)
