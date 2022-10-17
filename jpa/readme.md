@@ -12,7 +12,8 @@ concepts in jpa
 
 a. annotations :soon:\
 b. @Valid -> error handling :white_check_mark:\
-c. OneToMany :white_check_mark:
+c. OneToMany :white_check_mark:\
+d. property environment :white_check_mark:
 
 x. What is Spring Data JPA\
 x. Connect to a real database and not in memory DB\
@@ -43,5 +44,7 @@ b-1. [@Valid -> error handling](https://github.com/cheese10yun/spring-jpa-best-p
 b-2. [@Embeddable로 Address, Email, Password 객체화](https://github.dev/cheese10yun/spring-jpa-best-practices/tree/step-05)
 
 c-1. [one to many 맛보기](https://github.dev/cheese10yun/spring-jpa-best-practices/tree/step-05)
+
+d-1. [Properties 설정값 가져오기](https://github.com/cheese10yun/spring-jpa-best-practices/blob/master/doc/step-10.md)
 
 x-x. [amigoscode spring-data-jpa-course 뜯어보기](https://github.com/amigoscode/spring-data-jpa-course)

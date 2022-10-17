@@ -190,17 +190,11 @@ C-1. OneToMany
 
 DeliveryLog는 Delivery에서 private List<DeliveryLog> logs = new ArrayList<>(); 이런식으로 관리됨.
 
-DeliveryLog를 까보면,
 
-@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-@ManyToOne   <--------- 이게 붙어있네?
-@JoinColumn(name = "delivery_id", nullable = false, updatable = false)
-private Delivery delivery;
-
-
-그리고 Delivery를 까보면,
+Delivery를 까보면,
 @OneToMany(mappedBy = "delivery", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.EAGER)
 private List<DeliveryLog> logs = new ArrayList<>();
+
 
 @OneToMany 붙어잇고,
 orphanRemoval = true 인걸 보니, 부모인 Delivery가 지워지면, 거기에 1:M으로 묶여있던 자식들 죄다 삭제하라는 말인 듯?
@@ -208,7 +202,19 @@ delete on cascade 였나.
 
 
 cascade = CascadeType.PERSIST는 뭐지?
-자식들 .add()하는거 트랜젝션인듯.
+자식들 .add()하는거 트랜젝션 관련 코드인 듯?
+
+// cascade 없는 경우
+Hibernate: insert into delivery (id, address1, address2, zip, created_at, update_at) values (null, ?, ?, ?, ?, ?)
+
+// cascade PERSIST 설정 했을 경우
+Hibernate: insert into delivery (id, address1, address2, zip, created_at, update_at) values (null, ?, ?, ?, ?, ?)
+Hibernate: insert into delivery_log (id, created_at, update_at, delivery_id, status) values (null, ?, ?, ?, ?)
+
+맞네.
+
+
+
 
 fetch = FetchType.EAGER는 근데 뭐지?
 lazy loading, eager loading 있는데,
@@ -217,11 +223,32 @@ eager loading은 원래대로 다 쿼리해오고.
 
 
 
+다음으로 DeliveryLog를 까보면,
 
+@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+@ManyToOne   <--------- 이게 붙어있네?
+@JoinColumn(name = "delivery_id", nullable = false, updatable = false)
+private Delivery delivery;
 
-Q. 객체가 자기 자신 스스로 관리
+자식 입장에서 부모는 M:1이니까 @ManyToOne인 듯.
+@JoinColumn은 자식이 부모의 delivery_id인 FK 가지고 있는걸 저렇게 표현한 듯?
+
 
 DeliveryLog의 메서드 보면, cancel()같은 애들은 자기가 자기 케어함.
 jpa에서 객체는 자기 스스로 관리하는 방식으로 짜는 듯
 
+
+
+---
+D-1. application.yml에서 property, env 값 가져오기
+
+
+not to do) AntiSamplePropertiesRunner.java
+
+왜 안티패턴임?
+자료형 바인딩 문제 때문.
+
+
+SampleProperties에선 커스텀으로 정의한 @Email도 쓸 수 있잖어.
+data-jackson-binding의 도움을 받을 수 있음.
 
