@@ -14,40 +14,40 @@ import java.util.Date;
 @Table(name = "account")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ApiModel(value = "회원 정보", description = "아이디, 이름, 비밀번호, 이메일, 주소, 가입날짜를 가진 Domain Class")
+//@ApiModel(value = "회원 정보", description = "아이디, 이름, 비밀번호, 이메일, 주소, 가입날짜를 가진 Domain Class")
 public class Account {
 
     @Id
     @GeneratedValue
-    @ApiModelProperty(value = "아이디")
+//    @ApiModelProperty(value = "아이디")
     private long id;
 
     @Column(name = "email", nullable = false, unique = true)
-    @ApiModelProperty(value = "이메일")
+//    @ApiModelProperty(value = "이메일")
     private String email;
 
     @Column(name = "first_name", nullable = false)
-    @ApiModelProperty(value = "이름")
+//    @ApiModelProperty(value = "이름")
     private String firstName;
 
     @Column(name = "last_name", nullable = false)
-    @ApiModelProperty(value = "성")
+//    @ApiModelProperty(value = "성")
     private String lastName;
 
     @Column(name = "password", nullable = false)
-    @ApiModelProperty(value = "비밀번호")
+//    @ApiModelProperty(value = "비밀번호")
     private String password;
 
     @Column(name = "address1", nullable = false)
-    @ApiModelProperty(value = "주소1")
+//    @ApiModelProperty(value = "주소1")
     private String address1;
 
     @Column(name = "address2", nullable = false)
-    @ApiModelProperty(value = "주소2")
+//    @ApiModelProperty(value = "주소2")
     private String address2;
 
     @Column(name = "zip", nullable = false)
-    @ApiModelProperty(value = "집코드")
+//    @ApiModelProperty(value = "집코드")
     private String zip;
 
     @Column(name = "created_at")

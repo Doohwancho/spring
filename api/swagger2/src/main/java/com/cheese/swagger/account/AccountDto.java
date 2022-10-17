@@ -2,6 +2,7 @@ package com.cheese.swagger.account;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiParam;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,19 +15,26 @@ public class AccountDto {
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     @ApiModel(value = "회원 정보", description = "아이디, 이름, 비밀번호, 이메일, 주소, 가입날짜를 가진 Domain Class")
     public static class SignUpReq {
-        @ApiModelProperty(value = "이메일")
+
+        @ApiModelProperty(value = "이메일", example = "mail@gmail.com", required = true)
         private String email;
-        @ApiModelProperty(value = "이름")
+
+        @ApiModelProperty(value = "이름", example = "doohwan", required = true)
         private String firstName;
-        @ApiModelProperty(value = "성")
+
+        @ApiModelProperty(value = "성", example = "cho", required = true)
         private String lastName;
-        @ApiModelProperty(value = "비밀번호")
+
+        @ApiModelProperty(value = "비밀번호", example = "1234", required = false)
         private String password;
-        @ApiModelProperty(value = "주소1")
+
+        @ApiModelProperty(value = "주소1", example = "address1", required = true)
         private String address1;
-        @ApiModelProperty(value = "주소2")
+
+        @ApiModelProperty(value = "주소2", example = "address2", required = true)
         private String address2;
-        @ApiModelProperty(value = "집코드")
+
+        @ApiModelProperty(value = "집코드", example = "zip code", required = true)
         private String zip;
 
         @Builder

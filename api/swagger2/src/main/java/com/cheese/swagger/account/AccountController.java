@@ -15,38 +15,38 @@ public class AccountController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
-    @ApiOperation(value="회원가입"
-            ,notes = "유저 회원가입"
-            //,response = TemplateEntity.class
-    )
-    @ApiImplicitParams(
-//        case1) failed. - it does not map with @RequestBody
-//      value = {
-//            @ApiImplicitParam(name= "email", value= "doohwancho1993@gmail.com", example= "이메일 주소"),
-//            @ApiImplicitParam(name= "firstName",value= "doohwan",example= "이름"),
-//            @ApiImplicitParam(name= "lastName",value= "cho",example= "성"),
-//            @ApiImplicitParam(name= "password",value= "1234",example= "비밀번호"),
-//            @ApiImplicitParam(name= "address1",value= "gyunggido",example= "주소1"),
-//            @ApiImplicitParam(name= "address2",value= "gimposi",example= "주소2"),
-//            @ApiImplicitParam(name= "zip",value= "10101",example= "zip code")
-//        }
-
-            //case2) this works, but its not the nicest way, since it has a bunch of string concatenations.
-            @ApiImplicitParam(name = "dto",
-                    value =
-                            "{\n" +
-                                    "\"email\": \"doohwancho1993@gmail.com\",\n" +
-                                    "\"firstName\":\"doohwan\",\n"+
-                                    "\"lastName\":\"cho\",\n"+
-                                    "\"password\":\"1234\",\n"+
-                                    "\"address1\":\"gyung-gi\",\n"+
-                                    "\"address2\":\"gimpo\",\n"+
-                                    "\"zip\":\"10101\"" +
-                                    "\n}",
-                    required = true,
-                    dataTypeClass = AccountDto.SignUpReq.class,
-                    paramType = "application/json")
-    )
+//    @ApiOperation(value="회원가입"
+//            ,notes = "유저 회원가입"
+//            //,response = TemplateEntity.class
+//    )
+//    @ApiImplicitParams(
+////        case1) 단일 dto에 여러 fields에 매핑은 안되고, 여러 wrapper class 파라미터에 매핑하는 방식은 됨.
+////      value = {
+////            @ApiImplicitParam(name= "email", value= "doohwancho1993@gmail.com", example= "이메일 주소"),
+////            @ApiImplicitParam(name= "firstName",value= "doohwan",example= "이름"),
+////            @ApiImplicitParam(name= "lastName",value= "cho",example= "성"),
+////            @ApiImplicitParam(name= "password",value= "1234",example= "비밀번호"),
+////            @ApiImplicitParam(name= "address1",value= "gyunggido",example= "주소1"),
+////            @ApiImplicitParam(name= "address2",value= "gimposi",example= "주소2"),
+////            @ApiImplicitParam(name= "zip",value= "10101",example= "zip code")
+////        }
+//
+//            //case2) 단일 dto에 여러 파라미터에 넣는 방식인데, not recommended. DTO에 @ApiModelProperty() 방법이 더 elegant.
+//            @ApiImplicitParam(name = "dto",
+//                    value =
+//                            "{\n" +
+//                                    "\"email\": \"doohwancho1993@gmail.com\",\n" +
+//                                    "\"firstName\":\"doohwan\",\n"+
+//                                    "\"lastName\":\"cho\",\n"+
+//                                    "\"password\":\"1234\",\n"+
+//                                    "\"address1\":\"gyung-gi\",\n"+
+//                                    "\"address2\":\"gimpo\",\n"+
+//                                    "\"zip\":\"10101\"" +
+//                                    "\n}",
+//                    required = true,
+//                    dataTypeClass = AccountDto.SignUpReq.class,
+//                    paramType = "application/json")
+//    )
     @ApiResponses(
             value = {
                     @ApiResponse(
