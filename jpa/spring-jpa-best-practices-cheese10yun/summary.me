@@ -22,7 +22,7 @@ b. VO on fields
 
 
 ---
-B. @Valid -> error 처리
+B-1. @Valid -> error 처리
 
 
 vo에 @NotEmpty같은 조건 달고,
@@ -75,7 +75,7 @@ message에 "입력값이 올바르지 않습니다." 는 ErrorCode.java에서 �
 
 
 ---
-@Embeddable로 Address, Email, Password 객체화
+B-2. @Embeddable로 Address, Email, Password 객체화
 
 
 
@@ -161,5 +161,67 @@ Password도 보면, BCryptPasswordEncoder로 encrypt하고 복호화 하고 처�
 
 AccountDto.Res에서 password만 숨기면 딱이겠다.
 
+
+---
+C-1. OneToMany
+
+
+배송과 배송로그의 관계는 1:M 관계. 고로 json에서 이렇게 표기됨.
+
+{
+  "address": {
+    "address1": "서울 특별시...",
+    "address2": "신림 ....",
+    "zip": "020...."
+  },
+  "logs": [
+    {
+      "status": "PENDING" //#1
+    },
+    {
+      "status": "DELIVERING" //#2
+    },
+    {
+      "status": "COMPLETED" //#3
+    }
+  ]
+}
+
+
+DeliveryLog는 Delivery에서 private List<DeliveryLog> logs = new ArrayList<>(); 이런식으로 관리됨.
+
+DeliveryLog를 까보면,
+
+@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+@ManyToOne   <--------- 이게 붙어있네?
+@JoinColumn(name = "delivery_id", nullable = false, updatable = false)
+private Delivery delivery;
+
+
+그리고 Delivery를 까보면,
+@OneToMany(mappedBy = "delivery", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.EAGER)
+private List<DeliveryLog> logs = new ArrayList<>();
+
+@OneToMany 붙어잇고,
+orphanRemoval = true 인걸 보니, 부모인 Delivery가 지워지면, 거기에 1:M으로 묶여있던 자식들 죄다 삭제하라는 말인 듯?
+delete on cascade 였나.
+
+
+cascade = CascadeType.PERSIST는 뭐지?
+자식들 .add()하는거 트랜젝션인듯.
+
+fetch = FetchType.EAGER는 근데 뭐지?
+lazy loading, eager loading 있는데,
+lazy loading은 부모 자식 1:M 관계에서, 자식들을 프록시로 lazy load하고, 실제 쓸 때, 조회함.
+eager loading은 원래대로 다 쿼리해오고.
+
+
+
+
+
+Q. 객체가 자기 자신 스스로 관리
+
+DeliveryLog의 메서드 보면, cancel()같은 애들은 자기가 자기 케어함.
+jpa에서 객체는 자기 스스로 관리하는 방식으로 짜는 듯
 
 
