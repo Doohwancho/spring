@@ -1,7 +1,9 @@
 package com.cheese.springjpa.Account;
 
+import com.cheese.springjpa.common.model.PageRequest;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,8 +14,13 @@ import javax.validation.Valid;
 @Api("Account Controller API V1")
 public class AccountController {
 
-    @Autowired
-    private AccountService accountService;
+    private final AccountService accountService;
+    private final AccountSearchService accountSearchService;
+
+    public AccountController(AccountService accountService, AccountSearchService accountSearchService) {
+        this.accountService = accountService;
+        this.accountSearchService = accountSearchService;
+    }
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
@@ -35,6 +42,15 @@ public class AccountController {
     )
     public AccountDto.Res signUp(@RequestBody @Valid @ApiParam(value = "회원 한 명의 정보를 갖는 객체", required = false) final AccountDto.SignUpReq dto) {
         return new AccountDto.Res(accountService.create(dto));
+    }
+
+    @GetMapping
+    public Page<AccountDto.Res> getAccounts(
+            @RequestParam(name = "type") final AccountSearchType type,
+            @RequestParam(name = "value", required = false) final String value,
+            final PageRequest pageRequest
+    ) {
+        return accountSearchService.search(type, value, pageRequest.of()).map(AccountDto.Res::new);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

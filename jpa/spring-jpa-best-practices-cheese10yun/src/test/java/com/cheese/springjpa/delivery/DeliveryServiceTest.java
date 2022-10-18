@@ -6,12 +6,18 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.empty;
 import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DeliveryServiceTest {
@@ -45,7 +51,7 @@ public class DeliveryServiceTest {
         final DeliveryDto.CreationReq creationReq = buildCreationDto(address);
         final DeliveryDto.UpdateReq updateReq = buildUpdateReqDto();
 
-        given(deliveryRepository.findOne(anyLong())).willReturn(creationReq.toEntity());
+        given(deliveryRepository.findById(anyLong())).willReturn(Optional.of(creationReq.toEntity()));
         //when
         final Delivery delivery = deliveryService.updateStatus(anyLong(), updateReq);
 
@@ -61,7 +67,7 @@ public class DeliveryServiceTest {
         //given
         final Address address = buildAddress();
         final DeliveryDto.CreationReq dto = buildCreationDto(address);
-        given(deliveryRepository.findOne(anyLong())).willReturn(dto.toEntity());
+        given(deliveryRepository.findById(anyLong())).willReturn(Optional.of(dto.toEntity()));
 
         //when
         final Delivery delivery = deliveryService.findById(anyLong());
@@ -77,10 +83,32 @@ public class DeliveryServiceTest {
         //given
         final Address address = buildAddress();
         final DeliveryDto.CreationReq dto = buildCreationDto(address);
-        given(deliveryRepository.findOne(anyLong())).willReturn(null);
+        given(deliveryRepository.findById(anyLong())).willReturn(Optional.empty());
 
         //when
         deliveryService.findById(anyLong());
+    }
+
+    @Test
+    public void removeLogs() {
+        //given
+        final Address address = buildAddress();
+        final DeliveryDto.CreationReq dto = buildCreationDto(address);
+        given(deliveryRepository.findById(anyLong())).willReturn(Optional.of(dto.toEntity()));
+
+        //when
+        final Delivery delivery = deliveryService.removeLogs(anyLong());
+
+        //then
+        assertThat(delivery.getLogs(), is(empty()));
+
+    }
+
+    @Test
+    public void remove() {
+        deliveryService.remove(anyLong());
+
+        verify(deliveryRepository, atLeastOnce()).deleteById(anyLong());
     }
 
     private DeliveryDto.UpdateReq buildUpdateReqDto() {

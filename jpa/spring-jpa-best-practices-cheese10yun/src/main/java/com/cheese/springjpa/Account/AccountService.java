@@ -4,7 +4,6 @@ package com.cheese.springjpa.Account;
 import com.cheese.springjpa.Account.exception.AccountNotFoundException;
 import com.cheese.springjpa.Account.exception.EmailDuplicationException;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,10 +25,10 @@ public class AccountService {
 
     @Transactional(readOnly = true)
     public Account findById(long id) {
-        final Account account = accountRepository.findOne(id);
-        if (account == null)
+        final Optional<Account> account = accountRepository.findById(id);
+        if (!account.isPresent())
             throw new AccountNotFoundException(id);
-        return account;
+        return account.get();
     }
 
     public Account updateMyAccount(long id, AccountDto.MyAccountReq dto) {

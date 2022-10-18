@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -27,9 +28,19 @@ public class DeliveryService {
 
 
     public Delivery findById(long id) {
-        final Delivery delivery = deliveryRepository.findOne(id);
-        if (delivery == null) throw new DeliveryNotFoundException(id);
+        final Optional<Delivery> delivery = deliveryRepository.findById(id);
+        if (!delivery.isPresent()) throw new DeliveryNotFoundException(id);
+        return delivery.get();
+    }
+
+    public Delivery removeLogs(long id) {
+        final Delivery delivery = findById(id);
+        delivery.getLogs().clear();
         return delivery;
+    }
+
+    public void remove(long id) {
+        deliveryRepository.deleteById(id);
     }
 
 

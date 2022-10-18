@@ -8,13 +8,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 
@@ -24,9 +26,11 @@ public class AccountServiceTest {
     @InjectMocks
     private AccountService accountService;
 
+    @InjectMocks
+    private AccountFindService accountFindService;
+
     @Mock
     private AccountRepository accountRepository;
-
 
     @Test
     public void create_회원가입_성공() {
@@ -43,6 +47,8 @@ public class AccountServiceTest {
 
         //커버리지를 높이기 위한 임시 함수
         account.getId();
+        account.getCreatedAt();
+        account.getUpdatedAt();
     }
 
     @Test(expected = EmailDuplicationException.class)
@@ -53,27 +59,26 @@ public class AccountServiceTest {
 
         //when
         accountService.create(dto);
-
     }
 
     @Test
     public void findById_존재하는경우_회원리턴() {
         //given
         final AccountDto.SignUpReq dto = buildSignUpReq();
-        given(accountRepository.findOne(anyLong())).willReturn(dto.toEntity());
+        given(accountRepository.findById(anyLong())).willReturn(Optional.of(dto.toEntity()));
 
         //when
         final Account account = accountService.findById(anyLong());
 
         //then
-        verify(accountRepository, atLeastOnce()).findOne(anyLong());
+        verify(accountRepository, atLeastOnce()).findById(anyLong());
         assertThatEqual(dto, account);
     }
 
     @Test(expected = AccountNotFoundException.class)
     public void findById_존재하지않은경우_AccountNotFoundException() {
         //given
-        given(accountRepository.findOne(anyLong())).willReturn(null);
+        given(accountRepository.findById(anyLong())).willReturn(Optional.empty());
 
         //when
         accountService.findById(anyLong());
@@ -84,7 +89,7 @@ public class AccountServiceTest {
         //given
         final AccountDto.SignUpReq signUpReq = buildSignUpReq();
         final AccountDto.MyAccountReq dto = buildMyAccountReq();
-        given(accountRepository.findOne(anyLong())).willReturn(signUpReq.toEntity());
+        given(accountRepository.findById(anyLong())).willReturn(Optional.of(signUpReq.toEntity()));
 
         //when
         final Account account = accountService.updateMyAccount(anyLong(), dto);
@@ -107,6 +112,29 @@ public class AccountServiceTest {
         //then
         verify(accountRepository, atLeastOnce()).findByEmail(any());
         assertThat(existedEmail, is(true));
+    }
+
+    @Test
+    public void findByEmail_존재하는_이매일조해경우_해당유저리턴() {
+        //given
+        final Account account = buildSignUpReq().toEntity();
+        given(accountRepository.findByEmail(account.getEmail())).willReturn(account);
+
+        //when
+        final Account accountServiceByEmail = accountFindService.findByEmail(account.getEmail());
+
+        //then
+        assertThat(accountServiceByEmail.getEmail(), is(account.getEmail()));
+    }
+
+    @Test(expected = AccountNotFoundException.class)
+    public void findByEmail_존재하는_않는경우() {
+        //given
+        given(accountRepository.findByEmail(any())).willReturn(null);
+
+        //when
+        accountFindService.findByEmail(any());
+
     }
 
     private AccountDto.MyAccountReq buildMyAccountReq() {
@@ -135,7 +163,7 @@ public class AccountServiceTest {
     }
 
     private Email buildEmail(final String email) {
-        return Email.builder().address(email).build();
+        return Email.builder().value(email).build();
     }
 
     private Address buildAddress(String address1, String address2, String zip) {

@@ -1,12 +1,12 @@
 package com.cheese.springjpa.Account;
 
+
 import com.cheese.springjpa.Account.error.ErrorCode;
 import com.cheese.springjpa.Account.error.ErrorExceptionController;
 import com.cheese.springjpa.Account.exception.AccountNotFoundException;
 import com.cheese.springjpa.Account.exception.EmailDuplicationException;
 import com.cheese.springjpa.Account.model.Address;
 import com.cheese.springjpa.Account.model.Email;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -14,20 +14,21 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+
 import javax.validation.ConstraintViolationException;
 
-import static java.util.Optional.empty;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.empty;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyLong;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -47,8 +48,14 @@ public class AccountControllerTest {
 
     private MockMvc mockMvc;
 
+    private Account account;
+
     @Before
     public void setUp() {
+
+        final AccountDto.SignUpReq dto = buildSignUpReq();
+        account = dto.toEntity();
+
         mockMvc = MockMvcBuilders.standaloneSetup(accountController)
                 .setControllerAdvice(new ErrorExceptionController())
                 .build();
@@ -69,7 +76,7 @@ public class AccountControllerTest {
                 .andExpect(jsonPath("$.address.address1", is(dto.getAddress().getAddress1())))
                 .andExpect(jsonPath("$.address.address2", is(dto.getAddress().getAddress2())))
                 .andExpect(jsonPath("$.address.zip", is(dto.getAddress().getZip())))
-                .andExpect(jsonPath("$.email.address", is(dto.getEmail().getAddress())))
+                .andExpect(jsonPath("$.email.value", is(dto.getEmail().getValue())))
                 .andExpect(jsonPath("$.fistName", is(dto.getFirstName())))
                 .andExpect(jsonPath("$.lastName", is(dto.getLastName())));
     }
@@ -84,7 +91,6 @@ public class AccountControllerTest {
                 .lastName("김")
                 .password("password111")
                 .build();
-        given(accountService.create(any())).willReturn(dto.toEntity());
 
         //when
         final ResultActions resultActions = requestSignUp(dto);
@@ -95,8 +101,8 @@ public class AccountControllerTest {
                 .andExpect(jsonPath("$.message", is(ErrorCode.INPUT_VALUE_INVALID.getMessage())))
                 .andExpect(jsonPath("$.code", is(ErrorCode.INPUT_VALUE_INVALID.getCode())))
                 .andExpect(jsonPath("$.status", is(ErrorCode.INPUT_VALUE_INVALID.getStatus())))
-                .andExpect(jsonPath("$.errors[0].field", is("email.address")))
-                .andExpect(jsonPath("$.errors[0].value", is(dto.getEmail().getAddress())));
+                .andExpect(jsonPath("$.errors[0].field", is("email.value")))
+                .andExpect(jsonPath("$.errors[0].value", is(dto.getEmail().getValue())));
     }
 
 
@@ -169,7 +175,7 @@ public class AccountControllerTest {
                 .andExpect(jsonPath("$.address.address1", is(dto.getAddress().getAddress1())))
                 .andExpect(jsonPath("$.address.address2", is(dto.getAddress().getAddress2())))
                 .andExpect(jsonPath("$.address.zip", is(dto.getAddress().getZip())))
-                .andExpect(jsonPath("$.email.address", is(dto.getEmail().getAddress())))
+                .andExpect(jsonPath("$.email.value", is(dto.getEmail().getValue())))
                 .andExpect(jsonPath("$.fistName", is(dto.getFirstName())))
                 .andExpect(jsonPath("$.lastName", is(dto.getLastName())));
     }
@@ -212,7 +218,12 @@ public class AccountControllerTest {
                 .andExpect(jsonPath("$.address.address1", is(dto.getAddress().getAddress1())))
                 .andExpect(jsonPath("$.address.address2", is(dto.getAddress().getAddress2())))
                 .andExpect(jsonPath("$.address.zip", is(dto.getAddress().getZip())));
+    }
 
+    private ResultActions requestGetUserByEmail(String email) throws Exception {
+        return mockMvc.perform(get(email)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print());
     }
 
     private ResultActions requestMyAccount(AccountDto.MyAccountReq dto) throws Exception {
@@ -256,7 +267,7 @@ public class AccountControllerTest {
     }
 
     private Email buildEmail(final String email) {
-        return Email.builder().address(email).build();
+        return Email.builder().value(email).build();
     }
 
     private Address buildAddress(String address1, String address2, String zip) {

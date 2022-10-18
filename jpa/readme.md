@@ -13,24 +13,22 @@ concepts in jpa
 a. annotations :soon:\
 b. @Valid -> error handling :white_check_mark:\
 c. OneToMany :white_check_mark:\
-d. property environment :white_check_mark:
+d. property environment :white_check_mark:\
+e. OneToOne :white_check_mark:\
+f. @Join거는 주체 :white_check_mark:
 
-x. What is Spring Data JPA\
-x. Connect to a real database and not in memory DB\
-x. How to map classes to tables\
+
 x. Hibernate Entity Life Cycle\
 x. Queries\
 x. Paging and Sorting\
-x. 1 to 1 Relationships\
-x. 1 to Many Relationships\
 x. Many to Many relationships\
 x. Transactions
-
-x. JPA 원리\
 x. JPA 캐싱 규칙\
 x. 쿼리가 생성 되는 규칙\
 x. 쿼리 로깅 트랜잭션 처리 과정\
-x. entity life cycle(from hibernates)
+x. entity life cycle(from hibernates)\
+x. 즉시로딩: 쿼리가 튐 -> 지연로딩으로 변경\
+x. n+1 문제 -> 대부분 fetch, join으로 해결
 
 
 

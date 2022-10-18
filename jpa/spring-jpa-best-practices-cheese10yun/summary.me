@@ -1,4 +1,19 @@
 
+---
+Index
+
+A. annotations
+B-1. @Valid -> error 처리
+B-2. @Embeddable로 Address, Email, Password 객체화
+C-1. OneToMany
+D-1. application.yml에서 property, env 값 가져오기
+E. OneToOne
+F. @Join 거는 주체
+x. Paging
+x. queryDSL
+
+
+
 
 ---
 A. annotations
@@ -264,4 +279,75 @@ D-2. local, dev, production 환경 나눠서 관리하기.
 프로젝트 실행 시, intellij라면, Edit Configuration의 VM Option에서
 -DSpring.profiles.active=local    설정해주고,
 Active Profiles 는 local로 설정해주어야 한다.
+
+
+
+---
+E. OneToOne 관계
+
+Delivery와 DeliveryLog는 1:M 관계.
+Coupon과 Order는 1:1관계.
+
+
+
+---
+F. @Join 거는 주체 in 1:1관계 || 1:M 관계
+
+
+Coupon과 Order는 1:1관계.
+근데 Join을 어느 엔티티에서 걸지? Coupon? Order?
+부모가 자식한테 거는건가?
+
+Order이 발생하면, 그 후에 Coupon이 발행되잖아.
+Order이 부모네?
+
+그리고 쿠폰 검색할 때도, select * from order join coupon 이런식으로 하겠지?
+맞나?
+
+OrderService.java에서 보면, order에 쿠폰 적용을 아래와 같이 하네?
+
+public Order order() {
+    final Order order = Order.builder().price(1_0000).build(); // 10,000 상품주문
+    Coupon coupon = couponService.findById(1); // 1,000 할인 쿠폰
+    order.applyCoupon(coupon);
+    return orderRepository.save(order);
+}
+
+쿠폰을 각 order마다 개별 uuid줘서 보관하는게 아니라, 쿠폰의 종류만 보관하고, join하는 식이구나.
+
+
+음 쿠폰 자체를 찾는 쿼리가 있는게 아니라, Order을 찾고, 해당 Order이 가지고 있는 쿠폰을 찾는 식으로 쿼리가 만들어지겠네?
+
+SELECT order.name, coupon.amount
+FROM order
+WHERE order.coupon_id = coupon.id
+
+뭐 이런식으로.
+
+order 입장에서 coupon에 join거니까, join문은 order에 있어야 하는건가?
+
+1:M 관계에선 부모인 1의 pk를 fk로 M이 갖고있는게 관례잖아? M쪽에서 @JoinColumn 해줬는데,(ex. Delivery 부모 1 : DeliveryLog 자식 M, @Join)
+1:1 관계에선 이 둘 중, 어느놈이 부모인지 판단한 다음, 부모쪽에서 @join 해줘야 하나보다. (ex. Order 부모 1, @Join : Coupon 자식 1)
+
+
+근데 1:M관계에선, 주로 M쪽에서 쿼리걸고, 부모를 Join해줬나?
+DeliveryLog에서 @Join으로 Delivery 거는데,
+아 어떤 Delivery '가'에 해당하는 DeliveryLog를 query할 때,
+SELECT *
+FROM DeliveryLog
+JOIN Delivery
+
+하잖아.
+
+SELECT DeliveryLog.id, DelieveryLog.name
+FROM Delivery
+JOIN DeliveryLog
+
+이게 아니라.
+
+join거는 주체가 DeliveryLog -> Delivery 로 거네.
+그러니까 DeliveryLog가 @Join가지고 있는게 맞네.
+
+결국 @Join거는 주체 파악하려면, query를 생각해보면 되네.
+
 

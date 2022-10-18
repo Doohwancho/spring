@@ -9,15 +9,18 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "account")
 @Getter //no @Setter. builder pattern으로 객체 생성.
 @NoArgsConstructor(access = AccessLevel.PROTECTED) //객체의 직접생성을 외부에서 못하게 설정
 @ApiModel(value = "회원 정보", description = "아이디, 이름, 비밀번호, 이메일, 주소, 가입날짜를 가진 Domain Class") //for swagger2
-public class Account<DateTime> {
+public class Account {
 
     @Id
     @GeneratedValue
@@ -62,8 +65,16 @@ public class Account<DateTime> {
 //    @ApiModelProperty(value = "주소2")
 //    private String address2;
 
-    @Embedded
-    private com.cheese.springjpa.common.model.DateTime dateTime;
+//    @Embedded
+//    private com.cheese.springjpa.common.model.DateTime dateTime;
+
+    @CreatedDate
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    @Column(name = "update_at", nullable = false, updatable = false)
+    private LocalDateTime updatedAt;
 
 
 //    @Column(name = "created_at")
