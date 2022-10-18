@@ -1,0 +1,100 @@
+---
+index
+
+A. setup
+B. 그래서 어쩌라고?
+
+
+
+
+
+
+
+---
+A. setup
+
+
+postman으로 POST localhost:8080/api/robots/
+body는 raw타입으로
+{
+    "name": "hello",
+    "age": 20
+}
+
+이렇게 보내면, response가 아래와 같이 온다.
+
+{
+    "id": 1,
+    "name": "hello",
+    "age": 20,
+    "_links": {
+        "self": {
+            "href": "http://localhost:8080/api/robots"
+        },
+        "detail": {
+            "href": "http://localhost:8080/api/robots/1"
+        }
+    }
+}
+
+
+(detail에 "href"임을 유의하자.)
+
+
+GET localhost:8080/api/robots/1 으로 보내면, 아래와 같이 온다.
+
+{
+    "id": 1,
+    "name": "hello",
+    "age": 20,
+    "_links": {
+        "self": {
+            "href": "http://localhost:8080/api/robots/1"
+        },
+        "create": {
+            "href": "http://localhost:8080/api/robots"
+        }
+    }
+}
+
+content-type도 application/hal+json으로 온다.
+(create에 href임을 유의하자)
+
+
+---
+B. 그래서 어쩌라고?
+
+
+기존 REST Api라고 '주장'하던 애들거의 http request는, 저 "_links"가 없다.
+저기엔 본인이 어떤 request를 보냈는지 알려주는 "self"와, 서버 내부에서 어떻게 처리했는지 알려준다. (다른 Api 처리 정보도 포함되있음)
+
+처음에 POST보낼 떈, detail로 왔고,
+다음에 GET보낼 땐 create로 왔다.
+
+
+REST는 저 HttpResponse만 봐도, 어떤 요청이 들어와서, 서버에서 어떻게 처리했는지 모든 정보를 포함하라는 말 같다.
+
+
+이 짓을 왜 하냐면, api같은 경우에 버전 업 되잖아?
+버전별로 api관리하려면, url에다 포함하는 식으로 했었음.
+
+ex. localhost:8080/api/v1/blahblah
+이러다 버전업 되면, localhost:8080/api/v2/blahblah
+
+이런식으로 관리했는데, 버전이 url에 담기니까 문제점이,
+버전 업되면, 기존에 해당 api의 v1를 참조하던 앱들이 죄다 v2로 바꿔줘야함 -> 불편
+
+저런식으로 RESTful하게 만들면,
+이미 header에 api 정보부터 해서, 다 들어가있으니까, url에 /api/v2/ 할 필요도 없어지네.
+
+
+
+근데
+컨트롤러에서 코드량 저리 늘어나는걸 보면, 아마 저걸 한줄로 줄이든가 겁나 간소화된 라이브러리가 나오지 않는 이상,(이것도 간소하다고 최대한 줄인걸텐데..)
+정석대로 순도 100% RESTful 하게 쓰진 않을 것 같다.
+
+
+
+
+
+

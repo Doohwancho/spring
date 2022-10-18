@@ -8,7 +8,7 @@ modularize api
 concepts in api 
 
 
-a. RESTful api\
+a. RESTful api :white_check_mark:\
 b. restAssured -- tried but failed to build\
 c. spring rest docs\
 d. swagger :white_check_mark:
@@ -17,7 +17,7 @@ d. swagger :white_check_mark:
 ---\
 Todos
 
-
+a-1. [찐 "Rest" API를 구현해보자](https://jessyt.tistory.com/m/61?category=941879) \
 a-x. https://jessyt.tistory.com/61?category=941879 \
 a-x. [RESTful api base code setup](https://github.com/Around-Hub-Studio/AroundHub_SpringBoot) \
 a-x. https://github.com/violetbeach/study-rest-api
