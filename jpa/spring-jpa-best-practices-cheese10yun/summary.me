@@ -10,7 +10,8 @@ D-1. application.yml에서 property, env 값 가져오기
 E. OneToOne
 F. @Join 거는 주체 in 1:1 || 1:M 관계
 G. Paging
-x. queryDSL
+H-1. queryDSL 맛보기
+H-2. Querydsl를 이용해서 Repository 확장하기
 
 
 
@@ -299,7 +300,7 @@ Coupon과 Order는 1:1관계.
 부모가 자식한테 거는건가?
 
 Order이 발생하면, 그 후에 Coupon이 발행되잖아.
-Order이 부모네?
+그럼 Order가 부모네?
 
 그리고 쿠폰 검색할 때도, select * from order join coupon 이런식으로 하겠지?
 맞나?
@@ -314,7 +315,7 @@ public Order order() {
 }
 
 쿠폰을 각 order마다 개별 uuid줘서 보관하는게 아니라, 쿠폰의 종류만 보관하고, join하는 식이구나.
-
+그럼 쿠폰이 부모고 Order이 쿠폰의 fk를 가지고 있겠네?
 
 음 쿠폰 자체를 찾는 쿼리가 있는게 아니라, Order을 찾고, 해당 Order이 가지고 있는 쿠폰을 찾는 식으로 쿼리가 만들어지겠네?
 
@@ -326,13 +327,12 @@ WHERE order.coupon_id = coupon.id
 
 order 입장에서 coupon에 join거니까, join문은 order에 있어야 하는건가?
 
-1:M 관계에선 부모인 1의 pk를 fk로 M이 갖고있는게 관례잖아? M쪽에서 @JoinColumn 해줬는데,(ex. Delivery 부모 1 : DeliveryLog 자식 M, @Join)
-1:1 관계에선 이 둘 중, 어느놈이 부모인지 판단한 다음, 부모쪽에서 @join 해줘야 하나보다. (ex. Order 부모 1, @Join : Coupon 자식 1)
+1:M 관계에선 부모인 1의 pk를 fk로 M이 갖고있는게 관례잖아? 그럼 자식인 M쪽에서 @JoinColumn 해줬음,(ex. Delivery 부모 1 : DeliveryLog 자식 M, @Join)
+1:1 관계에서도 이 둘 중, 어느놈이 부모인지 판단한 다음, 자식인쪽에서 @join 해줘야 하나보다. (ex. Coupon 부모 1 : Order 자식 1 @Join)
 
 
-근데 1:M관계에선, 주로 M쪽에서 쿼리걸고, 부모를 Join해줬나?
-DeliveryLog에서 @Join으로 Delivery 거는데,
-아 어떤 Delivery '가'에 해당하는 DeliveryLog를 query할 때,
+실제 sql query관점에서 생각해봐도, 어떤 Delivery '가'에 해당하는 DeliveryLog를 query할 때,
+
 SELECT *
 FROM DeliveryLog
 JOIN Delivery
@@ -345,10 +345,36 @@ JOIN DeliveryLog
 
 이게 아니라.
 
-join거는 주체가 DeliveryLog -> Delivery 로 거네.
+join거는 주체가 DeliveryLog(자식) -> Delivery(부모) 로 거네.
 그러니까 DeliveryLog가 @Join가지고 있는게 맞네.
 
+Order-Coupon도,
+
+SELECT ORDER.id, Coupon.id
+FROM ORDER
+JOIN COUPON
+
+...이니까, Order(자식) -> Coupon(부모)으로 join을 거네.
+그러니까 자식인 Order이 @Join을 가지고 있는게 맞네.
+
 결국 @Join거는 주체 파악하려면, query를 생각해보면 되네.
+
+
+실제 queryDSL로 만들어지는 sql 까보면,
+
+    alter table delivery_log
+       add constraint FKfs49km0ea809mth3oq4s6810h
+       foreign key (delivery_id)
+       references delivery
+Hibernate:
+
+    alter table orders
+       add constraint FKa5ei0aklq6wrjl8vrr7ied3bx
+       foreign key (coupon_id)
+       references coupon
+
+
+둘 다 자식 테이블에서 부모 테이블의 pk를 fk로 받고있음.
 
 
 
@@ -403,4 +429,28 @@ public Page<AccountDto.Res> getAccounts(
 
 AccountSearchService.search()보면 리턴 타입이 Page<Account> 인데, 얘는 인터페이스 차원에서 .map()이란 연동되게 해놨네?
 여튼 여기서 db에서 쿼리해온 결과물에 n개씩 m개의 페이지로 쪼개서 반환하는 것인 듯.
+
+
+
+---
+H. queryDSL
+
+
+AccountSearchService에서 보면, sql 쿼리가 자바코드로 쓰여있음(?!)
+
+ex.
+query = from(account).where(account.email.value.likeIgnoreCase(value + "%"));
+
+와! 실환가?
+
+기존 mybatis는 쿼리가 동적으로 실행되니까, 서비스 시작하고 런타임에서 쿼리 때문에 사고나는 경우도 있었는데,
+queryDSL은 컴파일 타임에서 query 에러가 다 잡힌다고 함.
+
+간단한 query는 다 가능하고,
+비지니스 관련 복잡한 쿼리도, 방법이 있다고 들음.
+
+
+그리고 신기한게 QAccount인데,
+Account VO에 @Entity를 먹이면, QAccount를 queryDSL이 자체적으로 만들어서, 얘를 가지고 query함.
+
 
