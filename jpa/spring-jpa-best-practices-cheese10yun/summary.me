@@ -8,8 +8,8 @@ B-2. @Embeddable로 Address, Email, Password 객체화
 C-1. OneToMany
 D-1. application.yml에서 property, env 값 가져오기
 E. OneToOne
-F. @Join 거는 주체
-x. Paging
+F. @Join 거는 주체 in 1:1 || 1:M 관계
+G. Paging
 x. queryDSL
 
 
@@ -350,4 +350,57 @@ join거는 주체가 DeliveryLog -> Delivery 로 거네.
 
 결국 @Join거는 주체 파악하려면, query를 생각해보면 되네.
 
+
+
+근데 만약, @Join 잘못걸면? -> 쿼리가 불필요하게 더 실행되서 성능 하락.
+근데 되긴 할껄?
+
+
+
+---
+G. Paging
+
+
+sample code
+
+@RestController
+@RequestMapping("accounts")
+public class AccountController {
+    @GetMapping
+    public Page<AccountDto.Res> getAccounts(final Pageable pageable) {
+        return accountService.findAll(pageable).map(AccountDto.Res::new);
+    }
+}
+
+@Service
+@Transactional
+@AllArgsConstructor
+public class AccountService {
+    ...
+    @Transactional(readOnly = true)
+    public Page<Account> findAll(Pageable pageable) {
+        return accountRepository.findAll(pageable);
+    }
+}
+
+
+스프링 레거시에는 pagination일일이 수동 구현해줬어야 했는데, jpa는 이렇게 쉽게 바뀌었네?
+
+
+
+AccountController 보면,
+
+@GetMapping
+public Page<AccountDto.Res> getAccounts(
+        @RequestParam(name = "type") final AccountSearchType type,
+        @RequestParam(name = "value", required = false) final String value,
+        final PageRequest pageRequest
+) {
+    return accountSearchService.search(type, value, pageRequest.of()).map(AccountDto.Res::new);
+}
+
+이렇게 되있는데, Page<>는 jpa에서 이미 인터페이스로 정의해놨고, 기존 정의된 PageRequest에다가 PageRequest.java에서 super()식으로 덮어쓰는거네.
+
+AccountSearchService.search()보면 리턴 타입이 Page<Account> 인데, 얘는 인터페이스 차원에서 .map()이란 연동되게 해놨네?
+여튼 여기서 db에서 쿼리해온 결과물에 n개씩 m개의 페이지로 쪼개서 반환하는 것인 듯.
 

@@ -36,6 +36,6 @@ public final class PageRequest {
     }
 
     public org.springframework.data.domain.PageRequest of() {
-        return org.springframework.data.domain.PageRequest.of(page - 1, size, direction, "createdAt");
+        return org.springframework.data.domain.PageRequest.of(page - 1, size, direction, "createdAt"); //"createdAt"은 sort하는 시점 기준을 뜻한다.
     }
 }
