@@ -433,7 +433,7 @@ AccountSearchService.search()보면 리턴 타입이 Page<Account> 인데, 얘�
 
 
 ---
-H. queryDSL
+H-1. queryDSL 맛보기
 
 
 AccountSearchService에서 보면, sql 쿼리가 자바코드로 쓰여있음(?!)
@@ -452,5 +452,31 @@ queryDSL은 컴파일 타임에서 query 에러가 다 잡힌다고 함.
 
 그리고 신기한게 QAccount인데,
 Account VO에 @Entity를 먹이면, QAccount를 queryDSL이 자체적으로 만들어서, 얘를 가지고 query함.
+
+
+
+
+---
+H-2. Querydsl를 이용해서 Repository 확장하기
+
+
+public interface AccountRepository extends JpaRepository<Account, Long>, AccountCustomRepository
+
+기존 Repository엔 이런식으로 확장하고,
+
+public class AccountCustomRepositoryImpl extends QuerydslRepositorySupport implements AccountCustomRepository {
+
+이런식으로 extends QuerydslRepositorySupport 해서 확장하네?
+
+여기에선 주로 queryDSL이 기존에 만들어놓은 인터페이스 오버라이드 목적으로 쓰고,
+실제 query 조합은 service단에서 하는 듯.
+
+
+비지니스단 복잡한 쿼리는 여기에서
+
+@Query("select *from....")
+List<Account> findXXX();
+
+이런식으로 직접 작성해서 쓰는듯?
 
 

@@ -15,8 +15,9 @@ b. @Valid -> error handling :white_check_mark:\
 c. OneToMany :white_check_mark:\
 d. property environment :white_check_mark:\
 e. OneToOne :white_check_mark:\
-f. @Join거는 주체 :white_check_mark:
-
+f. @Join거는 주체 :white_check_mark:\
+g. paging :white_check_mark:\
+h. queryDSL :white_check_mark:
 
 x. Hibernate Entity Life Cycle\
 x. Queries\
@@ -45,5 +46,7 @@ c-1. [one to many 맛보기](https://github.dev/cheese10yun/spring-jpa-best-prac
 
 d-1. [Properties 설정값 가져오기](https://github.com/cheese10yun/spring-jpa-best-practices/blob/master/doc/step-10.md) \
 d-2. [Properties split by environments: local, dev, prod](https://github.com/cheese10yun/spring-jpa-best-practices/blob/master/doc/step-11.md)
+
+h-2. [querydsl을 이용해서 repository 확장하기](https://github.com/cheese10yun/spring-jpa-best-practices/blob/master/doc/step-15.md)
 
 x-x. [amigoscode spring-data-jpa-course 뜯어보기](https://github.com/amigoscode/spring-data-jpa-course)
