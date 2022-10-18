@@ -3,7 +3,10 @@ index
 
 A. setup
 B. 그래서 어쩌라고?
-
+C. what is RESTful?
+D. RESTful 조건 6가지
+E. self descriptive message
+F. hateoas
 
 
 
@@ -95,6 +98,146 @@ ex. localhost:8080/api/v1/blahblah
 
 
 
+
+
+---
+C. what is RESTful?
+
+
+최종 목적: API의 독립적인 진화.
+
+왜?
+
+창시자 로이필딩 아저씨가 http만드는데 일조하신 분인데,
+이 아저씨가 api만들 때 이걸 http에 붙이면 깨질거 같은데,
+어떻게 붙인 다음 버전업해도 안깨지게끔 독립적인 시스템을 만들지? 고민함.
+
+http도 그렇고, 어떤 시스템은 의존성에 관계 없이 독립적으로 진화해야, 낮은 결합도 높은 응집력 있을 수 있고 꺠지지도 않으니까.
+
+client-server에서, 서버가 클라이언트에 독립적으로 진화 가능해야 한다라는 정신.
+서버가 api가 바뀌어서, 뭐가 삭제되고, 추가되고, url 바뀌어도, 클라이언트가 바꿀 필요가 1도 없는 것.
+
+
+
+---
+D. RESTful 조건 6가지
+
+1. client-server
+2. stateless (client 에서 날린 세션정보, context 정보를 server에 저장 안함. + 각 request는 별개다.)
+3. cache 처리 가능해야 함
+4. uniform-interface
+5. layered system
+6. code-on-demand(optional)
+
+
+보통 api만들 때, 1,2,3조건 충족하는데, 4.uniform-interface 조건 충족 못해서 순도 100% RESTful API가 아님.
+그럼 uniform-interface 조건이란?
+
+
+1. identification of resources
+    - resource가 uri로 식별 가능해야한다.
+2. manipulation of resources through representations
+    - representations를 통해서 resource 를 조작해야한다
+    - update, create, delete 시 HTTP 메세지에 담아서 전송하여 resource 조작이 가능해야한다.
+3. self descriptive messages
+    - 메세지가 스스로를 설명해야한다
+4. hypermedia as the engine of application status ( hateoas )
+    - application 상태는 hyperlink를 이용해 전이되어야 한다
+
+
+
+이중에서 3,4번 충족 못해서 순도 100% RESTful하지 않다는 것.
+
+
+
+
+---
+E. self descriptive message
+
+
+3. self descriptive message 이건 뭐임?
+
+case1) self descriptive 하지 않음. 목적지가 안써져있잖아.
+GET /api/robots
+
+
+case2) 만-족. 이제 메시지만 보고 이게 뭘 하는지 알 수 있음.
+GET /api/robots
+HOST : www.robotmanager.com
+
+
+
+case3) 만족 못함. 어떤 문법으로 작성됬는지 안나와있잖아.
+/api/robot 200 OK
+
+[ { "op" : "remove", "path" : "/a/b/c" } ]
+
+
+case4) 1/2 만족. json문법으로 쓴지 나와있네. 근데 저 "op"랑 "path"가 뭘 의미하는지 client는 모르잖아?
+/api/robot 200 OK
+Content-Type : application/json
+
+[ { "op" : "remove", "path" : "/a/b/c" } ]
+
+
+
+case5) 대만족. MediaType를 patch+json으로 지정해주면 Client는 patch+json 명세를 찾아가서 op, path가 무엇을 의미하는지 파악할 수 있게됨.
+/api/robot 200 OK
+Content-Type : application/json-patch+json
+
+[ { "op" : "remove", "path" : "/a/b/c" } ]
+
+
+
+1. MediaType을 커스텀으로 정의함. 이 때,
+2. 그 미디어 타입에 "op", "path"가 뭔지 정의해놓음
+3. INANA에 미디어 타입을 등록함.
+
+-> 귀찮... 매 프로젝트마다 미디어 타입 정의하고 등록하라고?
+
+
+
+
+
+
+---
+F. hateoas
+
+(hypermedia as the engine of application status)
+
+Application의 상태가 hyperlink를 통해서 항상 전이되어야 한다.
+페이지 안에 하이퍼링크 있어서, 다음 페이지로 넘어가고,
+그 페이지 안에도 하이퍼링크가 있어서, 또 다른 페이지로 넘어가고,
+이게 가능해야 한다.
+
+late-binding -> 어디에서 어디로 전이되는지 미리 결정되지 않는다.
+
+
+
+ex.
+<header>
+Content-Type : application/hal+json
+
+<body>
+{
+    "id": 1,
+    "name": "RobotV",
+    "age": 325,
+    "_links":{
+        "self":{
+            "href": "http://localhost:8084/api/robots/1"
+        },
+        "create":{
+            "href": "http://localhost:8084/api/robots"
+        }
+    }
+}
+
+기존에 없던 _links에 하이퍼링크 딸려있어서, 다른 페이지로 하이퍼링크 타고 상태변이 가능함.
+저기서 "create"는 서버가 httprequest를 어떻게 핸들링했다는걸 알려줌.
+
+근데 저 링크의 구조, 뭐가 들어가야 하는지는, 매 프로젝트마다 정의해야 함.
+아니면 hateoas library 쓰면 됨(이 프로젝트 같이)
 
 
 

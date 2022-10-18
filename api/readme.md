@@ -17,7 +17,8 @@ d. swagger :white_check_mark:
 ---\
 Todos
 
-a-1. [찐 "Rest" API를 구현해보자](https://jessyt.tistory.com/m/61?category=941879) \
+a-1. [찐 "Rest" API를 구현해보자](https://jessyt.tistory.com/m/61?category=941879) :white_check_mark:\
+a-2. [그런 REST API로 괜찮은가](https://www.youtube.com/watch?v=RP_f5dMoHFc&ab_channel=naverd2) :white_check_mark:\
 a-x. https://jessyt.tistory.com/61?category=941879 \
 a-x. [RESTful api base code setup](https://github.com/Around-Hub-Studio/AroundHub_SpringBoot) \
 a-x. https://github.com/violetbeach/study-rest-api
