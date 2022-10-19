@@ -7,6 +7,7 @@ import io.restassured.specification.RequestSpecification;
 import org.junit.Before;
 import org.junit.Test;
 import org.json.simple.JSONObject;
+import org.junit.jupiter.api.DisplayName;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -15,6 +16,7 @@ import static org.hamcrest.Matchers.equalTo;
 public class BasicRestAssuredTest {
 
     @Test
+    @DisplayName("1. 기초 틀")
     public void BasicFramework(){
         RestAssured.
                 given().
@@ -33,6 +35,7 @@ public class BasicRestAssuredTest {
 
 
     @Test
+    @DisplayName("2. json을 body에 첨부하기")
     public void IncludeJsonInBody(){
         JSONObject req = new JSONObject();
         req.put("name", "morpheus");
@@ -53,6 +56,7 @@ public class BasicRestAssuredTest {
     }
 
     @Test
+    @DisplayName("3. body에서 결과값 확인")
     public void CheckBodyEq(){
         RestAssured.
                 given().
@@ -69,6 +73,7 @@ public class BasicRestAssuredTest {
     }
 
     @Test
+    @DisplayName("4. path parameter")
     public void usePathParam(){
         RestAssured.
                 given().
@@ -87,6 +92,27 @@ public class BasicRestAssuredTest {
                 log().all();
     }
 
+
+    @Test
+    @DisplayName("6. query parameter")
+    public void useQueryParam(){
+        RestAssured.
+            given().
+//                    auth().
+//                    oauth2("myAuthenticationToken").
+                queryParam("page", 2).
+            when().
+                header("Content-Type","application/json").
+                //                    param(null).
+                //                    body(null).
+                get("https://reqres.in/api/users/"). //or post(), update(), delete()
+            then().
+                assertThat().
+                body("page", equalTo(2)).
+                statusCode(200).
+                log().all();
+    }
+
     private RequestSpecification requestSpec;
 
     @Before
@@ -98,6 +124,7 @@ public class BasicRestAssuredTest {
     }
 
     @Test
+    @DisplayName("7. RequestSpecBuilder 우려먹기")
     public void useRequestSpec() {
         RestAssured.
                 given().
@@ -115,6 +142,7 @@ public class BasicRestAssuredTest {
 
 
 //    @Test
+//    @DisplayName("8. auth token 재활용하기")
 //    public void Auth토큰_재활용하는법() {
 //
 //        String token =
@@ -141,6 +169,7 @@ public class BasicRestAssuredTest {
 //    }
 
 //    @Test
+//    @DisplayName("9. 리턴값을 자바 객체로 받기")
 //    public void 리턴값을_자바객체로_받기() {
 //
 //        AccountResponse accountResponse =

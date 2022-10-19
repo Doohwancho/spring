@@ -31,7 +31,8 @@ b-3. response온 body를 equals()로 테스트 하기 :white_check_mark:\
 b-4. path parameter 분리하는 법 :white_check_mark:\
 b-5. RequestSpecification로 기본 세팅하고 우려먹기 :white_check_mark:\
 b-6. auth token 재활용하기 :white_check_mark:\
-b-7. return 값을 자바 객체로 받기 :white_check_mark:
+b-7. return 값을 자바 객체로 받기 :white_check_mark:\
+b-8. query parameter :white_check_mark:
 
 
 d-1. [init basic setting from steal cheese10yun's project + little experiments](https://github.dev/cheese10yun/spring-jpa-best-practices/tree/step-01) :white_check_mark:\
