@@ -49,4 +49,5 @@ d-2. [Properties split by environments: local, dev, prod](https://github.com/che
 
 h-2. [querydsl을 이용해서 repository 확장하기](https://github.com/cheese10yun/spring-jpa-best-practices/blob/master/doc/step-15.md)
 
+x-x. [인프런 실전 dsl강좌 by 김영한](https://github.dev/freespringlecture/jpashop-querydsl) \
 x-x. [amigoscode spring-data-jpa-course 뜯어보기](https://github.com/amigoscode/spring-data-jpa-course)

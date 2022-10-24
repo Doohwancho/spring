@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+		<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<!-- <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property> -->  
+		<!-- <property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:orcl"></property> -->
+		<!-- log4jdbc.log4j2 설정 이후 -->
+		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>  
+		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:orcl"></property>   
+		
+		<property name="username" value="book_ex"></property>
+		<property name="password" value="book_ex"></property>
+	</bean>
+	
+	<!-- HikariCP configuration -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+		<constructor-arg ref="hikariConfig"/>
+	</bean>
+	
+	<!-- ?: bean id="sqlSessionFactory"이랑 sqlSession이랑 차이점? --> 
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<mybatis-spring:scan base-package="org.zerock.mapper"></mybatis-spring:scan>
+	<context:component-scan base-package="org.zerock.service"></context:component-scan>
+	
+	
+	<!-- transactional  -->
+	<bean id = "transactionManager" class = "org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<tx:annotation-driven />
+	<!-- end of transactional -->
+	
+	<!-- aop -->
+	<!-- 
+	<context:component-scan base-package="org.zerock.aop"></context:component-scan>
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+	 -->
+	<!-- end of aop -->
+	
+	<!-- 파일 업로드 - multipartResolver -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    	<property name="maxUploadSize" value="100000000"/>  <!-- 10MB-->
+    	<property name="maxInMemorySize" value="100000000"/> <!-- 10MB-->
+	</bean>
+	
+	<!-- for quartz -->
+	<context:component-scan base-package="org.zerock.task"></context:component-scan>
+	<task:annotation-driven />
+	
+</beans>

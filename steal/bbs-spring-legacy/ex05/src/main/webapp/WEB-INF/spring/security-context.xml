@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- 1. check 'security' on namespace -->
+	
+	<!-- 2. security check하면,  http://www.springframework.org/schema/security/spring-security-5.0.xsd 에서 5.0버전이 문제 발생하니까, /schema/security/spring-security.xsd로 수정. (4.2까지 문제 없음)-->
+	
+	<!-- 3. 스프링 시작지점(security:http)와 스프링 시큐리티 동작에 필요한 Authentication Manager 등록 -->
+	
+	<!-- 8, 9.커스텀 접근 페이지 -->
+	<bean id="customAccessDenied" class="org.zerock.security.CustomAccessDeniedHandler"></bean>
+	
+	<!-- 14. 기존 프로젝트에 스프링 시큐리티 접목하기 -->
+	<!-- <bean id="customLoginSuccess" class="org.zerock.security.CustomLoginSuccessHandler"></bean>  -->
+	
+	
+	<!-- 11.jdbc를 이용한 간편/인증/권한 처리 -->
+
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+
+	 
+	<!-- 12. 커스텀 UserDetailsService 활용 -->
+	<bean id="customUserDetailsService" class="org.zerock.security.CustomUserDetailsService"></bean>
+	
+	<!-- 7. 접근제한 메시지 custom (AccessDeniedHandler 직접 구현) -->
+	<!-- <security:http auto-config="true" use-expressions="true"> -->
+	<security:http>
+	
+		<!-- 4. 접근제한 설정 -->
+		<security:intercept-url pattern="/sample/all" access="permitAll" />
+		<security:intercept-url pattern="/sample/member" access="hasRole('ROLE_MEMBER')" />
+		
+		<security:intercept-url pattern="/member/register" access="permitAll" />		
+		<!-- localhost:8080/sample/member로 가면 내가 만들지도 않은 localhost:8080/login페이지로 이동하네??? -->
+		
+		<!-- 6. admin 추가 -->
+		<security:intercept-url pattern="/sample/admin" access="hasRole('ROLE_ADMIN')" />
+		
+		<!-- 7. 접근제한 메시지 custom (AccessDeniedHandler 직접 구현. CommonController에 @GetMapping("/accessError")-->
+		<!-- <security:access-denied-handler error-page="/accessError"/>  --> 
+		
+		<!-- 8. 커스텀 접근제한 페이지 --> 
+		<security:access-denied-handler ref="customAccessDenied"/>
+		
+		<!-- 9. 커스텀 로그인 페이지 -->
+		<!-- <security:form-login login-page="/customLogin" authentication-success-handler-ref="customLoginSuccess"/>  -->
+		 
+		 <!-- 14. 기존 프로젝트에 스프링 시큐리티 접목하기 -->
+		 <!--  authentication-success-handler-ref="customLoginSuccess" 삭제. 왜? -->
+		 <security:form-login login-page="/customLogin"/>
+		 
+		 <!-- 10. 커스텀 로그아웃 페이지 -->
+		 <security:logout logout-url="/customLogout" invalidate-session="true" /> 
+		 
+		 <!-- 15. 로그아웃 후 기본경로를 /login?logout이 아닌 list.jsp로 변경
+		 <security: http pattern="/admin/**" >
+		    <logout 
+		        logout-url="/admin/logout.do" 
+		        logout-success-url="/admin/login.do" 
+		        success-handler-ref="customLogoutSuccessHandler" 
+		        invalidate-session="true" 
+		        delete-cookies="JSESSIONID">
+		    </logout>
+		</http>
+ 		-->
+		 
+		 <!-- 13. remember-me -->
+		 <!-- 브라우저 껐다가 다시 들어오면 cookie에 remember-me에 정보가 남아있는걸 볼 수 있음 -->
+		 <security:remember-me data-source-ref="dataSource" token-validity-seconds="604800" />
+		 
+		 <security:logout logout-url="/customLogout" invalidate-session="true" delete-cookies="remember-me,JSESSION_ID" />
+		 
+		 
+		 
+	</security:http>
+	
+	<!-- 5. 단순 로그인 처리 -->
+	<!--  
+		Your login attempt was not successful, try again.
+
+		Reason: No AuthenticationProvider found for org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+		
+		PasswordEncoder가 없기 때문에 발생
+		
+		임시방편으로 패스워드앞에 {noop}문자열 추가 
+	-->
+	<security:authentication-manager>
+		<!-- 12. 커스텀 UserDetailsService활용 -->
+		<security:authentication-provider user-service-ref="customUserDetailsService">
+			<!-- 
+			<security:user-service>
+				<security:user name="member" password="{noop}member" authorities="ROLE_MEMBER"/>
+				
+				6. admin 추가. role이 ROLE_MEMBER와 ROLE_ADMIN 두개인 것을 확인 가능
+				
+				<security:user name="admin" password="{noop}admin" authorities="ROLE_MEMBER, ROLE_ADMIN"/>
+			</security:user-service>
+			 -->
+			 <!-- 11.jdbc를 이용한 간편/인증/권한 처리 -->
+			 <!-- <security:jdbc-user-service data-source-ref="dataSource"/>  -->
+			 
+			 <!-- 
+			 <security:jdbc-user-service 
+			 	data-source-ref="dataSource"
+			 	users-by-username-query="select userid, userpw, enabled from tbl_member where userid = ? "
+			 	authorities-by-username-query="select userid, auth from tbl_member_auth where userid = ? "/>
+			  -->
+			 <security:password-encoder ref="bcryptPasswordEncoder" />
+			  
+			 
+		</security:authentication-provider>
+	</security:authentication-manager>
+	
+	
+	<!-- 11.jdbc를 이용한 간편/인증/권한 처리 -->
+	<context:component-scan base-package="org.zerock.security"></context:component-scan>
+	
+</beans>
