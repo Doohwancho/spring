@@ -10,19 +10,19 @@ Cell from dragon ball Z
 Prey
 
 
-a. legacy bbs from '코드로 배우는 스프링 웹 프로젝트' :white_check_mark:
-b. springboot bbs from '스프링 부트와 AWS로 혼자 구현하는 웹 서비스' 
+a. legacy bbs from '코드로 배우는 스프링 웹 프로젝트' :white_check_mark:\
+b. springboot bbs from '스프링 부트와 AWS로 혼자 구현하는 웹 서비스' :white_check_mark:
 
-x. [InstagramClone_Springboot](https://github.com/codingspecialist/Springboot-Instagram-V3)/
-x. [community.springboot](https://github.com/sosow0212/community)/
-x. spring-guide/ 
-x. aroundhub-springboot/
-x. ShoppingMall_Springboot/ 
-x. Java-Programming-Build-a-Recommendation-System/
-x. [개발자 문제 메일 구독 서비스](https://github.dev/MangKyu/InterviewSubscription/tree/master/src/main/java/com/mangkyu/employment/interview/erros)
-x. [shoppingmall_practice](https://github.com/Doohwancho/Shoppingmall-Practice.spring)
-x. [요기요 서버 클론](https://github.dev/mock-rc1/Yogiyo_test_Server_Swan)
-x. jwp-chess/
+x. [InstagramClone_Springboot](https://github.com/codingspecialist/Springboot-Instagram-V3) \
+x. [community.springboot](https://github.com/sosow0212/community) \
+x. spring-guide\
+x. aroundhub-springboot\
+x. ShoppingMall_Springboot\
+x. Java-Programming-Build-a-Recommendation-System\
+x. [개발자 문제 메일 구독 서비스](https://github.dev/MangKyu/InterviewSubscription/tree/master/src/main/java/com/mangkyu/employment/interview/erros) \
+x. [shoppingmall_practice](https://github.com/Doohwancho/Shoppingmall-Practice.spring) \
+x. [요기요 서버 클론](https://github.dev/mock-rc1/Yogiyo_test_Server_Swan) \
+x. jwp-chess
 
 
 
@@ -30,7 +30,7 @@ x. jwp-chess/
 Concepts
 
 
-legacy-spring:
+a. bbs-spring-legacy
 1. STS 설치 :white_check_mark:
 2. Tomcat 연동 :white_check_mark:
 3. Lombok 연동 :white_check_mark:
@@ -50,10 +50,14 @@ legacy-spring:
 17. .jsp에서 유저 권한에 따른 화면 처리 :white_check_mark:
 
 
-springboot:
-rdb:
-jpa:
-redis:
-security:
-test:
-api:
+b. bbs-springboot-jojoldu
+1. intellij basics :white_check_mark:
+2. springboot setup :white_check_mark:
+3. h2 basics :white_check_mark:
+4. jpa basic :white_check_mark: 
+5. mustache basic :white_check_mark:
+6. bbs basic :white_check_mark:
+7. OAuth2 :white_check_mark:
+8. DTO 분리 :white_check_mark:
+9. tdd - RestTemplate :white_check_mark:
+

@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a171d685-059b-4a4e-bc38-1788a9e1b3c6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../README.me" beforeDir="false" afterPath="$PROJECT_DIR$/../../README.me" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../api/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../api/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../jpa/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../jpa/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/../readme.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
