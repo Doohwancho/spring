@@ -1,2 +1,4 @@
-package cho.community.exception;public class CommentNotFoundException {
+package cho.community.exception;
+
+public class CommentNotFoundException extends RuntimeException{
 }

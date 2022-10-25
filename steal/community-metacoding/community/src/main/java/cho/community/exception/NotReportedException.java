@@ -1,2 +1,4 @@
-package cho.community.exception;public class NotReportedException {
+package cho.community.exception;
+
+public class NotReportedException extends RuntimeException{
 }

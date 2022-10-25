@@ -1,2 +1,4 @@
-package cho.community.exception;public class CategoryNotFoundException {
+package cho.community.exception;
+
+public class CategoryNotFoundException extends RuntimeException{
 }

@@ -1,2 +1,4 @@
-package cho.community.response;public interface Result {
+package cho.community.response;
+
+public interface Result {
 }

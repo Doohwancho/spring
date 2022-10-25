@@ -1,2 +1,7 @@
-package cho.community.exception;public class CannotConvertHelperException {
+package cho.community.exception;
+
+public class CannotConvertHelperException extends RuntimeException{
+    public CannotConvertHelperException(String message) {
+        super(message);
+    }
 }

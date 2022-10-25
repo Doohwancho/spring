@@ -1,2 +1,5 @@
-package cho.community.exception;public class MemberNotEqualsException {
+package cho.community.exception;
+
+public class MemberNotEqualsException extends RuntimeException {
+
 }

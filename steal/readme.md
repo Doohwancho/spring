@@ -2,7 +2,7 @@
 Objective
 
 
-[Cell from dragon ball Z](./cell.png)
+![Cell from dragon ball Z](./cell.png)
 
 
 
@@ -61,5 +61,7 @@ b. bbs-springboot-jojoldu
 8. DTO 분리 :white_check_mark:
 9. tdd - RestTemplate :white_check_mark:
 
-c. community 
-1. refresh token
+
+c. community
+1. jwt token + refresh token :white_check_mark:\
+2. exception :white_check_mark:

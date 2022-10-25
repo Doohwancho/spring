@@ -1,2 +1,4 @@
-package cho.community.exception;public class AlreadyReportException {
+package cho.community.exception;
+
+public class AlreadyReportException extends RuntimeException{
 }

@@ -1,2 +1,4 @@
-package cho.community.exception;public class LoginFailureException {
+package cho.community.exception;
+
+public class LoginFailureException extends RuntimeException {
 }
