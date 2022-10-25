@@ -14,6 +14,7 @@ c. session :white_check_mark:\
 d. OAuth :white_check_mark:\
 e. jwt :white_check_mark:\
 f. authentication :white_check_mark:\
+g. jwt-refresh-token :white_check_mark:\
 x. CORS
 
 
@@ -59,6 +60,8 @@ e-x. springboot+react(jwt+Oauth2)
 f-1. spring security authentication process :white_check_mark:\
 f-2. token 기반 authentication :white_check_mark:
 
+g-1. jwt token + refresh token :white_check_mark:
+
 ---\
 reference
 
@@ -80,3 +83,5 @@ e-x. [springboot+react(jwt+Oauth2)](https://github.com/codingspecialist/Springbo
 
 f-1. [spring security authentication process](https://mangkyu.tistory.com/77?category=761302) \
 f-2. [token 기반 authentication](https://mangkyu.tistory.com/57)
+
+g-1. [jwt token + refresh token](https://blog.naver.com/sosow0212/222747372730)

@@ -1,0 +1,143 @@
+---
+project setup
+
+database)
+1. Mysql 데이터베이스 이름 'communityDB' 생성
+2. 접속 아이디는 root, 비밀번호는 비우기
+3. create databases communitydb;
+4. use communitydb;
+
+
+
+---
+A. refresh token
+
+
+---
+Q. 왜 jwt access token만 쓰지, 거기에 refresh token까지 더해서 썼지?
+
+
+jwt access token에 만료시간이 있잖아?
+그게 길면 길수록 안좋겠지? 1년 잡으면, 한번 탈취하면 해커가 1년 내내 내 계정 자유이용권이니까.
+그러면 최대한 jwt access token의 유효기간을 짧게해서, 재발급해야, 해커가 만약 jwt access token을 탈취하더라도,
+5분마다 재발급받으면, 5분밖에 내 계정 못쓰니까, 어느정도 보안이 좋아졌다 할 수 있겠지?
+
+근데 문제는, jwt access token을 받는 시기인데,
+시스템은 사용자에게 권한을 부여하기 위해(authorization), 인증(authentication, ex. login)을 거쳐야 함.
+jwt access token은 인증(로그인) 후에 발급받는 토큰임.
+보안 높히자고 5분마다 로그인하게 만들면 UX 겁나 떨어지겠지?
+
+그러니까 jwt token을 짧게 유지하고(max 1hr), jwt token을 재갱신 시켜주는 refresh token을 1주일 이렇게 잡으면,
+유저는 5분마다 수동으로 로그인 안해도, 서버에서 jwt access token이 만료되면, refresh 보고 validate()하면 jwt token을 재발급해줌.
+
+
+jwt토큰은 권한이 높음. 이걸로 여러 리소스 접근함.
+refresh token은 권한따윈 없음. 그저 jwt token 검증하고 re-issue하는데만 쓰이니까.
+
+
+
+
+---
+Q. 만약에 refresh token이 탈취당하면 어떻게 해?
+
+user1는 jwt token + refresh token이 있어.
+hacker는 user1의 refresh token이 있어.(탈취했으니까)
+
+user1의 jwt token 만료시간이 아직 안끝났는데, hacker가 서버에 refresh token 보내면서 jwt token 재갱신 요청을 한다?
+그럼 서버는 탈취된걸로 간주하고 refresh token을 만료시킴.
+
+
+
+jwt token은 인증할 때, TokenProvider.java에 AUTHORITIES_KEY랑 비교해서 검증하잖아? (서버에서 private key 관리)
+refreshToken은 db에 저장함.
+key:유저 아이디, value: refresh token key로
+
+
+
+---
+Q. 만약에 jwt access token이 탈취당하면 어떻게 해?
+
+
+해커가 jwt access token들고 모든 리소스에 접근 가능하긴 한데,
+제한시간이 있어서 그나마 1년 자유이용권은 막는 느낌?
+
+refresh_token은 이걸 가지고 토큰 탈취 막겠다라기 보다는,
+해당 계정의 후속조취용.
+
+
+
+---
+Q. 만약에 jwt access token + refresh token 둘 다 탈취당하면 어떻게 해?
+
+GG
+
+---
+Q. 어떻게 token 발급 customization 구현했지?
+
+1. SecurityConfig.java에서 jwt config 등록 (.apply(new JwtSecurityConfig(tokenProvider));)
+2. JwtSecurityConfig 에서 JwtFilter에 TokenProvider를 먹여서 custom Filter를 등록
+3. JwtFilter에서는 doFilterInternal()로 JWT 토큰의 인증 정보를 현재 쓰레드의 SecurityContext 에 저장하는 역할 수행
+4. TokenProvider에서 jwt private key 암호화 하고, expire time도 정하고 등등함.(jwt access token 유효기간은 1일, refresh token 유효기간은 7일)
+5. TokenProvider을 커스텀해서 RefreshToken생성 후, responseDTO에 jwt token + refresh token 담아서 반환
+
+
+로그인 한 후에 jwt token+refresh token이 발급되니까, AuthService에 SignIn()을 보면 되고,
+refresh token을 보고 jwt access token 재발급받는건 AuthService에 reissue()를 보면 됨.
+주석 달려있음.
+
+
+
+---
+Q. 회원가입, 로그인 postman으로 실습해보기.
+
+1. 회원가입
+POST http://localhost:8080/api/sign-up
+
+{
+    "username": "pk8294",
+    "password": "1234",
+    "nickname": "cho",
+    "name":"doohwan"
+}
+
+이 시점에 데이터 베이스 확인하면,
+
+use communitydb;
+select * from user;
+유저 정보가 들어가있다.
+하지만, 아직 로그인해서 토큰 받진 않았기 때문에,
+select * from refresh_token; 하면  정보가 없다.
+
+
+2. 로그인
+
+authentication(인증, 로그인) 후에 jwt token + refresh token이 발급된다.
+
+
+POST http://localhost:8080/api/sign-in
+
+{
+    "username": "pk8294",
+    "password": "1234",
+}
+
+
+하면, jwt access token과 refershtoken을 준다.
+{
+    "success":true,
+    "code":0,
+    "result": {
+        "data": {
+            "accessToken":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwazgyOTQiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY2Nzg0MjkxfQ.Qvv9ruZz2GDOe6Nszh7uWjCXdqgsoaLXhFGOWRgP3Of-NBwlvMmGHE1Nf2QFdNbA0zwrVKL1KtQYZkvBb3AfXg",
+            "refreshToken":"eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2NjczMDI2OTF9.WO2rwS08enuNlbVJSHSJk_pfP9-kCj2LUgf1Eb-t7rkbZfBgtQnXTePMbpARXVAuyDLRlTyabXHyGpk1i1PxSQ"
+        }
+    }
+}
+
+그리고 select * from refresh_token; 하면, refresh token이 들어가있다.
+rt_key에 유저 아이디,
+rt_value에 refresh token이 들어가있다.
+
+
+
+

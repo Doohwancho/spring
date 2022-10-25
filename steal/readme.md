@@ -2,7 +2,7 @@
 Objective
 
 
-Cell from dragon ball Z
+[Cell from dragon ball Z](./cell.png)
 
 
 
@@ -11,10 +11,10 @@ Prey
 
 
 a. legacy bbs from '코드로 배우는 스프링 웹 프로젝트' :white_check_mark:\
-b. springboot bbs from '스프링 부트와 AWS로 혼자 구현하는 웹 서비스' :white_check_mark:
+b. springboot bbs from '스프링 부트와 AWS로 혼자 구현하는 웹 서비스' :white_check_mark:\
+c. [community.springboot](https://github.com/sosow0212/community) :soon:
 
 x. [InstagramClone_Springboot](https://github.com/codingspecialist/Springboot-Instagram-V3) \
-x. [community.springboot](https://github.com/sosow0212/community) \
 x. spring-guide\
 x. aroundhub-springboot\
 x. ShoppingMall_Springboot\
@@ -61,3 +61,5 @@ b. bbs-springboot-jojoldu
 8. DTO 분리 :white_check_mark:
 9. tdd - RestTemplate :white_check_mark:
 
+c. community 
+1. refresh token
