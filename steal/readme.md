@@ -63,5 +63,6 @@ b. bbs-springboot-jojoldu
 
 
 c. community
-1. jwt token + refresh token :white_check_mark:\
+1. jwt token + refresh token :white_check_mark:
 2. exception :white_check_mark:
+3. simple user crud :white_check_mark:

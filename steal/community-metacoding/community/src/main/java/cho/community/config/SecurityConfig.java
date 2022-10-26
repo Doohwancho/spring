@@ -29,6 +29,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers("/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/swagger/**");
+    }
+
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         // CSRF 설정 Disable
         http.csrf().disable()
@@ -48,14 +54,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 로그인, 회원가입 API 는 토큰이 없는 상태에서 요청이 들어오기 때문에 permitAll 설정
                 .and()
                 .authorizeRequests()
-
+                .antMatchers("/swagger-ui/**", "/v3/**").permitAll()
                 .antMatchers("/api/**").permitAll() // 이건 그냥 누구나 접근 가능
-
-                .antMatchers("/test")
-                .access("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
-
-
+                .antMatchers("/test").access("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
                 .antMatchers("/all").permitAll() // 이건 그냥 누구나 접근 가능
+
+                .antMatchers("/api/sign-up", "/api/sign-in", "/api/reissue").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/users").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+                .antMatchers(HttpMethod.GET, "/api/users/{id}").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+                .antMatchers(HttpMethod.PUT, "/api/users/{id}").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+                .antMatchers(HttpMethod.DELETE, "/api/users/{id}").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 
                 .anyRequest().authenticated() // 나머지는 전부 인증 필요
 //                .anyRequest().permitAll()   // 나머지는 모두 그냥 접근 가능

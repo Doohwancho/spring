@@ -1,6 +1,5 @@
 package cho.community.service;
 
-
 import cho.community.dto.user.UserDto;
 import cho.community.entity.user.Authority;
 import cho.community.entity.user.User;
@@ -14,8 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,7 +22,6 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static cho.community.factory.UserFactory.createUser;
-import static cho.community.factory.UserFactory.createUserWithAdminRole;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
@@ -63,17 +59,17 @@ public class UserServiceTest {
     }
 
 
-//    @Test
-//    @DisplayName("deleteUserInfo() 서비스 테스트")
-//    void deleteUserInfoTest() {
-//        // given
-//        given(userRepository.findById(anyInt())).willReturn(Optional.of(createUser()));
-//
-//        // when
-//        userService.deleteUserInfo(createUser(), anyInt());
-//
-//        // then
-//        verify(userRepository).deleteById(anyInt());
-//
-//    }
+    @Test
+    @DisplayName("deleteUserInfo() 서비스 테스트")
+    void deleteUserInfoTest() {
+        // given
+        given(userRepository.findById(anyInt())).willReturn(Optional.of(createUser()));
+
+        // when
+        userService.deleteUserInfo(createUser(), anyInt());
+
+        // then
+        verify(userRepository).deleteById(anyInt());
+
+    }
 }
