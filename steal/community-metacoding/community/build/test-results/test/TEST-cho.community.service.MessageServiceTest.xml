@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cho.community.service.MessageServiceTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2022-10-26T12:35:27" hostname="cho-choui-MacBookAir.local" time="0.071">
+  <properties/>
+  <testcase name="deleteMessageByReceiverNotDeletableTest 서비스 테스트" classname="cho.community.service.MessageServiceTest" time="0.054"/>
+  <testcase name="sendMessages 서비스 테스트" classname="cho.community.service.MessageServiceTest" time="0.003"/>
+  <testcase name="deleteMessage 서비스 테스트" classname="cho.community.service.MessageServiceTest" time="0.001"/>
+  <testcase name="deleteMessageBySenderNotDeletableTest 서비스 테스트" classname="cho.community.service.MessageServiceTest" time="0.001"/>
+  <testcase name="receiveMessage 서비스 테스트" classname="cho.community.service.MessageServiceTest" time="0.001"/>
+  <testcase name="createMessage 서비스 테스트" classname="cho.community.service.MessageServiceTest" time="0.008"/>
+  <testcase name="receiveMessages 서비스 테스트" classname="cho.community.service.MessageServiceTest" time="0.0"/>
+  <testcase name="sendMessage 서비스 테스트" classname="cho.community.service.MessageServiceTest" time="0.0"/>
+  <system-out><![CDATA[21:35:27.851 [Test worker] DEBUG cho.community.service.message.MessageService - User(id=0, username=username2, password=password2, name=yoon2, nickname=yoon2, authority=ROLE_ADMIN, reported=false, createDate=null)
+21:35:27.852 [Test worker] DEBUG cho.community.service.message.MessageService - MessageCreateRequest(title=title, content=content, receiverNickname=yoon)
+21:35:27.852 [Test worker] DEBUG cho.community.service.message.MessageService - User(id=0, username=username, password=password, name=yoon, nickname=yoon, authority=ROLE_ADMIN, reported=false, createDate=null)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
