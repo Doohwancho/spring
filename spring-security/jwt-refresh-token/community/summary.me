@@ -1,3 +1,12 @@
+
+---
+warning!
+
+
+이 프로젝트는 jwt token이 만료되었을 때, refresh_token을 가지고 jwt token을 서버에서 알아서 자동으로 재갱신하는 부분은 구현되지 않았음.
+따라서 이 부분은 별개로 구현해야 함.
+
+
 ---
 project setup
 
@@ -6,7 +15,6 @@ database)
 2. 접속 아이디는 root, 비밀번호는 비우기
 3. create databases communitydb;
 4. use communitydb;
-
 
 
 ---
@@ -75,15 +83,73 @@ GG
 Q. 어떻게 token 발급 customization 구현했지?
 
 1. SecurityConfig.java에서 jwt config 등록 (.apply(new JwtSecurityConfig(tokenProvider));)
-2. JwtSecurityConfig 에서 JwtFilter에 TokenProvider를 먹여서 custom Filter를 등록
-3. JwtFilter에서는 doFilterInternal()로 JWT 토큰의 인증 정보를 현재 쓰레드의 SecurityContext 에 저장하는 역할 수행
-4. TokenProvider에서 jwt private key 암호화 하고, expire time도 정하고 등등함.(jwt access token 유효기간은 1일, refresh token 유효기간은 7일)
-5. TokenProvider을 커스텀해서 RefreshToken생성 후, responseDTO에 jwt token + refresh token 담아서 반환
+2. JwtSecurityConfig 에서 JwtFilter에 TokenProvider를 먹여서 custom Filter를 등록.
+    2-1. JwtFilter는 doFilterInternal()로 JWT 토큰의 인증 정보를 현재 쓰레드의 SecurityContext 에 저장하는 역할 수행
+    2-2. TokenProvider에서 jwt private key 암호화 하고, expire time도 정하고 등등함.(jwt access token 유효기간은 1일, refresh token 유효기간은 7일)
+    2-3. TokenProvider을 커스텀해서 RefreshToken생성 후, responseDTO에 jwt token + refresh token 담아서 반환
+3. 유저가 서버로 로그인 요청하면, AuthController에 POST /api/sign-in에 요청와서 authService.signIn(req) 실행.
+4. AuthService.sign-in()에서 유저 검증 후, Authentication을 기반으로 jwt token+refresh token이 담긴 TokenDto생성. refresh token은 db에 저장 후, TokenDto 반환. (로그인 할 때마다 jwt token + refresh token 새롭게 만들어서 주네?)
+5. 이제부터 client->server로 HttpRequest보낼 때, jwt token + refresh token 담아서 보냄
+6. JwtFilter에서 HttpRequest안에 jwt token을 꺼내 tokenProvider.validateToken(jwt) 로 검증하고, tokenProvider.getAuthentication(jwt) 로 Authentication 받아온 후, SecurityContextHolder.getContext().setAuthentication(authentication); 로 스프링 시큐리티 컨텍스트에 해당 Authentication을 등록함
+
+
+Q. jwt token expire시간이 1시간인데, 로그인 한 후 1시간이 지나버렸어. 아직 refresh token은 남아있는 상태야. 어쩌지?
+JwtFilter에서 tokenProvider.validateToken(jwt)에서 "auth"라는 secret key는 검증 해서 패스했긴 했는데,
+JwtFilter에서는 secret key만 맞으면 expire date 검증 안하고 바로 SecurityContextHolder.getContext().setAuthentication(authentication); 에 등록해버리네?
+
+아니면, jwt토큰 만들 때 설정한 expire date시간이 지나면, 자동으로 없어지게 처리해놨나? 내부적으로?
+
+TokenProvider.validateToken()에서 Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token); 하면 expire date 끝난거 검증해주나?
+
+
+Q. RefreshToken에 expiration date가 없는데?
+https://github.dev/dyparkkk/jwt-spring-security-demo 에 JwtTokenProvider.java에서 createRefreshToken()을 보면, expiration date 쓰는데?
+
+뭐야 TokenProvider.generateTokenDto(authentication) 을 보면 expiration date 있네?
+
+
+Q. 로그인 한 후, 일주일이 지나서 jwt token + refresh token 둘 다 expire 되버렸어. 어쩌지?
+
 
 
 로그인 한 후에 jwt token+refresh token이 발급되니까, AuthService에 SignIn()을 보면 되고,
 refresh token을 보고 jwt access token 재발급받는건 AuthService에 reissue()를 보면 됨.
 주석 달려있음.
+
+
+Q. jwt token만료시 refresh token으로 서버에서 자동으로 재갱신해주는 코드가 없다????
+
+jwt token이랑 refresh token이 검증하는 부분이랑 재갱신 하는 부분이 궁금해졌습니다.
+로그인할 때 server->client에게 1. jwt token 2. refresh token을 주고, 이후엔 client->server 요청시 토큰 2개를 첨부해서 보내잖아요?
+이후에 client->server 요청시,
+JwtFilter에서 먼저 TokenProvider.validateToken()로 토큰이 유효한지 검증한 이후, 검증이 되면 SecurityContext에다 유저의 Authentication을 등록하는 식으로 동작하는걸 확인했습니다.
+
+그런데 jwt 토큰의 만료기간이 끝나서 throw ExpiredJwtException() 한다면,
+유저는 refresh token으로 jwt token을 재갱신 해야 하지 않습니까?
+
+그래서 구현한게 AuthController에 POST /api/reissue 에서 이어지는 AuthService에 reissue()이구요.
+
+그러면 만약에 어떤 유저가 있는데,
+jwt token 만료기간이 끝났고, refresh token 만료기간이 남아있다고 가정합시다.
+유저가 게시글을 클릭했어요.
+
+client->server로 요청했는데 jwt token이 없어서 throw ExpiredJwtException() 되었으면,
+client 단에서 이 응답 받으면, 다시 POST /api/reissue 를 요청하는 코드를 view단에 심어야 하는거에요?
+
+제 생각엔 jwt token이 만료됬을 때, refresh token을 보고 재갱신하는 로직이 백엔드 서버에 구현되있어야 하는데,
+그 코드가 어느부분인지 모르겠습니다.
+
+[출처] 스프링부트 커뮤니티 API 서버 만들기 #1 - 로그인 기능 + Validation + Exception 구현|작성자 이재윤
+
+
+
+A.
+리프레쉬 토큰이랑 같이 보낼 수도 있고 그거는 위에 코드 기반으로 커스텀 하시면 될 거에요
+아마 저 코드는 예전에 작성한거라서 말씀하신 부분처럼 따로 클라이언트에서 확인하고 찔러야할거에요
+
+
+클라이언트에서 다시 요청을 찔러주던지,
+서버단에서 expire date 확인하는 코드를 넣던지, 추가 작업이 필요한 듯 하다.
 
 
 
@@ -118,7 +184,7 @@ POST http://localhost:8080/api/sign-in
 
 {
     "username": "pk8294",
-    "password": "1234",
+    "password": "1234"
 }
 
 
@@ -137,7 +203,5 @@ POST http://localhost:8080/api/sign-in
 그리고 select * from refresh_token; 하면, refresh token이 들어가있다.
 rt_key에 유저 아이디,
 rt_value에 refresh token이 들어가있다.
-
-
 
 
