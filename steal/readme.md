@@ -70,3 +70,4 @@ c. community
 5. bbs+image :white_check_mark:
 6. bbs likes + favoriates :white_check_mark:
 7. report :white_check_mark:
+8. back office(admin page) :white_check_mark:
