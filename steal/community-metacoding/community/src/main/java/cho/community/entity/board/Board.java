@@ -17,6 +17,7 @@ import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Data
@@ -31,7 +32,7 @@ public class Board {
     private String title;
 
     @Column(nullable = false)
-    @Lob //large object binary
+    @Lob
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -39,9 +40,22 @@ public class Board {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "category_id", nullable = false)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+//    private Category category;
+
     @OneToMany(mappedBy = "board", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Image> images;
 
+    @Column(nullable = true)
+    private int liked; // 추천 수
+
+    @Column(nullable = true)
+    private int favorited; // 즐겨찾기 수
+
+    @Column(nullable = false)
+    private boolean reported;
 
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private LocalDate createDate; // 날짜
@@ -55,6 +69,10 @@ public class Board {
         this.title = title;
         this.content = content;
         this.user = user;
+        this.liked = 0;
+        this.favorited = 0;
+        this.reported = false;
+//        this.category = category;
         this.images = new ArrayList<>();
         addImages(images);
     }
@@ -100,6 +118,10 @@ public class Board {
 
     private List<Image> convertImageFilesToImages(List<MultipartFile> imageFiles) {
         return imageFiles.stream().map(imageFile -> new Image(imageFile.getOriginalFilename())).collect(toList());
+    }
+
+    public boolean isReported() {
+        return this.reported;
     }
 
     @Getter

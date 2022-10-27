@@ -2,12 +2,16 @@ package cho.community.service.board;
 
 import cho.community.dto.board.*;
 import cho.community.entity.board.Board;
+import cho.community.entity.board.Favorite;
 import cho.community.entity.board.Image;
+import cho.community.entity.board.LikeBoard;
 import cho.community.entity.user.User;
 import cho.community.exception.BoardNotFoundException;
 import cho.community.exception.MemberNotEqualsException;
 import cho.community.exception.MemberNotFoundException;
 import cho.community.repository.board.BoardRepository;
+import cho.community.repository.board.FavoriteRepository;
+import cho.community.repository.board.LikeBoardRepository;
 import cho.community.repository.user.UserRepository;
 import cho.community.service.file.FileService;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +36,8 @@ public class BoardService {
     private final UserRepository userRepository;
     private final BoardRepository boardRepository;
     private final FileService fileService;
+    private final LikeBoardRepository likeBoardRepository;
+    private final FavoriteRepository favoriteRepository;
 
     @Transactional
     public BoardCreateResponse create(BoardCreateRequest req) {
@@ -106,4 +112,61 @@ public class BoardService {
     private void deleteImages(List<Image> images) {
         images.stream().forEach(i -> fileService.delete(i.getUniqueName()));
     }
+
+
+    @Transactional
+    public String likeBoard(int id) {
+        Board board = boardRepository.findById(id).orElseThrow(BoardNotFoundException::new);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByUsername(authentication.getName()).orElseThrow(MemberNotFoundException::new);
+
+        if(likeBoardRepository.findByBoardAndUser(board, user) == null) {
+            // 좋아요를 누른적 없다면 LikeBoard 생성 후, 좋아요 처리
+            board.setLiked(board.getLiked() + 1);
+            LikeBoard likeBoard = new LikeBoard(board, user); // true 처리
+            likeBoardRepository.save(likeBoard);
+            return "좋아요 처리 완료";
+        } else {
+            // 좋아요를 누른적 있다면 취소 처리 후 테이블 삭제
+            LikeBoard likeBoard = likeBoardRepository.findByBoardAndUser(board, user);
+            likeBoard.unLikeBoard(board);
+            likeBoardRepository.delete(likeBoard);
+            return "좋아요 취소";
+        }
+    }
+
+
+    @Transactional
+    public String favoriteBoard(int id) {
+        Board board = boardRepository.findById(id).orElseThrow(BoardNotFoundException::new);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByUsername(authentication.getName()).orElseThrow(MemberNotFoundException::new);
+
+        if(favoriteRepository.findByBoardAndUser(board, user) == null) {
+            // 좋아요를 누른적 없다면 Favorite 생성 후, 즐겨찾기 처리
+            board.setFavorited(board.getFavorited() + 1);
+            Favorite favorite = new Favorite(board, user); // true 처리
+            favoriteRepository.save(favorite);
+            return "즐겨찾기 처리 완료";
+        } else {
+            // 즐겨찾기 누른적 있다면 즐겨찾기 처리 후 테이블 삭제
+            Favorite favorite = favoriteRepository.findFavoriteByBoard(board);
+            favorite.unFavoriteBoard(board);
+            favoriteRepository.delete(favorite);
+            return "즐겨찾기 취소";
+        }
+    }
+
+
+    @Transactional(readOnly = true)
+    public List<BoardSimpleDto> findBestBoards(Pageable pageable) {
+        // 10 이상은 추천글
+        Page<Board> boards = boardRepository.findByLikedGreaterThanEqual(pageable, 10);
+        List<BoardSimpleDto> boardSimpleDtoList = new ArrayList<>();
+        boards.stream().forEach(i -> boardSimpleDtoList.add(new BoardSimpleDto().toDto(i)));
+        return boardSimpleDtoList;
+    }
+
 }

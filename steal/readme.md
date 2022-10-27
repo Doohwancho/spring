@@ -68,3 +68,4 @@ c. community
 3. simple user crud :white_check_mark:
 4. message api :white_check_mark:
 5. bbs+image :white_check_mark:
+6. bbs likes + favoriates :white_check_mark:

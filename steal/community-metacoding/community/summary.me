@@ -7,7 +7,7 @@ A. refresh token
 B. Exception
 C. Message
 D. bbs crud+image
-
+E. bbs likes + favorites
 
 
 ---
@@ -249,5 +249,25 @@ BoardService
 BoardRepository
 FileService
 LocalFileService
+
+
+
+---
+E. 게시글 좋아요+즐겨찾기
+
+기능
+1. 사용자가 좋아요를 누르면 게시글의 좋아요 수가 +1이 되고,
+2. 다시 버튼을 누르면 좋아요가 -1 이 됩니다.
+3. 그리고 좋아요 수가 일정 수 이상 도달하면, 인기 게시물로 선정이 됩니다.
+4. 즐겨찾기도 마찬가지로 POST 요청으로 +- 1이 증가 되고,
+5. 유저 페이지에서 즐겨찾기 한 글을 클릭하면, 유저가 즐겨찾기 한 글의 목록만 리턴됩니다.
+
+
+구현 클래스
+LikeBoard
+Favorite
+BoardController
+BoardService
+LikeBoardRepository
 
 
