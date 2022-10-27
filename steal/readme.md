@@ -67,3 +67,4 @@ c. community
 2. exception :white_check_mark:
 3. simple user crud :white_check_mark:
 4. message api :white_check_mark:
+5. bbs+image :white_check_mark:
