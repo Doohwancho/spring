@@ -14,13 +14,12 @@ a. legacy bbs from '코드로 배우는 스프링 웹 프로젝트' :white_check
 b. springboot bbs from '스프링 부트와 AWS로 혼자 구현하는 웹 서비스' :white_check_mark:\
 c. [community.springboot](https://github.com/sosow0212/community) :soon:
 
-x. [InstagramClone_Springboot](https://github.com/codingspecialist/Springboot-Instagram-V3) \
+x. [e-commerce api server](https://github.dev/sosow0212/shoppingMall_API_Server) \
 x. spring-guide\
 x. aroundhub-springboot\
 x. ShoppingMall_Springboot\
 x. Java-Programming-Build-a-Recommendation-System\
 x. [개발자 문제 메일 구독 서비스](https://github.dev/MangKyu/InterviewSubscription/tree/master/src/main/java/com/mangkyu/employment/interview/erros) \
-x. [shoppingmall_practice](https://github.com/Doohwancho/Shoppingmall-Practice.spring) \
 x. [요기요 서버 클론](https://github.dev/mock-rc1/Yogiyo_test_Server_Swan) \
 x. jwp-chess
 
@@ -71,3 +70,4 @@ c. community
 6. bbs likes + favoriates :white_check_mark:
 7. report :white_check_mark:
 8. back office(admin page) :white_check_mark:
+9. category :white_check_mark:

@@ -3,6 +3,9 @@ package cho.community.controller.board;
 import cho.community.dto.board.BoardCreateRequest;
 import cho.community.dto.board.BoardUpdateRequest;
 import cho.community.entity.board.Board;
+import cho.community.entity.user.User;
+import cho.community.exception.MemberNotFoundException;
+import cho.community.repository.user.UserRepository;
 import cho.community.response.Response;
 import cho.community.service.board.BoardService;
 import io.swagger.annotations.Api;
@@ -14,9 +17,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
 
 @Api(value = "Board Controller", tags = "Board")
 @RequiredArgsConstructor
@@ -25,24 +31,26 @@ import javax.validation.Valid;
 @RequestMapping("/api")
 public class BoardController {
     private final BoardService boardService;
+    private final UserRepository userRepository;
 
     @ApiOperation(value = "게시글 생성", notes = "게시글을 작성합니다.")
     @PostMapping("/boards")
     @ResponseStatus(HttpStatus.CREATED)
-    public Response create(@Valid @ModelAttribute BoardCreateRequest req) {
-        //@ModelAttribute 넣은 이유: Validation 제약 조건이 위배된다면, BindException이 발생하는데 BindExceptoin이 MethodArgumentNotValidException의 상위 클래스라서 둘다 잡을 수 있습니다.
-        //그리고 게시글 생성에서는 form-data로 데이터를 받기 때문에 (이미지로 인해)
-        //기존에 JSON으로 데이터를 받을 수 있는 방식인 @RequestBody를 사용하지 않습니다.
+    public Response create(@Valid @ModelAttribute BoardCreateRequest req,
+                           @RequestParam(value = "category", defaultValue = "1") int categoryId) {
+        // http://localhost:8080/api/boards?category=3
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByUsername(authentication.getName()).orElseThrow(MemberNotFoundException::new);
 
-        return Response.success(boardService.create(req));
+        return Response.success(boardService.create(req, categoryId, user));
     }
 
     @ApiOperation(value = "게시글 목록 조회", notes = "게시글 목록을 조회합니다.")
-    @GetMapping("/boards")
+    @GetMapping("/boards/all/{categoryId}")
     @ResponseStatus(HttpStatus.OK)
-    public Response findAllBoards(@PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        // ex) http://localhost:8080/api/boards/?page=0
-        return Response.success(boardService.findAllBoards(pageable));
+    public Response findAllBoards(@ApiParam(value = "게시글 id", required = true) @PathVariable int categoryId, @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        // ex) http://localhost:8080/api/boards/all/{categoryId}/?page=0
+        return Response.success(boardService.findAllBoards(pageable, categoryId));
     }
 
     @ApiOperation(value = "게시글 단건 조회", notes = "게시글을 단건 조회합니다.")
@@ -55,15 +63,49 @@ public class BoardController {
     @ApiOperation(value = "게시글 수정", notes = "게시글을 수정합니다.")
     @PutMapping("/boards/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Response editBoard(@PathVariable int id, @Valid @ModelAttribute BoardUpdateRequest req) {
-        return Response.success(boardService.editBoard(id, req));
+    public Response editBoard(@ApiParam(value = "게시글 id", required = true) @PathVariable int id, @Valid @ModelAttribute BoardUpdateRequest req) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByUsername(authentication.getName()).orElseThrow(MemberNotFoundException::new);
+
+        return Response.success(boardService.editBoard(id, req, user));
     }
+
+    @ApiOperation(value = "게시글 좋아요", notes = "사용자가 게시글 좋아요를 누릅니다.")
+    @PostMapping("/boards/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Response likeBoard(@ApiParam(value = "게시글 id", required = true) @PathVariable int id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByUsername(authentication.getName()).orElseThrow(MemberNotFoundException::new);
+
+        return Response.success(boardService.likeBoard(id, user));
+    }
+
+    @ApiOperation(value = "게시글 즐겨찾기", notes = "사용자가 게시글 즐겨찾기를 누릅니다.")
+    @PostMapping("/boards/{id}/favorites")
+    @ResponseStatus(HttpStatus.OK)
+    public Response favoriteBoard(@ApiParam(value = "게시글 id", required = true) @PathVariable int id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByUsername(authentication.getName()).orElseThrow(MemberNotFoundException::new);
+
+        return Response.success(boardService.favoriteBoard(id, user));
+    }
+
+    @ApiOperation(value = "인기글 조회", notes = "추천수 10이상 게시글을 조회합니다.")
+    @GetMapping("/boards/best")
+    @ResponseStatus(HttpStatus.OK)
+    public Response bestBoards(@PageableDefault(size = 5, sort = "liked", direction = Sort.Direction.DESC) Pageable pageable) {
+        return Response.success(boardService.findBestBoards(pageable));
+    }
+
 
     @ApiOperation(value = "게시글 삭제", notes = "게시글을 삭제합니다.")
     @DeleteMapping("/boards/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Response deleteBoard(@PathVariable int id) {
-        boardService.deleteBoard(id);
+    public Response deleteBoard(@ApiParam(value = "게시글 id", required = true) @PathVariable int id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByUsername(authentication.getName()).orElseThrow(MemberNotFoundException::new);
+
+        boardService.deleteBoard(id, user);
         return Response.success();
     }
 
@@ -74,27 +116,5 @@ public class BoardController {
         // ex) http://localhost:8080/api/boards/search?page=0
         return Response.success(boardService.search(keyword, pageable));
     }
-
-    @ApiOperation(value = "게시글 좋아요", notes = "사용자가 게시글 좋아요를 누릅니다.")
-    @PostMapping("/boards/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public Response likeBoard(@ApiParam(value = "게시글 id", required = true) @PathVariable int id) {
-        return Response.success(boardService.likeBoard(id));
-    }
-
-    @ApiOperation(value = "게시글 즐겨찾기", notes = "사용자가 게시글 즐겨찾기를 누릅니다.")
-    @PostMapping("/boards/{id}/favorites")
-    @ResponseStatus(HttpStatus.OK)
-    public Response favoriteBoard(@ApiParam(value = "게시글 id", required = true) @PathVariable int id) {
-        return Response.success(boardService.favoriteBoard(id));
-    }
-
-    @ApiOperation(value = "인기글 조회", notes = "추천수 10이상 게시글을 조회합니다.")
-    @GetMapping("/boards/best")
-    @ResponseStatus(HttpStatus.OK)
-    public Response bestBoards(@PageableDefault(size = 5, sort = "liked", direction = Sort.Direction.DESC) Pageable pageable) {
-        return Response.success(boardService.findBestBoards(pageable));
-    }
 }
-
 

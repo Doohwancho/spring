@@ -11,7 +11,7 @@ E. bbs likes + favorites
 F. bbs replies
 G. report
 H. back office(admin page)
-
+I. category
 
 
 ---
@@ -326,6 +326,53 @@ H. back office (admin page)
 
 구현 클래스
 
-Admin
 AdminController
 AdminService
+
+
+
+---
+I. category
+
+
+계층형 카테고리란?
+- 카테고리1
+  ㄴ 카테고리2
+  ㄴ 카테고리3
+  ㄴ 카테고리4
+
+- 카테고리5
+  ㄴ 카테고리6
+     ㄴ 카테고리 7
+     ㄴ 카테고리 8
+  ㄴ 카테고리 9
+
+
+카테고리 안에 카테고리 넣을 수 있다.
+
+
+어떻게?
+Category.java를 보면 Parent 필드가 있는데, 얘가 ManyToOne으로 셀프 참조함
+
+
+
+구현 클래스
+
+Category
+CategoryController
+    Category
+    CategoryCreateRequest
+    CategoryHelper
+CategoryService
+CategoryRepository
+
++ 보드 관련 클래스들
+
+
+
+눈여겨 볼만한 점
+CategoryDto에서 toDtoList()할 때, CategoryHelper을 쓰는데 함수형으로 선언되어있음.
+
+
+
+

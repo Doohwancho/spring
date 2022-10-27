@@ -2,6 +2,7 @@ package cho.community.entity.board;
 
 import cho.community.dto.board.BoardUpdateRequest;
 import cho.community.entity.board.Image;
+import cho.community.entity.category.Category;
 import cho.community.entity.user.User;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
@@ -40,10 +41,10 @@ public class Board {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "category_id", nullable = false)
-//    @OnDelete(action = OnDeleteAction.CASCADE)
-//    private Category category;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Category category;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Image> images;
@@ -65,14 +66,14 @@ public class Board {
         this.createDate = LocalDate.now();
     }
 
-    public Board(String title, String content, User user, List<Image> images) {
+    public Board(String title, String content, User user, Category category, List<Image> images) {
         this.title = title;
         this.content = content;
         this.user = user;
         this.liked = 0;
         this.favorited = 0;
         this.reported = false;
-//        this.category = category;
+        this.category = category;
         this.images = new ArrayList<>();
         addImages(images);
     }
