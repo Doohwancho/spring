@@ -12,9 +12,10 @@ Prey
 
 a. legacy bbs from '코드로 배우는 스프링 웹 프로젝트' :white_check_mark:\
 b. springboot bbs from '스프링 부트와 AWS로 혼자 구현하는 웹 서비스' :white_check_mark:\
-c. [community.springboot](https://github.com/sosow0212/community) :soon:
+c. [community.springboot](https://github.com/sosow0212/community) :white_check_mark:
+d. [shoppingmall-springboot-metacoding](https://github.dev/sosow0212/ShoppingMall_springboot) :soon:\
 
-x. [e-commerce api server](https://github.dev/sosow0212/shoppingMall_API_Server) \
+x. [e-commerce api server - metacoding](https://github.dev/sosow0212/shoppingMall_API_Server) \
 x. spring-guide\
 x. aroundhub-springboot\
 x. ShoppingMall_Springboot\

@@ -47,6 +47,8 @@ jwt access token은 인증(로그인) 후에 발급받는 토큰임.
 유저는 5분마다 수동으로 로그인 안해도, 서버에서 jwt access token이 만료되면, refresh 보고 validate()하면 jwt token을 재발급해줌.
 
 
+
+
 jwt토큰은 권한이 높음. 이걸로 여러 리소스 접근함.
 refresh token은 권한따윈 없음. 그저 jwt token 검증하고 re-issue하는데만 쓰이니까.
 
@@ -56,17 +58,8 @@ refresh token은 권한따윈 없음. 그저 jwt token 검증하고 re-issue하�
 ---
 Q. 만약에 refresh token이 탈취당하면 어떻게 해?
 
-user1는 jwt token + refresh token이 있어.
-hacker는 user1의 refresh token이 있어.(탈취했으니까)
 
-user1의 jwt token 만료시간이 아직 안끝났는데, hacker가 서버에 refresh token 보내면서 jwt token 재갱신 요청을 한다?
-그럼 서버는 탈취된걸로 간주하고 refresh token을 만료시킴.
-
-
-
-jwt token은 인증할 때, TokenProvider.java에 AUTHORITIES_KEY랑 비교해서 검증하잖아? (서버에서 private key 관리)
-refreshToken은 db에 저장함.
-key:유저 아이디, value: refresh token key로
+유저가 로그아웃하면 db에 저장된 refresh token도 제거해줌. -> 유저가 로그아웃 해서 db에 refresh token없는데 해커가 refresh token을 들고왔다? -> 허가 안해줌.
 
 
 
