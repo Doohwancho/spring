@@ -688,3 +688,9 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,visualstudiocode,eclipse,intellij,java,netbeans,react,gradle,maven
+
+flink/
+kafka-1/
+kafka-2/
+kafka-3/
+zookeeper/
