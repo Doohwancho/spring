@@ -1,25 +1,25 @@
 # Container structure
 
-kafka broker : 3
-zookeeper : 1
-kafdrop (Web UI): 1
-flink job manager : 1
-flink task manager : 1
+kafka broker : 3\
+zookeeper : 1\
+kafdrop (Web UI): 1\
+flink job manager : 1\
+flink task manager : 1\
 flink sql client : 1
 
 
 
 # Quick Start
 
-1) network 생성
+1) network 생성\
 $ docker network create jssvs-net
 
-2) docker-compose up
+2) docker-compose up\
 $ docker-compose -f docker-compose.yml up -d
 
 
 # browser connection
-kafdrop : http://localhost:9000
+kafdrop : http://localhost:9000\
 filnk dashboard : http://localhost:8081
 
 

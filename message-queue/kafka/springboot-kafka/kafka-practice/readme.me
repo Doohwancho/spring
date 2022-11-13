@@ -1,0 +1,41 @@
+---
+how to run?
+
+
+1. spring/message-queue/kafka/kafka-flink-stack 에서 docker-compose up -d
+2. springboot-kafka 프로젝트 실행
+3. http://localhost:9000/ 접속 (kafdrop)
+4. http://localhost:8080/api/v1/kafka/publish?message=Hello%20World    에서 message=${여기} 에 User.java에 형식에 맞게 보내기
+5. Kafdrop에서 topic message에서 application.properties에서 topic을 'javaguides'로 해놨는데, 검색해 보기. 그럼 4번에서 보낸 목록이 뜸
+
+
+
+
+---
+Q1
+
+kafdrop에서 broker 보면 kafka 서버 3개 띄운게 보이는데,
+원래 default로 주어지는 __consumer_offsets라는 토픽에 파티션이 50개 있단 말야? (아마 consumer가 마지막에 어디까지 읽었는지 마크하는 곳이 여긴가봄)
+첨에는 kafka-server-1 이 100% 파티션 100% 다 가지고 있었는데,
+좀 시간이 지나니까, 서버 1,2,3이 33%씩 노나가짐.
+
+
+---
+Q2
+
+
+메시지를 보내면, 토픽에 맞게 저장되는데,
+파티션은 저장한 메시지의 물리적인 파일이래매
+'javaguides'라는 토픽으로 메시지 10개정도 보냈는데, 아직 파티션이 1개 뿐이네?
+파티션 용량이 아직 꽉 안차서 안늘어나는건가?
+
+
+---
+Q3
+
+메시지 보내고 kafdrop으로 확인해 봤을 때,
+Offset: 8   Key: empty   Timestamp: 2022-11-13 11:42:55.785 Headers: __TypeId__: java.lang.String
+
+"ama zing"
+
+key가 비워져있는데, 키 있어야 하는거 아냐? 키를 통해서 인덱싱 하는거 아냐?
