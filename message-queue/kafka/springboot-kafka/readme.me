@@ -1,0 +1,73 @@
+---
+how to run?
+
+
+1. spring/message-queue/kafka/springboot-kafka 에서 docker compose up -d --build
+2. kafka-practice 프로젝트나 wikimedia-producer && wikimedia-consumer 프로젝트 실행
+3. http://localhost:9000/ 접속 (kafdrop)
+
+
+만약 kafka-practice 프로젝트 실행했다면..
+1. http://localhost:8080/api/v1/kafka/publish?message=Hello%20World    에서 message=${여기} 에 User.java에 형식에 맞게 보내기
+2. Kafdrop에서 topic message에서 application.properties에서 topic을 'javaguides'로 해놨는데, 검색해 보기. 그럼 4번에서 보낸 목록이 뜸
+
+
+만약 wikimedia 프로젝트를 실행했다면...
+1. https://stream.wikimedia.org/v2/stream/recentchange    <-- 위키피디아에 CRUD되는 정보 실시간 알려주는 스트림 정보를 producer로 보내고 consumer로 받은 것. 
+2. 해당 message를 topic 별로, 시계열로, 사이즈 별로, 딜레이 별로 나눈걸 visualize한 사이트: https://esjewett.github.io/wm-eventsource-demo/
+3. mysql -u root 로 mysql에 들어간 후, use wikimedia -> select * from wikimedia_recentchange limit 10; 으로 정보가 잘 들어왔는지 확인 
+4. localhost:9000에서 wikimedia_recentchange topic에 들어온 데이터 확인
+5. 만약 visualize하고 싶어서 front만들어야 한다면, https://codepen.io/Krinkle/pen/BwEKgW 참조. 
+
+
+---
+Q1
+
+kafdrop에서 broker 보면 kafka 서버 3개 띄운게 보이는데,
+원래 default로 주어지는 __consumer_offsets라는 토픽에 파티션이 50개 있단 말야? (아마 consumer가 마지막에 어디까지 읽었는지 마크하는 곳이 여긴가봄)
+첨에는 kafka-server-1 이 100% 파티션 100% 다 가지고 있었는데,
+좀 시간이 지나니까, 서버 1,2,3이 33%씩 노나가짐.
+
+
+---
+Q2
+
+
+메시지를 보내면, 토픽에 맞게 저장되는데,
+파티션은 저장한 메시지의 물리적인 파일이래매
+'javaguides'라는 토픽으로 메시지 10개정도 보냈는데, 아직 파티션이 1개 뿐이네?
+파티션 용량이 아직 꽉 안차서 안늘어나는건가?
+
+
+---
+Q3
+
+
+메시지 보내고 kafdrop으로 확인해 봤을 때,
+Offset: 8   Key: empty   Timestamp: 2022-11-13 11:42:55.785 Headers: __TypeId__: java.lang.String
+
+"ama zing"
+
+key가 비워져있는데, 키 있어야 하는거 아냐? 키를 통해서 인덱싱 하는거 아냐?
+
+
+---
+Q4.
+
+
+wikimedia-producer로 메시지 3000개정도 보냈는데,
+kafka-1,2,3/data에 있는지 함 봄. 
+kafka-2/data/에 wikimedia_recentchange-0라는 폴더가 있고, 
+그 안에 000000000000000000000000.index, .log, .timeindex, .check-point, .meta-data 가 있는데, 
+
+카프카 안에는 데이터 꺼내오는 인덱스랑 로그파일, 메타데이터 등만 보관하네.
+그럼 실제 데이터는 어딨지?
+/var/lib/kafka/data 여긴가?
+여기로 docker-compose시에 volume mount하는데?
+아 volumes:
+- ./kafka-1/data:/var/lib/kafka/data 여기에서 뒤엣건 docker container안이지.
+
+실제 데이터는 도커 컨테이너 안에 카프카 데이터 전용으로 보관하는 파일 어딘가에서 보관하나보네.
+
+
+
