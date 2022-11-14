@@ -1,0 +1,110 @@
+version: '3'
+
+networks:
+  jssvs-net:
+    external: true
+
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:${CONFLUENT_VERSION}
+    hostname: zookeeper
+    restart: on-failure
+    ports:
+      - 2181:2181
+    volumes:
+      - ./zookeeper/data:/var/lib/zookeeper/data
+      - ./zookeeper/logs:/var/lib/zookeeper/log
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - jssvs-net
+
+  kafka-1:
+    image: confluentinc/cp-kafka:${CONFLUENT_VERSION}
+    hostname: kafka-1
+    restart: on-failure
+    ports:
+      - 9091:9091
+    depends_on:
+      - zookeeper
+    volumes:
+      - ./kafka-1/data:/var/lib/kafka/data
+    environment:
+      KAFKA_BROKER_ID: 101
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka-1:29092,EXTERNAL://localhost:9091
+      KAFKA_LISTENERS: INTERNAL://:29092,EXTERNAL://:9091
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
+      CONFLUENT_METRICS_ENABLE: 'false'
+    networks:
+      - jssvs-net
+  kafka-2:
+    image: confluentinc/cp-kafka:${CONFLUENT_VERSION}
+    hostname: kafka-2
+    restart: on-failure
+    ports:
+      - 9092:9092
+    depends_on:
+      - zookeeper
+    volumes:
+      - ./kafka-2/data:/var/lib/kafka/data
+    environment:
+      KAFKA_BROKER_ID: 102
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_ADVERTISED_LISTENERS: "INTERNAL://kafka-2:29092,EXTERNAL://localhost:9092"
+      KAFKA_LISTENERS: "INTERNAL://:29092,EXTERNAL://:9092"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
+      CONFLUENT_METRICS_ENABLE: 'false'
+    networks:
+      - jssvs-net
+
+  kafka-3:
+    image: confluentinc/cp-kafka:${CONFLUENT_VERSION}
+    hostname: kafka-3
+    restart: on-failure
+    ports:
+      - 9093:9093
+    depends_on:
+      - zookeeper
+    volumes:
+      - ./kafka-3/data:/var/lib/kafka/data
+    environment:
+      KAFKA_BROKER_ID: 103
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_ADVERTISED_LISTENERS: "INTERNAL://kafka-3:29092,EXTERNAL://localhost:9093"
+      KAFKA_LISTENERS: "INTERNAL://:29092,EXTERNAL://:9093"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
+      CONFLUENT_METRICS_ENABLE: 'false'
+    networks:
+      - jssvs-net
+
+
+
+  manager:
+    image: obsidiandynamics/kafdrop
+    restart: "no"
+    ports:
+      - 9000:9000
+    environment:
+      KAFKA_BROKERCONNECT: kafka-1:29092
+      JVM_OPTS: "-Xms16M -Xmx48M -Xss180K -XX:-TieredCompilation -XX:+UseStringDeduplication -noverify"
+    depends_on:
+      - zookeeper
+      - kafka-1
+      - kafka-2
+      - kafka-3
+    networks:
+      - jssvs-net

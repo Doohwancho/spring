@@ -19,7 +19,7 @@ $ docker-compose -f docker-compose.yml up -d
 
 
 # browser connection
-kafdrop : http://localhost:9000\
+kafdrop : http://localhost:9000 \
 filnk dashboard : http://localhost:8081
 
 
