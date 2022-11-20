@@ -73,7 +73,7 @@ public class AppRunner implements ApplicationRunner {
 
         /*************************************
          * case5) single scope에서 proto scope 가져오면 객체 새로 만들어지나?
-         */
+
 
         System.out.println(ctx.getBean(Single.class).getProto()); //com.cho.example.beanScope.Proto@76332405 // singleton에서 proto 가져왔는데 이번엔 다르다?!
         System.out.println(ctx.getBean(Single.class).getProto()); //com.cho.example.beanScope.Proto@187e5235
@@ -82,5 +82,6 @@ public class AppRunner implements ApplicationRunner {
         //Q. 왜 이번엔 singlton에서 proto 가져와도 객체 주소가 다르지?
         //A. @Scope(value = "prototype", proxyMode = ScopedProxyMode.TARGET_CLASS)
         // 프록시 써서 Proto 반환될 때 새 객체 만들어서 반환함
+         */
     }
 }

@@ -15,6 +15,7 @@ Index
 ---
 1. Bean Scope
 
+
 what is bean scope?
 bean의 생성방식 결정하는 것.
 ex1. 앱중에 한개만 만들자! = singleton
@@ -27,3 +28,32 @@ singleton 처럼 IoC Container에 빈 하나만 만들고, 여러 쓰레드가 �
 
 1-2. prototype scope
 IoC Container에서 꺼내올 때 마다 새 객체가 할당됨.
+
+
+
+
+
+
+---
+2. Environment
+
+
+ApplicationContext = IoC Container가 가진 기능을 정의한 인터페이스
+
+public interface ApplicationContext
+extends EnvironmentCapable,
+        ListableBeanFactory,
+        HierarcalBeanFactory,
+        MessageSource,
+        ApplicationEventPublisher,
+        ResourcePatternResolver
+
+
+
+2-1. Env - @Profile
+prod, dev 등 profile 다르게 할 때 쓰임
+
+2-2. Env - resources/app.properties 에서 값 가져오기
+주로 db 매개변수 먹일 때 쓰임
+그 외 ServletConfig, JVM 환경변수 먹일 떄 쓰임.
+
