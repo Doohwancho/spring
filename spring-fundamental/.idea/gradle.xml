@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/exception-handling" />
             <option value="$PROJECT_DIR$/filter" />
             <option value="$PROJECT_DIR$/http-cache" />
+            <option value="$PROJECT_DIR$/ioc-container" />
             <option value="$PROJECT_DIR$/lifecycle" />
             <option value="$PROJECT_DIR$/mvc-framework" />
             <option value="$PROJECT_DIR$/reflection" />

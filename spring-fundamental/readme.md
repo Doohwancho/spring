@@ -23,7 +23,7 @@ l. spring-annotation :white_check_mark:\
 m. Interceptor :white_check_mark:\
 n. lifecycle :white_check_mark:\
 o. exception-handling :white_check_mark:\
-x. IOC\
+p. IOC :white_check_mark:\
 x. multipart\
 x. logging\
 x. logging framework\
@@ -125,6 +125,15 @@ n-2. lifecycle: @PostConstruct, @PreDestroy :white_check_mark:
 o-1. exception handling project init :white_check_mark:\
 o-2. exception handling 부가 설명 :white_check_mark:
 
+p-1. bean & scope :white_check_mark:\
+p-2. Environment(ex. Profile)\
+p-3. messageSource\
+p-4. ApplicationEventPublisher\
+p-5. Validation\
+p-6. DataBinding, Converter, Formatter\
+p-7. ResourceLoader :white_check_mark:
+
+
 ---\
 reference
 
@@ -186,6 +195,7 @@ n-2. [lifecycle: @PostConstruct, @PreDestroy](https://mangkyu.tistory.com/126?ca
 o-1. [exception handling project init](https://github.dev/thombergs/code-examples/tree/master/spring-boot/exception-handling) \
 o-2. [exception handling 부가 설명](https://mangkyu.tistory.com/204?category=761302)
 
+p-1~7. [Spring IoC Container 기능](https://galid1.tistory.com/513)
 
 ---
 

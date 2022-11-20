@@ -1,0 +1,29 @@
+---
+Index
+
+1. bean & scope
+2. Environment(ex. Profile)
+3. messageSource
+4. ApplicationEventPublisher
+5. Validation
+6. DataBinding, Converter, Formatter
+7. ResourceLoader
+
+
+
+
+---
+1. Bean Scope
+
+what is bean scope?
+bean의 생성방식 결정하는 것.
+ex1. 앱중에 한개만 만들자! = singleton
+ex2. @Bean(@Component같은 애들)을 IoC 컨테이너한테서 받아올 떄 마다 매번 새로운 객체 생성
+
+
+1-1. singleton scope
+singleton 처럼 IoC Container에 빈 하나만 만들고, 여러 쓰레드가 하나만 참조함.
+객체 생성해도, 해당 주소 한개.
+
+1-2. prototype scope
+IoC Container에서 꺼내올 때 마다 새 객체가 할당됨.
