@@ -19,21 +19,21 @@ public class AppRunner6 implements ApplicationRunner {
     Validator validator;
 
     public void run(ApplicationArguments args) throws Exception {
-        Event event = new Event();
-        event.setId(-1);
-        event.setTitle("");
-
-        //error 검증
-        Errors errors = new BeanPropertyBindingResult(event, "event");
-        validator.validate(event, errors);
-
-        //error 출력
-        System.out.println(errors.hasErrors());
-        errors.getAllErrors().forEach(e -> {
-            System.out.println("============ ERROR ===========");
-            Arrays.stream(e.getCodes()).forEach(System.out::println);
-            System.out.println(e.getDefaultMessage());
-        });
+//        Event event = new Event();
+//        event.setId(-1);
+//        event.setTitle("");
+//
+//        //error 검증
+//        Errors errors = new BeanPropertyBindingResult(event, "event");
+//        validator.validate(event, errors);
+//
+//        //error 출력
+//        System.out.println(errors.hasErrors());
+//        errors.getAllErrors().forEach(e -> {
+//            System.out.println("============ ERROR ===========");
+//            Arrays.stream(e.getCodes()).forEach(System.out::println);
+//            System.out.println(e.getDefaultMessage());
+//        });
     }
     /*
     error log
