@@ -20,7 +20,7 @@ public class AppRunner4 implements ApplicationRunner {
     MessageSource messageSource;
 
     public void run(ApplicationArguments args) throws Exception {
-        System.out.println(messageSource.getMessage("greeting", new String[]{"hello"}, Locale.KOREA));
+//        System.out.println(messageSource.getMessage("greeting", new String[]{"hello"}, Locale.KOREA));
     }
 
 }

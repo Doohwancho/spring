@@ -71,3 +71,26 @@ resources/message_ko_KR.properties 같은 message_로 시작하는 애들 인식
 
 greet 쓰면, 나라별로 번역하는걸 미리 mesasge.properties에 담아놓은 다음 출력하는 것
 
+
+
+
+
+---
+4. ApplicationEventPublisher
+
+
+Observer Pattern 구현한 것
+
+Observer Pattern이란?
+
+1. 구독 대상에
+2. 구독자들이 구독하면
+3. 구독 대상에 특정 조건이 맞춰지면 event를 fire해서 구독자들에게 뿌림
+
+
+Observer 에 @EventListener 달린 onApplicationEvent() 구현해 놓고,
+Event 클래스도 만들어 놓으면,
+AppRunner5에서 publisher.publishEvent(new Event(this, "hi")); 할 때,
+MyObserver1, MyObserver2에 핸들러에서 있던 이벤트가 발동됨.
+
+

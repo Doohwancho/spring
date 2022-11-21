@@ -128,7 +128,7 @@ o-2. exception handling 부가 설명 :white_check_mark:
 p-1. bean & scope :white_check_mark:\
 p-2. Environment(ex. Profile) :white_check_mark:\
 p-3. messageSource :white_check_mark:\
-p-4. ApplicationEventPublisher\
+p-4. ApplicationEventPublisher(Observer) :white_check_mark:\
 p-5. Validation\
 p-6. DataBinding, Converter, Formatter\
 p-7. ResourceLoader :white_check_mark:
