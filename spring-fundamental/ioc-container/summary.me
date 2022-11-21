@@ -99,3 +99,16 @@ MyObserver1, MyObserver2에 핸들러에서 있던 이벤트가 발동됨.
 5. Validation
 
 
+---
+6. databinding
+
+http request로
+
+GET 123.123.123.123:8080/event/3
+
+보내면, "3"으로 온 애를 Event.java 객체로 매핑하는 방법.
+
+step1, step2는 old way,
+thread-safe 하지 않음.
+thread-safe 하지 않기 때문에 bean으로도 등록할 수 없음.
+

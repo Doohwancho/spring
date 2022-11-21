@@ -128,7 +128,7 @@ p-2. Environment(ex. Profile) :white_check_mark:\
 p-3. messageSource :white_check_mark:\
 p-4. ApplicationEventPublisher(Observer) :white_check_mark:\
 p-5. Validation :white_check_mark:\
-p-6. DataBinding, Converter, Formatter\
+p-6. DataBinding, Converter, Formatter :white_check_mark:\
 p-7. ResourceLoader :white_check_mark:
 
 q-1. spring-actuator with prometheus + grafana :white_check_mark:
@@ -194,7 +194,8 @@ n-2. [lifecycle: @PostConstruct, @PreDestroy](https://mangkyu.tistory.com/126?ca
 o-1. [exception handling project init](https://github.dev/thombergs/code-examples/tree/master/spring-boot/exception-handling) \
 o-2. [exception handling 부가 설명](https://mangkyu.tistory.com/204?category=761302)
 
-p-1~7. [Spring IoC Container 기능](https://galid1.tistory.com/513)
+p-1~7. [Spring IoC Container 기능](https://galid1.tistory.com/513) \
+p-6. [Ioc data binding](https://yadon079.github.io/2021/spring/data-binding-abstraction-01)
 
 q-1. [devops/monitoring/actuator+prometheus+grafana](https://github.com/Doohwancho/devops/tree/main/monitoring/actuator%2Bprometheus%2Bgrafana)
 
