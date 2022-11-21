@@ -1,4 +1,4 @@
-package com.cho.example.environment.applicationEventPublisher;
+package com.cho.example.applicationEventPublisher;
 
 import org.springframework.context.ApplicationEvent;
 

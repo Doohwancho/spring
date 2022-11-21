@@ -1,13 +1,14 @@
-package com.cho.example.environment.applicationEventPublisher;
+package com.cho.example.applicationEventPublisher;
 
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MyObserver1 {
+public class MyObserver2 {
 
     @EventListener
     public void handler(Event event){
-        System.out.println(event.getMessage() + ", I'm cho.");
+        System.out.println(event.getMessage() + ", I'm kim.");
     }
 }
+
