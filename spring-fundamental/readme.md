@@ -24,13 +24,11 @@ m. Interceptor :white_check_mark:\
 n. lifecycle :white_check_mark:\
 o. exception-handling :white_check_mark:\
 p. IOC :white_check_mark:\
+q. springboot-actuator :white_check_mark:\
 x. multipart\
-x. logging\
 x. logging framework\
 x. scheduling\
-x. springboot-actuator\
 x. WebFlux\
-x. spring-on-docker
 
 
 ---\
@@ -133,6 +131,7 @@ p-5. Validation :white_check_mark:\
 p-6. DataBinding, Converter, Formatter\
 p-7. ResourceLoader :white_check_mark:
 
+q-1. spring-actuator with prometheus + grafana :white_check_mark:
 
 ---\
 reference
@@ -196,6 +195,8 @@ o-1. [exception handling project init](https://github.dev/thombergs/code-example
 o-2. [exception handling 부가 설명](https://mangkyu.tistory.com/204?category=761302)
 
 p-1~7. [Spring IoC Container 기능](https://galid1.tistory.com/513)
+
+q-1. [devops/monitoring/actuator+prometheus+grafana](https://github.com/Doohwancho/devops/tree/main/monitoring/actuator%2Bprometheus%2Bgrafana)
 
 ---
 
