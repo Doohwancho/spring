@@ -88,4 +88,6 @@ e-x. [springboot+react(jwt+Oauth2)](https://github.com/codingspecialist/Springbo
 f-1. [spring security authentication process](https://mangkyu.tistory.com/77?category=761302) \
 f-2. [token 기반 authentication](https://mangkyu.tistory.com/57)
 
-g-1. [jwt token + refresh token](https://blog.naver.com/sosow0212/222747372730)
+g-1. [jwt token + refresh token](https://blog.naver.com/sosow0212/222747372730) \
+g-2. [jwt + refresh token race condition problem](https://dev.to/supertokens/the-best-way-to-securely-manage-user-sessions-2ja6)
+

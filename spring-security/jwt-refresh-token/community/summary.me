@@ -18,7 +18,12 @@ database)
 
 
 ---
-A. refresh token
+A. refresh token 전체 프로세스
+
+https://res.cloudinary.com/practicaldev/image/fetch/s--5UadLMea--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://cdn-images-1.medium.com/max/1600/1%2AsF3GvcASCEQipThNsLwiCQ.png
+...from
+https://dev.to/supertokens/the-best-way-to-securely-manage-user-sessions-2ja6
+
 
 
 ---
@@ -93,7 +98,10 @@ Q. 어떻게 token 발급 customization 구현했지?
 6. JwtFilter에서 HttpRequest안에 jwt token을 꺼내 tokenProvider.validateToken(jwt) 로 검증하고, tokenProvider.getAuthentication(jwt) 로 Authentication 받아온 후, SecurityContextHolder.getContext().setAuthentication(authentication); 로 스프링 시큐리티 컨텍스트에 해당 Authentication을 등록함
 
 
+---
 Q. jwt token expire시간이 1시간인데, 로그인 한 후 1시간이 지나버렸어. 아직 refresh token은 남아있는 상태야. 어쩌지?
+
+
 JwtFilter에서 tokenProvider.validateToken(jwt)에서 "auth"라는 secret key는 검증 해서 패스했긴 했는데,
 JwtFilter에서는 secret key만 맞으면 expire date 검증 안하고 바로 SecurityContextHolder.getContext().setAuthentication(authentication); 에 등록해버리네?
 
@@ -102,12 +110,16 @@ JwtFilter에서는 secret key만 맞으면 expire date 검증 안하고 바로 S
 TokenProvider.validateToken()에서 Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token); 하면 expire date 끝난거 검증해주나?
 
 
+---
 Q. RefreshToken에 expiration date가 없는데?
+
+
 https://github.dev/dyparkkk/jwt-spring-security-demo 에 JwtTokenProvider.java에서 createRefreshToken()을 보면, expiration date 쓰는데?
 
 뭐야 TokenProvider.generateTokenDto(authentication) 을 보면 expiration date 있네?
 
 
+---
 Q. 로그인 한 후, 일주일이 지나서 jwt token + refresh token 둘 다 expire 되버렸어. 어쩌지?
 
 
@@ -117,6 +129,7 @@ refresh token을 보고 jwt access token 재발급받는건 AuthService에 reiss
 주석 달려있음.
 
 
+---
 Q. jwt token만료시 refresh token으로 서버에서 자동으로 재갱신해주는 코드가 없다????
 
 jwt token이랑 refresh token이 검증하는 부분이랑 재갱신 하는 부분이 궁금해졌습니다.
@@ -205,3 +218,15 @@ rt_key에 유저 아이디,
 rt_value에 refresh token이 들어가있다.
 
 
+
+
+
+---
+Q. race condition problem 
+
+
+https://res.cloudinary.com/practicaldev/image/fetch/s--wEIYX-ZL--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://cdn-images-1.medium.com/max/1600/1%2AyBgorgg9ooxaS6NvtVqRmg.png
+
+
+유저가 naver.com에 1. 핸드폰, 2. 컴퓨터로 로그인 했는데,
+이 둘이 다른 jwt토큰 + refresh token 받아서 서로 요청해서 문제 생길 수 있음.
