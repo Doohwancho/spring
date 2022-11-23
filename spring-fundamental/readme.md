@@ -28,7 +28,7 @@ q. springboot-actuator :white_check_mark:\
 x. multipart\
 x. logging framework\
 x. scheduling\
-x. WebFlux
+x. spring batch
 
 
 ---\
