@@ -1,0 +1,3 @@
+CREATE USER postgres;
+CREATE DATABASE myblog;
+GRANT ALL PRIVILEGES ON DATABASE myblog TO postgres;

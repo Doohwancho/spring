@@ -1,0 +1,71 @@
+
+---
+Features
+
+a. Auth
+1. register
+2. login
+
+b. Post
+CRUD post
+
+c. Comment
+CRUD Comments
+
+
+---
+Tech
+
+1. swagger3
+2. mapstruct
+3. jpa
+
+
+docker-compose
+
+---
+Takeaway
+
+1.
+jpa1. User.java
+user-roles many to many 처리
+
+
+2.
+@valid dto
+RegisterDto에 email 처리
+@Email(regexp = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}",
+
+
+3.
+dto - PostDto와 CreatePostDto의 분할처리
+@Valid 필요한 필드들은 CreatePostDto에 놓고,
+나머지들은 CreatePostDto를 상속받은 PostDto에 뒀네?
+
+그리고 comments를 예외처리함.
+왜지?
+
+아 PostController에서 글 등록할 때, 필요한 부분만 CreatePostDto로 빼놨고,
+그 외에 해당 글 검색할 때, 댓글도 필요한 경우에 쓰려고 PostDto extends CreatePostDto 해놨구나
+
+
+4. mapstruct
+
+왜쓰지?
+
+entity랑 dto있는데, 필드 이름 달라도 매핑 시켜주는 애구나.
+그리고 의도적으로 특정 필드를 매핑에서 제외시킬 수도 있네.
+
+그리고 기존 default로 제공하는 jackson인가? 얘보다 성능 더 빠르다는 듯.
+
+
+
+---
+Curiousity
+
+
+1. PostController에 @SecurityRequirement(name = "Authorization")
+글 작성자 맞는지 검증하는코드 같은데,
+security 쪽 더 봐야 알 듯
+
+

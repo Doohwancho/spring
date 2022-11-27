@@ -13,7 +13,9 @@ Prey
 a. legacy bbs from '코드로 배우는 스프링 웹 프로젝트' :white_check_mark:\
 b. springboot bbs from '스프링 부트와 AWS로 혼자 구현하는 웹 서비스' :white_check_mark:\
 c. [community.springboot](https://github.com/sosow0212/community) :white_check_mark:
-d. [shoppingmall-springboot-metacoding](https://github.dev/sosow0212/ShoppingMall_springboot) :soon:\
+d. [blog rest api](https://github.dev/RameshMF/springboot_blog_rest_api_latest) :white_check_mark:\
+x. [shoppingmall-springboot-metacoding](https://github.dev/sosow0212/ShoppingMall_springboot) :soon:\
+
 
 x. [e-commerce api server - metacoding](https://github.dev/sosow0212/shoppingMall_API_Server) \
 x. spring-guide\
@@ -72,3 +74,11 @@ c. community
 7. report :white_check_mark:
 8. back office(admin page) :white_check_mark:
 9. category :white_check_mark:
+
+d. blog api
+1. features: register, login, post, comment :white_check_mark:
+2. RegisterDto에 email @Valid regex처리 :white_check_mark:
+3. user-roles manyToMany 처리 :white_check_mark:
+4. CreatePostDto와 PostDto extends CreatePostDto 처리 :white_check_mark:
+5. mapstruct으로 entity -> dto mapping :white_check_mark:
+6. postgres docker compose로 연동 :white_check_mark:
