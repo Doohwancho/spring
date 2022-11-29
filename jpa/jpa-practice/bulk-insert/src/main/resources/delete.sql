@@ -1,0 +1,3 @@
+TRUNCATE TABLE board;
+TRUNCATE TABLE board_seq;
+TRUNCATE TABLE users;

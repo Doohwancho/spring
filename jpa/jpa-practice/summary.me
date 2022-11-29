@@ -1,0 +1,25 @@
+
+---
+index
+
+a. bulk insert
+
+
+
+
+---
+a. bulk insert
+
+
+왜 씀?
+한번에 수만, 수십만 row insert해야하는 batch 데이터 처리시 씀.
+
+
+user test: 6만 row db에 저장하기
+
+1. save() -> 4ms
+2. saveAll() -> 4ms
+3. bulk_insert() -> 0ms
+
+오!
+

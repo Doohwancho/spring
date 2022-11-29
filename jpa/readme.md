@@ -17,13 +17,14 @@ d. property environment :white_check_mark:\
 e. OneToOne :white_check_mark:\
 f. @Join거는 주체 :white_check_mark:\
 g. paging :white_check_mark:\
-h. queryDSL :white_check_mark:
+h. queryDSL :white_check_mark:\
+i. bulk insert :white_check_mark:
 
 x. Hibernate Entity Life Cycle\
 x. Queries\
 x. Paging and Sorting\
 x. Many to Many relationships\
-x. Transactions
+x. Transactions\
 x. JPA 캐싱 규칙\
 x. 쿼리가 생성 되는 규칙\
 x. 쿼리 로깅 트랜잭션 처리 과정\
