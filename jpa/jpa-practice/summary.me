@@ -3,7 +3,7 @@
 index
 
 a. bulk insert
-
+b. dynamic insert & update
 
 
 
@@ -23,3 +23,17 @@ user test: 6만 row db에 저장하기
 
 오!
 
+
+
+
+
+---
+b. dynamic insert & update
+
+
+왜 씀?
+
+insert, update시 null값이 들어가는 필드 제외하고 insert, update함.
+User.java를 보면, null값인 columns들이 많은데,
+@DynamicInsert 를 붙이면 insert날릴 때, null값 제외하고 쿼리문 만들어짐.
+불필요한 db 부하 줄임 -> 성능 빨라짐.

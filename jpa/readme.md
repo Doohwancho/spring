@@ -18,7 +18,8 @@ e. OneToOne :white_check_mark:\
 f. @Join거는 주체 :white_check_mark:\
 g. paging :white_check_mark:\
 h. queryDSL :white_check_mark:\
-i. bulk insert :white_check_mark:
+i. bulk insert :white_check_mark:\
+j. dynamic-insert-update :white_check_mark:
 
 x. Hibernate Entity Life Cycle\
 x. Queries\
@@ -49,6 +50,8 @@ d-1. [Properties 설정값 가져오기](https://github.com/cheese10yun/spring-j
 d-2. [Properties split by environments: local, dev, prod](https://github.com/cheese10yun/spring-jpa-best-practices/blob/master/doc/step-11.md)
 
 h-2. [querydsl을 이용해서 repository 확장하기](https://github.com/cheese10yun/spring-jpa-best-practices/blob/master/doc/step-15.md)
+
+i,j-1. [bulk insert sample code](https://github.dev/TIL-Repo/jpa-tutorial)
 
 x-x. [인프런 실전 dsl강좌 by 김영한](https://github.dev/freespringlecture/jpashop-querydsl) \
 x-x. [amigoscode spring-data-jpa-course 뜯어보기](https://github.com/amigoscode/spring-data-jpa-course)
