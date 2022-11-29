@@ -4,7 +4,7 @@ index
 
 a. bulk insert
 b. dynamic insert & update
-
+c. RollbackFor
 
 
 ---
@@ -37,3 +37,50 @@ insert, update시 null값이 들어가는 필드 제외하고 insert, update함.
 User.java를 보면, null값인 columns들이 많은데,
 @DynamicInsert 를 붙이면 insert날릴 때, null값 제외하고 쿼리문 만들어짐.
 불필요한 db 부하 줄임 -> 성능 빨라짐.
+
+
+---
+c. RollbackFor
+
+
+UserControllerTest.java에서
+
+signup(), signup_exception() 이 있는데,
+
+signup()의 경우, errortype:unchecked 하면 save() 안됨. errortype:checked하면 save() 됨.
+
+왜?
+
+@Transactional
+public void signup(CreateUserVo createUserVo) throws IOException {
+    ModelMapper modelMapper = new ModelMapper();
+    User user = modelMapper.map(createUserVo, User.class);
+    userRepository.save(user);
+    if (createUserVo.getErrorType().equals("UNCHECKED"))
+        throw new NullPointerException();
+    else if (createUserVo.getErrorType().equals("CHECKED"))
+        throw new IOException();
+}
+
+
+unchecked -> throw NPE
+checked -> throw IOException
+
+둘다 exception 던지는데?
+
+그렇다면 errortype:checked 해도 save()안되야 되는거 아님? @Transactional 중간에 에러 났는데?
+
+????
+
+
+오 근데 signup_exception() 굴리면, 둘 다 save() 안됨.
+왜지?
+@Transactional(rollbackFor = Exception.class) 이거 붙였더니 되네?
+
+@Transaction 사이에 Exception일어나면 롤백해라라는 말인 듯?
+근데 당연히 rollbackFor 안붙여도 롤백 되야되는거 아닌가?
+
+
+아 Error상황과 Exception상황이 있는데, @Transaction은 Error만 롤백시켜주지 Exception은 롤백시켜주지 않는구나
+그래서 저걸 별도로 붙여줘야 되는구나
+

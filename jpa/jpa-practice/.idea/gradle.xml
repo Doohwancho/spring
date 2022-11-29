@@ -22,6 +22,16 @@
           </set>
         </option>
       </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/rollback-for" />
+        <option name="gradleJvm" value="liberica-11" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/rollback-for" />
+          </set>
+        </option>
+      </GradleProjectSettings>
     </option>
   </component>
 </project>
