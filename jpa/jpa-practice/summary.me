@@ -5,6 +5,7 @@ index
 a. bulk insert
 b. dynamic insert & update
 c. RollbackFor
+d. n+1 problem
 
 
 ---
@@ -84,3 +85,72 @@ checked -> throw IOException
 아 Error상황과 Exception상황이 있는데, @Transaction은 Error만 롤백시켜주지 Exception은 롤백시켜주지 않는구나
 그래서 저걸 별도로 붙여줘야 되는구나
 
+
+
+---
+d. n+1 problem
+
+
+d-1. what is n+1 problem?
+연관 관계에서 발생하는 이슈로,
+연관 관계가 설정된 엔티티를 조회할 경우에 조회된 데이터 갯수(n) 만큼 연관관계의 조회 쿼리가 추가로 발생하여 데이터를 읽어오게 된다.
+이를 N+1 문제라고 한다.
+
+
+d-2. why n+1 problem happens?
+연관관계가 설정된 엔티티를 조회할 경우,
+처음부터 해당 엔티티에 관련된 애를 가져오면 좋은데,
+일단 해당 엔티티를 가져오고, 그 다음에 해당 엔티티에 관련된 애들을 가져오는 방식으로 구현되어 있어서 그런듯.
+
+예를들어, board-comments 1:M 관계가 있을 때,
+board를 가져올 때, board에 연관된 comments를 가져오는 쿼리가 추가로 발생하는데,
+첫 방에 board에 딸린 comments 다 가져오면 문제될게 없는데,
+jpa 내부에서는 LAZY한 방식을 써서 board를 가져오고, 그 다음 board를 가져왔더니
+에구머니나? comments랑 관계있었네? 라면서 comments를 가져오는 방식으로 구현되어 있어서 그런듯.
+
+그래서 select * from board; 하면,
+board한 줄 읽고, comment랑 관련있었네? 깜놀하면서
+select * from comment where board_id = ?; 이런식으로 추가로 쿼리를 날리는거임.
+
+
+d-3. how to solve n+1 problem?
+1. fetch join
+    what is fetch join?
+
+    https://i.stack.imgur.com/4zjxm.png
+    걍 select * from A;가 아니라
+    select * from A LEFT JOIN B on A.key = B.key
+
+    결국 둘 다 A를 조회하는건데, fetch join은 left join써서 B의 키랑 묶여있음.
+    jpa보고 나중에 닥쳐서 특정 board에 어떤 comments가 엮여있는지
+    select * from comments where board_id = ? 로 가져오지 말고,
+    board랑 관련있는 comments를 미리 알려주는 것.
+
+    구현은 CommentRepository에 // @Query("select c from Comment c join fetch c.board") 이렇게 쿼리를 짜줘야됨.
+
+    다만 이 방법의 단점이라면,
+    Fetchtype: LAZY로 설정해 놓아도, board를 조회할 때, comment까지 같이 조회하게 됨.
+
+    다른 단점은,
+    페이징 쿼리를 사용할 수 없음.
+    하나의 쿼리문으로 가져오는거라, 페이징 단위로 데이터를 가져올 수 없음.
+
+2. entity graph
+
+what is entity graph?
+
+fetch join은 LEFT INNTER JOIN으로 A를 가져오되, B랑 묶어서 가져오는 방식이었음.
+entity graph도 A를 가져오되, B랑 묶어서 가져오는 방식이지만,
+LEFT JOIN이 아니라, LEFT OUTER JOIN으로 가져옴.
+
+
+3. batch size
+
+@BatchSize(size = 5)
+@OneToMany(mappedBy = "album", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+private List<Song> songs = new ArrayList<>();
+
+이런식으로 5개 미리 가져와서 로딩해놓는 방법
+근데 이건 5개만 가져오는거라, 5개 이상이면 n+1문제가 발생할 수 있음.
+
+그리고 절대적인 내부 쿼리량을 줄여주진 않지 않나?

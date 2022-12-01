@@ -7,7 +7,7 @@ Modularize JPA
 
 
 ---\
-concepts in jpa 
+concepts in jpa
 
 
 a. annotations :soon:\
@@ -20,7 +20,8 @@ g. paging :white_check_mark:\
 h. queryDSL :white_check_mark:\
 i. bulk insert :white_check_mark:\
 j. dynamic-insert-update :white_check_mark:\
-k. rollbackFor :white_check_mark:
+k. rollbackFor :white_check_mark:\
+l. n+1 problem :white_check_mark:
 
 x. Hibernate Entity Life Cycle\
 x. Queries\
@@ -31,8 +32,7 @@ x. JPA 캐싱 규칙\
 x. 쿼리가 생성 되는 규칙\
 x. 쿼리 로깅 트랜잭션 처리 과정\
 x. entity life cycle(from hibernates)\
-x. 즉시로딩: 쿼리가 튐 -> 지연로딩으로 변경\
-x. n+1 문제 -> 대부분 fetch, join으로 해결
+x. 즉시로딩: 쿼리가 튐 -> 지연로딩으로 변경
 
 
 
@@ -52,7 +52,7 @@ d-2. [Properties split by environments: local, dev, prod](https://github.com/che
 
 h-2. [querydsl을 이용해서 repository 확장하기](https://github.com/cheese10yun/spring-jpa-best-practices/blob/master/doc/step-15.md)
 
-i,j,k-1. [bulk insert sample code](https://github.dev/TIL-Repo/jpa-tutorial)
+i,j,k,l-1. [bulk insert sample code](https://github.dev/TIL-Repo/jpa-tutorial)
 
 x-x. [인프런 실전 dsl강좌 by 김영한](https://github.dev/freespringlecture/jpashop-querydsl) \
 x-x. [amigoscode spring-data-jpa-course 뜯어보기](https://github.com/amigoscode/spring-data-jpa-course)
