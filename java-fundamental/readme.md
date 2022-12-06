@@ -101,7 +101,8 @@ k-1. 이유와 솔루션으로 정리하는 객체지향 생활체조 원칙 :wh
 k-2. rule of 6 :white_check_mark:\
 k-3. clean code is "subjective" :white_check_mark:
 
-l-1. call by value vs call by reference :white_check_mark:
+l-1. call by value vs call by reference :white_check_mark:\
+l-2. javacode in method area, heap, stack :white_check_mark:
 
 ---\
 Reference
@@ -157,4 +158,5 @@ k-x. Code Complete 2 \
 k-x. Refactoring 2 \
 k-x. Working Effectively with Legacy Code
 
-l-1. [call by value, call by reference](https://gyoogle.dev/blog/computer-language/Java/Call%20by%20value%20&%20Call%20by%20reference.html)
+l-1. [call by value, call by reference](https://gyoogle.dev/blog/computer-language/Java/Call%20by%20value%20&%20Call%20by%20reference.html) \
+l-2. [method, stack, heap area](https://www.youtube.com/watch?v=Vd1C3-wHc4Y&ab_channel=%EC%BD%94%EB%93%9C%EB%9D%BC%EB%96%BC) 
