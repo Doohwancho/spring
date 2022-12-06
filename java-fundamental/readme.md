@@ -20,11 +20,12 @@ h. generics :white_check_mark:\
 i. functional programming :question:\
 j. SOLID :white_check_mark:\
 k. clean code :question:\
+l. how jvm works :soon:\
 x. enums\
 x. annotation\
 x. garbage collector\
-x. debugging\
-x. how jvm works
+x. debugging
+
 
 
 
@@ -100,6 +101,8 @@ k-1. 이유와 솔루션으로 정리하는 객체지향 생활체조 원칙 :wh
 k-2. rule of 6 :white_check_mark:\
 k-3. clean code is "subjective" :white_check_mark:
 
+l-1. call by value vs call by reference :white_check_mark:
+
 ---\
 Reference
 
@@ -153,3 +156,5 @@ k-3. [is the term "clean code" subjective?](https://www.youtube.com/watch?v=ou6x
 k-x. Code Complete 2 \
 k-x. Refactoring 2 \
 k-x. Working Effectively with Legacy Code
+
+l-1. [call by value, call by reference](https://gyoogle.dev/blog/computer-language/Java/Call%20by%20value%20&%20Call%20by%20reference.html)
