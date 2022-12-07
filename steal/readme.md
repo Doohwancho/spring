@@ -14,7 +14,8 @@ a. legacy bbs from '코드로 배우는 스프링 웹 프로젝트' :white_check
 b. springboot bbs from '스프링 부트와 AWS로 혼자 구현하는 웹 서비스' :white_check_mark:\
 c. [community.springboot](https://github.com/sosow0212/community) :white_check_mark:\
 d. [blog rest api](https://github.dev/RameshMF/springboot_blog_rest_api_latest) :white_check_mark:
-e. [simple 메모장](https://www.codelatte.io/courses/java_programming_basic/5T45PAUJSXLOZ7DA) :white_check_mark:
+e. [simple 메모장](https://www.codelatte.io/courses/java_programming_basic/5T45PAUJSXLOZ7DA) :white_check_mark:\
+f. [chatting app using spring webflux, mongodb, sse](https://github.com/codingspecialist/springboot-webflux-mongo-chatapp) :white_check_mark:
 
 x. [springboot-starterkit-mysql](https://github.com/khandelwal-arpit/springboot-starterkit-mysql) \
 x. [shoppingmall-springboot-metacoding](https://github.dev/sosow0212/ShoppingMall_springboot) :soon:\
@@ -86,5 +87,11 @@ d. blog api
 
 
 e. 간단 메모장
-1. 클래스 - 객체, 생성자, 메서드
-2. 접근제어 지시자
+1. 클래스 - 객체, 생성자, 메서드 :white_check_mark:
+2. 접근제어 지시자 :white_check_mark:
+
+
+f. chat app
+1. spring webflux :white_check_mark:
+2. mongodb :white_check_mark:
+3. sse over socket :white_check_mark:
