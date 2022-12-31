@@ -2,9 +2,6 @@ package com.tdd.tddTest.domain.product;
 
 import lombok.*;
 
-@Getter
-@Setter
-@Builder
 @AllArgsConstructor
 public class Product {
 

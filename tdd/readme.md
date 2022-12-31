@@ -2,66 +2,62 @@
 ---\
 objective
 
-modularize junit5
+modularize testing methods
 
-
----\
-standard
-
-1. simple
-2. minimal
-3. to the core
-4. classification
 
 
 ---\
 approach
 
-a. get-used-to junit5 fundamental syntax\
-b. TDD brief overview\
+a. junit5\
+b. TDD\
 c. JPA test\
 d. MockMvc\
 e. REST-Assured\
 f. Mockito\
-g. 
-h. steal(?) from best practices | boiler plates
+g. Spock\
+z. steal
 
 
 
 ---\
 todo
 
-a-1. clone code crash course * n -> generalize\
-a-2. indexing\
-a-3. etc(lombok, jpa, etc...)
+a-1. clone code crash course * n -> generalize :white_check_mark:\
+a-2. indexing :white_check_mark:\
+a-3. etc(lombok, jpa, etc...) :white_check_mark:
 
-b-1. why TDD?\
-b-2. BDD
+b-1. why TDD? :white_check_mark:\
+b-2. BDD :white_check_mark:
 
-c-1. create entity, dto, repository, service to play with\
-c-2. clone jpa test\
-c-3. indexing
+c-1. create entity, dto, repository, service to play with :white_check_mark:\
+c-2. clone jpa test :white_check_mark:\
+c-3. indexing :white_check_mark:
 
-d-1. create base code for MockAPI\
-d-2. clone best practice test code 
+d-1. create base code for MockAPI :white_check_mark:\
+d-2. clone best practice test code :white_check_mark:
 
-e-1. restTemplate base code setup\
-e-2. rest Template test code immitate\
-e-3. rest assured install\
-e-4. rest assured basics\
-e-5. rest assured 다른사람이 적용한 것 참고(?)
+e-1. restTemplate base code setup :white_check_mark:\
+e-2. rest Template test code immitate :white_check_mark:\
+e-3. rest assured install :white_check_mark:\
+e-4. rest assured basics :white_check_mark:\
+e-5. rest assured 다른사람이 적용한 것 참고(?) :white_check_mark:
 
-f-1. mockito getting-started\
-f-2. mockito best practices\
-f-3. mock concepts with mockito (mock, spy, stub, injectMock)
-
+f-1. mockito getting-started :white_check_mark:\
+f-2. mockito best practices :white_check_mark:\
+f-3. @Mock :white_check_mark:\
+f-4. @Spy :white_check_mark:\
+f-5. @InjectMocks :white_check_mark:\
+f-6. Stubbing when().thenReturn() && doReturn().when() :white_check_mark:\
+f-7. @Captor :white_check_mark:\
+f-8. BDD style :white_check_mark:
 
 ---\
-credit
+reference
 
 a-1. [10분 테코톡 - 🌊 바다의 JUnit5 사용법](https://www.youtube.com/watch?v=EwI3E9Natcw&ab_channel=%EC%9A%B0%EC%95%84%ED%95%9CTech) \
 a-1. [JUnit 5: Front To Back (FULL COURSE)](https://www.youtube.com/watch?v=-RW_hyAtujo&ab_channel=Mannodermaus) \
-a-1. [Junit 5 documentation](https://junit.org/junit5/docs/current/user-guide/)  
+a-1. [Junit 5 documentation](https://junit.org/junit5/docs/current/user-guide/)
 
 b-1. what is TDD\
 b-1. [테스트하기 좋은 코드 - 테스트하기 어려운 코드](https://jojoldu.tistory.com/674) \
@@ -86,8 +82,8 @@ e-5. [새로비 springboot rest api](https://engkimbs.tistory.com/category/Sprin
 
 f-1. [Mockito를 이용한 unit test](https://www.crocus.co.kr/1556?category=395790) \
 f-2. [mockito-best-practice](https://codechacha.com/ko/mockito-best-practice/) \
-f-3. [mock basic concepts](https://effortguy.tistory.com/141)
+f-3~8. [mock basic concepts](https://effortguy.tistory.com/141)
 
-h. [spring-guide.git](https://github.com/cheese10yun/spring-guide/blob/master/docs/test-guide.md) \
-h. [JUnit 5 Test - MockMvc, Mockito, JPA 미완성](https://theheydaze.tistory.com/218?category=935990) \
-h. [스프링 부트 강의 - 어라운드 허브](https://www.youtube.com/watch?v=rHJgMRimJ4Y&list=PLlTylS8uB2fBOi6uzvMpojFrNe7sRmlzU&index=1&ab_channel=%EC%96%B4%EB%9D%BC%EC%9A%B4%EB%93%9C%ED%97%88%EB%B8%8C%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-AroundHubStudio)
+z. [spring-guide.git](https://github.com/cheese10yun/spring-guide/blob/master/docs/test-guide.md) \
+z. [JUnit 5 Test - MockMvc, Mockito, JPA 미완성](https://theheydaze.tistory.com/218?category=935990) \
+z. [스프링 부트 강의 - 어라운드 허브](https://www.youtube.com/watch?v=rHJgMRimJ4Y&list=PLlTylS8uB2fBOi6uzvMpojFrNe7sRmlzU&index=1&ab_channel=%EC%96%B4%EB%9D%BC%EC%9A%B4%EB%93%9C%ED%97%88%EB%B8%8C%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-AroundHubStudio)

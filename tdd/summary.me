@@ -1,0 +1,53 @@
+
+---
+Mockito
+
+
+why?
+
+service -> repository -> db io
+db io가 부하 부담, 속도 부담, unit test로 clear cut하게 내가 원하는 부분만 테스트 하고 싶어서 사용.
+
+
+
+a. @Mock
+
+가짜 객체.
+해당 객체에 메서드를 반환하면, constant면 0, 객체면 null, boolean이면 false 반환.
+보통 desired output을 stubbing으로 주입하고 사용함.
+
+
+
+b. @Spy
+
+@Mock과 비슷하지만, 실제 객체를 사용함.
+해당 객체에 메서드를 반환하면, 실제 객체의 메서드를 호출함.
+보통 실제 객체를 사용하고 싶지만, 특정 메서드만 stubbing으로 주입하고 싶을 때 사용함.
+
+
+
+c. @InjectMock
+
+만약 service에 @Mock api1, @Mock api2, @Spy repository가 있다면,
+@InjectMock service를 사용하면, service의 생성자에 api1, api2, repository가 주입됨.
+
+
+
+d. Stubbing
+
+d-1. when first stubbing
+when().thenReturn()
+when().thenThrow()
+when().thenAnswer()
+when().thenCallRealMethod()
+
+
+d-2. when later stubbing
+doReturn().when()
+doThrow().when()
+
+
+e. verify
+1. 메서드 몇번 호출함?
+2. 메서드 호출 순서 맞음? 다른 메서드가 불려진 것 아님?
+3. 메서드 호출 시 파라미터 맞음?
