@@ -1,4 +1,4 @@
-package com.tdd.tddTest.mockito.fundamental.stub.whenLater;
+package com.tdd.tddTest.mockito.testDouble.stub.whenLater;
 
 import com.tdd.tddTest.domain.user.User;
 import com.tdd.tddTest.service.UserService;
@@ -8,8 +8,6 @@ import com.tdd.tddTest.domain.product.Product;
 import com.tdd.tddTest.service.ProductService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.stubbing.Answer;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

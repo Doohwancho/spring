@@ -1,4 +1,4 @@
-package com.tdd.tddTest.mockito.fundamental.verify;
+package com.tdd.tddTest.mockito.more.verify.parameterCheck;
 
 import com.tdd.tddTest.domain.posts.Posts;
 import com.tdd.tddTest.domain.user.User;

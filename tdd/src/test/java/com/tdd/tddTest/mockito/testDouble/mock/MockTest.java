@@ -1,12 +1,6 @@
-package com.tdd.tddTest.mockito.fundamental.mockAndSpy;
-
-import com.tdd.tddTest.service.UserService;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+package com.tdd.tddTest.mockito.testDouble.mock;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
 
 public class MockTest {
 

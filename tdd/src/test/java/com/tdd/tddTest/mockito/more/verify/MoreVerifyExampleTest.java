@@ -1,4 +1,4 @@
-package com.tdd.tddTest.mockito.fundamental.verify;
+package com.tdd.tddTest.mockito.more.verify;
 
 import com.tdd.tddTest.domain.posts.Posts;
 import com.tdd.tddTest.domain.user.User;
@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -47,4 +48,5 @@ public class MoreVerifyExampleTest {
         //setName()이 지정된 millisecond 안에 최소 1번 이상 호출되었는지 확인
         verify(user, timeout(100).atLeast(1)).setName(any(String.class));
     }
+
 }

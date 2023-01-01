@@ -1,4 +1,4 @@
-package com.tdd.tddTest.mockito.fundamental.mockAndSpy;
+package com.tdd.tddTest.mockito.testDouble.mock;
 
 import com.tdd.tddTest.domain.product.Product;
 import com.tdd.tddTest.service.OrderService;

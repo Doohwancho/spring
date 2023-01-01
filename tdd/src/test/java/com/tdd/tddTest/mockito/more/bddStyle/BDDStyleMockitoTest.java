@@ -1,4 +1,4 @@
-package com.tdd.tddTest.mockito.fundamental.bddStyle;
+package com.tdd.tddTest.mockito.more.bddStyle;
 
 import com.tdd.tddTest.service.UserService;
 import org.junit.jupiter.api.Test;

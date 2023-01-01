@@ -1,4 +1,4 @@
-package com.tdd.tddTest.mockito.fundamental.verify;
+package com.tdd.tddTest.mockito.more.verify;
 
 import com.tdd.tddTest.service.UserService;
 import org.junit.jupiter.api.Test;

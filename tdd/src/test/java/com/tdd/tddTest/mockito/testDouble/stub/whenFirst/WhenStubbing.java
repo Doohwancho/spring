@@ -1,4 +1,4 @@
-package com.tdd.tddTest.mockito.fundamental.stub.whenFirst;
+package com.tdd.tddTest.mockito.testDouble.stub.whenFirst;
 
 import com.tdd.tddTest.domain.product.Product;
 import com.tdd.tddTest.service.ProductService;

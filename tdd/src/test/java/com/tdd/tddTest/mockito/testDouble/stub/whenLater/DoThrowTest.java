@@ -1,4 +1,4 @@
-package com.tdd.tddTest.mockito.fundamental.stub.whenLater;
+package com.tdd.tddTest.mockito.testDouble.stub.whenLater;
 
 import com.tdd.tddTest.domain.posts.Posts;
 import com.tdd.tddTest.domain.user.User;

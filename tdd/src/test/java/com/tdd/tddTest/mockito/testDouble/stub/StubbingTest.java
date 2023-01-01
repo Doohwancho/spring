@@ -1,14 +1,11 @@
-package com.tdd.tddTest.mockito.fundamental.stub;
+package com.tdd.tddTest.mockito.testDouble.stub;
 
 import com.tdd.tddTest.domain.posts.Posts;
-import com.tdd.tddTest.domain.product.Product;
 import com.tdd.tddTest.domain.user.User;
-import com.tdd.tddTest.service.ProductService;
 import com.tdd.tddTest.service.UserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.stubbing.Answer;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,7 +25,7 @@ public class StubbingTest {
         B. Stubbing
 
         what?
-        mock 객체의 메소드를 실행했을 때 어떤 리턴 값을 리턴할지를 정의하는 것
+        dummy mock 객체의 메소드를 실행했을 때 어떤 리턴 값을 리턴할지를 정의하는 것
 
         ex.
         Mock Object만들어서 반환하면, primitive type은 0, reference type은 null이 반환된다.

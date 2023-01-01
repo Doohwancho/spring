@@ -45,12 +45,16 @@ e-5. rest assured 다른사람이 적용한 것 참고(?) :white_check_mark:
 
 f-1. mockito getting-started :white_check_mark:\
 f-2. mockito best practices :white_check_mark:\
-f-3. @Mock :white_check_mark:\
-f-4. @Spy :white_check_mark:\
+f-3. test double 1: @Mock :white_check_mark:\
+f-4. test double 2: @Spy :white_check_mark:\
 f-5. @InjectMocks :white_check_mark:\
-f-6. Stubbing when().thenReturn() && doReturn().when() :white_check_mark:\
+f-6. test double 3: Stubbing when().thenReturn() && doReturn().when() :white_check_mark:\
 f-7. @Captor :white_check_mark:\
-f-8. BDD style :white_check_mark:
+f-8. BDD style :white_check_mark:\
+f-9. service단 로직 test, 나머진 Mock :white_check_mark:\
+f-10. test double 4: dummy :white_check_mark:\
+f-11. test double 5: fake :white_check_mark:\
+f-12. exception handling in mockito :white_check_mark:
 
 ---\
 reference
@@ -82,7 +86,8 @@ e-5. [새로비 springboot rest api](https://engkimbs.tistory.com/category/Sprin
 
 f-1. [Mockito를 이용한 unit test](https://www.crocus.co.kr/1556?category=395790) \
 f-2. [mockito-best-practice](https://codechacha.com/ko/mockito-best-practice/) \
-f-3~8. [mock basic concepts](https://effortguy.tistory.com/141)
+f-3~8. [mock basic concepts](https://effortguy.tistory.com/141) \
+f-9~12. [goal of mockito, test double, exception handling](https://github.com/dinesh-varyani/mockito)
 
 z. [spring-guide.git](https://github.com/cheese10yun/spring-guide/blob/master/docs/test-guide.md) \
 z. [JUnit 5 Test - MockMvc, Mockito, JPA 미완성](https://theheydaze.tistory.com/218?category=935990) \

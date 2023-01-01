@@ -1,4 +1,4 @@
-package com.tdd.tddTest.mockito.fundamental.mockAndSpy;
+package com.tdd.tddTest.mockito.testDouble.spy;
 
 import com.tdd.tddTest.domain.product.Product;
 import com.tdd.tddTest.service.ProductService;
@@ -6,7 +6,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import org.mockito.Spy;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
