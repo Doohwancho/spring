@@ -86,8 +86,8 @@ e-5. [새로비 springboot rest api](https://engkimbs.tistory.com/category/Sprin
 
 f-1. [Mockito를 이용한 unit test](https://www.crocus.co.kr/1556?category=395790) \
 f-2. [mockito-best-practice](https://codechacha.com/ko/mockito-best-practice/) \
-f-3~8. [mock basic concepts](https://effortguy.tistory.com/141) \
-f-9~12. [goal of mockito, test double, exception handling](https://github.com/dinesh-varyani/mockito)
+f-3..8. [mock basic concepts](https://effortguy.tistory.com/141) \
+f-9..12. [goal of mockito, test double, exception handling](https://github.com/dinesh-varyani/mockito)
 
 z. [spring-guide.git](https://github.com/cheese10yun/spring-guide/blob/master/docs/test-guide.md) \
 z. [JUnit 5 Test - MockMvc, Mockito, JPA 미완성](https://theheydaze.tistory.com/218?category=935990) \
