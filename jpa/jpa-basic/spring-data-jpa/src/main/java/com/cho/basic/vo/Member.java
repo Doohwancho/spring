@@ -1,6 +1,8 @@
 package com.cho.basic.vo;
 
 import com.cho.basic.vo.enumBundle.LoginType;
+import com.cho.basic.vo.연관관계매핑.Library;
+import com.cho.basic.vo.연관관계매핑.MyPage;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -47,6 +49,38 @@ public class Member {
     @Column(length = 500)
     private String intro;
 
-    @Enumerated(EnumType.STRING) //타입이 클래스가 아닌 enum일 때 사용. 만약, @Enumerated(EnumType.ORDINAL)을 사용하면 그냥 정수값인 0, 1, 2 값으로 들어가게 된다. 보통은 STRING 쓴다. 
+    @Enumerated(EnumType.STRING) //타입이 클래스가 아닌 enum일 때 사용. 만약, @Enumerated(EnumType.ORDINAL)을 사용하면 그냥 정수값인 0, 1, 2 값으로 들어가게 된다. 보통은 STRING 쓴다.
     private LoginType loginType;
+
+    /**
+     * 단방향 1대1
+     * 연관관계1. @OneToOne
+     *
+     * 1. @JoinColumn은 관계의 주인이 갖는다. (select * from member join MyPage) 일 때, member쪽이 갖는다는 뜻인 듯.
+     * 2.. "MYPAGE_ID" 로 매핑했는데, MyPage.java에서는
+     *     @Id
+     *     private Long Id;
+     *
+     *     이렇게 밖에 안되있음. 그냥 ID가 내부적으로 네이밍이 저렇게 되있는 듯.(Entity명 + _ + ID)
+     * 3. innerJoin, Outerjoin 등과 연관 있을 듯 하다.
+     */
+    @OneToOne
+    @JoinColumn(name = "MYPAGE_ID")
+    private MyPage mypage;
+
+
+    /**
+     * 양방향 1대1
+     *
+     * 주인이 아닌 비소유 객체에 주인객체를 컬럼으로 넣어주면 된다. 즉 단방향을 추가해줌으로서 양방향이 된다.
+     * 단, 이때 주인이 아닌 객체는 mappedBy를 통해 관계의 주인이 상대편임을 명시해줘야 한다.
+     *
+     * 참고사항
+     * 일대일 관계에서 단방향이 아닌 양방향을 하게되면 Lazy Loading이 작동하지 않는다.
+     * 따라서 1 + N문제가 발생할 수 있으므로 조회시 Fetch join을 쓰거나 단방향으로 수정해서 Lazy loading이 되도록 해야한다.
+     */
+//    @OneToOne(mappedBy = "mypage")
+//    private Member member;
+
+
 }

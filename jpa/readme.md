@@ -26,15 +26,15 @@ a-3. 기본 키 매핑: @Id :white_check_mark:\
 a-4. 필드와 컬럼 매핑: @Column :white_check_mark:\
 a-5. 필드와 컬럼 매핑: @GeneratedValue :white_check_mark:\
 a-6. 필드와 컬럼 매핑: @Enumerated :white_check_mark:\
-a-7. 연관관계 매핑: @OneToOne\
-a-8. 연관관계 매핑: @OneToMany\
-a-9. 연관관계 매핑: @ManyToOne\
-a-10. 연관관계 매핑: @ManyToMany - 사용 지양\
-a-11. @Query
+a-7. 연관관계 매핑: @OneToOne :white_check_mark:\
+a-8. 연관관계 매핑: @OneToMany :white_check_mark:\
+a-9. 연관관계 매핑: @ManyToOne :white_check_mark:\
+a-10. 연관관계 매핑: @ManyToMany - 사용 지양 :white_check_mark:\
+a-11. n+1 problem :white_check_mark:\
+a-12. @Query
 
 
 b-1. paging & sorting\
-b-2. n+1 problem :white_check_mark:\
 b-3. bulk insert :white_check_mark:\
 b-4. dynamic-insert-update :white_check_mark:\
 b-5. rollbackFor :white_check_mark:\
