@@ -2,7 +2,7 @@ package com.cho.basic.vo.연관관계매핑;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.tomcat.jni.Library;
+
 
 import javax.persistence.*;
 
@@ -41,5 +41,4 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "LIBRARY_ID")
     private Library library;
-
 }

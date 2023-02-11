@@ -1,7 +1,7 @@
 package com.cho.basic;
 
 import com.cho.basic.repository.MemberRepository;
-import com.cho.basic.vo.Member;
+import com.cho.basic.vo.연관관계매핑.Member;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

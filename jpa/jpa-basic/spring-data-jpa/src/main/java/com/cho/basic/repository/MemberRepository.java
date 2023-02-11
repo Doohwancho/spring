@@ -1,6 +1,6 @@
 package com.cho.basic.repository;
 
-import com.cho.basic.vo.Member;
+import com.cho.basic.vo.연관관계매핑.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

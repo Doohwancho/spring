@@ -1,12 +1,8 @@
-package com.cho.basic.vo;
+package com.cho.basic.vo.연관관계매핑;
 
-import com.cho.basic.vo.enumBundle.LoginType;
-import com.cho.basic.vo.연관관계매핑.Library;
+import com.cho.basic.vo.enums.LoginType;
 import com.cho.basic.vo.연관관계매핑.MyPage;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -14,12 +10,13 @@ import javax.persistence.*;
 //JPA는 이 객체의 필드와 애노테이션을 기반으로 DDL을 작성하고 DB는 해당 DDL을 통해 테이블을 생성해준다.
 //@Entity 붙이기 위한 3가지 조건
 //1. 기본 생성자가 꼭 있어야 한다.
+@NoArgsConstructor
 //2. final, interface, enum, inner 클래스가 아닌 기본 클래스여야 한다.
 //3. 저장할 프로퍼티에 final을 사용할 수 없다.
 
 @Getter
+@Setter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "MEMBER") //테이블 이름을 임의로 정할 수 있음. ORDER같은 mysql에서 테이블 이름으로 못쓰는 명을 고칠 떄 사용하면 유용하다.
 public class Member {
@@ -81,6 +78,4 @@ public class Member {
      */
 //    @OneToOne(mappedBy = "mypage")
 //    private Member member;
-
-
 }

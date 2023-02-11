@@ -1,7 +1,5 @@
 package com.cho.basic.vo.연관관계매핑;
 
-import com.cho.basic.vo.Member;
-
 import javax.persistence.Id;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
