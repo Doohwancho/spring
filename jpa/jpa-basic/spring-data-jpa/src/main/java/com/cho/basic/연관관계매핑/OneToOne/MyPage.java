@@ -1,5 +1,6 @@
-package com.cho.basic.vo.연관관계매핑.OneToOne;
+package com.cho.basic.연관관계매핑.OneToOne;
 
+import com.cho.basic.연관관계매핑.OneToOne.Member;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @Entity
 @Builder
 @Getter
-public class MyPage_OneToOne_양방향 {
+public class MyPage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,6 +35,6 @@ public class MyPage_OneToOne_양방향 {
      * 왜냐하면, 하인 테이블 조회 시, private Member_OneToOne_단방향 member; 이 멤버 정보를 가져오기 위해서, 반드시 주인 테이블을 조회해야 하기 때문.
      * 따라서 하인 테이블 조회시 Fetch join을 쓰거나 단방향으로 수정해서 Lazy loading이 되도록 해야한다.
      */
-    @OneToOne(mappedBy = "myPage_oneToOne_양방향") //mappedBy의 인자로 주인에서 FK로 묶은 필드 명 적어준다.
-    private Member_OneToOne_양방향 member;
+    @OneToOne(mappedBy = "myPage") //mappedBy의 인자로 주인에서 FK로 묶은 필드 명 적어준다.
+    private Member member;
 }

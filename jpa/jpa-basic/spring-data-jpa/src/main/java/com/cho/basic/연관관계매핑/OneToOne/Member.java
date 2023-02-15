@@ -1,6 +1,5 @@
-package com.cho.basic.vo.연관관계매핑.OneToOne;
+package com.cho.basic.연관관계매핑.OneToOne;
 
-import com.cho.basic.vo.enums.LoginType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,8 +16,7 @@ import javax.persistence.*;
 @Setter
 @Builder
 @AllArgsConstructor
-//@Table(name = "MEMBER") //테이블 이름을 임의로 정할 수 있음. ORDER같은 mysql에서 테이블 이름으로 못쓰는 명을 고칠 떄 사용하면 유용하다.
-public class Member_OneToOne_양방향 {
+public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
@@ -41,6 +39,6 @@ public class Member_OneToOne_양방향 {
      *     이렇게 밖에 안되있음. 그냥 ID가 내부적으로 네이밍이 저렇게 되있는 듯.(Entity명 + _ + ID)
      */
     @OneToOne
-    @JoinColumn(name = "MyPage_OneToOne_양방향_ID")
-    private MyPage_OneToOne_양방향 myPage_oneToOne_양방향;
+    @JoinColumn(name = "MyPage_ID")
+    private MyPage myPage;
 }

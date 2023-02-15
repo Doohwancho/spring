@@ -1,7 +1,7 @@
 package com.cho.basic.EntityManager;
 
-import com.cho.basic.repository.MemberRepository;
-import com.cho.basic.vo.연관관계매핑.Member;
+import com.cho.basic.연관관계매핑.OneToOne.MemberRepository;
+import com.cho.basic.연관관계매핑.OneToOne.Member;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -56,10 +56,7 @@ class BasicHibernateTest {
     void setUp() {
         // given
         member = Member.builder()
-                .seq(1L)
-                .email("test@test.com")
-                .password("test1234!")
-                .userId("testtest")
+                .name("test")
                 .build();
         System.out.println("START-SAVE========================================================================");
         memberRepository.save(member);
@@ -95,7 +92,7 @@ class BasicHibernateTest {
     void findByEmail() {
         // then
         System.out.println("START-QUERY========================================================================");
-        Assertions.assertNotNull(memberRepository.findByEmail(member.getEmail()));
+        Assertions.assertNotNull(memberRepository.findById(member.getId()));
         System.out.println("END-QUERY========================================================================");
 
         //console.log
