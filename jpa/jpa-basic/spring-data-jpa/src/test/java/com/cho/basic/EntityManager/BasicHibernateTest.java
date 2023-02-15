@@ -1,4 +1,4 @@
-package com.cho.basic;
+package com.cho.basic.EntityManager;
 
 import com.cho.basic.repository.MemberRepository;
 import com.cho.basic.vo.연관관계매핑.Member;
@@ -15,7 +15,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class MemberRepositoryTest {
+class BasicHibernateTest {
 
     @Autowired
     private MemberRepository memberRepository;

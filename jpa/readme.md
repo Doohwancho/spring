@@ -39,7 +39,8 @@ a-9. 연관관계 매핑: @ManyToOne :white_check_mark:\
 a-10. 연관관계 매핑: @ManyToMany - 사용 지양 :white_check_mark:\
 a-11. n+1 problem :white_check_mark:\
 a-12. 단방향, 양방향 :white_check_mark:\
-a-13. 연관관계의 주인 :white_check_mark:
+a-13. 연관관계의 주인 :white_check_mark:\
+a-14. 식별자 매핑 어노테이션 :white_check_mark:
 
 
 b-1. paging & sorting\

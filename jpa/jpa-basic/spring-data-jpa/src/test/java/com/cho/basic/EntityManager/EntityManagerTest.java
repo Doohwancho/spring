@@ -1,4 +1,4 @@
-package com.cho.basic;
+package com.cho.basic.EntityManager;
 
 import com.cho.basic.vo.연관관계매핑.Member;
 import org.junit.jupiter.api.Disabled;
