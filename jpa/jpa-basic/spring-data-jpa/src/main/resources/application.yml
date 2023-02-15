@@ -14,7 +14,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     properties.hibernate:
-      hbm2ddl.auto: update	# 애플리케이션이 시작할 때 DB를 어떻게 할 것인지 정해준다.
+      hbm2ddl.auto: create	# 애플리케이션이 시작할 때 DB를 어떻게 할 것인지 정해준다.
       format_sql: true		# sql 쿼리를 예쁘게 보여준다.
     show-sql: true			# sql 쿼리를 보여준다.
     open-in-view: false		# 트랜잭션이 끝난 객체를 준영속 상태로 만들어준다.

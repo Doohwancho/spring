@@ -62,12 +62,14 @@ a. 식별자 매핑 어노테이션
 -   @GeneratedValue(strategy = GenerationType.[**타입**])
     -   타입 설정
         -   IDENTITY
-            -   데이터베이스에 위임, MYSQL, ORACLE 등 db vendor에 의존적.
+            -   IDENTITY 전략은 먼저 엔티티를 DB에 저장하고, 식별자를 조회해서 엔티티의 식별자로 할당하는 전략이다.
+            -   기본 키 생성을 현재 연결된 DB에게 위임한다. 계속 값이 채번된다. MYSQL, ORACLE 등 db vendor에 의존적.
             -   IDENTITY 는 id 값을 세팅하지 않고, insert 쿼리를 날리면 database 시스템에서 자동으로 채번을 합니다.
             -   AUTO_INCREMENT 라고도 하며, INSERT 쿼리가 실행된 이후에야 ID 값을 알 수 있습니다.
             -   id 값 생성에 대해서 database 에서 관여하기에 save 메소드를 수행시 persist 로 동작하게 됩니다
         -   SEQUENCE
-            -   데이터베이스 시퀀스 오브젝트 사용, ORACLE
+            -   SEQUENCE 전략은 저장 전에 DB Sequence를 먼저 조회하고, 조회한 식별자를 엔티티에 할당 한 후에 엔티티를 persist해서 영속화하고, 이후 트랜잭션이 커밋되어 flush되면 그때 DB에 저장된다.
+            -   server 레이어에서 DB 시퀀스를 이용해서 기본키를 할당한다. 계속 값이 채번된다. 데이터베이스 시퀀스 오브젝트 사용, ORACLE
             -   @SequenceGenerator 필요
             -   동작방식
                 -   persist 를 호출하면 (spring data jpa 의 경우 save) sequence 를 가져옵니다.
@@ -130,13 +132,16 @@ D. 연관관계의 주인
 
 주인이 FK를 관리(등록, 수정, 삭제)한다.
 따라서 주인은 FK를 가지고 있는 쪽이다.
-주인은 mappedBy 속성을 사용하지 않는다.
-하인은 mappedBy 속성을 사용해서 주인을 지정해야 한다.
+단방향/양방향 시, 주인은 @JoinColumn(name = "하인의_ID")을 써서 주인이라고 표시하는데,
+양방향 시에만, 하인은 mappedBy 속성을 사용해서 주인을 지정해야 한다.
+(주인은 mappedBy 속성을 사용하지 않는다.)
+
 
 Member:Team = N:1의 관계일 때,
 rdb에서 보통은 N쪽이 1의 FK를 가지고 있으므로,
 FK를 관리하는 Member가 주인이고, Team이 하인이다.
-mappedBy는 하인이 가지고 있어야 하기 때문에, Team쪽에서 엮어준다.
+주인인 Member에서 @JoinColumn(name = "TEAM_ID") 로 하인을 가리키고(TEAM_ID는 하인의 PK를 가르키는 FK)
+양방향이면 하인인 Team에서 mappedBy로 주인인 Team쪽에서 엮어준다.
 
 
 ```java
