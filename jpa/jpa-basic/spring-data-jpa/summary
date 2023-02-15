@@ -43,38 +43,134 @@ Member를 fetch하면, 둘이 연관만 되있으면 Member랑 관련된 Book도
 ---
 B. 연관관계의 주인
 
+주인이 FK를 관리(등록, 수정, 삭제)한다.
+따라서 주인은 FK를 가지고 있는 쪽이다.
+주인은 mappedBy 속성을 사용하지 않는다.
+하인은 mappedBy 속성을 사용해서 주인을 지정해야 한다.
 
-Board : Post = 1 : N 관계라고 할 때,
-보통 db에서 N쪽인 Post가 1쪽인 Board의 PK를 FK로 받아놓음.
-이 때, 1쪽인 Board를 주인, N쪽인 Post를 하인이라고 정의한다.
+Member:Team = N:1의 관계일 때,
+rdb에서 보통은 N쪽이 1의 FK를 가지고 있으므로,
+FK를 관리하는 Member가 주인이고, Team이 하인이다.
+mappedBy는 하인이 가지고 있어야 하기 때문에, Team쪽에서 엮어준다.
+
+```java
+@Entity
+@Getter
+@Setter
+public class Member {
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MEMBER_ID")
+    private Long id;
+
+    @Column(name = "USERNAME")
+    private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
+}
+
+@Entity
+@Getter
+@Setter
+public class Team {
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "TEAM_ID")
+    private Long id;
+
+    private String name;
+
+    @OneToMany(mappedBy = "team")
+    private List<Member> members = new ArrayList<>();
+}
+```
+
+N쪽이라 주인인 Member에서 Team을 @ManyToOne으로 묶어주고 있고,
+1쪽이라 하인인 Team에서 Member를 mappedBy로 주인으로 지정하는데, 여기서 "team"은 주인 클래스에서 하인 필드의 변수이름이다.
 
 
-Q. 근데 왜 연관관계의 주인, 하인 정해야해?
+Q. 만약 하인쪽에 @OneToMany(mappedBy = "team")가 없었다면?
+A. 그러면 Member:Team = N:1 단방향 매핑이었겠지. 양방향이 아니라.
+만약 그랬다면,
 
-A.
-주인은 FK가진 하인 테이블의 CRUD가능.
-하인은 주인 테이블 Read밖에 못하기 때문.
+```java
+Team team = new Team();
+team.setName("teamA");
+em.persist(team);
 
+Member member = new Member();
+member.setName("member1");
+member.setTeam(team);
+em.persist(member);
 
-아 그러면 Board : Post = 1 : N 관계에서,
-Board를 주인으로 정해놓으면,
-Board에 read를 하거나 insert를 할 때, 하인인 Post에 대한 정보도 딸려나온다는건가?
+Member findMember = em.find(Member.class, member.getId());
+Team findTeam = findMember.getTeam();
+```
 
-만약에 거의 항상 Board read시 해당 Post들을 다 불러오는 구조라면, 이렇게 짜는게 좋은데,
-A:B 둘이 1:N 관계는 있는데, A를 쿼리할 때, B정보까진 필요 없으면, 반대로 N:1로 짤 수도 있겠구나.
-
-
-
-Q. 어떻게 주인 설정함?
-
-A.
-1. 단방향인 경우, 하인에서 @JoinColumn(name = "주인_ID")로 설정하고,
-2. 양방향인 경우,
-    - 하인에서 @JoinColumn(name = "BOARD_ID")로 정해주면 된다.
-    - 주인에서 @OneToMany(mappedBy = "board"), 즉 mappedBy를 써서 주인 엔티티를 적어준다.
+Member -> Team으로 단방향 @ManyToOne이니까, findMember.getTeam()으로 멤버에서 팀을 가져올 순 있었겠지만,
+팀에서 멤버를 가져오진 못했겠지.
 
 
-example)
+Q. Member:Team = N:1 양방향으로 매핑하고 싶다면?
+A. 하인쪽인 Team에 만약 하인쪽에 @OneToMany(mappedBy = "team")을 넣으면 양방향이 되지.
+
+```java
+Member findMember = em.find(Member.class, member.getId());
+
+Team findTeam = findMember.getTeam();
+List<Member> members = findTeam.getMembers();
+members.stream().forEach(m-> System.out.println(m.getName()));
+```
+
+그러면, 팀에서도 Member를 가져올 수 있지. findTeam.getMembers()로.
+
+
+
+Q. 만약 하인에게 주인을 넣으면?
+주인이 FK를 관리하고, 주인은 하인의 CRUD가능하지만, 하인은 주인의 READ밖에 못한다며?
+만약 하인인 Team에서 주인을 더하면 어떻게 됨?
+
+```java
+Member member = new Member();
+member.setName("member1");
+em.persist(member);
+
+Team team = new Team();
+team.setName("teamA");
+team.getMembers().add(member);
+em.persist(team);
+```
+
+Team.member에 FK가 안들어가는 사태 발생.
+하인은 주인을 READ만 가능하지, WRITE는 못한다.
+
+
+```java
+Team team = new Team();
+team.setName("teamA");
+em.persist(team);
+
+member member = new Member();
+member.setName("member1");
+member.setTeam(team);
+em.persist(member);
+
+team.getMembers().add(member);
+```
+
+이런 식으로 주인에서 하인을 먼저 더한 후,
+하인에서 주인을 더해주는건 가능.
+양쪽에 넣어줘야 함
+
+
+
+
+
+
+example2) Board : Post = 1 : N
+
 
 case1) 단방향, (Board : Post = 1 : N)
 
@@ -104,8 +200,7 @@ public class Board {
 ```
 
 Board:Post = 1:N 관계에서,
-하인인 Post에서 @ManyToOne으로 주인인 Board를 참조하여 주인의 FK를 가지고 있음.
-주인은 참조하지 않는다. 왜? 단뱡항 이니까.
+주인인 Post에서 @ManyToOne으로 하인인 Board를 참조하여 주인의 FK를 가지고 있음.
 
 
 case2) 양방향, (Board : Post = 1 : N)
@@ -139,7 +234,7 @@ public class Board {
 }
 ```
 
-이번엔 양방향이니까, 주인에서도 @OneToMany를 추가해준다. mappedBy 주인.
+이번엔 양방향이니까, 하인에서도 @OneToMany를 추가해준다. mappedBy 주인.
 (단방향일 땐 mappedBy 안쓰는데, 양방향일 때에만 mappedBy를 쓴다.)
 
 
@@ -148,12 +243,11 @@ Q. 왜 앵간하면 단방향으로 만들라는거지? 왜 양방향이면 안�
 
 
 
-
 Q. 만약 주인, 하인의 관계를 바꾼다면?
 
 Board : Post = 1 : N 관계라고 할 때,
-Board가 주인이고 Post가 하인이라, Post가 Board의 PK를 FK로 들고있는게 정상인데,
-만약 Post가 주인이고 Board가 하인으로 설정한다면 어떤 일이 벌어질까?
+Board가 하인이고 Post가 주인이라, Post가 Board의 PK를 FK로 들고있는게 정상인데,
+만약 Board가 주인이고 Post가 하인으로 설정한다면 어떤 일이 벌어질까?
 
 
 ```java
@@ -181,27 +275,24 @@ public class Board {
 }
 ```
 
-단방향이라 Post에는 암것도 없는데, 하인인 Board에는 @OneToMany, @JoinColumn(name = "POST_ID") 이 있다.
 
 Q. 이러면 어떤 문제점이 발생할까?
 
-A. 이렇게 짜면, 주인이 Post고 하인이 Board가 되니까,
-주인인 Post는 하인인 Board 테이블에 대해 CRUD가 가능한데,
-하인인 Board는 주인인 Post에 대해 Read밖에 할 수 없다.
--> 로직상 이상함
+A. 이렇게 짜면, Board : Post = 1 : N에서 주인이 Post, 하인이 Board가 되야 하는데, 주인이 Board, 하인이 Post가 된다.
+주인인 Board는 하인인 Post 테이블에 대해 CRUD가 가능한데,
+하인인 Post는 주인인 Board에 대해 Read밖에 할 수 없다.
 
-
-또한, 실제로 hibernate에서 돌아가는 쿼리 봐도 이상함.
+실제로 hibernate에서 돌아가는 쿼리 봐도 이상함.
 ```java
 //...
 Post post = new Post();
 post.setTitle("가입인사");
 
-entityManager.persist(post); // post 저장
+entityManager.persist(post); // post 저장. 여기 까진 괜찮음
 
 Board board = new Board();
 board.setTitle("자유게시판");
-board.getPosts().add(post);
+board.getPosts().add(post); //여기서 문제 발생
 
 entityManager.persist(board); // board 저장
 //...
@@ -212,11 +303,13 @@ entityManager.persist(board); // board 저장
 
 board.getPosts().add(post); 이 부분 때문.
 
-하인인 Board를 저장했는데 주인인 Post Update query가 의도치 않게 날아감 -> 쿼리 성능 저하.
+주인인 Board를 저장했는데 하인인 Post Update query가 의도치 않게 날아감 -> 쿼리 성능 저하.
+
+(원래대로 였다면, Post가 주인이고 하인인 Board이니까, 게시판에 글(Post)이 달리면 게시판인 Board도 업데이트 되어야 하니까 그게 맞는데, 이 케이스는 주종관계 뒤집혀서 이상해짐)
 
 
 결론: 주종관계 정할 때는, 하인쪽에 CRUD하면 주인까지 건드리니까,
-1:N관계 같은 곳에서는 1을 하인으로 정하면 1 건드릴 때마다 N을 건드려서 성능저하가 일어난다. 그러니 N을 하인으로 하자.
+1:N관계 같은 곳에서는 1을 주인으로 정하면 1 건드릴 때마다 N을 건드려서 성능저하가 일어난다. 그러니 N을 주인으로 하자.
 1:1관계의 경우, 자주 CRUD하는 쪽인 쪽을 주인으로 하자.
 
 
@@ -230,7 +323,7 @@ ex. Member : Mypage
 
 @OneToOne은 단방향 지원 안함. 무조건 양방향 이어야 한다.
 
-주인 쪽에서는
+
 ```java
 @Entity
 public class Post {
@@ -266,14 +359,15 @@ A.
 생각할 것: FK를 Post 테이블에서 관리해야 하나? 아니면 Attach 테이블에서 관리해야 하나?
 
 만약 하나의 Post에 여러개의 첨부파일을 첨부하는게 비즈니스 로직이라면?
-그럼 Attach table이 N이 될 확률이 높으니까 Attach를 하인으로 두고 Post의 FK를 관리하게 해야하나?
+그럼 Attach table이 N이 될 확률이 높으니까 Attach를 주인으로 두고 Post의 PK를 FK로 받아 관리하게 해야하나?
 
 반드시 그런 것 만은 아니다.
-orm에서 POST가 Attach의 FK를 가지고 있으면(Post가 하인, Attach가 주인),
+만약 반대로 POST가 Attach의 FK를 가지고 있으면(Post가 주인, Attach가 하인),
 Post를 조회할 때마다, 이미 Attach의 참조를 가지고 있기 때문에, 성능상 이득이 있다.
 
+그렇기 때문에 1:1 관계에서는, 한쪽이 N이 될 확률이 더 높다고 주인으로 설정하기 보다는,
+A쪽을 CRUD시 B쪽의 참조를 가지고 있는게 더 유리하면, A쪽을 주인으로 설정하는게 좋다.
 
-양 측 pros and cons 고려해서 구현하고, 이유를 적어놓자.
 
 
 
