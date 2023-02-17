@@ -19,10 +19,13 @@ G. 상속관계
     a. join 전략
     b. 단일 테이블 전략
     c. TABLE_PER_CLASS 전략(비추)
-H. LAZY vs EAGER
-x. fetchJoin
-J. 영속성 컨텍스트
+H. 영속성 컨텍스트
 	a. entity lifecycle
+	b. pros1. 1차 캐시
+	c. pros2. LAZY Loading
+	d. pros3. transactional write-behind (buffer 기능)
+	e. pros4. dirty checking
+x. fetchJoin
 x. CASCADE
 
 
@@ -1058,9 +1061,79 @@ Hibernate:
 where
   item0_.id=?
 ```
-
 ---
-H. LAZY vs EAGER
+H. 영속성 컨텍스트
+
+
+
+a. entity lifecycle
+
+
+```java
+//case1) 객체를 생성한 상태(비영속, transient 상태)
+Member member = new Member();
+member.setId("memberId");
+member.setUsername("회원1");
+
+
+
+//case2) 영속(managed 상태)
+Member member = new Member();
+member.setId("memberId");
+member.setUsername("회원1");
+
+EntityManager em = emf.createEntityManager();
+em.getTransaction().begin();
+
+//객체를 저장한 상태(영속)
+em.persist(member);
+
+
+
+//case3) 준영속(detached)
+em.detach(member);
+
+
+//case4) 삭제(removed)
+em.remove(member);
+```
+
+
+jpa에는 총 4가지 상태가 있으며,
+em.persist로 EntityManager에 객체 저장한게 영속 상태.
+
+
+
+b. pros1. 1차 캐시
+
+PersistenceContext에서는 1차 캐시,2차 캐시가 있는데,
+1차 캐시는 일반적인 캐시가 아니라, PersistentContext가 생성되고 없어질 떄 까지만 잠깐 존재함.
+
+
+ex.
+```java
+Member member = new Member();
+member.setId("member1");
+member.setUsername("회원1");
+
+//1차 캐시에 저장됌
+em.persist(member);
+
+//1차 캐시에서 조회
+Member a = em.find(Member.class, "member1");
+Member b = em.find(Member.class, "member2");
+
+System.out.println(a == b); // 동일성 비교 true -> 위에서 보았듯이 1차캐시가 있기 때문에
+
+```
+
+em.find()하면, db에서 가져오는게 아니라, 1차 캐시를 먼저 탐색 후, 존재하면 반환.
+1차 캐시에 없으면, db조회 후, 가져옴.
+
+
+
+
+c. pros2. LAZY LOADING over EAGER LOADING
 
 
 ```java
@@ -1107,74 +1180,69 @@ Member query하면 Team까지 join해서 들고오니까,
 
 
 
----
-J. 영속성 컨텍스트
 
 
 
-a. entity lifecycle
+d. pros3. transactional write-behind (버퍼 기능)
 
 
 ```java
-//case1) 객체를 생성한 상태(비영속, transient 상태)
-Member member = new Member();
-member.setId("memberId");
-member.setUsername("회원1");
-
-
-
-//case2) 영속(managed 상태)
-Member member = new Member();
-member.setId("memberId");
-member.setUsername("회원1");
-
 EntityManager em = emf.createEntityManager();
-em.getTransaction().begin();
+EntityTransaction transaction = em.getTransaction();
+// 엔티티 매니저는 데이터 변경시 트랜잭션을 시작해야 한다.
+transaction.begin();
 
-//객체를 저장한 상태(영속)
-em.persist(member);
+em.persist(memberA);
+em.persist(memberB);
+//여기까지 INSERT SQL을 데이터베이스에 보내지 않는다.
 
-
-
-//case3) 준영속(detached)
-em.detach(member);
-
-
-//case4) 삭제(removed)
-em.remove(member);
+//커밋하는 순간 데이터베이스에 INSERT SQL을 보낸다.
+transaction.commit(); // [트랜잭션] 커밋
 ```
 
+1. em.persist(memberA); 하면, memberA를 1차 캐시에 저장함과 동시에 INSERT SQL 문 생성해서 '쓰기 지연 SQL 저장소'에 말아 놓음.
+2. em.persist(memeberB); 할 때에도, sql INSERT query 안날림.
+3. transaction.commit(); 시, transactional write-behind에 있던 INSERT SQL문들을 동시에|하나씩 날림.
 
-jpa에는 총 4가지 상태가 있으며,
-em.persist로 EntityManager에 객체 저장한게 영속 상태.
+write-behind에 있던 sql문 날리는걸 flush()라고 함.
+flush()한다고 1차 cache가 지워지는건 아니고, query 보내서 persistence context와 db의 sync 맞추는 것.
+commit()은 내부적으로 flush()와 commit() 두가지일 동시에 한다.
 
 
-PersistenceContext에서는 1차 캐시,2차 캐시가 있는데,
-1차 캐시는 일반적인 캐시가 아니라, PersistentContext가 생성되고 없어질 떄 까지만 잠깐 존재함.
 
 
-ex.
+
+
+e. pros4. 변경 감지(dirty checking)
+
+
 ```java
-Member member = new Member();
-member.setId("member1");
-member.setUsername("회원1");
+EntityManager em = emf.createEntityManager();
+EntityTransaction transaction = em.getTransaction();
+// 엔티티 매니저는 데이터 변경시 트랜잭션을 시작해야 한다.
+transaction.begin(); // [트랜잭션] 시작
 
-//1차 캐시에 저장됌
-em.persist(member);
+// 영속 엔티티 조회
+Member memberA = em.find(Member.class, "memberA");
 
-//1차 캐시에서 조회
-Member a = em.find(Member.class, "member1");
-Member b = em.find(Member.class, "member2");
+// 영속 엔티티 데이터 수정
+memberA.setName("hjs");
+memberA.setAge(10);
 
-System.out.println(a == b); // 동일성 비교 true -> 위에서 보았듯이 1차캐시가 있기 때문에
+// 수정했으니 em.update(member) 이런 코드가 있어야 하지 않을까?
 
+// 하지만 필요없다. 커밋하면 자동으로 업데이트 쿼리가 나간다.
+transaction.commit(); // [트랜잭션] 커밋
 ```
 
-em.find()하면, db에서 가져오는게 아니라, 1차 캐시를 먼저 탐색 후, 존재하면 반환.
-1차 캐시에 없으면, db조회 후, 가져옴.
+
+Q. setter로 수정하면 무슨일이 일어나지? update query 나가나?
+1. jpa는 트랜잭션이 commit되는 시점에 1차 캐시 뿐만 아니라, 스냅샷도 생성한다.
+2. commit()으로 flush()하면, persistence context에서 관리되는 entity 들을 snapshot과 비교해 바뀐 부분이 있으면 UPDATE query를 db에 보내고 commit한다.
 
 
-
+Q. 왜 이렇게 할까?
+attributes 10번 바꾼다고 하면, 10번 동안 개별로 update query 날릴거 아니잖아.
 
 
 

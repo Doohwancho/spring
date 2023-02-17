@@ -37,8 +37,11 @@ a-12. 단방향, 양방향 :white_check_mark:\
 a-13. 연관관계의 주인 :white_check_mark:\
 a-14. 식별자 매핑 어노테이션 :white_check_mark:\
 a-15. 상속관계 :white_check_mark:\
-a-16. LAZY vs EAGER :white_check_mark:\
-a-17. persistence context: entity lifecycle :white_check_mark:
+a-16. persistence context: entity lifecycle :white_check_mark:\
+a-17. persistence context: pros - 1차 캐시 :white_check_mark:\
+a-18. persistence context: pros - LAZY Loading :white_check_mark:\
+a-19. persistence context: pros - transactional write-behind, buffer기능 :white_check_mark:\
+a-20. persistence context: pros - dirty checking :white_check_mark:
 
 x. Transactions\
 x. JPA 캐싱 규칙\
