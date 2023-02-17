@@ -30,9 +30,9 @@ H. 영속성 컨텍스트
 	e. pros4. dirty checking
 	f. flush()
 	g. 준영속 상태(detached state)
-I. JPQL
-x. fetchJoin
-x. CASCADE
+I. CASCADE
+J. fetchJoin
+K. JPQL
 
 
 
@@ -1182,8 +1182,10 @@ Member query하면 Team까지 join해서 들고오니까,
 그리고 실제로 Member.team이 쓰일 때, team을 다시 query날림.
 
 일종의 optimization.
-일단 전부 LAZY바르고, 아 얘는 항상 Team이랑 묶어서 쓰겠는데? 싶은것을 EAGER로 바꿔주자.
 
+1. 일단 전부 LAZY바르고,
+2. 아 얘는 항상 Team이랑 묶어서 쓰겠는데? 싶은것을 EAGER로 바꿔주자.
+	왜? EAGER쓰면, 예상치 못한 SQL발생할 수 있으니까. N+1 문제 일으킬 확률 있으므로.
 
 
 
@@ -1299,8 +1301,33 @@ em.setFlushMode(FlushModeType.COMMIT)
 
 
 
+
+
+g. 준영속 상태(detached state)
+
+
+entity가 persistence context에서 분리된 상태.
+따라서 영속성 컨텍스트가 제공하는 기능을 사용하지 못함.
+
+
+ex. LAZY_LOADING 기능 못쓴다.
+영속성 컨텍스트가 죽어있는데 LAZY_LOADING된 객체 건드리면, LazyInitializationException 터진다.
+
+
+
+Q. entity를 detached state로 어떻게 만듬?
+
+A.
+1. em.detach(entity)
+	- 특정 엔티티만 준영속 상태로 전환
+2. em.clear()
+	- 영속성 컨텍스트를 완전히 초기화
+3. em.close()
+	- 영속성 컨텍스트를 종료
+
+
 ---
-x. CASCADE
+I. CASCADE
 
 
 관계가 명확할 떄에만 CASCADE쓰고, 왠만하면 안쓴다.

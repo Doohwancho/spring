@@ -42,7 +42,9 @@ a-17. persistence context: pros - 1차 캐시 :white_check_mark:\
 a-18. persistence context: pros - LAZY Loading :white_check_mark:\
 a-19. persistence context: pros - transactional write-behind, buffer기능 :white_check_mark:\
 a-20. persistence context: pros - dirty checking :white_check_mark:\
-a-21. persistence context: flush() :white_check_mark:
+a-21. persistence context: flush() :white_check_mark:\
+a-22. persistence context: 준영속 상태(detached state) :white_check_mark:\
+a-23. CASCADE :white_check_mark:
 
 
 x. Transactions\
