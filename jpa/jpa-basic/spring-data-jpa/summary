@@ -5,8 +5,11 @@ Goal
 jpa의 룰 파악
 
 
+
 ---
 Index
+
+
 
 0. tips from 김영한
 A. 매핑 어노테이션 정리
@@ -25,6 +28,9 @@ H. 영속성 컨텍스트
 	c. pros2. LAZY Loading
 	d. pros3. transactional write-behind (buffer 기능)
 	e. pros4. dirty checking
+	f. flush()
+	g. 준영속 상태(detached state)
+I. JPQL
 x. fetchJoin
 x. CASCADE
 
@@ -1245,6 +1251,51 @@ Q. 왜 이렇게 할까?
 attributes 10번 바꾼다고 하면, 10번 동안 개별로 update query 날릴거 아니잖아.
 
 
+
+
+
+
+f. flush()
+
+
+f-1. flush의 존재 이유
+
+영속성 컨텍스트를 비우지 않음
+영속성 컨텍스트의 변경내용을 데이터베이스에 동기화하는 것이 flush의 목적
+flush가 가능한 이유는 DB에 트랜잭션이라는 작업 단위가 있기 때문. -> 커밋 직전에만 동기화하면 됨
+
+
+
+f-2. flush가 되는 경우 3가지
+1. em.flush() - 직접 호출
+2. 트랜잭션 커밋 - 플러시 자동 호출
+3. JPQL 쿼리 실행 - 플러시 자동 호출
+
+JPQL 쿼리 실행시 flush가 자동으로 호출되는 이유
+
+
+```java
+em.persist(memberA);
+em.persist(memberB);
+em.persist(memberC);
+
+
+// 중간에 JPQL 실행
+query = em.createQuery("select m from Member m", Member.class);
+List<Member> members = query.getResultList();
+```
+
+
+이 상황에서는 DB에서 데이터 조회가 하나도 안된다. flush가 안되었기 때문에.
+때문에 JPA에서는 JPQL을 실행하면 flush가 자동으로 호출되도록 했다. (MyBatis나 Spring JDBC와 함께 사용할 때는 flush를 직접 해줘야 한다.)
+
+
+옵션 줘서, jpql query말고 commit할 때만 flush()하게 바꿀 수 있다.
+
+em.setFlushMode(FlushModeType.AUTO) - 디폴트
+	- 커밋이나 쿼리를 실행할 때 flush
+em.setFlushMode(FlushModeType.COMMIT)
+	- 커밋할 때만 flush
 
 
 
