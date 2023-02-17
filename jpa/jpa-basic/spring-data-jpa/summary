@@ -1,12 +1,14 @@
 ---
 Goal
 
-spring-data-jpa의 룰 파악
+
+jpa의 룰 파악
 
 
 ---
 Index
 
+0. tips from 김영한
 A. 매핑 어노테이션 정리
 B. 식별자 매핑 어노테이션 정리
 C. 단방향 | 양방향
@@ -17,6 +19,42 @@ G. 상속관계
     a. join 전략
     b. 단일 테이블 전략
     c. TABLE_PER_CLASS 전략(비추)
+H. LAZY vs EAGER
+x. fetchJoin
+x. CASCADE
+
+
+
+
+
+
+
+
+---
+0. tips from 김영한
+
+
+1. rdb, sql이 1순위고, jpa가 2순위다.
+	- java는 대체되도 관계형db는 안없어질거다.
+	- 실무 장애의 90%는 관계형db에서 나온다.
+2. jpa를 썼을 때, sql query가 어떤식으로 흘러가는지 머릿속에 그려져야한다.
+3. legacy는 아무래도 mybatis...
+4. JPA는 database connection을 너무 오래시키는게 문제(성능)
+	- @Transaction 시작할 때 부터 끝날 때 까지 db Connection 계속 물고있다.
+	- 그래서 실시간 트래픽올 땐, 거의 대부분 open session in View를 끈다.
+	- admin같이 db Connection 오랫동안 물고있어도 되는 경우, open session in View 켜서 쓴다.
+	- 짧은 transaction은 문제 안되는데, 간혹 배치 쿼리 돌릴 때 open session in View 걸면 큰일난다.
+5. dependency 없는게 최고, 그 다음이 단방향, 그 다음이 양방향
+	- 양방향이 왜 안좋냐?
+	- dependency가 양쪽에 걸리니까, 한쪽을 건들 때 저쪽 컴파일 오류 나서, 프로젝트가 크고 복잡하면 리펙토링 힘들다.
+	- 일단 jpa modeling시, @ManyToOne 단방향으로 다 깔고, 진짜 필요하면, 반대편 양방향으로 @OneToMany를 추가한다.
+		- 복잡한 jpql query짤 때, 종종 일대다로 짜야하는 경우가 생긴다. jpql query 편하게 짜려고 그 때만 양방향으로 짠다.
+	- 시스템이 작으면 모든 테이블이 연관관계로 이어진게 좋은데, 복잡해지면, 회원/주문/리뷰 등 연관관계를 끊어내야 한다.
+6. ORM은 second level cache를 써야한다?
+	- 비추. 중요한 결과값, 최종본만 cache쓰고, 중간단계 짜잘짜잘한건 second cache 안쓰는게..
+	- 실무는 복잡하고, 정밀하게 second level cache hit시키는것도 복잡하니까 비추.
+
+
 
 
 
@@ -643,6 +681,20 @@ Solutions
 G. 상속관계
 
 
+김영한 피셜, 복잡한 프로젝트에서 왠만하면 상속관계 피하라.
+경험상, 프로젝트 규모가 작으면 도움 될 순 있으나,
+프로젝트 규모가 커지면,
+상속관계 모델링 후 정규화 하면,
+join 전략 썼을 땐, join을 너무 많이 해야 함.
+부모를 query하면, 그 밑에 붙은애들 join을 다 해야해서 성능이슈가 나올 수 밖에 없다.
+성능 잡겠다고 단일 테이블 전략 쓰면, 성능엔 이점이 있는데, 구멍이 많다(ex. 컬럼 다 NULL로 만들어야 하고)
+또한 단일 테이블 전략은 한 테이블에 데이터가 너무 많이 쌓이니까, 데이터 용량도 너무 많다.
+
+결제 시스템에 상속관계 도입했다가, 몇만건일 땐 괜찮았는데, 백만건 이상 가면, 심플하게 가야한다.
+
+
+
+
 1. join 전략
     장점: 정규화가 제일 잘되있어서 저장공간 효율적 + 깔끔.
     단점1: join 많이 쓰니까 단일 테이블 전략 대비 느림.
@@ -972,4 +1024,65 @@ Hibernate:
 where
   item0_.id=?
 ```
+
+---
+H. LAZY vs EAGER
+
+
+```java
+@Entity
+public class Member {
+
+  @Id @GeneratedValue
+  private Long id;
+
+  @Column
+  private String name;
+  private int age;
+
+  //@Column(name = "TEAM_ID")
+  //private Long teamID;
+
+  @ManyToOne
+  @JoinColumn(name = "TEAM_ID")
+  private Team team;
+
+  ...
+}
+
+@Entity
+public class Team {
+
+  @Id @GeneratedValue
+  private Long id;
+  private String name;
+  ...
+}
+```
+
+@ManyToOne(fetch = FetchType.EAGER) 이 기본 값인데, 이래 버리면,
+Member:Team = N:1 @ManyToOne 단방향/양방향이던 에서,
+Member query하면 Team까지 join해서 들고오니까,
+@ManyToOne(fetch = FetchType.LAZY) 로 Member query하면, Member만 가져오고, Team은 proxy 객체(가짜 객체)가 들어옴.
+왜냐면 저 private Team team;을 비워둘 순 없으니까.
+
+그리고 실제로 Member.team이 쓰일 때, team을 다시 query날림.
+
+일종의 optimization.
+일단 전부 LAZY바르고, 아 얘는 항상 Team이랑 묶어서 쓰겠는데? 싶은것을 EAGER로 바꿔주자.
+
+
+
+
+
+---
+x. CASCADE
+
+
+관계가 명확할 떄에만 CASCADE쓰고, 왠만하면 안쓴다.
+
+ex. 글과 댓글
+
+소유자가 하나일 때. 굉장히 명확할 때에만 쓴다.
+
 

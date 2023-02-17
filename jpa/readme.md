@@ -11,16 +11,11 @@ Goal
 fields in persistence framework
 
 
-1. rules
-a. spring-data-jpa annotations\
-b. spring-data-jpa concepts & techniques\
-c. queryDSL\
-d. hibernate
+a. jpa annotations\
+b. spring-data-jpa\
+c. queryDSL
 
 
-2. best practices
-e. spring-data-jpa clean-code-snippets\
-f. optimization
 
 
 ---\
@@ -41,13 +36,9 @@ a-11. n+1 problem :white_check_mark:\
 a-12. 단방향, 양방향 :white_check_mark:\
 a-13. 연관관계의 주인 :white_check_mark:\
 a-14. 식별자 매핑 어노테이션 :white_check_mark:\
-a-15. 상속관계 :white_check_mark:
+a-15. 상속관계 :white_check_mark:\
+a-16. LAZY vs EAGER :white_check_mark:
 
-
-b-1. paging & sorting\
-b-3. bulk insert :white_check_mark:\
-b-4. dynamic-insert-update :white_check_mark:\
-b-5. rollbackFor :white_check_mark:\
 x. Transactions\
 x. JPA 캐싱 규칙\
 x. 쿼리가 생성 되는 규칙\
@@ -56,7 +47,11 @@ x. entity life cycle(from hibernates)\
 x. 즉시로딩: 쿼리가 튐 -> 지연로딩으로 변경
 
 
-d. Hibernate Entity Life Cycle\
+
+b-1. paging & sorting\
+b-3. bulk insert :white_check_mark:\
+b-4. dynamic-insert-update :white_check_mark:\
+b-5. rollbackFor :white_check_mark:\
 
 
 
