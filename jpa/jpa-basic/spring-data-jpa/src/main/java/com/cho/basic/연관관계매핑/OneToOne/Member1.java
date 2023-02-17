@@ -16,7 +16,7 @@ import javax.persistence.*;
 @Setter
 @Builder
 @AllArgsConstructor
-public class Member {
+public class Member1 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)

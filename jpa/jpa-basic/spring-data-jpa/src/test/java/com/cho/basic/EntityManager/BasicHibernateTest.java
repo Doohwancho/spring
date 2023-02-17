@@ -1,7 +1,7 @@
 package com.cho.basic.EntityManager;
 
 import com.cho.basic.연관관계매핑.OneToOne.MemberRepository;
-import com.cho.basic.연관관계매핑.OneToOne.Member;
+import com.cho.basic.연관관계매핑.OneToOne.Member1;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,7 +20,7 @@ class BasicHibernateTest {
     @Autowired
     private MemberRepository memberRepository;
 
-    private Member member;
+    private Member1 member;
 
     /**
      * initinate Member Object into database Table
@@ -55,7 +55,7 @@ class BasicHibernateTest {
     @BeforeEach
     void setUp() {
         // given
-        member = Member.builder()
+        member = Member1.builder()
                 .name("test")
                 .build();
         System.out.println("START-SAVE========================================================================");

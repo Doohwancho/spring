@@ -1,6 +1,5 @@
 package com.cho.basic.연관관계매핑.OneToOne;
 
-import com.cho.basic.연관관계매핑.OneToOne.Member;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -36,5 +35,5 @@ public class MyPage {
      * 따라서 하인 테이블 조회시 Fetch join을 쓰거나 단방향으로 수정해서 Lazy loading이 되도록 해야한다.
      */
     @OneToOne(mappedBy = "myPage") //mappedBy의 인자로 주인에서 FK로 묶은 필드 명 적어준다.
-    private Member member;
+    private Member1 member;
 }

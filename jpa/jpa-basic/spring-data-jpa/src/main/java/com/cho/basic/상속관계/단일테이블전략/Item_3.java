@@ -13,7 +13,7 @@ import javax.persistence.*;
 @DiscriminatorColumn // 하위 테이블의 구분 컬럼 생성(default = DTYPE)
 public class Item_3 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
     private String name;
     private int price;

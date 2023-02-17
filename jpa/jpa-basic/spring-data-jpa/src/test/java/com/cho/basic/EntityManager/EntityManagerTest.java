@@ -1,6 +1,6 @@
 package com.cho.basic.EntityManager;
 
-import com.cho.basic.연관관계매핑.OneToOne.Member;
+import com.cho.basic.연관관계매핑.OneToOne.Member1;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,7 +25,7 @@ public class EntityManagerTest {
         tx.begin();
 
         try {
-            Member member = new Member();
+            Member1 member = new Member1();
             member.setName("user-id");
 
             em.persist(member);

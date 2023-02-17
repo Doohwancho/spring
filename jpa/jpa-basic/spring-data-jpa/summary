@@ -1337,3 +1337,15 @@ ex. 글과 댓글
 소유자가 하나일 때. 굉장히 명확할 때에만 쓴다.
 
 
+
+---
+J. fetchJoin
+
+
+그냥 join은 sql날릴 때, join거는거고,
+fetchJoin은 값을 영속성 컨텍스트에 entity로 가져왔는데, Member:Team 처럼 join되있는 관계인 경우, 영속성 컨텍스트 상 join시켜줌.
+
+이게 뭔말이냐면, Member:Team = N:1 양방향일 때,
+jpql로 Team.members 가져와서 쓰고싶으면, 영속성 컨텍스트에서 join시켜주는 fetchJoin쓰고,
+그냥 Team만 가져와서 member와 상관 없는 처리만 하고싶으면 일반 join쓰면 됨.
+

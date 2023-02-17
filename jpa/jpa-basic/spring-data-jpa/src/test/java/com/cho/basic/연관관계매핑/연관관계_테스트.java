@@ -8,7 +8,7 @@ import com.cho.basic.연관관계매핑.ManyToOne.PhoneRepository;
 import com.cho.basic.연관관계매핑.ManyToOne.UserRepository;
 import com.cho.basic.연관관계매핑.ManyToOne.Phone;
 import com.cho.basic.연관관계매핑.ManyToOne.User;
-import com.cho.basic.연관관계매핑.OneToOne.Member;
+import com.cho.basic.연관관계매핑.OneToOne.Member1;
 import com.cho.basic.연관관계매핑.OneToOne.MyPage;
 
 
@@ -55,7 +55,7 @@ public class 연관관계_테스트 {
      */
     @Test
     public void 양방향_ONE_TO_ONE_테스트() throws Exception {
-        Member member = Member.builder()
+        Member1 member = Member1.builder()
                 .name("test")
                 .build();
 
@@ -70,7 +70,7 @@ public class 연관관계_테스트 {
         myPageRepository.save(myPage);
 
         // when
-        List<Member> list = memberRepository.findAll();
+        List<Member1> list = memberRepository.findAll();
         MyPage firstMyPage = list.get(0).getMyPage();
 
         // then
