@@ -37,7 +37,8 @@ a-12. 단방향, 양방향 :white_check_mark:\
 a-13. 연관관계의 주인 :white_check_mark:\
 a-14. 식별자 매핑 어노테이션 :white_check_mark:\
 a-15. 상속관계 :white_check_mark:\
-a-16. LAZY vs EAGER :white_check_mark:
+a-16. LAZY vs EAGER :white_check_mark:\
+a-17. persistence context: entity lifecycle :white_check_mark:
 
 x. Transactions\
 x. JPA 캐싱 규칙\
@@ -76,5 +77,6 @@ Reference
 5. [단방향, 양방향](https://jeong-pro.tistory.com/231)
 6. [김영한 jpa 책 요약](https://ict-nroo.tistory.com/category/ICT%20Eng/JPA?page=3)
 7. [jpa 상속관계](https://ict-nroo.tistory.com/128)
+8. [jpa 프로그래밍 기본기 다지기](https://ryan-han.com/post/dev/jpa_basics/)
 
 x-x. [amigoscode spring-data-jpa-course 뜯어보기](https://github.com/amigoscode/spring-data-jpa-course)

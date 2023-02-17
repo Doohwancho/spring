@@ -21,6 +21,8 @@ G. 상속관계
     c. TABLE_PER_CLASS 전략(비추)
 H. LAZY vs EAGER
 x. fetchJoin
+J. 영속성 컨텍스트
+	a. entity lifecycle
 x. CASCADE
 
 
@@ -156,6 +158,7 @@ Board.getPost() 기능이 필요해서, Board -> Post 참조했으면 단방향 
 근데 Post.getBoard() 기능도 필요해서, Post -> Board 까지 참조했으면 양방향 관계.
 
 
+
 Q. 왜 굳이 방향 개념이 있는거지?
 
 A. 예를들어, Member -> Book (Member:Book = 1:N) -> Library (Book:Library = N:1) 이런 관계일 때,
@@ -168,9 +171,26 @@ Member를 fetch하면, 둘이 연관만 되있으면 Member랑 관련된 Book도
 
 
 
+Q. jpa에서 양방향이란, 단방향 2개다(A->B, B<-A)
+
+주인에서는 @JoinColumn(name = "TEAM_ID") 으로,
+하인에서는 @OneToMany(mappedBy = "team") mappedBy로 방향을 서로 가르켜야 양방향이 된다.
+
+
+
+
+Q. 근데 Member:Team = N:1  양방향 관계에서, Member가 Team 객체 값을 변경시키거나, Team이 Member의 값을 변경시키려고 하면, 누구 말을 믿어야 함?
+
+
+그래서 둘 중 하나가 FK를 관리해야 한다.
+FK를 관리하는 쪽은 연관관계의 주인으로 만들어서 하인을 등록,수정,삭제 가능하게 하고,
+하인은 주인에 대해 조회만 가능하도록 한다.
+
+
 
 ---
 D. 연관관계의 주인
+
 
 주인이 FK를 관리(등록, 수정, 삭제)한다.
 따라서 주인은 FK를 가지고 있는 쪽이다.
@@ -226,7 +246,7 @@ N쪽이라 주인인 Member에서 Team을 @ManyToOne으로 묶어주고 있고,
 
 Q. 만약 하인쪽에 @OneToMany(mappedBy = "team")가 없었다면?
 A. 그러면 Member:Team = N:1 단방향 매핑이었겠지. 양방향이 아니라.
-만약 그랬다면,
+만약 단방향이 었다면,
 
 ```java
 Team team = new Team();
@@ -238,12 +258,26 @@ member.setName("member1");
 member.setTeam(team);
 em.persist(member);
 
+//case1)
 Member findMember = em.find(Member.class, member.getId());
-Team findTeam = findMember.getTeam();
+Team findTeam = findMember.getTeam(); //Member -> Team 찾는건 가능한데,
+
+
+//case2)
+team.getMembers().add(member);
+em.persist(member); //에러! 이 경우, TEAM_ID가 null이 됨.
 ```
 
 Member -> Team으로 단방향 @ManyToOne이니까, findMember.getTeam()으로 멤버에서 팀을 가져올 순 있었겠지만,
 팀에서 멤버를 가져오진 못했겠지.
+
+왜?
+Member:Team = N:1 단방향에서, Member가 N이니까 주인, 즉, FK를 관리함.
+Member에서 팀을 더할 순 있어도,
+팀에서 멤버를 더하진 못함.
+그러면 멤버에서 team attribute가 null로 들어가서 에러남.
+
+
 
 
 Q. Member:Team = N:1 양방향으로 매핑하고 싶다면?
@@ -1070,6 +1104,77 @@ Member query하면 Team까지 join해서 들고오니까,
 
 일종의 optimization.
 일단 전부 LAZY바르고, 아 얘는 항상 Team이랑 묶어서 쓰겠는데? 싶은것을 EAGER로 바꿔주자.
+
+
+
+---
+J. 영속성 컨텍스트
+
+
+
+a. entity lifecycle
+
+
+```java
+//case1) 객체를 생성한 상태(비영속, transient 상태)
+Member member = new Member();
+member.setId("memberId");
+member.setUsername("회원1");
+
+
+
+//case2) 영속(managed 상태)
+Member member = new Member();
+member.setId("memberId");
+member.setUsername("회원1");
+
+EntityManager em = emf.createEntityManager();
+em.getTransaction().begin();
+
+//객체를 저장한 상태(영속)
+em.persist(member);
+
+
+
+//case3) 준영속(detached)
+em.detach(member);
+
+
+//case4) 삭제(removed)
+em.remove(member);
+```
+
+
+jpa에는 총 4가지 상태가 있으며,
+em.persist로 EntityManager에 객체 저장한게 영속 상태.
+
+
+PersistenceContext에서는 1차 캐시,2차 캐시가 있는데,
+1차 캐시는 일반적인 캐시가 아니라, PersistentContext가 생성되고 없어질 떄 까지만 잠깐 존재함.
+
+
+ex.
+```java
+Member member = new Member();
+member.setId("member1");
+member.setUsername("회원1");
+
+//1차 캐시에 저장됌
+em.persist(member);
+
+//1차 캐시에서 조회
+Member a = em.find(Member.class, "member1");
+Member b = em.find(Member.class, "member2");
+
+System.out.println(a == b); // 동일성 비교 true -> 위에서 보았듯이 1차캐시가 있기 때문에
+
+```
+
+em.find()하면, db에서 가져오는게 아니라, 1차 캐시를 먼저 탐색 후, 존재하면 반환.
+1차 캐시에 없으면, db조회 후, 가져옴.
+
+
+
 
 
 
