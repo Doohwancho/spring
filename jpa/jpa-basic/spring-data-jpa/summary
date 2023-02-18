@@ -709,37 +709,32 @@ F. N+1 problem
 이때 발생하는 문제가 1 + N 쿼리 문제.
 
 
-example)
-Teacher - 단방향 - Subject - 양방향 - Academy = 1:N:1 관계에서,
-
-List<String> subjectNames = academyService.findAllSubjectNames(); 하면,
-1. academy 전체 조회하는 쿼리와
-2. 각각의 academy가 본인과 연관된 subject들을 조회하는 쿼리가 발생한다.
-
-이렇게, 하위 엔티티인 subject 하나만 가져오고 싶은데(1), subject랑 조인 된 내가 query하지 않은 sub에 붙은 10개의 Academy까지 쿼리함(N)
-
-지금은 Academy가 10개이니 첫조회(1) + 10개의 Academy의 subject 조회(10) = 11 밖에 발생하지 않았지만,
-만약 Academy 조회 결과가 10만개면 어떻게 될까요?
-한번의 서비스 로직 실행에서 DB 조회가 10만번 일어난다는건 말이 안되지 않을까요?
+1. JPQL을 사용할 때 em.createQuery("select m from Member m", Member.class)에서 우선 select 쿼리를 그대로 해석해서 일단 Member를 조회하는 select 쿼리가 나간다.
+2. 이후에 Member와 @ManyToOne 관계인 Team의 로딩전략이 EAGER인 것을 확인하고, Team을 조회하는 쿼리가 또 나간다.
+3. 그런데 이때 문제는 Member들이 속한 Team의 개수(N개)만큼 Team을 조회하는 쿼리가 나가는 것이다.
+4. 그래서 최초의 Member를 조회하는 쿼리 1개와 Team을 조회하는 N개 만큼의 쿼리가 나간다고 하여 N+1 문제라고 한다.
 
 
-해결책
 
-1. fetchJoin (가장 추천)
-원래대로라면 원하는 애 쿼리 한번에(1), 얘랑 관련된 애들 N개 꺼내오는게 문젠데,
-한번에 관련된 애들을 다 끌어오는 방법.
-
-
-2. FetchType.LAZY
-연관 객체를 프록시 객체로 치환하여 껍데기 객체로 대치하여 추후 직접적인 조회가 발생하면 가져오는 방식이다.
-꼭 필요할 때 까지 조회를 미루는 것이다.
-
+Q. 해결책?
+A. 우선 모든 연관관계를 지연로딩으로 깐다.
 쿼리 두번하잖아욧! -> FetchType.EAGER 로 하면 쿼리 한방에 다 가져오긴 하지. 근데 의도치 않게 많이 가져온다는게 문제지만.
 (참고로 일대일에서는 단방향 관계에서만 LAZY로딩이 가능하다. 양방향이면 LAZY로 해도 EAGER로 작동한다.)
 
 
-3. etc
-그 외에도 있지만 지금은 여기까지만..
+1. fetchJoin (가장 추천)
+
+`em.createQuery("select m from Member m join fetch m.team", Member.class);`
+
+LAZY로 설정되어있어도, 위의 쿼리에 따라 Member와 Team을 한방 쿼리로 가지고 온다.
+
+
+
+2. Entity Graph (어노테이션)
+
+3. Batch Size (N+1 -> 1+1)
+
+
 
 
 
