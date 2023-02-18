@@ -14,6 +14,7 @@ fields in persistence framework
 a. jpa\
 b. spring-data-jpa\
 c. queryDSL
+d. steal: jpashop
 
 
 
@@ -55,14 +56,9 @@ b-4. dynamic-insert-update :white_check_mark:\
 b-5. rollbackFor :white_check_mark:\
 
 
+d-1. jpashop initialize :white_check_mark:
 
----\
-?
-b. @Valid -> error handling :white_check_mark:\
-c. OneToMany :white_check_mark:\
-d. property environment :white_check_mark:\
-e. OneToOne :white_check_mark:\
-f. @Join거는 주체 :white_check_mark:
+
 
 
 
