@@ -64,7 +64,21 @@ K. JPQL
 6. ORM은 second level cache를 써야한다?
 	- 비추. 중요한 결과값, 최종본만 cache쓰고, 중간단계 짜잘짜잘한건 second cache 안쓰는게..
 	- 실무는 복잡하고, 정밀하게 second level cache hit시키는것도 복잡하니까 비추.
-
+7. 수 조 단위의 정산을 하는데, JPA로 다 처리한다.
+	- 크리티컬한 결제 같은 시스템도 JPA로 다 처리한다.
+	- SpringBoot + JPA + QueryDSL 기본으로 깔고 간다.
+	- 쿼리 때문에 문제 발생한 단 한번도 없다. 왜? 컴파일 시점에 대부분 오류 발견하니까.
+	- 늦어도 application loading 시점에 발견한다.
+8. 테스트는 통합 테스트 때 CRUD 믿고 간다.
+	- 이런거 테스트할 시간에 CRUD 믿고, 핵심 비즈니스 테스트 코드 열심히 짜자.
+	- 대부분 비즈니스 로직 오류다.
+9. 대부분 성능 이슈는 JPA 자체 성능 보다는 JPA를 잘 이해하지 못해서 발생한다.
+	- 즉시 로딩: 쿼리가 튄다 -> 지연 로딩으로 변경
+	- N+1 문제 -> 대부분 fetchJoin으로 해결됨. (sql base로 짰다면 프로젝트 갈아 엎어야 함)
+	- 하나에 쿼리에 집중해서 성능 고민하는 식으로 개발하지 말고, jpa로 빠르게 개발하고, 실제 성능 테스트 돌린 후, 병목 발생하는 구간들을 찾아 고 부분만 변경하는 식으로 개발!
+10. 통계 쿼리처럼 매우 복잡한 SQL은 거의 다 QueryDSL로 처리하고, DTO로 뽑아낸다. 정말 안될 경우에 만 네이티브 쿼리 사용한다.
+11. 학습 곡선이 높다던데요?
+	- 일주일 공부하고 평생(?) 편하자.
 
 
 
@@ -690,33 +704,42 @@ N+1 problem문제를 보면, orm 특성상 쿼리시 객체에 연관되있으�
 ---
 F. N+1 problem
 
+
 연관관계를 갖고있는 객체를 조회하면 JPA는 해당 객체가 들고있는 연관관계의 객체들을 모두 조회해서 끌고오게 된다.
 이때 발생하는 문제가 1 + N 쿼리 문제.
 
+
 example)
-하나의 서점을 조회했는데 해당 객체가 3개의 책을 갖고있고 각 책들은 2개의 편집자 정보를 갖고있다고 해보자.
+Teacher - 단방향 - Subject - 양방향 - Academy = 1:N:1 관계에서,
 
-그럼 서점 -> 책 -> 편집자 정보로 이어지는 조회가 발생하게 된다.
-따라서 1번 (서점) + 3번 (책) + 6번 (편집자) 해서 총 1 + 9번의 쿼리가 발생하게 된다.
-따라서 일대다 방식에서는 Lazy 방식을 지향한다.
+List<String> subjectNames = academyService.findAllSubjectNames(); 하면,
+1. academy 전체 조회하는 쿼리와
+2. 각각의 academy가 본인과 연관된 subject들을 조회하는 쿼리가 발생한다.
+
+이렇게, 하위 엔티티인 subject 하나만 가져오고 싶은데(1), subject랑 조인 된 내가 query하지 않은 sub에 붙은 10개의 Academy까지 쿼리함(N)
+
+지금은 Academy가 10개이니 첫조회(1) + 10개의 Academy의 subject 조회(10) = 11 밖에 발생하지 않았지만,
+만약 Academy 조회 결과가 10만개면 어떻게 될까요?
+한번의 서비스 로직 실행에서 DB 조회가 10만번 일어난다는건 말이 안되지 않을까요?
 
 
+해결책
 
-Solutions
+1. fetchJoin (가장 추천)
+원래대로라면 원하는 애 쿼리 한번에(1), 얘랑 관련된 애들 N개 꺼내오는게 문젠데,
+한번에 관련된 애들을 다 끌어오는 방법.
 
-1. 즉시로딩 _ (FetchType.EAGER)
-연관된 객체를 즉시 가져오는 방식이다.
-연관된 객체가 사용되지 않더라도 일단 모두 조회해온다.
 
-2. 지연로딩 _ (FetchType.LAZY)
+2. FetchType.LAZY
 연관 객체를 프록시 객체로 치환하여 껍데기 객체로 대치하여 추후 직접적인 조회가 발생하면 가져오는 방식이다.
 꼭 필요할 때 까지 조회를 미루는 것이다.
 
 쿼리 두번하잖아욧! -> FetchType.EAGER 로 하면 쿼리 한방에 다 가져오긴 하지. 근데 의도치 않게 많이 가져온다는게 문제지만.
-
 (참고로 일대일에서는 단방향 관계에서만 LAZY로딩이 가능하다. 양방향이면 LAZY로 해도 EAGER로 작동한다.)
-(단방향: TableA가 TableB의 FK 가지는 것. 양방향: TableA, TableB가 서로의 FK를 가지는 것)
 
+
+3. etc
+그 외에도 있지만 지금은 여기까지만..
 
 
 
@@ -1208,9 +1231,9 @@ em.persist(memberB);
 transaction.commit(); // [트랜잭션] 커밋
 ```
 
-1. em.persist(memberA); 하면, memberA를 1차 캐시에 저장함과 동시에 INSERT SQL 문 생성해서 '쓰기 지연 SQL 저장소'에 말아 놓음.
+1. em.persist(memberA); 하면, memberA를 1차 캐시에 저장함과 동시에 INSERT SQL 문 생성해서 '쓰기 지연 SQL 저장소'에 말아 놓음. (만약 memberA 필요하면, db io 안하고 1차캐쉬에서 가져오겠지)
 2. em.persist(memeberB); 할 때에도, sql INSERT query 안날림.
-3. transaction.commit(); 시, transactional write-behind에 있던 INSERT SQL문들을 동시에|하나씩 날림.
+3. transaction.commit(); 시, commit안에 flush()할 떄, transactional write-behind에 있던 INSERT SQL문들을 동시에|하나씩 날림.
 
 write-behind에 있던 sql문 날리는걸 flush()라고 함.
 flush()한다고 1차 cache가 지워지는건 아니고, query 보내서 persistence context와 db의 sync 맞추는 것.
@@ -1246,11 +1269,13 @@ transaction.commit(); // [트랜잭션] 커밋
 
 Q. setter로 수정하면 무슨일이 일어나지? update query 나가나?
 1. jpa는 트랜잭션이 commit되는 시점에 1차 캐시 뿐만 아니라, 스냅샷도 생성한다.
-2. commit()으로 flush()하면, persistence context에서 관리되는 entity 들을 snapshot과 비교해 바뀐 부분이 있으면 UPDATE query를 db에 보내고 commit한다.
+2. commit()으로 flush()하면, persistence context에서 관리되는 entity 들을 원본 snapshot과 비교해, 바뀐 부분이 있으면 UPDATE query를 db에 보내고 commit한다.
 
 
 Q. 왜 이렇게 할까?
 attributes 10번 바꾼다고 하면, 10번 동안 개별로 update query 날릴거 아니잖아.
+그래서 flush()되는 시점까지 write-behind에 예비 sql query문 꽁쳐놨다가,
+setter로 수정 다 끝나서 commit()안에 flush() 되면, 그제서야 원본 스냅샷이랑 바뀐 엔티티랑 비교해서 달라졌으면 update query 날리는 식.
 
 
 
@@ -1348,4 +1373,16 @@ fetchJoin은 값을 영속성 컨텍스트에 entity로 가져왔는데, Member:
 이게 뭔말이냐면, Member:Team = N:1 양방향일 때,
 jpql로 Team.members 가져와서 쓰고싶으면, 영속성 컨텍스트에서 join시켜주는 fetchJoin쓰고,
 그냥 Team만 가져와서 member와 상관 없는 처리만 하고싶으면 일반 join쓰면 됨.
+
+
+
+김영한 피셜:
+결국 한방쿼리로 필요한거 다 가져올 때 쓰임.
+실무에서 정말 많이 쓰임.
+대부분의 성능 최적화에서 이걸 많이 씀. 90% 이상.
+
+
+fetchJoin과 EntityGraph는 사실 똑같은 기능.
+EntityGraph는 항상 leftJoin으로 들어가는게 단점이라면 단점, 대신 장점은 편하다.
+
 

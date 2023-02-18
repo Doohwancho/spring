@@ -48,14 +48,6 @@ a-23. CASCADE :white_check_mark:\
 a-24. join vs fetchJoin :white_check_mark:
 
 
-x. Transactions\
-x. JPA 캐싱 규칙\
-x. 쿼리가 생성 되는 규칙\
-x. 쿼리 로깅 트랜잭션 처리 과정\
-x. entity life cycle(from hibernates)\
-x. 즉시로딩: 쿼리가 튐 -> 지연로딩으로 변경
-
-
 
 b-1. paging & sorting\
 b-3. bulk insert :white_check_mark:\
