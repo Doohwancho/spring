@@ -7,7 +7,8 @@ B. jpql conditional 처리\
 C. Criteria\
 D. java generics 활용 on Controller\
 E. flush()\
-F. controller에서 파라미터로 받은 객체는 영속성 객체가 아니다
+F. controller에서 파라미터로 받은 객체는 영속성 객체가 아니다\
+G. update시 팁: merge 보다는 find() 후 setter 하고 냅둬
 
 
 
@@ -233,5 +234,48 @@ public String updateItem(@PathVariable("itemId") Long itemId, @ModelAttribute("f
 - Book객체랑 똑같은 attribute 가지고 있는 BookForm 객체를 받아도,
 얘를 고대로 itemService.saveItem(bookForm); 하면, 영속성 객체 아니라고, detached 객체 넣는다고 에러남!
 - 따라서 new Book();으로 영속성 entity인 객체를 새롭게 만들어서 db에 넣어야 함.  
+
+
+---
+G. update시 팁: merge 보다는 find() 후 setter 하고 냅둬
+
+
+MemberService.java에서,
+
+```java
+@Transactional
+void update(Member param) {
+    Member member = em.merge(param);
+}
+```
+
+해도 가능은 한데, 비추인 이유
+
+1. merge() 메서드는 파라미터로 받은 준영속 엔티티의 id(식별자) 값으로 엔티티를 조회한다.
+   만일, 영속성 컨텍스트에서 찾았다면 해당 엔티티를 반환하고 없으면 DB에서 해당 식별자로 조회해온 후 영속성 컨텍스트에 올린 후 반환한다.
+2. 조회한 영속 엔티티를 준영속 엔티티 값으로 모두 교체(병합) 
+   1. 여기가 문제가 되는 지점
+   2. 원하는 필드만 바꿀 수 있는게 아니라 모든 속성이 준영속 엔티티 값으로 교체됨
+   3. 만일 정책상 상품 이름은 등록 후 수정이 안된다고 할 때 수정 필드가 없을텐데 그러면 필드에서 받은 값으로 만든 준영속 상태 엔티티는 name 이 비어있을 것. 
+   4. 그러면 영속 상태의 엔티티도 null로 업데이트 쳐버린다.
+3. 영속 상태인 병합된 엔티티를 반환
+
+
+그러니까, update시, merge() 하지 말고,
+
+MemberService.java
+```java
+@Transactional
+public void update(Long id, String name) {
+    Member member = memberRepository.findOne(id);
+    member.setName(name);
+}
+```
+
+find로 영속성 컨텍스트에서 entity 조회 후, setter로 원하는 필드만 바꾸면, transaction이 끝나는 시점에 flush()됨.
+
+그리고 이 방법을 쓰면, controller -> service 단으로 Member 객체 정보 다 담을 필요 없고, DTO에 MemberId랑 업데이트 필요한 attribute만 담아 보내면 됨.
+
+
 
 

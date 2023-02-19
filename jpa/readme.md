@@ -62,7 +62,8 @@ d-3. jpql 조건에 따른 처리 :white_check_mark:\
 d-4. Criteria 구경하기 :white_check_mark:\
 d-5. java generics used for controller layer Response Object :white_check_mark:\
 d-6. flush() :white_check_mark:\
-d-7. controller에서 파라미터로 받은 객체는 영속성 객체가 아니다 :white_check_mark:
+d-7. controller에서 파라미터로 받은 객체는 영속성 객체가 아니다 :white_check_mark:\
+d-8. update시 팁: merge 보다는 find() 후 setter 하고 냅둬 :white_check_mark:
 
 
 
