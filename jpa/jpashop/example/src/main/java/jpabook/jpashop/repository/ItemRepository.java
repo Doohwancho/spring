@@ -15,9 +15,9 @@ public class ItemRepository {
 
     public void save(Item item) {
         if (item.getId() == null) {
-            em.persist(item);
+            em.persist(item); //Em.persist() is used to 'store a new entity' in the database.
         } else {
-            em.merge(item);
+            em.merge(item); //Em.merge() is used to 'update' an existing entity in the database.
         }
     }
 
@@ -26,7 +26,7 @@ public class ItemRepository {
     }
 
     public List<Item> findAll() {
-        return em.createQuery("select i from Item i", Item.class)
+        return em.createQuery("select i from Item i", Item.class) //jpql이라서 그런지 select * from Item이 아니네? 문법이 다른가보다.
                 .getResultList();
     }
 }

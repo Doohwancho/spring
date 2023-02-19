@@ -3,7 +3,8 @@ Index
 
 
 A. entity modeling
-
+B. jpql conditional 처리
+C. Criteria
 
 
 
@@ -74,4 +75,90 @@ entity 설계시 주의점
    - 만일 내가 연관관계에 필요한 entity 를 한번에 가져오고 싶은경우?  => FETCH JOIN 을 사용하자. EAGER 를 고려하지 말자.
 4. Collection은 필드에서 초기화 하자!
  
+
+
+
+---
+B. JPQL conditional 처리
+
+
+```java
+public List<Order> findAllByString(OrderSearch orderSearch) {
+    String jpql = "select o from Order o join o.member m"; //jpql에서는 조인을 이런식으로 하는구나. 이미 Member:Order = 1:N 양방향 관계인데, 이미 join맺어진 걸 가르키는 구나.
+
+    boolean isFirstCondition = true;
+
+    if (orderSearch.getOrderStatus() != null) {
+        jpql += " where o.status = :status"; //아 조건에 부합하지 않으면, 이런식으로 jpql을 붙이네?
+    }
+
+    if (StringUtils.hasText(orderSearch.getMemberName())) {
+        if (isFirstCondition) {
+            jpql += " where";
+            isFirstCondition = false;
+        } else {
+            jpql += " and";
+        }
+
+        jpql += " m.name like :name";
+    }
+
+    TypedQuery<Order> query = em.createQuery(jpql, Order.class)
+            .setMaxResults(1000);
+
+    if (orderSearch.getOrderStatus() != null) {
+        query.setParameter("status", orderSearch.getOrderStatus());
+    }
+
+    if (StringUtils.hasText(orderSearch.getMemberName())) {
+        query.setParameter("name", orderSearch.getMemberName());
+    }
+
+    return query.getResultList();
+}
+```
+
+조건식에 맞춰서 String concat을 이용해 jpql문을 붙였다 띄었다 가능하네?
+그리고 .setParameter()로 name을 jpql문에 :name으로 넣네?
+
+
+---
+C. Criteria
+
+
+김영한 피셜, 현업에서는 Criteria 너무 비직관적/복잡해서 queryDSL 위주로 쓴다고 하는데,
+그래도 어떻게 생겨먹었는지 인지할 순 있어야겠지?
+
+```java 
+public List<Order> findAllByCriteria(OrderSearch orderSearch) {
+
+    CriteriaBuilder cb = em.getCriteriaBuilder();
+    CriteriaQuery<Order> cq = cb.createQuery(Order.class);
+    Root<Order> o = cq.from(Order.class);
+    Join<Order, Member> m = o.join("member", JoinType.INNER);
+
+    List<Predicate> criteria = new ArrayList<>();
+
+    if (orderSearch.getOrderStatus() != null) {
+        Predicate status = cb.equal(o.get("status"), orderSearch.getOrderStatus());
+        criteria.add(status);
+    }
+
+    if (orderSearch.getMemberName() != null) {
+        Predicate name = cb.like(m.<String>get("name"), "%" + orderSearch.getMemberName() + "%");
+        criteria.add(name);
+    }
+
+    cq.where(cb.and(criteria.toArray(new Predicate[criteria.size()])));
+    TypedQuery<Order> query = em.createQuery(cq).setMaxResults(1000);
+
+    return query.getResultList();
+}
+```
+
+음.. 이것도 나름 가독성 좋으라고 깎고 깎은 코드일텐데,
+조잡하게 보이는걸 보면, 왜 queryDSL 쓰는지 알 것 같네.
+new Predicate[]는 또 뭐지? 객체 생성이 왜 ()가 아니고 []로 받지?
+
+
 

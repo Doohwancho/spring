@@ -28,12 +28,12 @@ public class OrderRepository {
     }
 
     public List<Order> findAllByString(OrderSearch orderSearch) {
-        String jpql = "select o from Order o join o.member m";
+        String jpql = "select o from Order o join o.member m"; //jpql에서는 조인을 이런식으로 하는구나. 이미 Member:Order = 1:N 양방향 관계인데, 이미 join맺어진 걸 가르키는 구나.
 
         boolean isFirstCondition = true;
 
         if (orderSearch.getOrderStatus() != null) {
-            jpql += " where o.status = :status";
+            jpql += " where o.status = :status"; //아 조건에 부합하지 않으면, 이런식으로 jpql을 붙이네?
         }
 
         if (StringUtils.hasText(orderSearch.getMemberName())) {

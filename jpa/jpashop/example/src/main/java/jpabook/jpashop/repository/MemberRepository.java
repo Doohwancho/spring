@@ -27,8 +27,8 @@ public class MemberRepository {
     }
 
     public List<Member> findByName(String name) {
-        return em.createQuery("select m from Member m where m.name = :name", Member.class)
-                .setParameter("name", name)
+        return em.createQuery("select m from Member m where m.name = :name", Member.class) //:name은 파라미터로 받은 name을 가르키는 듯?
+                .setParameter("name", name) //아 setParameter로 지정해 주네.
                 .getResultList();
     }
 }
