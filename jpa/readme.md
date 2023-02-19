@@ -46,7 +46,8 @@ a-20. persistence context: pros - dirty checking :white_check_mark:\
 a-21. persistence context: flush() :white_check_mark:\
 a-22. persistence context: 준영속 상태(detached state) :white_check_mark:\
 a-23. CASCADE :white_check_mark:\
-a-24. join vs fetchJoin :white_check_mark:
+a-24. join vs fetchJoin :white_check_mark:\
+a-25. OSIV(open session in view) :white_check_mark:
 
 
 

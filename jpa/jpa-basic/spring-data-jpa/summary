@@ -32,7 +32,9 @@ H. 영속성 컨텍스트
 	g. 준영속 상태(detached state)
 I. CASCADE
 J. fetchJoin
-K. JPQL
+K. OSIV(open session in view)
+x. JPQL
+
 
 
 
@@ -1381,3 +1383,18 @@ fetchJoin과 EntityGraph는 사실 똑같은 기능.
 EntityGraph는 항상 leftJoin으로 들어가는게 단점이라면 단점, 대신 장점은 편하다.
 
 
+
+
+---
+K. OSIV
+
+
+spring.jpa.open-in-view 설정을 통해 한다. 기본값은 true 이다.
+
+session 은 DB 커넥션을 의미한다. open session in view 라는 의미는 DB 커넥션을 @Transactional 이 끝나도 반환하지 않고, 실제 응답이 나갈 때 까지 (view 또는 api 반환) DB 커넥션을 잡고 있는 것이다.
+
+이 기능이 켜져있으면 @Transactional 의 바깥 (일반적으로 서비스에 @Transactional 걸게 되므로 Controller, Filter 등)에서도 DB커넥션이 에서 살아 있게 되어 영속성 컨텍스트도 살아있으므로, 지연로딩을 할 수 있게된다.
+
+당연히 DB 커넥션을 오래잡고있는 만큼 쓰레드 수가 많아지면 커넥션이 말라버릴 수 있다.
+그래서 성능을 생각한다면 OSIV 를 끄는 편이다.
+OSIV를 false 주면 지연로딩 없도록 @Transactional 내부로 다 밀어넣던지 쿼리용 서비스를 따로 만들어야 한다.
