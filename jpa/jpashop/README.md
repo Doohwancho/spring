@@ -6,7 +6,8 @@ A. entity modeling\
 B. jpql conditional 처리\
 C. Criteria\
 D. java generics 활용 on Controller\
-E. flush()
+E. flush()\
+F. controller에서 파라미터로 받은 객체는 영속성 객체가 아니다
 
 
 
@@ -206,5 +207,31 @@ flush() synchronize the persistence context to the underlying database. It force
 
 그래야 그 다음 코드인 assertEquals(member, memberRepository.findOne(savedId)); 을 했을 때, db에서 실제 값이 있어야 땡겨올 수 있지.
 
+---
+F. controller에서 파라미터로 받은 객체는 영속성 객체가 아니다.
+
+
+ItemController.java
+```java
+@PostMapping("/items/{itemId}/edit")
+public String updateItem(@PathVariable("itemId") Long itemId, @ModelAttribute("form") BookForm form) {
+
+    Book book = new Book();
+    book.setId(form.getId());
+    book.setName(form.getName());
+    book.setPrice(form.getPrice());
+    book.setStockQuantity(form.getStockQuantity());
+    book.setAuthor(form.getAuthor());
+    book.setIsbn(form.getIsbn());
+
+    itemService.saveItem(book);
+
+    return "redirect:/items";
+}
+```
+
+- Book객체랑 똑같은 attribute 가지고 있는 BookForm 객체를 받아도,
+얘를 고대로 itemService.saveItem(bookForm); 하면, 영속성 객체 아니라고, detached 객체 넣는다고 에러남!
+- 따라서 new Book();으로 영속성 entity인 객체를 새롭게 만들어서 db에 넣어야 함.  
 
 
