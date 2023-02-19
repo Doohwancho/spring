@@ -44,7 +44,7 @@ public class MemberServiceTest {
         Long savedId = memberService.join(member);
 
         //then
-        em.flush();
+        em.flush(); //flush() synchronize the persistence context to the underlying database. It forces any pending changes to be written to the database immediately and also flushes the EntityManager's internal cache.
         assertEquals(member, memberRepository.findOne(savedId));
     }
 
@@ -63,6 +63,5 @@ public class MemberServiceTest {
             memberService.join(member1);
             memberService.join(member2);
         });
-//        fail("예외가 발생해야 한다.");
     }
 }

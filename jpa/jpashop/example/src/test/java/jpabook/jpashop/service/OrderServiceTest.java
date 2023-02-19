@@ -100,7 +100,7 @@ public class OrderServiceTest {
         book.setName(name);
         book.setPrice(price);
         book.setStockQuantity(stockQuantity);
-        em.persist(book);
+        em.persist(book); //em.persist(book);은 jpa 1st layer cache엔 들고있지만, transaction이 끝날 때 까지 db에 INSERT query 날리진 않는다.
         return book;
     }
 
@@ -108,7 +108,7 @@ public class OrderServiceTest {
         Member member = new Member();
         member.setName(name);
         member.setAddress(new Address(city, street, zipcode));
-        em.persist(member);
+        em.persist(member); //em.persist(member);은 jpa 1st layer cache엔 들고있지만, transaction이 끝날 때 까지 db에 INSERT query 날리진 않는다.
         return member;
     }
 }

@@ -2,9 +2,11 @@
 Index
 
 
-A. entity modeling
-B. jpql conditional 처리
-C. Criteria
+A. entity modeling\
+B. jpql conditional 처리\
+C. Criteria\
+D. java generics 활용 on Controller\
+E. flush()
 
 
 
@@ -159,6 +161,50 @@ public List<Order> findAllByCriteria(OrderSearch orderSearch) {
 음.. 이것도 나름 가독성 좋으라고 깎고 깎은 코드일텐데,
 조잡하게 보이는걸 보면, 왜 queryDSL 쓰는지 알 것 같네.
 new Predicate[]는 또 뭐지? 객체 생성이 왜 ()가 아니고 []로 받지?
+
+
+
+---
+D. java generics on Controller layer 
+
+MemberApiController.java에서, List<Member> 결과 값 과, 사이즈를 한 객체에 담아 반환을 generic을 이용해 처리함.
+```java
+@GetMapping("/api/v1/members")
+public List<Member> membersV1() {
+    return memberService.findMembers();
+}
+
+@GetMapping("/api/v2/members")
+public Result membersV2() {
+    List<Member> findMembers = memberService.findMembers();
+    List<MemberDto> collect = findMembers.stream()
+            .map(m -> new MemberDto(m.getName()))
+            .collect(Collectors.toList());
+
+    return new Result(collect.size(), collect);
+}
+
+@Data
+@AllArgsConstructor
+static class Result<T> {
+    private int count;
+    private T data;
+}
+```
+
+
+
+---
+E. flush()
+
+
+Q. MemberServiceTest.java에서, 그냥 Long savedId = memberService.join(member); 만 하면 되는데, em.flush(); 도 따로 해주네, 왜지?
+
+A. write-behind에 sql문 담기고 아직 db에 안쏜 상태 예방하려고구나.
+
+flush() synchronize the persistence context to the underlying database. It forces any pending changes to be written to the database immediately and also flushes the EntityManager's internal cache.
+
+그래야 그 다음 코드인 assertEquals(member, memberRepository.findOne(savedId)); 을 했을 때, db에서 실제 값이 있어야 땡겨올 수 있지.
 
 
 
