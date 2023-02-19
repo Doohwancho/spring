@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "dtype")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE) //join말고 성능상 이점 살리려고, 한 테이블에 자식들과 함께 다 때려박음
+@DiscriminatorColumn(name = "dtype") //@DiscriminatorColumn은 상속관계에 쓰임. db에서 query로 꺼낼 때, 구분자의 역할.
 @Getter @Setter
 public abstract class Item {
 

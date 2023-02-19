@@ -56,7 +56,8 @@ b-4. dynamic-insert-update :white_check_mark:\
 b-5. rollbackFor :white_check_mark:\
 
 
-d-1. jpashop initialize :white_check_mark:
+d-1. jpashop initialize :white_check_mark:\
+d-2. entity modeling :white_check_mark:
 
 
 
