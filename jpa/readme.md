@@ -52,8 +52,8 @@ a-24. join vs fetchJoin :white_check_mark:\
 a-25. OSIV(open session in view) :white_check_mark:
 
 
-
 c-1. init queryDSL :white_check_mark:
+
 
 d-1. jpashop initialize :white_check_mark:\
 d-2. entity modeling :white_check_mark:\
@@ -65,10 +65,16 @@ d-7. controller에서 파라미터로 받은 객체는 영속성 객체가 아�
 d-8. update시 팁: merge 보다는 find() 후 setter 하고 냅둬 :white_check_mark:
 
 
-e-1. init jpa-best-practices-cheese-yun :white_check_mark:
+e-1. init jpa-best-practices-cheese-yun :white_check_mark:\
+e-2. Coupon:Order(주인) = 1:1, 양방향 :white_check_mark:\
+e-3. Paging(+ queryDSL on service) :white_check_mark:\
+e-4. Querydsl를 이용해서 Repository 확장하기 :white_check_mark:\
+e-5. 비밀번호 요구사항을 DDD하게 처리 :white_check_mark:\
+e-6. @Setter 대체 방법 :white_check_mark:\
+e-7. properties 설정값 가져오기 :white_check_mark:
 
 
-f-1. paging & sorting\
+f-1. paging & sorting :white_check_mark:\
 f-2. bulk insert :white_check_mark:\
 f-3. dynamic-insert-update :white_check_mark:\
 f-4. rollbackFor :white_check_mark:\

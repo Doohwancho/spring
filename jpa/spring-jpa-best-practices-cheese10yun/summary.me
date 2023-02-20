@@ -2,393 +2,125 @@
 ---
 Index
 
-A. annotations
-B-1. @Valid -> error 처리
-B-2. @Embeddable로 Address, Email, Password 객체화
-C-1. OneToMany
-D-1. application.yml에서 property, env 값 가져오기
-E. OneToOne
-F. @Join 거는 주체 in 1:1 || 1:M 관계
-G. Paging
-H-1. queryDSL 맛보기
-H-2. Querydsl를 이용해서 Repository 확장하기
 
+A. Coupon:Order(주인) = 1:1, 양방향
+B. Paging(+ queryDSL on service)
+C. Querydsl를 이용해서 Repository 확장하기
+D. 비밀번호 요구사항을 DDD하게 처리
+E. @Setter 대체 방법
+F. properties 설정값 가져오기
 
 
 
 ---
-A. annotations
-
-a. VO on class
-@Entity
-@Table(name = "account")
-
-
-b. VO on fields
-@Id
-@GeneratedValue - auto-increment
-@Email
-@Column(name = "email", nullable = false, unique = true) - db 제약사항 설정
-@NotEmpty
-@Temporal(TemporalType.TIMESTAMP)
-@CreationTimestamp - 생성시 jvm 시간 기준으로 Timestamp 생성
-@UpdateTimestamp - update시 jvm 시간 기준으로 Timestamp 생성
-
-
-
-
----
-B-1. @Valid -> error 처리
-
-
-vo에 @NotEmpty같은 조건 달고,
-controller 파라미터에 @Valid 달아서, 조건에 부합하는지 체크,
-틀리면, error 처리를 하는데,
-@ControllerAdvice 를 써서 ErrorExceptionController로 컨트롤러에 프록시 담.
-특정 exception이 발생하면, 캐치해서 에러 처리해주는 함수 작성. (ex. @ExceptionHandler(EmailDuplicationException.class)가 캐치)
-
-
-Q. 근데 왜 별개로 에러 처리해줘야해? 기본 기능 쓰면 안돼?
-A.
-기본 에러 response엔 시스템 정보같은 보여주기 껄끄러운 정보들도 잡다하게 들어가있고, 포멧도 제각각임.
-결국 error response 처리를 프론트엔드에서 해줘야 하는데, 포멧 통일시켜주려면, 커스텀으로 만드는게 좋다.
-error response template은 ErrorResponse.java임.
-
-
-example)
-
-swagger2로 post register에 다음과 같이 필드 하나 빼고 보내면, (firstname이 비어있음)
-
-{
-  "address1": "address1",
-  "address2": "address2",
-  "email": "mail@gmail.com",
-  "firstName": "",
-  "lastName": "cho",
-  "password": "1234",
-  "zip": "zip code"
-}
-
-
-controller에 @Valid에서 제한사항 체크 중, @NotNull에 걸려서,
-
-{
-  "message": "입력값이 올바르지 않습니다.",
-  "code": "???",
-  "status": 400,
-  "errors": [
-    {
-      "field": "firstName",
-      "value": "",
-      "reason": "반드시 값이 존재하고 길이 혹은 크기가 0보다 커야 합니다."
-    }
-  ]
-}
-
-이런 response가 날아옴.
-message에 "입력값이 올바르지 않습니다." 는 ErrorCode.java에서 옴
-
-
-
----
-B-2. @Embeddable로 Address, Email, Password 객체화
-
-
-
-원래 dto가 이렇게 생겼잖아?
-
-{
-  "address1": "address1",
-  "address2": "address2",
-  "email": "mail@gmail.com",
-  "firstName": "doohwan",
-  "lastName": "cho",
-  "password": "1234",
-  "zip": "zip code"
-}
-
-
-근데 여기서 address, password, email을 한단계 더 객체화 시켜서, 관리하는 것.
-그럼 구조가 이렇게 됨.
-
-{
-  "address": {
-    "address1": "address1",
-    "address2": "address2",
-    "zip": "zip code"
-  },
-  "email": {
-    "address": "string"
-  },
-  "firstName": "string",
-  "lastName": "string",
-  "password": {
-    "expiration": true,
-    "expirationDate": "2022-10-17T09:30:06.848Z",
-    "failedCount": 0,
-    "ttl": 0,
-    "value": "1234"
-  }
-}
-
-근데 왜 굳이 이렇게 객체화 또 시킴?
-
-Address같은 경우에, address1, address2, zip 통합관리 해줘야 하잖아.
-Password도 보면, BCryptPasswordEncoder로 encrypt하고 복호화 하고 처리하는 로직 다른 클래스에서 관리 안하고, 여기에서 비밀번호 값과 관리 메서드 일괄관리하는 것.
-
-
-여튼 swagger2로 register하면, 이렇게 response 옴
-
-{
-  "email": {
-    "address": "mail@gmail.com"
-  },
-  "password": {
-    "value": "$2a$10$91xowRb891uwr7h90qwZCOU7B54.RnihsPukMKWRxF1wblVV2KGG.",
-    "expirationDate": {
-      "dayOfYear": 304,
-      "dayOfWeek": "MONDAY",
-      "month": "OCTOBER",
-      "dayOfMonth": 31,
-      "hour": 18,
-      "minute": 31,
-      "second": 2,
-      "nano": 263000000,
-      "year": 2022,
-      "monthValue": 10,
-      "chronology": {
-        "id": "ISO",
-        "calendarType": "iso8601"
-      }
-    },
-    "failedCount": 0,
-    "ttl": 1209604,
-    "expiration": false
-  },
-  "firstName": "doohwan",
-  "lastName": "cho",
-  "address": {
-    "address1": "address1",
-    "address2": "address2",
-    "zip": "zip code"
-  }
-}
-
-
-AccountDto.Res에서 password만 숨기면 딱이겠다.
-
-
----
-C-1. OneToMany
-
-
-배송과 배송로그의 관계는 1:M 관계. 고로 json에서 이렇게 표기됨.
-
-{
-  "address": {
-    "address1": "서울 특별시...",
-    "address2": "신림 ....",
-    "zip": "020...."
-  },
-  "logs": [
-    {
-      "status": "PENDING" //#1
-    },
-    {
-      "status": "DELIVERING" //#2
-    },
-    {
-      "status": "COMPLETED" //#3
-    }
-  ]
-}
-
-
-DeliveryLog는 Delivery에서 private List<DeliveryLog> logs = new ArrayList<>(); 이런식으로 관리됨.
-
-
-Delivery를 까보면,
-@OneToMany(mappedBy = "delivery", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.EAGER)
-private List<DeliveryLog> logs = new ArrayList<>();
-
-
-@OneToMany 붙어잇고,
-orphanRemoval = true 인걸 보니, 부모인 Delivery가 지워지면, 거기에 1:M으로 묶여있던 자식들 죄다 삭제하라는 말인 듯?
-delete on cascade 였나.
-
-
-cascade = CascadeType.PERSIST는 뭐지?
-자식들 .add()하는거 트랜젝션 관련 코드인 듯?
-
-// cascade 없는 경우
-Hibernate: insert into delivery (id, address1, address2, zip, created_at, update_at) values (null, ?, ?, ?, ?, ?)
-
-// cascade PERSIST 설정 했을 경우
-Hibernate: insert into delivery (id, address1, address2, zip, created_at, update_at) values (null, ?, ?, ?, ?, ?)
-Hibernate: insert into delivery_log (id, created_at, update_at, delivery_id, status) values (null, ?, ?, ?, ?)
-
-맞네.
-
-
-
-
-fetch = FetchType.EAGER는 근데 뭐지?
-lazy loading, eager loading 있는데,
-lazy loading은 부모 자식 1:M 관계에서, 자식들을 프록시로 lazy load하고, 실제 쓸 때, 조회함.
-eager loading은 원래대로 다 쿼리해오고.
-
-
-
-다음으로 DeliveryLog를 까보면,
-
-@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-@ManyToOne   <--------- 이게 붙어있네?
-@JoinColumn(name = "delivery_id", nullable = false, updatable = false)
-private Delivery delivery;
-
-자식 입장에서 부모는 M:1이니까 @ManyToOne인 듯.
-@JoinColumn은 자식이 부모의 delivery_id인 FK 가지고 있는걸 저렇게 표현한 듯?
-
-
-DeliveryLog의 메서드 보면, cancel()같은 애들은 자기가 자기 케어함.
-jpa에서 객체는 자기 스스로 관리하는 방식으로 짜는 듯
-
-
-
----
-D-1. application.yml에서 property, env 값 가져오기
-
-
-not to do) AntiSamplePropertiesRunner.java
-
-왜 안티패턴임?
-자료형 바인딩 문제 때문.
-
-
-SampleProperties에선 커스텀으로 정의한 @Email도 쓸 수 있잖어.
-data-jackson-binding의 도움을 받을 수 있음.
-
-
-
-
----
-D-2. local, dev, production 환경 나눠서 관리하기.
-
-공통사항만 application.yml에 남기고,
-나머지 다른점은(다른 디비 쓴다거나, 다른 유저 아이디, 비밀번호 쓴다거나...)를 application-{env}.yml에 나눠서 관리
-
-프로젝트 실행 시, intellij라면, Edit Configuration의 VM Option에서
--DSpring.profiles.active=local    설정해주고,
-Active Profiles 는 local로 설정해주어야 한다.
-
-
-
----
-E. OneToOne 관계
-
-Delivery와 DeliveryLog는 1:M 관계.
-Coupon과 Order는 1:1관계.
-
-
-
----
-F. @Join 거는 주체 in 1:1관계 || 1:M 관계
+A. Coupon:Order(주인) = 1:1, 양방향
 
 
 Coupon과 Order는 1:1관계.
-근데 Join을 어느 엔티티에서 걸지? Coupon? Order?
-부모가 자식한테 거는건가?
+근데 누구를 주인으로 하는게 좋을까?
+Coupon? Order?
 
-Order이 발생하면, 그 후에 Coupon이 발행되잖아.
-그럼 Order가 부모네?
 
-그리고 쿠폰 검색할 때도, select * from order join coupon 이런식으로 하겠지?
-맞나?
+만약 Order가 주인인 경우라면?
 
-OrderService.java에서 보면, order에 쿠폰 적용을 아래와 같이 하네?
-
+```java
+// 주문시 1,000 할인 쿠폰을 적용해본 간단한 코드입니다.
 public Order order() {
     final Order order = Order.builder().price(1_0000).build(); // 10,000 상품주문
     Coupon coupon = couponService.findById(1); // 1,000 할인 쿠폰
     order.applyCoupon(coupon);
     return orderRepository.save(order);
 }
+@Test
+public void order_쿠폰할인적용() {
+    final Order order = orderService.order();
+    assertThat(order.getPrice(), is(9_000D)); // 1,000 할인 적용 확인
 
-쿠폰을 각 order마다 개별 uuid줘서 보관하는게 아니라, 쿠폰의 종류만 보관하고, join하는 식이구나.
-그럼 쿠폰이 부모고 Order이 쿠폰의 fk를 가지고 있겠네?
+    final Order findOrder = orderService.findOrder(order.getId());
+    System.out.println("couponId : "+ findOrder.getCoupon().getId()); // couponId : 1 (coupon_id 외래 키를 저장 완료)
+}
+```
 
-음 쿠폰 자체를 찾는 쿼리가 있는게 아니라, Order을 찾고, 해당 Order이 가지고 있는 쿠폰을 찾는 식으로 쿼리가 만들어지겠네?
-
-SELECT order.name, coupon.amount
-FROM order
-WHERE order.coupon_id = coupon.id
-
-뭐 이런식으로.
-
-order 입장에서 coupon에 join거니까, join문은 order에 있어야 하는건가?
-
-1:M 관계에선 부모인 1의 pk를 fk로 M이 갖고있는게 관례잖아? 그럼 자식인 M쪽에서 @JoinColumn 해줬음,(ex. Delivery 부모 1 : DeliveryLog 자식 M, @Join)
-1:1 관계에서도 이 둘 중, 어느놈이 부모인지 판단한 다음, 자식인쪽에서 @join 해줘야 하나보다. (ex. Coupon 부모 1 : Order 자식 1 @Join)
+장점
 
 
-실제 sql query관점에서 생각해봐도, 어떤 Delivery '가'에 해당하는 DeliveryLog를 query할 때,
+console.log
+```jpql
+// order가 연관 관계의 주인일 경우 SQL
+insert into orders (id, coupon_id, price) values (null, ?, ?)
 
-SELECT *
-FROM DeliveryLog
-JOIN Delivery
+//coupon이 연관 관계의 주인일 경우 SQL
+insert into orders (id, price) values (null, ?)
+update coupon set discount_amount=?, order_id=?, use=? where id=?
 
-하잖아.
+```
 
-SELECT DeliveryLog.id, DelieveryLog.name
-FROM Delivery
-JOIN DeliveryLog
+INSERT ORDER 시,
+order 테이블에 coupon_id 칼럼을 저장하기 때문에 주문 SQL은 한 번만 실행됩니다.
 
-이게 아니라.
-
-join거는 주체가 DeliveryLog(자식) -> Delivery(부모) 로 거네.
-그러니까 DeliveryLog가 @Join가지고 있는게 맞네.
-
-Order-Coupon도,
-
-SELECT ORDER.id, Coupon.id
-FROM ORDER
-JOIN COUPON
-
-...이니까, Order(자식) -> Coupon(부모)으로 join을 거네.
-그러니까 자식인 Order이 @Join을 가지고 있는게 맞네.
-
-결국 @Join거는 주체 파악하려면, query를 생각해보면 되네.
-
-
-실제 queryDSL로 만들어지는 sql 까보면,
-
-    alter table delivery_log
-       add constraint FKfs49km0ea809mth3oq4s6810h
-       foreign key (delivery_id)
-       references delivery
-Hibernate:
-
-    alter table orders
-       add constraint FKa5ei0aklq6wrjl8vrr7ied3bx
-       foreign key (coupon_id)
-       references coupon
-
-
-둘 다 자식 테이블에서 부모 테이블의 pk를 fk로 받고있음.
+반면에 coupon이 연관 관계의 주인일 경우에는 coupon에 order의 외래 키가 있으니 order INSERT SQL 한 번, coupon 테이블에 order_id 칼럼 업데이트 쿼리 한번 총 2번의 쿼리가 실행됩니다.
 
 
 
-근데 만약, @Join 잘못걸면? -> 쿼리가 불필요하게 더 실행되서 성능 하락.
-근데 되긴 할껄?
+
+단점
+Order(주인):Coupon = 1:1 이라, 괜찮은데,
+확장성 측면에서 보면, 나중에 Coupon이 여러개 생겼을 경우, Order:Coupon(주인) = 1:N 으로 주인을 Coupon으로 변경해야 함.
+
+이 때, db column이 바뀌니까, 실제 서비스 중인 상황에서는 골치아픔.
+
+
+
+또한, Order(주인):Coupon 1:1, 양방향
+이니까,
+```java
+public void applyCoupon(final Coupon coupon) {
+    this.coupon = coupon;
+    coupon.use(this);
+    price -= coupon.getDiscountAmount();
+}
+```
+Order에서 couple 더할 때, this.coupon = coupon; 얘를 해야 FK에 null값 안들어간다.
+Coupon.use()도 보면,
+
+```java
+public void use(final Order order) {
+    this.order = order;
+    this.use = true;
+}
+```
+Coupon도 Order를 주입해준다.
+만약 this.order = order;을 주석처리 한다면,
+
+```java
+public void use(final Order order) {
+//  this.order = order; 해당코드를 주석했을 때 테스트 코드
+    this.use = true;
+}
+@Test
+public void use_메서드에_order_set_필요이유() {
+    final Order order = orderService.order();
+    assertThat(order.getPrice(), is(9_000D)); // 1,000 할인 적용 확인
+    final Coupon coupon = order.getCoupon();
+    assertThat(coupon.getOrder(), is(notNullValue())); // 해당 검사는 실패한다.
+}
+```
+일반적으로 생각했을 때 order 생성 시 1,000할인 쿠폰을 적용했기 때문에 해당 쿠폰에도 주문 객체가 들어갔을 거로 생각할 수 있습니다.
+하지만 위의 주석시킨 코드가 그 기능을 담당했기 때문에 쿠폰 객체의 주문 값은 null인 상태입니다.
+즉 순수한 객체까지 고려한 양방향 관계를 고려하는 것이 바람직하고 그것이 안전합니다.
 
 
 
 ---
-G. Paging
+B. Paging(+ queryDSL on service)
 
 
-sample code
+reference:
+1. https://cheese10yun.github.io/spring-jpa-best-12/
+2. https://cheese10yun.github.io/spring-jpa-best-13/
 
+
+```java
 @RestController
 @RequestMapping("accounts")
 public class AccountController {
@@ -408,6 +140,7 @@ public class AccountService {
         return accountRepository.findAll(pageable);
     }
 }
+```
 
 
 스프링 레거시에는 pagination일일이 수동 구현해줬어야 했는데, jpa는 이렇게 쉽게 바뀌었네?
@@ -432,11 +165,9 @@ AccountSearchService.search()보면 리턴 타입이 Page<Account> 인데, 얘�
 
 
 
----
-H-1. queryDSL 맛보기
 
 
-AccountSearchService에서 보면, sql 쿼리가 자바코드로 쓰여있음(?!)
+AccountSearchService.search(); 에서 보면, sql 쿼리가 자바코드로 쓰여있음(?!)
 
 ex.
 query = from(account).where(account.email.value.likeIgnoreCase(value + "%"));
@@ -457,26 +188,213 @@ Account VO에 @Entity를 먹이면, QAccount를 queryDSL이 자체적으로 만�
 
 
 ---
-H-2. Querydsl를 이용해서 Repository 확장하기
+C. Querydsl를 이용해서 Repository 확장하기
 
 
-public interface AccountRepository extends JpaRepository<Account, Long>, AccountCustomRepository
+```java
+public interface AccountRepository extends JpaRepository<Account, Long>, AccountSupportRepository {
+    Account findByEmail(Email email);
+    boolean existsByEmail(Email email);
+}
+```
+이런 식으로 상속 받아서(자바에서 상속이 2개가 안될텐데 이상하게 여긴 되네? 인터페이스라 그런가?
 
+
+```java
+public interface AccountSupportRepository {
+    List<Account> findRecentlyRegistered(int limit);
+}
+```
 기존 Repository엔 이런식으로 확장하고,
 
-public class AccountCustomRepositoryImpl extends QuerydslRepositorySupport implements AccountCustomRepository {
+```java
+@Transactional(readOnly = true)
+public class AccountSupportRepositoryImpl extends QuerydslRepositorySupport implements AccountSupportRepository {
 
-이런식으로 extends QuerydslRepositorySupport 해서 확장하네?
+    public AccountSupportRepositoryImpl() {
+        super(Account.class);
+    }
+
+    @Override
+    public List<Account> findRecentlyRegistered(int limit) {
+        final QAccount account = QAccount.account;
+        return from(account)
+                .limit(limit)
+                .orderBy(account.createdAt.desc())
+                .fetch();
+    }
+}
+```
+
+이런식으로 impl 클래스엔 extends QuerydslRepositorySupport 해서 확장하네?
 
 여기에선 주로 queryDSL이 기존에 만들어놓은 인터페이스 오버라이드 목적으로 쓰고,
 실제 query 조합은 service단에서 하는 듯.
 
+AccountRepositoryTest.java
+```java
+@Test
+public void findRecentlyRegistered_test() {
+    final List<Account> accounts = accountRepository.findRecentlyRegistered(10);
+    assertThat(accounts.size()).isLessThan(11);
+}
+```
 
-비지니스단 복잡한 쿼리는 여기에서
+테스트 클래스에서 커스텀으로 만든 findRecentlyRegistered(); 가 쓰이네.
+
+
+
+근데 비즈니스단 sql이 너무 복잡하면, 아래처럼 native sql도 간~~~혹 쓴다고 한다.
 
 @Query("select *from....")
 List<Account> findXXX();
 
 이런식으로 직접 작성해서 쓰는듯?
+
+
+
+---
+D. 비밀번호 요구사항을 DDD하게 처리
+
+
+ * ---
+ * 비밀번호 요구사항
+ *
+ *
+ * 1. 비밀번호 만료 기본 14일 기간이 있다.
+ * 2. 비밀번호 만료 기간이 지나는 것을 알 수 있어야 한다.
+ * 3. 비밀번호 5회 이상 실패했을 경우 더 이상 시도를 못하게 해야 한다.
+ * 4. 비밀번호가 일치하는 경우 실패 카운트를 초기화 해야한다
+ * 5. 비밀번호 변경시 만료일이 현재시간 기준 14로 연장되어야한다.
+
+
+비밀번호 처리 관련 메서드 들을 Account나 service layer에 분산하지 말고, Password객체 안에서 모두 처리하면,
+책임 소재 명확해지고, test 코드도 짜기 쉬워진다.
+Account.domain.Password.java 참조
+
+
+
+---
+E. @Setter 대체 방법
+
+
+@Setter 하면, 해당 객체의 모든 attribute에 대해, 수정 권한을 부여하는데,
+의도치 않은 attribute에 @Setter 권한 부여하는걸 사전에 미리 방지하고 싶다면?(Secure coding)
+
+```java
+public Account updateMyAccount(long id, AccountDto.MyAccountReq dto) {
+    final Account account = findById(id);
+    account.setEmail("value");
+    return account;
+}
+```
+
+이런 방식보다,
+
+```java
+public Account updateMyAccount(long id, AccountDto.MyAccountReq dto) {
+    final Account account = findById(id);
+    account.updateMyAccount(dto);
+    return account;
+}
+// Account 도메인 클래스
+public void updateMyAccount(AccountDto.MyAccountReq dto) {
+    this.address = dto.getAddress();
+    this.fistName = dto.getFistName();
+    this.lastName = dto.getLastName();
+}
+```
+
+이런 식으로, 미리 바꿀 수 있는 attribute 지정 가능.
+더 직관적이기도 하다. .setter()보다 .update()가.
+
+
+
+
+---
+F. properties 설정값 가져오기
+
+
+case1) 안티 패턴
+
+```.yml
+user:
+  email: "yun@test.com"
+  nickname: "yun"
+  age: 28
+  auth: false
+  amount: 101
+```
+
+
+```java
+public class AntiSamplePropertiesRunner implements ApplicationRunner {
+    private final Environment env;
+
+    @Override
+    public void run(ApplicationArguments args)  {
+        final String email = env.getProperty("user.email");
+        final String nickname = env.getProperty("user.nickname");
+        final int age = Integer.valueOf(env.getProperty("user.age"));
+        final boolean auth = Boolean.valueOf(env.getProperty("user.auth"));
+        final int amount = Integer.valueOf(env.getProperty("user.amount"));
+
+        log.info("=========ANTI=========");
+        log.info(email); // "yun@test.com"
+        log.info(nickname); // yun
+        log.info(String.valueOf(age)); // 27
+        log.info(String.valueOf(auth)); // true
+        log.info(String.valueOf(amount)); // 100
+        log.info("=========ANTI=========");
+    }
+}
+```
+
+env.getProperty("user.email");은 너무 번잡함.
+그리고 자료형 확인도 어렵고.
+
+
+
+case2) recommended pattern
+
+```java
+@Configuration
+@ConfigurationProperties(prefix = "user")
+@Validated
+public class SampleProperties {
+    @Email
+    private String email;
+    @NotEmpty
+    private String nickname;
+    private int age;
+    private boolean auth;
+    private double amount;
+
+    // getter, setter
+}
+
+public class SamplePropertiesRunner implements ApplicationRunner {
+    private final SampleProperties properties;
+    @Override
+    public void run(ApplicationArguments args)  {
+        final String email = properties.getEmail();
+        final String nickname = properties.getNickname();
+        final int age = properties.getAge();
+        final boolean auth = properties.isAuth();
+        final double amount = properties.getAmount();
+
+        log.info("==================");
+        log.info(email); // yun@test.com
+        log.info(nickname); // yun
+        log.info(String.valueOf(age)); // 27
+        log.info(String.valueOf(auth)); // true
+        log.info(String.valueOf(amount)); // 100.0
+        log.info("==================");
+    }
+}
+```
+
+POJO객체 두고, 해당 attribute를 자료형 정해진 상태에서 getter로 가져오는 방법.
+@Valid로 검사도 가능.
 
 
