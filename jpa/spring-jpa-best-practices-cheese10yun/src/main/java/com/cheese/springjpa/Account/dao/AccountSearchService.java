@@ -1,5 +1,8 @@
-package com.cheese.springjpa.Account;
+package com.cheese.springjpa.Account.dao;
 
+import com.cheese.springjpa.Account.domain.Account;
+import com.cheese.springjpa.Account.domain.QAccount;
+import com.cheese.springjpa.Account.dto.AccountSearchType;
 import com.querydsl.jpa.JPQLQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

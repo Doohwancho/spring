@@ -1,12 +1,16 @@
 package com.cheese.springjpa.Account;
 
 
-import com.cheese.springjpa.Account.error.ErrorCode;
-import com.cheese.springjpa.Account.error.ErrorExceptionController;
+import com.cheese.springjpa.Account.api.AccountController;
+import com.cheese.springjpa.Account.domain.Account;
+import com.cheese.springjpa.Account.dto.AccountDto;
+import com.cheese.springjpa.Account.application.AccountService;
+import com.cheese.springjpa.error.ErrorCode;
+import com.cheese.springjpa.error.ErrorExceptionController;
 import com.cheese.springjpa.Account.exception.AccountNotFoundException;
 import com.cheese.springjpa.Account.exception.EmailDuplicationException;
-import com.cheese.springjpa.Account.model.Address;
-import com.cheese.springjpa.Account.model.Email;
+import com.cheese.springjpa.Account.domain.Address;
+import com.cheese.springjpa.Account.domain.Email;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Ignore;

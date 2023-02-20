@@ -1,6 +1,6 @@
 package com.cheese.springjpa.Account.exception;
 
-import com.cheese.springjpa.Account.error.ErrorCode;
+import com.cheese.springjpa.error.ErrorCode;
 import lombok.Getter;
 
 @Getter

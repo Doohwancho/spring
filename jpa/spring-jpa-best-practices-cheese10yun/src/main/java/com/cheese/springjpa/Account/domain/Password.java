@@ -1,4 +1,4 @@
-package com.cheese.springjpa.Account.model;
+package com.cheese.springjpa.Account.domain;
 
 import com.cheese.springjpa.Account.exception.PasswordFailedExceededException;
 import io.swagger.annotations.ApiModel;

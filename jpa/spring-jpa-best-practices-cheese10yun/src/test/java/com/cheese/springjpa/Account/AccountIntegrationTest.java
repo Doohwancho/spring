@@ -1,5 +1,6 @@
 package com.cheese.springjpa.Account;
 
+import com.cheese.springjpa.Account.dto.AccountSearchType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

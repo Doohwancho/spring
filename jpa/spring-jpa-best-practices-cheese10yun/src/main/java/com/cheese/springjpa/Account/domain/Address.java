@@ -1,4 +1,4 @@
-package com.cheese.springjpa.Account.model;
+package com.cheese.springjpa.Account.domain;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

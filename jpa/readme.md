@@ -14,7 +14,9 @@ fields in persistence framework
 a. jpa\
 b. spring-data-jpa\
 c. queryDSL
-d. steal: jpashop
+d. steal: jpashop\
+e. steal: jpa-best-practices-cheese10yun\
+f. jpa-best-practices
 
 
 
@@ -51,11 +53,7 @@ a-25. OSIV(open session in view) :white_check_mark:
 
 
 
-b-1. paging & sorting\
-b-3. bulk insert :white_check_mark:\
-b-4. dynamic-insert-update :white_check_mark:\
-b-5. rollbackFor :white_check_mark:\
-
+c-1. init queryDSL :white_check_mark:
 
 d-1. jpashop initialize :white_check_mark:\
 d-2. entity modeling :white_check_mark:\
@@ -66,6 +64,14 @@ d-6. flush() :white_check_mark:\
 d-7. controller에서 파라미터로 받은 객체는 영속성 객체가 아니다 :white_check_mark:\
 d-8. update시 팁: merge 보다는 find() 후 setter 하고 냅둬 :white_check_mark:
 
+
+e-1. init jpa-best-practices-cheese-yun :white_check_mark:
+
+
+f-1. paging & sorting\
+f-2. bulk insert :white_check_mark:\
+f-3. dynamic-insert-update :white_check_mark:\
+f-4. rollbackFor :white_check_mark:\
 
 
 

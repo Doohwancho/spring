@@ -6,7 +6,7 @@
       <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/bulk-insert" />
-        <option name="gradleJvm" value="liberica-11" />
+        <option name="gradleJvm" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/bulk-insert" />
@@ -16,7 +16,7 @@
       <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/dynamic-insert-update" />
-        <option name="gradleJvm" value="liberica-11" />
+        <option name="gradleJvm" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/dynamic-insert-update" />
@@ -26,7 +26,7 @@
       <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/n_1_problem" />
-        <option name="gradleJvm" value="liberica-11" />
+        <option name="gradleJvm" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/n_1_problem" />
@@ -36,7 +36,7 @@
       <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/rollback-for" />
-        <option name="gradleJvm" value="liberica-11" />
+        <option name="gradleJvm" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/rollback-for" />

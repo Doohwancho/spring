@@ -1,8 +1,6 @@
-package com.cheese.springjpa.Account;
+package com.cheese.springjpa.Account.domain;
 
-import com.cheese.springjpa.Account.model.Address;
-import com.cheese.springjpa.Account.model.Email;
-import com.cheese.springjpa.Account.model.Password;
+import com.cheese.springjpa.Account.dto.AccountDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
@@ -11,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -32,7 +31,7 @@ public class Account {
 //    @ApiModelProperty(value = "이메일")
 //    private String email;
     @Embedded
-    private com.cheese.springjpa.Account.model.Email email;
+    private Email email;
 
     @Column(name = "first_name", nullable = false)
     @ApiModelProperty(value = "이름")

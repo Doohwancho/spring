@@ -1,6 +1,8 @@
 package com.cheese.springjpa.Account;
 
-import com.cheese.springjpa.Account.model.Email;
+import com.cheese.springjpa.Account.dao.AccountRepository;
+import com.cheese.springjpa.Account.domain.Account;
+import com.cheese.springjpa.Account.domain.Email;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

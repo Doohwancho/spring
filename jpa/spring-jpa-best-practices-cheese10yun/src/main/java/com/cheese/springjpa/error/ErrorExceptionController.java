@@ -1,4 +1,4 @@
-package com.cheese.springjpa.Account.error;
+package com.cheese.springjpa.error;
 
 import com.cheese.springjpa.Account.exception.AccountNotFoundException;
 import com.cheese.springjpa.Account.exception.EmailDuplicationException;

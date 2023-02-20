@@ -79,7 +79,8 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.3.2</version>
+<!--            <version>5.3.2</version>-->
+            <version>5.5.2</version>
             <scope>test</scope>
         </dependency>
 
@@ -98,7 +99,8 @@
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-runner</artifactId>
-            <version>1.2.0</version>
+<!--            <version>1.2.0</version>-->
+            <version>1.5.2</version>
             <scope>test</scope>
         </dependency>
 
@@ -169,13 +171,14 @@
                         <format>html</format>
                         <format>xml</format>
                     </formats>
-                    <reportSets>
-                        <reportSet>
-                            <reports>
-                                <report>cobertura</report>
-                            </reports>
-                        </reportSet>
-                    </reportSets>
+<!--                    <reportSets>-->
+<!--                        <reportSet>-->
+<!--                            <reports>-->
+<!--                                <report>cobertura</report>-->
+<!--                            </reports>-->
+<!--                        </reportSet>-->
+<!--                    </reportSets>-->
+                    <check/>
                 </configuration>
             </plugin>
 

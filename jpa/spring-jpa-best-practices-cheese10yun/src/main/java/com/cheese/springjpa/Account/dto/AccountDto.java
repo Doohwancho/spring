@@ -1,8 +1,9 @@
-package com.cheese.springjpa.Account;
+package com.cheese.springjpa.Account.dto;
 
-import com.cheese.springjpa.Account.model.Address;
-import com.cheese.springjpa.Account.model.Password;
-import com.cheese.springjpa.Account.model.Email;
+import com.cheese.springjpa.Account.domain.Account;
+import com.cheese.springjpa.Account.domain.Address;
+import com.cheese.springjpa.Account.domain.Password;
+import com.cheese.springjpa.Account.domain.Email;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -91,7 +92,7 @@ public class AccountDto {
 
     @Getter
     public static class Res {
-        private com.cheese.springjpa.Account.model.Email email;
+        private Email email;
         private Password password;
         private String firstName;
         private String lastName;

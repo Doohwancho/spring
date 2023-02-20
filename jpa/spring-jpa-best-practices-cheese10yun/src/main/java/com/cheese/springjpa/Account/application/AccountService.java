@@ -1,6 +1,10 @@
-package com.cheese.springjpa.Account;
+package com.cheese.springjpa.Account.application;
 
 
+import com.cheese.springjpa.Account.dao.AccountRepository;
+import com.cheese.springjpa.Account.domain.Account;
+import com.cheese.springjpa.Account.domain.Email;
+import com.cheese.springjpa.Account.dto.AccountDto;
 import com.cheese.springjpa.Account.exception.AccountNotFoundException;
 import com.cheese.springjpa.Account.exception.EmailDuplicationException;
 import lombok.AllArgsConstructor;
@@ -39,7 +43,7 @@ public class AccountService {
 
 
     @Transactional(readOnly = true)
-    public boolean isExistedEmail(com.cheese.springjpa.Account.model.Email email) {
+    public boolean isExistedEmail(Email email) {
         return accountRepository.findByEmail(email) != null;
     }
 }

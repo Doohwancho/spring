@@ -1,5 +1,6 @@
-package com.cheese.springjpa.Account.model;
+package com.cheese.springjpa.Account.dto;
 
+import com.cheese.springjpa.Account.domain.Email;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;

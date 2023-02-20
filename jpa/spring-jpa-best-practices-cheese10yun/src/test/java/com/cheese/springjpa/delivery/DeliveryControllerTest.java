@@ -1,7 +1,7 @@
 package com.cheese.springjpa.delivery;
 
-import com.cheese.springjpa.Account.error.ErrorExceptionController;
-import com.cheese.springjpa.Account.model.Address;
+import com.cheese.springjpa.error.ErrorExceptionController;
+import com.cheese.springjpa.Account.domain.Address;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;

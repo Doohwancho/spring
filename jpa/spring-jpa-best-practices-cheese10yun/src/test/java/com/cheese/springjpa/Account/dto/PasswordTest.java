@@ -1,5 +1,6 @@
-package com.cheese.springjpa.Account.model;
+package com.cheese.springjpa.Account.dto;
 
+import com.cheese.springjpa.Account.domain.Password;
 import com.cheese.springjpa.Account.exception.PasswordFailedExceededException;
 import org.junit.Before;
 import org.junit.Test;

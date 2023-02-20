@@ -1,4 +1,4 @@
-package com.cheese.springjpa.Account.error;
+package com.cheese.springjpa.error;
 
 import lombok.Getter;
 
