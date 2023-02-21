@@ -1,0 +1,128 @@
+---
+Index
+
+A. queryDSL sql syntax
+    A-a. basic
+        where condition
+        and
+        fetch results
+        orderBy
+        paging
+        groupBy
+        join
+        subQuery
+        case
+        CONSTANT
+        string concat
+
+    A-b. intermediate
+        projection
+        동적 쿼리
+        수정, 삭제 처리
+        sql 함수 호출
+
+B. Paging 구현
+
+
+
+---
+A. queryDSL sql syntax
+
+obsidian.queryDSL 참조
+
+
+---
+Q. where절 조건문을 searchByBuilder(MemberSearchCondition)로 처리하네?
+
+MemberJpaRepository.java에 searchByBuilder()를 보면,
+검색 조건 처리를 이렇게 하네?
+
+MemberSearchCondition.java
+```java
+@Data
+public class MemberSearchCondition {
+
+    private String username;
+    private String teamName;
+    private Integer ageGoe;
+    private Integer ageLoe;
+}
+```
+
+이렇게 조건만 따로 객체로 만들고,
+MemberJpaRepositoryTest 에서 보면,
+
+```java
+MemberSearchCondition condition = new MemberSearchCondition();
+condition.setAgeGoe(35);
+condition.setAgeLoe(40);
+condition.setTeamName("Team B");
+
+List<MemberTeamDto> result = memberJpaRepository.searchByBuilder(condition);
+
+assertThat(result).extracting("username").containsExactly("member4");
+```
+
+where절에 들어갈 조건문은 이렇게 처리하고, searchByBuilder(condition); 이렇게 넣으면,
+
+
+```java
+public List<MemberTeamDto> searchByBuilder(MemberSearchCondition condition) {
+    BooleanBuilder builder = new BooleanBuilder();
+
+    if (hasText(condition.getUsername())) {
+        builder.and(member.username.eq(condition.getUsername()));
+    }
+
+    if (hasText(condition.getTeamName())) {
+        builder.and(team.name.eq(condition.getTeamName()));
+    }
+
+    if (condition.getAgeGoe() != null) {
+        builder.and(member.age.goe(condition.getAgeGoe()));
+    }
+
+    if (condition.getAgeLoe() != null) {
+        builder.and(member.age.loe(condition.getAgeLoe()));
+    }
+
+    return queryFactory
+            .select(new QMemberTeamDto(
+                    member.id.as("memberId"),
+                    member.username,
+                    member.age,
+                    team.id.as("teamId"),
+                    team.name.as("teamName")))
+            .from(member)
+            .leftJoin(member.team, team)
+            .where(builder)
+            .fetch();
+}
+```
+해당 컨디션을 BooleanBuilder로 하나로 묶어서, .where(builder)로 날리네?
+
+
+Q. 왜 leftJoin 쓰는거지?
+A. Member 테이블을 기준으로 Team 테이블을 outer join하는건데, 팀 테이블에 FK 걸려있으면 와서 붙이고, 없으면 NULL처리 함.
+
+
+
+---
+Q. 왜 MemberRepositoryCustomImpl implements MemberRepositoryCustom 했지?
+
+
+그냥 MemberJpaRepository.java에 모든 메서드 정의하면 되지,
+왜 굳이 자식 클래스 만들어서 상속받고 오버라이드 했지?
+
+MemberRepositoryCustom 얘는 약간 search 관련된 애들 위주로 모아둔 것 같긴 한데..
+
+
+
+---
+Q. MemberRepositoryCustomImpl에서 searchPageComplex는 searchPageSimple과 뭐가 다른거지?
+
+
+complex search는 한번 fetch해오고, 숫자 반환할 땐, countQuery로 한번 더 검색 후, countQuery.fetchCount() 하는데,
+이짓을 왜 하는거지?
+
+

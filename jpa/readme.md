@@ -52,7 +52,23 @@ a-24. join vs fetchJoin :white_check_mark:\
 a-25. OSIV(open session in view) :white_check_mark:
 
 
-c-1. init queryDSL :white_check_mark:
+c-1. init queryDSL :white_check_mark:\
+c-2. syntax - where condition :white_check_mark:\
+c-3. syntax - and :white_check_mark:\
+c-4. syntax - fetch results :white_check_mark:\
+c-5. syntax - orderBy :white_check_mark:\
+c-6. syntax - paging :white_check_mark:\
+c-7. syntax - groupBy :white_check_mark:\
+c-8 syntax - join :white_check_mark:\
+c-9 syntax - subQuery :white_check_mark:\
+c-10 syntax - case :white_check_mark:\
+c-11 syntax - CONSTANT :white_check_mark:\
+c-12. syntax - string concat :white_check_mark:\
+c-13. syntax - projection :white_check_mark:\
+c-14. syntax - 동적 쿼리 :white_check_mark:\
+c-15. syntax - 수정, 삭제 처리 :white_check_mark:\
+c-16. syntax - sql 함수 호출 :white_check_mark:\
+c-17. Spring Data Page, Pageable을 통한 Pagination 구현 :white_check_mark:
 
 
 d-1. jpashop initialize :white_check_mark:\
@@ -77,7 +93,7 @@ e-7. properties 설정값 가져오기 :white_check_mark:
 f-1. paging & sorting :white_check_mark:\
 f-2. bulk insert :white_check_mark:\
 f-3. dynamic-insert-update :white_check_mark:\
-f-4. rollbackFor :white_check_mark:\
+f-4. rollbackFor :white_check_mark:
 
 
 
@@ -95,5 +111,6 @@ Reference
 6. [김영한 jpa 책 요약](https://ict-nroo.tistory.com/category/ICT%20Eng/JPA?page=3)
 7. [jpa 상속관계](https://ict-nroo.tistory.com/128)
 8. [jpa 프로그래밍 기본기 다지기](https://ryan-han.com/post/dev/jpa_basics/)
+9. [inflearn 실전 querydsl 강좌](https://github.com/freespringlecture/jpashop-querydsl)
 
 x-x. [amigoscode spring-data-jpa-course 뜯어보기](https://github.com/amigoscode/spring-data-jpa-course)
