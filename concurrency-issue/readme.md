@@ -20,7 +20,7 @@ Todos
 
 
 a-0. init: 100개의 쓰레드가 동시에 공유자원을 update 할 때 race condition 발생! :white_check_mark:\
-a-1. java - synchronized\
+a-1. java - synchronized :white_check_mark:\
 a-2. database - pessimistic lock\
 a-3. database - optimistic lock\
 a-4. database - named lock\

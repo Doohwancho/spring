@@ -78,7 +78,7 @@ class StockServiceTest {
         // 100 - (100 * 1) = 0
         assertEquals(0, stock.getQuantity()); //expected 0, actual: 88
         /**
-         * Q. 왜 0이 아니지? 12개 왜 씹힘?
+         * Q. 왜 0이 아니지? 88개 왜 씹힘?
          *
          * A. race condition이 일어났기 때문.
          *    race condition이란, 둘 이상의 쓰레드가 공유 데이터를 동시에 참조하고 변경하려 할 떄, 나타나는 문제.
