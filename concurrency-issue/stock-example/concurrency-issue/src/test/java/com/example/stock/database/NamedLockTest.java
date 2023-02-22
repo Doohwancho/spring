@@ -1,9 +1,9 @@
-package com.example.stock.service;
+package com.example.stock.database;
 
 import com.example.stock.domain.Stock;
+import com.example.stock.facade.NamedLockStockFacade;
 import com.example.stock.facade.OptimisticLockStockFacade;
 import com.example.stock.repository.StockRepository;
-import com.example.stock.service.StockService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,22 +15,13 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-class StockServiceTest {
-
-    //case1,2) java: synchronized
-//    @Autowired
-//    private StockService stockService;
-
-    //case3) database: pessimistic lock
-//    @Autowired
-//    private PessimisticLockStockService stockService;
-
-    //case4) database: optimistic lock
+public class NamedLockTest {
+    //case5) database: named lock
     @Autowired
-    private OptimisticLockStockFacade stockService;
+    private NamedLockStockFacade stockService;
 
     @Autowired
     private StockRepository stockRepository;
@@ -47,18 +38,6 @@ class StockServiceTest {
     public void delete() {
         stockRepository.deleteAll();
     }
-
-//    @Test
-//    @DisplayName("1. 요청이 1개씩 들어오는 상황")
-//    public void decrease_test() {
-//        stockService.decrease(1L, 1L);
-//
-//        Stock stock = stockRepository.findById(1L).orElseThrow();
-//        // 100 - 1 = 99
-//
-//        assertEquals(99, stock.getQuantity());
-//    }
-
     /**
      * Q. what is CountDownLatch?
      *
@@ -76,8 +55,6 @@ class StockServiceTest {
             executorService.submit(() -> {
                 try {
                     stockService.decrease(1L, 1L);
-                } catch(InterruptedException e) {
-                    throw new RuntimeException(e);
                 } finally {
                     latch.countDown();
                 }
@@ -90,26 +67,5 @@ class StockServiceTest {
 
         // 100 - (100 * 1) = 0
         assertEquals(0, stock.getQuantity()); //expected 0, actual: 88
-        /**
-         * Q. 왜 0이 아니지? 88개 왜 씹힘?
-         *
-         * A. race condition이 일어났기 때문.
-         *    race condition이란, 둘 이상의 쓰레드가 공유 데이터를 동시에 참조하고 변경하려 할 떄, 나타나는 문제.
-         *
-         *    1. thread A가 Stock에 접근 후,
-         *    2. thread A가 값을 5->4로 변경 후, 일 끝난 다음,
-         *    3. thread B가 Stock에 접근 후,
-         *    4. thread B가 값을 4->3로 변경 후, 일 끝낼 것이라 예상했지만,
-         *
-         *    실상은,
-         *    1. threadA가 Stock에 접근 후,
-         *    2. threadB가 Stock에 접근 후,
-         *    3. thread A가 update Stock to 4로 하고 마침
-         *    4. thread B가 update Stock to 4로 하고 마침
-         *
-         *
-         *  Q. 이 문제 어떻게 해결?
-         *  A. critical section
-         */
     }
 }

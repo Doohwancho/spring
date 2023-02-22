@@ -1,6 +1,6 @@
 package com.example.stock.facade;
 
-import com.example.stock.service.OptimisticLockStockService;
+import com.example.stock.service.database.OptimisticLockStockService;
 import org.springframework.stereotype.Service;
 
 /**

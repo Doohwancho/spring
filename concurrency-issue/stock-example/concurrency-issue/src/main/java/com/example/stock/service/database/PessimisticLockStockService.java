@@ -1,4 +1,4 @@
-package com.example.stock.service;
+package com.example.stock.service.database;
 
 import com.example.stock.domain.Stock;
 import com.example.stock.repository.StockRepository;

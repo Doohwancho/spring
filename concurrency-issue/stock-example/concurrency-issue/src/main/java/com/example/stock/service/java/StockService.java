@@ -1,4 +1,4 @@
-package com.example.stock.service;
+package com.example.stock.service.java;
 
 import com.example.stock.domain.Stock;
 import com.example.stock.repository.StockRepository;
@@ -19,7 +19,6 @@ public class StockService {
 
 
     //case1) default -> race condition에 취약하다..
-    //@Transactional(propagation = Propagation.REQUIRES_NEW) //?
 //    @Transactional
 //    public void decrease(Long id, Long quantity) {
 //        Stock stock = stockRepository.findById(id).orElseThrow();

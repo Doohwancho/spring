@@ -1,7 +1,101 @@
 ---
-How to start?
+Index
+
+
+A. how to setup?
+B. 동시성 문제 define
+C. 해결법 - java: synchronized
+D. 해결법 - database: pessimistic lock
+E. 해결법 - database: optimistic lock
+F. 해결법 - database: named lock
+
+
+---
+A. How to setup?
 
 
 1. mysql에 접속
 2. CREATE DATABASE stock_example;
 3. USE stock_example;
+
+
+
+---
+B. 동시성 문제
+
+
+동시에 100개의 쓰레드가 공유자원을 참조해서 update하면,
+
+critical section이 보장되어있지 않은 이상, race condition이 일어나서 값이 의도한대로 안들어간다.
+
+
+왜?
+
+만약, threadA, threadB가 공유자원에 동시접근에 update하려고 할 때,
+
+1. thread A가 Stock에 접근 후,
+2. thread A가 값을 5->4로 변경 후, 일 끝난 다음,
+3. thread B가 Stock에 접근 후,
+4. thread B가 값을 4->3로 변경 후, 일 끝낼 것
+
+...이라 예상했지만,
+
+실상은,
+1. threadA가 Stock에 접근 후,
+2. threadB가 Stock에 접근 후,
+3. thread A가 update Stock to 4로 하고 마침
+4. thread B가 update Stock to 4로 하고 마침
+
+
+이게 race condition.
+
+
+해결법은 SynchronizedTest에서 case1, case2 확인.
+
+
+
+
+---
+C. synchronized
+
+
+race condtion의 해결법으로, critical section 정해주는걸 자바단에서 하는게 synchronized 키워드.
+StockService에서 decrease()에 synchronized 먹이고, @Transactional은 제거.
+이유는 해당 클래스에 주석 확인.
+
+
+---
+D,E. pessimistic & optimistic lock
+
+
+1. 낙관적 락(Optimistic Lock)
+	- 충돌이 발생하지 않을 것이라 가정하고 Lock을 거는 방식
+	- 트랜잭션을 commit 하는 시점에 충돌을 알 수 있음
+	- DB Level 에서 동시성을 처리하는것이 아닌 Application Level 에서 처리
+
+2. 비관적 락(Pessimistic Lock)
+	- 충돌이 발생할것이라 가정하고 우선 DB에 Lock을 거는 방식 (select for update)
+	- 데이터를 수정하는 즉시 충돌을 알 수 있음
+	- DB Level 동시성을 처리
+
+
+---
+F. named lock
+
+
+이름을 가진 메타데이터 락.
+특이점은, stock에 직접 lock걸지 않고, 별도 공간에 lock 건다.
+batch때 다량 레코드 넣을 때 deadlock 걸리는걸 named lock으로 해결한다고 한다.
+
+주로 분산 lock 만들 때 사용한다.
+분산 락이란, 공통된 저장소를 이용하여 자원이 사용중인지 체크해 전체 서비스에서 동기화된 처리를 구현하는 것.
+근데 자주 사용되진 않는다고 한다. 보통 Redis나 Zookeeper 와 같은 솔루션을 통한 분산락 구현을 할 수 있기 때문.
+
+
+
+주의점
+	1. transaction 종료 시, lock이 자동해제되지 않기 때문에, 개발자가 별도의 명령어로 해제를 시켜주거나, 선점시간이 끝나야 해제된다. (실 사용시, 구현이 복잡할 수 있따)
+	2. 현업에서는 datasource를 분리하여 사용해야함. 같은 datasource 사용하면, connection pool이 부족해지는 현상 발생함. -> 다른 서비스에 영향 미친다.
+
+
+
