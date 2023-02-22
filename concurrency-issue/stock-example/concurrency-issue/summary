@@ -1,0 +1,7 @@
+---
+How to start?
+
+
+1. mysql에 접속
+2. CREATE DATABASE stock_example;
+3. USE stock_example;
