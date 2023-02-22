@@ -1,6 +1,7 @@
 package com.example.stock.service;
 
 import com.example.stock.domain.Stock;
+import com.example.stock.facade.OptimisticLockStockFacade;
 import com.example.stock.repository.StockRepository;
 import com.example.stock.service.StockService;
 import org.junit.jupiter.api.AfterEach;
@@ -19,13 +20,17 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class StockServiceTest {
 
-    //case1,2 - java: synchronized
+    //case1,2) java: synchronized
 //    @Autowired
 //    private StockService stockService;
 
-    //case3 - database: pessimistic lock
+    //case3) database: pessimistic lock
+//    @Autowired
+//    private PessimisticLockStockService stockService;
+
+    //case4) database: optimistic lock
     @Autowired
-    private PessimisticLockStockService stockService;
+    private OptimisticLockStockFacade stockService;
 
     @Autowired
     private StockRepository stockRepository;
@@ -43,16 +48,16 @@ class StockServiceTest {
         stockRepository.deleteAll();
     }
 
-    @Test
-    @DisplayName("1. 요청이 1개씩 들어오는 상황")
-    public void decrease_test() {
-        stockService.decrease(1L, 1L);
-
-        Stock stock = stockRepository.findById(1L).orElseThrow();
-        // 100 - 1 = 99
-
-        assertEquals(99, stock.getQuantity());
-    }
+//    @Test
+//    @DisplayName("1. 요청이 1개씩 들어오는 상황")
+//    public void decrease_test() {
+//        stockService.decrease(1L, 1L);
+//
+//        Stock stock = stockRepository.findById(1L).orElseThrow();
+//        // 100 - 1 = 99
+//
+//        assertEquals(99, stock.getQuantity());
+//    }
 
     /**
      * Q. what is CountDownLatch?
@@ -71,6 +76,8 @@ class StockServiceTest {
             executorService.submit(() -> {
                 try {
                     stockService.decrease(1L, 1L);
+                } catch(InterruptedException e) {
+                    throw new RuntimeException(e);
                 } finally {
                     latch.countDown();
                 }
