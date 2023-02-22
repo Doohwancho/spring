@@ -19,11 +19,17 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class StockServiceTest {
 
+    //case1,2 - java: synchronized
+//    @Autowired
+//    private StockService stockService;
+
+    //case3 - database: pessimistic lock
     @Autowired
-    private StockService stockService;
+    private PessimisticLockStockService stockService;
 
     @Autowired
     private StockRepository stockRepository;
+
 
     @BeforeEach
     public void insert() {

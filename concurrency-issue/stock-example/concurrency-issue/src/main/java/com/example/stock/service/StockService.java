@@ -77,7 +77,7 @@ public class StockService {
 
     /**
      * synchronized의 문제점
-     * 
+     *
      * 하나의 process 안에서만 race condition을 보장함.
      *
      * 그런데 서버가 2대 이상에서 같은 db의 Stock을 조회하려고 하면,
