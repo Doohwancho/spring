@@ -20,7 +20,7 @@ public class StockService {
 
     //case1) default -> race condition에 취약하다..
     @Transactional
-    public void decreaseDefault(Long id, Long quantity) {
+    public void decrease(Long id, Long quantity) {
         Stock stock = stockRepository.findById(id).orElseThrow();
 
         stock.decrease(quantity);
@@ -65,7 +65,7 @@ public class StockService {
      * ...따라서 @Transactional 빼고, synchronized만 붙이면, critical section 보장해 주기 때문에, race condition 해결 가능.
      */
     //case2) synchronized로 동시성 문제 해결!
-    public synchronized void decrease(Long id, Long quantity) {
+    public synchronized void decreaseSynchronized(Long id, Long quantity) {
         Stock stock = stockRepository.findById(id).orElseThrow();
 
         stock.decrease(quantity);

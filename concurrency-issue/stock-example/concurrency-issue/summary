@@ -83,13 +83,23 @@ D,E. pessimistic & optimistic lock
 1. 낙관적 락(Optimistic Lock)
 	- 충돌이 발생하지 않을 것이라 가정하고 Lock을 거는 방식
 	- 트랜잭션을 commit 하는 시점에 충돌을 알 수 있음
-	- DB Level 에서 동시성을 처리하는것이 아닌 Application Level 에서 처리
+	- DB Level 에서 동시성을 처리하는것이 아닌 Application Level(jpa 단) 에서 처리
+		- @Version을 보고, 버전이 맞으면 업데이트 시키는 방식
+		- db와는 다르게 최초 커밋만 인정하기 정책 구현 가능하다.
+		- jpa가 엔티티 수정하고 transaction을 commit하는 시점에서 persistence context를 flush()할 때, update 쿼리를 날린다.
+		- 이 때, where절에 버전도 맞는지 확인하는 조건이 있다.
+		- UPDATE stock SET quantity = ?, version = ? WHERE id = ?, and version = ?
+		- 이 쿼리 날리고 데이터 수정되면, 버전+1을 한다.
+		- 만약 이 쿼리 날렸을 때, 버전 맞는게 없다면, jpa가 예외를 던진다.
+		- 그 예외 처리가 OptimisticLockStockFacade에 있고, Thread.sleep(50ms); 이후 다시 재도전
+	- optimistic lock의 jpa 동시성 제어는 특정 엔티티에 대한 동시 접근을 막기위해 주로 사용하는 반면, pessimistic lock의 트렌젝션 격리 수준은 트랜잭션 동안 일관된 데이터 read(select)를 고려하기 위해 적용한다.
 
 2. 비관적 락(Pessimistic Lock)
 	- 충돌이 발생할것이라 가정하고 우선 DB에 Lock을 거는 방식 (sql에서 select for update 방식으로 동작함)
 	- SELECT ~ FOR UPDATE 구문은 "데이터 수정하려고 SELECT 하는 중이야~ 다른 사람들은 데이터에 손 대지 마!" 라고 할 수 있습니다. 좀 더 딱딱한 표현으로는 동시성 제어를 위하여 특정 데이터(ROW)에 대해 베타적 LOCK을 거는 기능입니다.
 	- 데이터를 수정하는 즉시 충돌을 알 수 있음
 	- DB Level 동시성을 처리
+	- optimistic lock의 jpa 동시성 제어는 특정 엔티티에 대한 동시 접근을 막기위해 주로 사용하는 반면, pessimistic lock의 트렌젝션 격리 수준은 트랜잭션 동안 일관된 데이터 read(select)를 고려하기 위해 적용한다.
 
 
 ---
@@ -220,14 +230,17 @@ case1) thread 100개가 동시접근 하는 경우(thread pool 32개 기준)
 
 a. java - synchronized - 713ms, 789ms, 768ms
 b. database - update query - 308ms, 354ms, 349ms
-c. database - pessimistic lock - 457ms, 443ms, 452ms
-d. database - optimistic lock - 1752ms, 1607ms, 1675ms
-e. database - named lock - 871ms, 918ms, 843ms
-f. redis - lettuce - 3531ms, 2901ms, 3703ms
-g. redis - redisson - 1194ms, 1135ms, 1321ms
+c. database - pessimistic lock - 387ms, 449ms, 494ms
+d. database - optimistic lock - 1027ms, 1183ms, 1155ms
+e. database - named lock - 670ms, 699ms, 709ms
+f. redis - lettuce - 3702ms, 2464ms, 3263ms
+g. redis - redisson - 946ms, 829ms, 861ms
 
 
-중간결산: update query가 GOD이다. 역시 동시성 이슈는 데이터 베이스한테 맡기는게 최선인가?
+중간결산:
+
+update query가 GOAT네.
+역시 동시성 이슈는 데이터 베이스한테 맡기는게 최선인가?
 redis는 개오바네 못써먹을정돈데? lettuce는 설정을 좀 느슨하게 해서 그런 것 같기도 하고.
 
 
@@ -238,15 +251,19 @@ case2) thread 1000개가 동시접근 하는 경우(thread pool 32개 기준)
 
 a. java - synchronized - 4421ms, 3512ms, 3639ms
 b. database - update query - 1999ms, 1792ms, 1847ms
-c. database - pessimistic lock - 2146ms, 2302ms, 2557ms
-d. database - optimistic lock - 3591ms, 3619ms, 4111ms
-e. database - named lock - 3435ms, 3422ms, 3168ms
-f. redis - lettuce - 7518ms, 7841ms, 8160ms
-g. redis - redisson - 6448ms, 6459ms, 6555ms
+c. database - pessimistic lock - 2122ms, 2261ms, 2058ms
+d. database - optimistic lock - 3268ms, 3293ms, 3664ms
+e. database - named lock - 3040ms, 3161ms, 3105ms
+f. redis - lettuce - 7064ms, 7152ms, 5833ms
+g. redis - redisson - 5256ms, 5374ms, 5466ms
 
 
-중간결산: 1000개 까지도 update query가 성능이 제일 좋네?
-그리고 synchronized, named lock, redisson 증가폭 미쳤는데?
+중간결산:
+
+1000개 까지도 update query가 성능이 제일 좋네?
+그리고 synchronized, optimistic lock, named lock, lettuce redisson 증가폭 미쳤는데?
+pessimistic lock이 선방중. update query랑 성능 비비는데 나름 안전하기까지?
+
 
 
 case3) thread 10000개가 동시접근 하는 경우(thread pool 32개 기준)
@@ -254,13 +271,46 @@ case3) thread 10000개가 동시접근 하는 경우(thread pool 32개 기준)
 
 a. java - synchronized - 13736ms, 14773ms, 14760ms
 b. database - update query - 6807ms, 6106ms, 6486ms
-c. database - pessimistic lock - 8548ms, 8287ms, 8257ms
-d. database - optimistic lock - 14476ms, 12024ms, 12650ms
-e. database - named lock - 13018ms, 13529ms, 13008ms
-f. redis - lettuce - 42559ms, 45398ms, 44615ms
-g. redis - redisson - 43884ms, 44324ms, 43348ms
+c. database - pessimistic lock - 8292ms
+d. database - optimistic lock - 12661ms
+e. database - named lock - 13009ms
+f. redis - lettuce - 33678ms
+g. redis - redisson - 34361ms
 
 
-최종결산: 단순 수정은 update query가 최고 나머지 애들은 다 병풍!
+최종결산:
+
+
+동시 접근 요청 갯수 상관없이 update query가 성능은 최고다.
+
+update query에 비비던 pessimistic lock도, 차이가 꽤 벌어졌다.
+
+
+
+Q. 왜 update query가 pessimistic 보다 더 빠르지? 어짜피 exclusive lock(베타 잠금)이면, 쌤쌤아냐?
+
+
+A. update query가 lock을 얻는 시점은 update 쿼리 실행하고 commit 후 lock 반환인데, pessimistic lock은 내부적으로 select ~ for update로 돌아가는데, select 과정에서 lock을 얻고, update 쿼리 실행한 후, commit -> lock 반환함.
+lock을 점유하는 기간이 pessimistic lock(select ~ for update) 보다 update query가 더 짧기 때문에, 성능이 더 잘나옴.
+
+
+
+
+Q. 왜 낙관적 락의 성능이 비관적 락 성능보다 느리게 나왔지?
+
+A.
+optimistic lock은 트랜잭션 도중, 다른 트랜잭션이 난입하지 않는다고 optimistic한 가정을 한 lock.
+
+optimistic lock은 db단에서 락 하는게 아니라, jpa pesistent context 단에서 entity의 무결성을 보장하기 위해서 하는거라, 막상 디비에 쿼리 날리는 시점엔 버전이 다를 수 있음. 그러면 Exception 터지면서, Thread.sleep(50ms); 후 재 시도 하기 때문에 pessimistic lock보다 느린 것. (50ms는 테스트 때 넣은 임의의 값)
+
+이렇게 충돌이 많이 발생한다면, 비관적 lock은 성능이 별로 안좋다.
+
+
+pessimistic lock은 db단에서 거는베타 락. optimistic lock 처럼, 충돌 일어나도 50ms 잠재우는거 안함. busy waiting 방식이던, 잠자다가 lock 반환하면 깨우는 방식이건, 충돌이 많이 일어나는 상황에서는 optimistic lock 방식보다 빠름.
+
+
+Q. pessimistic lock은 내부적으로 busy_wait인가?
+
+A. 아님. SELECT FOR UPDATE is not a busy waiting method. Threads that cannot access a shared resource due to an exclusive lock will be suspended and placed in a wait state until the lock is released.
 
 
