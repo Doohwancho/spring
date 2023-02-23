@@ -28,7 +28,7 @@ public class UpdateQueryTest {
 
     @BeforeEach
     public void insert() {
-        Stock stock = new Stock(1L, 100L);
+        Stock stock = new Stock(1L, 10000L);
 
         stockRepository.saveAndFlush(stock);
     }
@@ -58,7 +58,7 @@ public class UpdateQueryTest {
     @Test
     @DisplayName("2. 요청이 동시에 100개씩 들어오는 상황")
     public void 동시에_100명이_주문() throws InterruptedException {
-        int threadCount = 100;
+        int threadCount = 10000;
         ExecutorService executorService = Executors.newFixedThreadPool(32); //ExecuteService는 비동기 요청을 단순화 하는 자바 API
         CountDownLatch latch = new CountDownLatch(threadCount); //CountDownLatch는 다른 쓰레드의 작업이 완료될 때 까지 기다리게 만드는 클래스
 

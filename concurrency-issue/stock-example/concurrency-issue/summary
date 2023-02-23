@@ -11,6 +11,7 @@ F. 해결법 - database: named lock
 G. 해결법 - redis: Lettuce
 H. 해결법 - redis: Redisson
 I. 해결법 - database: update query
+J. 성능비교
 
 
 ---
@@ -165,3 +166,101 @@ int decreaseQuantity(Long id, Long quantity);
 
 업데이트하는 동안, db단에서 lock거는거 같은데..
 그럼 pessimistic lock이랑 뭐가 다르지?
+
+
+Hibernate:
+    select
+        stock0_.id as id1_0_,
+        stock0_.product_id as product_2_0_,
+        stock0_.quantity as quantity3_0_,
+        stock0_.version as version4_0_
+    from
+        stock stock0_
+    where
+        stock0_.id=? for update
+
+
+이렇게 select ~ for update로 잘 나오는데,
+update query는 돌려보면,
+
+Hibernate:
+        stock0_.id=?
+    select
+        stock0_.id as id1_0_0_,
+        stock0_.product_id as product_2_0_0_,
+        stock0_.quantity as quantity3_0_0_,
+        stock0_.version as version4_0_0_
+    from
+        stock stock0_
+    where
+        stock0_.id=?
+
+
+select ~ for update 안나옴. 이건 아닌듯.
+
+
+알아보니 db에서 update 자체가 동시성 보장 해준다고 한다.
+
+
+Q. 그럼 쭉 update query 쓰지, 왜 pessimistic lock, optimistic lock이라는 개념이 있는거지?
+
+
+동시에 접근하는 쓰레드마다 성능차이가 나서 그런가?
+
+
+
+---
+J. 성능비교 - update query vs pessimistic lock vs optimistic lock
+
+
+
+
+case1) thread 100개가 동시접근 하는 경우(thread pool 32개 기준)
+
+
+a. java - synchronized - 713ms, 789ms, 768ms
+b. database - update query - 308ms, 354ms, 349ms
+c. database - pessimistic lock - 457ms, 443ms, 452ms
+d. database - optimistic lock - 1752ms, 1607ms, 1675ms
+e. database - named lock - 871ms, 918ms, 843ms
+f. redis - lettuce - 3531ms, 2901ms, 3703ms
+g. redis - redisson - 1194ms, 1135ms, 1321ms
+
+
+중간결산: update query가 GOD이다. 역시 동시성 이슈는 데이터 베이스한테 맡기는게 최선인가?
+redis는 개오바네 못써먹을정돈데? lettuce는 설정을 좀 느슨하게 해서 그런 것 같기도 하고.
+
+
+
+
+case2) thread 1000개가 동시접근 하는 경우(thread pool 32개 기준)
+
+
+a. java - synchronized - 4421ms, 3512ms, 3639ms
+b. database - update query - 1999ms, 1792ms, 1847ms
+c. database - pessimistic lock - 2146ms, 2302ms, 2557ms
+d. database - optimistic lock - 3591ms, 3619ms, 4111ms
+e. database - named lock - 3435ms, 3422ms, 3168ms
+f. redis - lettuce - 7518ms, 7841ms, 8160ms
+g. redis - redisson - 6448ms, 6459ms, 6555ms
+
+
+중간결산: 1000개 까지도 update query가 성능이 제일 좋네?
+그리고 synchronized, named lock, redisson 증가폭 미쳤는데?
+
+
+case3) thread 10000개가 동시접근 하는 경우(thread pool 32개 기준)
+
+
+a. java - synchronized - 13736ms, 14773ms, 14760ms
+b. database - update query - 6807ms, 6106ms, 6486ms
+c. database - pessimistic lock - 8548ms, 8287ms, 8257ms
+d. database - optimistic lock - 14476ms, 12024ms, 12650ms
+e. database - named lock - 13018ms, 13529ms, 13008ms
+f. redis - lettuce - 42559ms, 45398ms, 44615ms
+g. redis - redisson - 43884ms, 44324ms, 43348ms
+
+
+최종결산: 단순 수정은 update query가 최고 나머지 애들은 다 병풍!
+
+

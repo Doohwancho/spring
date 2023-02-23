@@ -26,7 +26,8 @@ a-3. database - optimistic lock :white_check_mark:\
 a-4. database - named lock :white_check_mark:\
 a-5. redis - Lettuce :white_check_mark:\
 a-6. redis - Redisson :white_check_mark:\
-a-7. database - update query :white_check_mark:
+a-7. database - update query :white_check_mark:\
+a-8. performance test of all lock methods :white_check_mark:
 
 
 
