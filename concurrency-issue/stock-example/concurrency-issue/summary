@@ -118,14 +118,20 @@ G,H. Redis - Lettuce, Redisson
 
 1. Lettuce
 	- redis 내부에 setnx 명령어를 활용하여 분산락 구현
-		- named lock과 작동방식이 유사하다.
+		- 따라서 별도 외부 라이브러리 필요 없다
+		- named lock과 작동방식이 유사하다
 	- spin lock 방식
 		- spin lock이란, lock 획득 못해도 lock 사용가능한지 반복적으로 시도하는 방식(일정 ms 이후에 재시도)
 		- 따라서, 개발자가 retry 코드 작성해주어야 함
-		- spin lock 방식은 CPU에 부하를 줄 수 있다.
+		- spin lock 방식은 CPU에 부하를 줄 수 있다
+	- 실무에서는?
+		- 재시도가 필요하지 않은 lock은 lettuce를 사용
 2. Redisson
 	- pub sub 기반, lock 구현
 	- pub sub은, 채널을 만들고, 락 획득한 쓰레드가 반환하면, 구독한 subscriber에게 lock 반환했다고 알려주는 방식
-
+	- spin lock 처럼 잠겨있는 동안 10ms마다 계속 문 두드리질 않으니까, CPU 자원 소모, 부하가 덜 하다.
+	- pub sub 방식이 spin lock보다는 부하가 줄지만, 스프링단 별도 로직 작성 필요하고, redisson 외부 라이브러리 써야한다는 단점이 있다
+	- 실무에서는?
+		- 재시도가 필요한 lock은 redisson 사용
 
 
