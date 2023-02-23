@@ -19,14 +19,14 @@ public class StockService {
 
 
     //case1) default -> race condition에 취약하다..
-//    @Transactional
-//    public void decrease(Long id, Long quantity) {
-//        Stock stock = stockRepository.findById(id).orElseThrow();
-//
-//        stock.decrease(quantity);
-//
-//        stockRepository.saveAndFlush(stock);
-//    }
+    @Transactional
+    public void decreaseDefault(Long id, Long quantity) {
+        Stock stock = stockRepository.findById(id).orElseThrow();
+
+        stock.decrease(quantity);
+
+        stockRepository.saveAndFlush(stock);
+    }
 
     /**
      * solution 01) synchronized
@@ -84,4 +84,14 @@ public class StockService {
      * race condition이 발생한다.
      *
      */
+
+    //case8) database: UPDATE query
+    @Transactional
+    public void decreaseUpdateQuery(Long id, Long quantity) {
+        Stock stock = stockRepository.findById(id).orElseThrow();
+
+        stockRepository.decreaseQuantity(id, quantity);
+
+        stockRepository.saveAndFlush(stock);
+    }
 }

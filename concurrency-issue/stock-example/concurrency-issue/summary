@@ -10,6 +10,7 @@ E. 해결법 - database: optimistic lock
 F. 해결법 - database: named lock
 G. 해결법 - redis: Lettuce
 H. 해결법 - redis: Redisson
+I. 해결법 - database: update query
 
 
 ---
@@ -135,3 +136,32 @@ G,H. Redis - Lettuce, Redisson
 		- 재시도가 필요한 lock은 redisson 사용
 
 
+---
+I. database - UPDATE query
+
+
+```java
+//Service layer
+
+//case8) database: UPDATE query
+@Transactional
+public void decreaseUpdateQuery(Long id, Long quantity) {
+    Stock stock = stockRepository.findById(id).orElseThrow();
+
+    stockRepository.decreaseQuantity(id, quantity);
+
+    stockRepository.saveAndFlush(stock);
+}
+
+
+//repository layer
+
+@Modifying
+@Query("UPDATE Stock s SET s.quantity = s.quantity - :quantity WHERE s.id = :id")
+int decreaseQuantity(Long id, Long quantity);
+```
+
+이렇게 해도 동시성 문제가 해결되네?
+
+업데이트하는 동안, db단에서 lock거는거 같은데..
+그럼 pessimistic lock이랑 뭐가 다르지?
