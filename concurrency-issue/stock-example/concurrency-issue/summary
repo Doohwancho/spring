@@ -8,16 +8,26 @@ C. 해결법 - java: synchronized
 D. 해결법 - database: pessimistic lock
 E. 해결법 - database: optimistic lock
 F. 해결법 - database: named lock
+G. 해결법 - redis: Lettuce
+H. 해결법 - redis: Redisson
 
 
 ---
 A. How to setup?
 
 
-1. mysql에 접속
+a. mysql
+
+1. mysql-workbench 에 접속
 2. CREATE DATABASE stock_example;
 3. USE stock_example;
 
+
+b. redis
+
+1. docker run --name myredis -d -p 6379:6379 redis
+2. docker ps
+3. docker exec -it myredis redis-cli
 
 
 ---
@@ -74,7 +84,8 @@ D,E. pessimistic & optimistic lock
 	- DB Level 에서 동시성을 처리하는것이 아닌 Application Level 에서 처리
 
 2. 비관적 락(Pessimistic Lock)
-	- 충돌이 발생할것이라 가정하고 우선 DB에 Lock을 거는 방식 (select for update)
+	- 충돌이 발생할것이라 가정하고 우선 DB에 Lock을 거는 방식 (sql에서 select for update 방식으로 동작함)
+	- SELECT ~ FOR UPDATE 구문은 "데이터 수정하려고 SELECT 하는 중이야~ 다른 사람들은 데이터에 손 대지 마!" 라고 할 수 있습니다. 좀 더 딱딱한 표현으로는 동시성 제어를 위하여 특정 데이터(ROW)에 대해 베타적 LOCK을 거는 기능입니다.
 	- 데이터를 수정하는 즉시 충돌을 알 수 있음
 	- DB Level 동시성을 처리
 
@@ -96,6 +107,25 @@ batch때 다량 레코드 넣을 때 deadlock 걸리는걸 named lock으로 해�
 주의점
 	1. transaction 종료 시, lock이 자동해제되지 않기 때문에, 개발자가 별도의 명령어로 해제를 시켜주거나, 선점시간이 끝나야 해제된다. (실 사용시, 구현이 복잡할 수 있따)
 	2. 현업에서는 datasource를 분리하여 사용해야함. 같은 datasource 사용하면, connection pool이 부족해지는 현상 발생함. -> 다른 서비스에 영향 미친다.
+
+
+
+---
+G,H. Redis - Lettuce, Redisson
+
+
+둘 다 분산락 구현하려고 만들어진 redis 라이브러리.
+
+1. Lettuce
+	- redis 내부에 setnx 명령어를 활용하여 분산락 구현
+		- named lock과 작동방식이 유사하다.
+	- spin lock 방식
+		- spin lock이란, lock 획득 못해도 lock 사용가능한지 반복적으로 시도하는 방식(일정 ms 이후에 재시도)
+		- 따라서, 개발자가 retry 코드 작성해주어야 함
+		- spin lock 방식은 CPU에 부하를 줄 수 있다.
+2. Redisson
+	- pub sub 기반, lock 구현
+	- pub sub은, 채널을 만들고, 락 획득한 쓰레드가 반환하면, 구독한 subscriber에게 lock 반환했다고 알려주는 방식
 
 
 
