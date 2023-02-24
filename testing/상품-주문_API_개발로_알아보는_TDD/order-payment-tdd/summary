@@ -1,0 +1,55 @@
+---
+Index
+
+
+A. what is guava lib?
+B. 전체 로직 flow?
+
+
+
+---
+Q. what is guava library?
+
+
+Guava is a set of core Java libraries from Google that includes new collection types (such as multimap and multiset), immutable collections, a graph library, functional types, an in-memory cache, and utilities for concurrency, I/O, hashing, primitives, strings, and more.
+
+
+
+약간 util성 라이브러린가 보다.
+
+
+
+
+---
+Q. 전체 로직 flow?
+
+
+논리 모델링
+상품(이름, 가격, 할인정책) -> 주문(상품, 주문 수량) -> 결제(주문, 카드번호)
+
+
+물리 모델링
+상품 저장을 service로 요청하면, <<interface>> port에 구현체인 adaptor를 통해 in-memory repository에 저장하거나, jpa를 통해 db에 저장하거나, 아니면 api call을 통해 다른 서버에 저장하라고 요청
+
+
+
+a. 상품
+1. 상품 등록하고,
+2. 등록한 상품 조회하고,
+3. 등록한 상품 수정하는
+
+
+b. 주문
+1. 해당 상품 주문수량 입력해서 주문
+
+
+c. 결제
+1. 주문 가지고, 카드번호만 받고, 결제하는 기능
+
+
+
+---
+Q. 상품 등록 API 어떻게 만들지?
+
+
+
