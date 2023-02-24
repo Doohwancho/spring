@@ -19,7 +19,6 @@ public class StockService {
 
 
     //case1) default -> race condition에 취약하다..
-    @Transactional
     public void decrease(Long id, Long quantity) {
         Stock stock = stockRepository.findById(id).orElseThrow();
 
