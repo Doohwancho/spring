@@ -2,34 +2,157 @@
 Index
 
 
-A. what is guava lib?
-B. 전체 로직 flow?
+A. hexagonal architecture
+B. RestAssured test시 persistent context에 cache 지우기 + Entity의 id 초기화 코드
+C. RestAssured 테스트를 static Class로 만들어 우려먹기
+D. record? in jdk17?
+E. product -> order -> payment 전체 로직 flow
 
-
-
----
-Q. what is guava library?
-
-
-Guava is a set of core Java libraries from Google that includes new collection types (such as multimap and multiset), immutable collections, a graph library, functional types, an in-memory cache, and utilities for concurrency, I/O, hashing, primitives, strings, and more.
-
-
-
-약간 util성 라이브러린가 보다.
 
 
 
 
 ---
-Q. 전체 로직 flow?
+A. what is hexagonal architecture?
+
+
+전통적인 계층형 아키텍처는 의존성이 웹->도메인->영속성 이라, 모든게 영속성 계층을 토대로 만들어지기 때문에, db 중심으로 설계가 되는데, db중심 설계는 영속성 로직과 도메인 로직이 뒤섞여 있어, 각각을 개별적으로 개발하기 힘들어 협업에 에로사항이 있다고 한다.
+
+도메인 로직이 웹 계층에서 구현될 때, 이곳 저곳 분산된다는 단점을 극복하고자 clean architecture나 DDD같은 방법론이 나왔는데, 이 중 하나의 사례가 hexagonal architecture.
+
+
+바깥(input, output) -> adapter -> application -> domain 으로 의존함.
+domain 객체에 해당 객체를 처리하는 로직이 포함되어있어서, 서비스나 repository에 흩뿌려져있지 않는게 특징.
+편-안
+
+
+3계층 구조로 나뉨. (port-adapter package 구조)
+
+-   어댑터
+    -   driving adapter (= incoming adapter)
+        -   주도하는 어댑터
+        -   왼쪽에 있는 어댑터(웹 어댑터, 외부 시스템 어댑터)
+        -   애플리케이션 코어를 호출합니다.
+    -   driven adapter (= outgoing adapter)
+        -   주도되는 어댑터
+        -   오른쪽에 있는 어댑터(영속성 어댑터, 외부 시스템 어댑터)
+        -   애플리케이션 코어에 의해 호출됩니다.
+-   포트
+    -   애플리케이션 코어와 어댑터 간에 통신을 위한 부분
+    -   인터페이스로 구성
+-   애플리케이션 코어
+    -   도메인 엔티티, 유스케이스
+    -   외부로 향하는 의존성이 없습니다.(= 모든 의존성은 코어를 향합니다.)
+
+
+
+
+---
+B. RestAssured test시 persistent context에 cache 지우기 + Entity의 id 초기화 코드
+
+
+
+DatabaseCleanup.java 참조.
+
+restAssured로 테스트 할 때, 캐시 때문에 디비 초기화 해줘야 함. 이 때, 그냥 deleteAll해도 pesistence layer에 cache가 남아있는것도 지워야 하고, auto_increment된 id같은 경우 다시 1로 초기화시켜줘야함.
+
+gradle에 guava library도 이 코드 때문에 받음.
+
+
+
+
+---
+C. RestAssured 테스트를 static Class로 만들어 우려먹기
+
+
+ProductSteps.java에 상품 등록, 조회하는 코드를 static으로 만들고,
+ProductServiceTest.java에서 ProductSteps.상품등록요청(); 하면 개편함.
+
+
+paymentAPITest.java payment API test는 서버가 커지면 커질수록 유용한 것 같다.
+처음부터 끝까지 서버 켜서 테스트 하려고 하면, 너무 많은 수고가 있는데, 이렇게하면 간단하죠?
+
+
+
+PaymentApiTest.java를 봐라.
+
+```java
+class PaymentApiTest extends ApiTest {
+
+    @Test
+    void 주문결제() {
+        ProductSteps.상품등록요청(ProductSteps.상품등록요청_생성());
+        OrderSteps.상품주문요청(OrderSteps.상품주문요청_생성());
+        final var request = PaymentSteps.주문결제요청_생성();
+
+        final var response = PaymentSteps.주문결제요청(request);
+
+        assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
+    }
+}
+```
+
+와~ 이거제~
+
+
+
+
+---
+D. what is record?
+
+
+
+Record types are a new type of type introduced in the Java Development Kit 17 (JDK 17). Records are a concise way to declare a class with a shallow state and a standard set of accessors. They are a special kind of class that acts as a transparent carrier for a shallow data structure. Records promote source code readability and enable a more natural way to access and manipulate the data.
+
+
+레코드(record)란 "데이터 클래스"이며 순수하게 데이터를 보유하기 위한 특수한 종류의 클래스이다. 코틀린의 데이터 클래스와 비슷한 느낌이라고 보면 된다. 밑에서 코드를 보겠지만, record 클래스를 정의할때, 그 모양은 정말 데이터의 유형만 딱 나타내는 듯한 느낌이다. 훨씬더 간결하고 가볍기 때문에 Entity 혹은 DTO 클래스를 생성할때 사용되면 굉장히 좋을 듯하다.
+
+```java
+public class SampleRecord {
+   private final String name;
+   private final Integer age;
+   private final Address address;
+
+   public SampleRecord(String name, Integer age, Address address) {
+      this.name = name;
+      this.age = age;
+      this.address = address;
+   }
+
+   public String getName() {
+      return name;
+   }
+
+   public Integer getAge() {
+      return age;
+   }
+
+   public Address getAddress() {
+      return address;
+   }
+}
+```
+
+얘를 record type class로 변형시키면,
+```java
+public record SampleRecord(
+   String name,
+   Integer age,
+   Address address
+) {}
+```
+
+이렇게 된다고 한다.
+
+
+
+
+---
+E. product -> order -> payment 전체 로직 flow
 
 
 논리 모델링
 상품(이름, 가격, 할인정책) -> 주문(상품, 주문 수량) -> 결제(주문, 카드번호)
-
-
-물리 모델링
-상품 저장을 service로 요청하면, <<interface>> port에 구현체인 adaptor를 통해 in-memory repository에 저장하거나, jpa를 통해 db에 저장하거나, 아니면 api call을 통해 다른 서버에 저장하라고 요청
 
 
 
@@ -45,11 +168,6 @@ b. 주문
 
 c. 결제
 1. 주문 가지고, 카드번호만 받고, 결제하는 기능
-
-
-
----
-Q. 상품 등록 API 어떻게 만들지?
 
 
 

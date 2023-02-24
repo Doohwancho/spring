@@ -21,13 +21,11 @@ b. steal: 상품-주문 api 개발로 알아보는 TDD
 todos
 
 
-b-1. 상품 등록 API 개발\
-b-2. 상품 조회 API 개발\
-b-3. 상품 수정 API 개발\
-b-4. 상품 주문 API 개발\
-b-5. 주분 결제 API 개발\
-b-6. 상세 패키지 구조 만들기
-
+b-1. hexagonal architecture
+b-2. RestAssured test시 persistent context에 cache 지우기 + Entity의 id 초기화 코드
+b-3. RestAssured 테스트를 static Class로 만들어 우려먹기
+b-4. record? in jdk17?
+b-5. product -> order -> payment 전체 로직 flow
 
 
 
