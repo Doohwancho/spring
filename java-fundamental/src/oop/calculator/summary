@@ -1,0 +1,42 @@
+---
+procedure oriented to oop
+
+
+A. pop(before)
+
+public static int calculate(int num1, String operator, int num2) {
+        switch (operator) {
+            case "+":
+                return add(num1, num2);
+            case "-":
+                return subtract(num1, num2);
+            case "*":
+                return multiply(num1, num2);
+            case "/":
+                return divide(num1, num2);
+            default:
+                throw new IllegalArgumentException("올바른 사칙연산이 아닙니다.");
+        }
+    }
+
+    public static int add(int num1, int num2) {
+        return num1 + num2;
+    }
+
+    public static int subtract(int num1, int num2) {
+        return num1 - num2;
+    }
+
+    public static int multiply(int num1, int num2) {
+        return num1 * num2;
+    }
+
+    public static int divide(int num1, int num2) {
+        return num1 / num2;
+
+
+
+B. oop(after)
+
+
+코드 함 봐봐

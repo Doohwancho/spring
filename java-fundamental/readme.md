@@ -6,7 +6,7 @@ modularize concepts in java
 
 
 ---\
-Concepts 
+Concepts
 
 
 a. exception\
@@ -21,6 +21,7 @@ i. functional programming :question:\
 j. SOLID :white_check_mark:\
 k. clean code :question:\
 l. how jvm works :soon:\
+m. oop :white_check_mark:\
 x. enums\
 x. annotation\
 x. garbage collector\
@@ -50,7 +51,7 @@ e-9. critical section - mutex :white_check_mark:\
 e-10. critical section - semaphore :white_check_mark:\
 e-11. critical section - monitor :white_check_mark:\
 e-12. daemon thread :white_check_mark:\
-e-13. thread dump 떠서 데드락 확인  
+e-13. thread dump 떠서 데드락 확인
 
 
 
@@ -104,6 +105,8 @@ k-3. clean code is "subjective" :white_check_mark:
 l-1. call by value vs call by reference :white_check_mark:\
 l-2. javacode in method area, heap, stack :white_check_mark:
 
+m-1. calculator from pop to oop :white_check_mark:
+
 ---\
 Reference
 
@@ -117,7 +120,7 @@ e-7. [자바 쓰레드 교착상태](https://math-coding.tistory.com/175) \
 e-9. [크리티컬 섹션, 뮤텍스, 세마포어 설명](https://do-rang.tistory.com/90) \
 e-10. [세마포어 설명](https://javaplant.tistory.com/30?category=789385) \
 e-11. [Monitor 설명](https://velog.io/@hosunghan0821/Java-Monitor) \
-e-12. [thread dump 떠서 데드락 확인](https://syundev.tistory.com/284?category=870166) 
+e-12. [thread dump 떠서 데드락 확인](https://syundev.tistory.com/284?category=870166)
 
 
 
@@ -127,7 +130,7 @@ f-3. [File Input/Output Stream with buffer size](https://www.youtube.com/watch?v
 f-4. [DataOutputStream, decorator](https://www.youtube.com/watch?v=ewZhpmriRN8&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=19) \
 f-5. [BufferedReader](https://www.youtube.com/watch?v=vaOjTx5pPhY&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=20) \
 f-6. io between threads - 자바의 정석 \
-f-7. serialization - 자바의 정석 
+f-7. serialization - 자바의 정석
 
 
 
@@ -148,7 +151,7 @@ i-9. [lazy evaluation](https://sthwin.tistory.com/21#:~:text=%EC%9E%90%EB%B0%94%
 i-14..17. [functional interface most frequently used](https://yhmane.tistory.com/203) \
 i-x. [monad](https://www.youtube.com/channel/UCrlZnbV0o2cnUNWdEORTxsw/videos) \
 i-x. [3분 모나드](https://overcurried.com/3%EB%B6%84%20%EB%AA%A8%EB%82%98%EB%93%9C/)
- 
+
 j-1. [A Solid Guide to SOLID Principles](https://www.baeldung.com/solid-principles)
 
 k-1. [이유와 솔루션으로 정리하는 객체지향 생활체조 원칙](https://hudi.blog/thoughtworks-anthology-object-calisthenics/) \
@@ -159,4 +162,6 @@ k-x. Refactoring 2 \
 k-x. Working Effectively with Legacy Code
 
 l-1. [call by value, call by reference](https://gyoogle.dev/blog/computer-language/Java/Call%20by%20value%20&%20Call%20by%20reference.html) \
-l-2. [method, stack, heap area](https://www.youtube.com/watch?v=Vd1C3-wHc4Y&ab_channel=%EC%BD%94%EB%93%9C%EB%9D%BC%EB%96%BC) 
+l-2. [method, stack, heap area](https://www.youtube.com/watch?v=Vd1C3-wHc4Y&ab_channel=%EC%BD%94%EB%93%9C%EB%9D%BC%EB%96%BC)
+
+m-1. [calculator from pop to oop](https://github.com/serverwizard/oop-practice)

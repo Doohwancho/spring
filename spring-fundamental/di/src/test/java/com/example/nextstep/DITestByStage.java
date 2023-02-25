@@ -129,16 +129,16 @@ public class DITestByStage {
      */
 
     @Test
-    void stage3() throws Exception{
+    void stage3() throws Exception {
 //        final var user = new User(1L, "gugu");
-
+//
 //        final DIContext3 diContext = createDIContext3();
 //        final var userService = (UserService3)diContext.getBean(UserService3.class);
-
+//
 //        log.info(userService.getClass().getName()); //null
-
+//
 //        final var actual = userService.join(user);
-
+//
 //        assertThat(actual.getAccount()).isEqualTo("gugu");
     }
 

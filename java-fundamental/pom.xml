@@ -9,7 +9,12 @@
 	    <groupId>com.google.guava</groupId> <!-- for semiphore's monitor -->
 	    <artifactId>guava</artifactId>
 	    <version>31.0.1-jre</version>
-		</dependency>	
+		</dependency>
+      <dependency>
+        <groupId>org.passay</groupId>
+        <artifactId>passay</artifactId>
+        <version>1.6.2</version>
+      </dependency>
   </dependencies>
   
   <build>
