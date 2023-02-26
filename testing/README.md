@@ -32,7 +32,8 @@ c-0. init :white_check_mark:\
 c-1. atdd로 작은 요구사항 구현 - case1) domain -> service :white_check_mark:\
 c-2. atdd로 작은 요구사항 구현 - case2) domain <- service :white_check_mark:\
 c-3. refactoring :white_check_mark:\
-c-4. integration test on controller using RestAssured :white_check_mark:
+c-4. integration test on controller using RestAssured :white_check_mark:\
+c-5. refactoring - controller, service layer :white_check_mark:
 
 
 
@@ -42,4 +43,4 @@ reference
 
 b. [실전! 스프링부트 상품 주문 API 개발로 알아보는 TDD](https://github.com/ejoongseok/product-order-service)
 
-c. [atdd-example](https://github.com/ejoongseok/atdd-example)
+c. [atdd-example](https://github.com/msbaek/atdd-example)

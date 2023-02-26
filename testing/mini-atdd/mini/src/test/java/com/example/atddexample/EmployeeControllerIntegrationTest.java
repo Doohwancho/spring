@@ -45,7 +45,7 @@ public class EmployeeControllerIntegrationTest {
                 .when().get()
                 .then().log().body()
                 .statusCode(HttpStatus.SC_OK)
-                .body(is(expectedMessage));
+                .body("message", is(expectedMessage));
     }
     
     @Test 
@@ -57,6 +57,6 @@ public class EmployeeControllerIntegrationTest {
                 .when().get()
                 .then().log().body()
                 .statusCode(HttpStatus.SC_OK)
-                .body(is(expectedMessage));
+                .body("message", is(expectedMessage));
     }
 }
