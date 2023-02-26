@@ -26,7 +26,7 @@ public class FunServiceTest {
         funService = new FunService(funPort);
     }
 
-    @Test 
+    @Test
     void 재미등록() {
         //given
         String name = "상품명";

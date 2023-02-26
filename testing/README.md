@@ -14,6 +14,7 @@ fields
 
 a. tdd\
 b. steal: 상품-주문 api 개발로 알아보는 TDD\
+c. mini-atdd-practice
 
 
 
@@ -27,6 +28,7 @@ b-3. RestAssured 테스트를 static Class로 만들어 우려먹기 :white_chec
 b-4. record? in jdk17? :white_check_mark:\
 b-5. product -> order -> payment 전체 로직 flow :white_check_mark:
 
+c-1. atdd로 작은 요구사항 구현
 
 
 
@@ -35,3 +37,5 @@ reference
 
 
 b. [실전! 스프링부트 상품 주문 API 개발로 알아보는 TDD](https://github.com/ejoongseok/product-order-service)
+
+c. [atdd-example](https://github.com/ejoongseok/atdd-example)
