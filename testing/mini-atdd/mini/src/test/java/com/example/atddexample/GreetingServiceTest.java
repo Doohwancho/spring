@@ -1,6 +1,5 @@
 package com.example.atddexample;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
 import java.util.Optional;
@@ -15,12 +14,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class GreetingServiceTest {
 
+    private EmployeeService service;
     @Mock
     private EmployeeRepository repository;
-    private EmployeeService service;
 
-    @BeforeAll
-    void beforeAll() {
+
+    @BeforeEach
+    void beforeEach() {
         this.service = new EmployeeService(repository);
     }
 
@@ -45,10 +45,10 @@ public class GreetingServiceTest {
 
         //then
         Assertions.assertThat(result).isNotNull();
-        Assertions.assertThat(result).isEqualTo("Hello firstName "+existingLastName+"!");
+        Assertions.assertThat(result).isEqualTo("Hello "+existingLastName+"!");
     }
     
-    @Test 
+    @Test
     @DisplayName("이름으로 직원을 찾을 수 없으면, Exception Message를 반환한다.")
     void printExceptionMessageWhenEmployeeNotFound() {
         //given
@@ -60,6 +60,6 @@ public class GreetingServiceTest {
 
         //then
         Assertions.assertThat(result).isNotNull();
-        Assertions.assertThat(result).isEqualTo("Who is this lastName you're talking about?");
+        Assertions.assertThat(result).isEqualTo("Who is this "+nonExistingLastName+" you're talking about?");
     }
 }

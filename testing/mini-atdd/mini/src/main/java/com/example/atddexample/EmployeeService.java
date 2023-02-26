@@ -16,8 +16,8 @@ class EmployeeService {
     public String greeting(String lastName) {
         Optional<Employee> target = repository.findByLastName(lastName);
         if (target.isEmpty()) {
-            return "Who is this lastName you're talking about?";
+            return "Who is this "+ lastName +" you're talking about?";
         }
-        return "Hello firstName " + lastName + "!";
+        return "Hello " + lastName + "!";
     }
 }

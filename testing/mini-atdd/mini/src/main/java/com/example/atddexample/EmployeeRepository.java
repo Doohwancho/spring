@@ -18,10 +18,14 @@ class EmployeeRepository {
                 return Optional.of(new Employee(entry.getValue()));
             }
         }
-        return null;
+        return Optional.empty();
     }
 
-    public void add(Employee targetEmployee) {
-        database.put(++sequence, targetEmployee.lastName);
+    public void save(Employee targetEmployee) {
+        database.put(++sequence, targetEmployee.getLastName());
+    }
+
+    public void deleteAll() {
+        database.clear();
     }
 }
