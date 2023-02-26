@@ -29,7 +29,8 @@ b-4. record? in jdk17? :white_check_mark:\
 b-5. product -> order -> payment 전체 로직 flow :white_check_mark:
 
 c-0. init :white_check_mark:\
-c-1. atdd로 작은 요구사항 구현 - case1) domain -> service :white_check_mark:
+c-1. atdd로 작은 요구사항 구현 - case1) domain -> service :white_check_mark:\
+c-2. atdd로 작은 요구사항 구현 - case2) domain <- service :white_check_mark:
 
 
 
