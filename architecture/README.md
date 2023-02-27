@@ -21,6 +21,7 @@ Todos
 
 
 a-0. init + 인수사항 정의
+a-1. deposit tdd
 
 
 ---\
