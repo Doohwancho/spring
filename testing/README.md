@@ -14,7 +14,7 @@ fields
 
 a. tdd\
 b. steal: 상품-주문 api 개발로 알아보는 TDD\
-c. mini-atdd-practice
+c. steal: mini-atdd-practice
 
 
 
@@ -44,3 +44,4 @@ reference
 b. [실전! 스프링부트 상품 주문 API 개발로 알아보는 TDD](https://github.com/ejoongseok/product-order-service)
 
 c. [atdd-example](https://github.com/msbaek/atdd-example)
+
