@@ -19,7 +19,21 @@ class AccountService {
             throw new AccountDoesNotExist("계좌가 존재하지 않습니다.");
         }
         Long targetId = account.get().getId();
-        Long targetBalance = account.get().getBalance() + depositDto.getAmount();
+        Long targetBalance = account.get().setBalance(depositDto.getAmount());
+
+        repository.updateAccountBalance(targetId, targetBalance);
+
+        repository.flush();
+    }
+
+    @Transactional
+    public void withdraw(WithdrawDto withdrawDto) throws AccountDoesNotExist{
+        Optional<Account> account = repository.findById(withdrawDto.getId());
+        if (account.isEmpty()) {
+            throw new AccountDoesNotExist("계좌가 존재하지 않습니다.");
+        }
+        Long targetId = account.get().getId();
+        Long targetBalance = account.get().setBalance(-withdrawDto.getAmount());
 
         repository.updateAccountBalance(targetId, targetBalance);
 

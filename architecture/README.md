@@ -20,8 +20,12 @@ a. steal: bank example (hexagonal architecture + atdd)
 Todos
 
 
-a-0. init + 인수사항 정의
-a-1. deposit tdd
+a-0. init + 인수사항 정의 :white_check_mark:\
+a-1. tdd - deposit() :white_check_mark:\
+a-2. tdd - withdraw() :white_check_mark:\
+a-3. tdd - Exception when withdraw more than you have :white_check_mark:
+
+
 
 
 ---\
