@@ -1,18 +1,32 @@
 ---
-요구사항
+Index
+
+
+
+A. 요구사항 정의
+B. 용어 정의
+C. service.deposit();할 때, Account를 넘겨줘야 하나? 아니면 account.deposit()으로 해야하나?
+D. N-tier architecture to hexagonal architecture
+
+
+
+---
+A. 요구사항 정의
 
 
 Acceptance Criteria
 
 A. 요구사항 정의
 
-a. 은행 계좌에 돈을 입금할 수 있다.
+a. 은행 계좌에 돈을 입금할 수 있다. -- clear
     a-1. 입금은 한번에 한번씩만 되어야 한다.(동시에 두번 이상의 입금처리가 되면 안된다.)
-b. 은행 계좌에 돈을 출금할 수 있다.
-    b-1. 출금 시, 계좌에 있는 돈 이상 출금할 수 없다.
+b. 은행 계좌에 돈을 출금할 수 있다. -- clear
+    b-1. 출금 시, 계좌에 있는 돈 이상 출금할 수 없다. -- clear
 
 
 
+
+---
 B. 용어 정의
 
 1. 계좌에 돈을 입금: deposit
@@ -22,7 +36,7 @@ B. 용어 정의
 
 
 ---
-Q1. service.deposit();할 때, Account를 넘겨줘야 하나? 아니면 account.deposit()으로 해야하나?
+C. service.deposit();할 때, Account를 넘겨줘야 하나? 아니면 account.deposit()으로 해야하나?
 
 
 case1) Account.deposit()을 한다?
@@ -39,4 +53,7 @@ request에 {Account, depositAmount}를 담아 보내야겠다.
 {userName, depositAmount} 를 보내야하나?
 동명 이인 때문에 안되잖아?
 {AccountId, depositAmount}를 보내야 겠다.
+
+
+
 
