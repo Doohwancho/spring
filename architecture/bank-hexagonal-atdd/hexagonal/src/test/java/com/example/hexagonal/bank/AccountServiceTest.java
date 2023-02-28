@@ -7,6 +7,7 @@ import com.example.hexagonal.dto.withdraw.WithdrawResponse;
 import com.example.hexagonal.exception.CannotWithdrawBalanceIsBelowZero;
 import com.example.hexagonal.repository.AccountRepository;
 import com.example.hexagonal.service.AccountService;
+import com.example.hexagonal.util.DatabaseCleanup;
 import com.example.hexagonal.vo.Account;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
@@ -25,25 +26,24 @@ public class AccountServiceTest {
     public static final long INITIAL_BALANCE = 10000L;
 
     @Autowired
+    private DatabaseCleanup databaseCleanup;
+
+    @Autowired
     private AccountService service;
     @Autowired
     private AccountRepository repository;
 
     private Account account;
 
-    @BeforeAll
+    @BeforeEach
     void beforeAll() {
-        repository.deleteAll();
+        databaseCleanup.afterPropertiesSet();
+        databaseCleanup.execute();
 
         account = repository.save(Account.builder()
                 .ownerName("cho")
                 .balance(INITIAL_BALANCE)
                 .build());
-    }
-
-    @AfterAll
-    void afterAll() {
-        repository.deleteAll();
     }
 
     /**
@@ -63,7 +63,7 @@ public class AccountServiceTest {
      *
      */
 
-    @Test 
+    @Test
     @DisplayName("은행 계좌에 입금 가능해야 한다.")
     void shouldBeAbleToDepositTest() {
         //given
