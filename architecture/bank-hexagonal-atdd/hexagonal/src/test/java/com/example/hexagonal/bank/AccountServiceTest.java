@@ -11,23 +11,25 @@ import java.util.Optional;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class BankServiceTest {
+public class AccountServiceTest {
 
-    private static final Logger log = LoggerFactory.getLogger(BankServiceTest.class);
+    private static final Logger log = LoggerFactory.getLogger(AccountServiceTest.class);
 
     @Autowired
     private AccountService service;
     @Autowired
     private AccountRepository repository;
 
+    private Account account;
+
     @BeforeAll
     void beforeAll() {
         repository.deleteAll();
-    }
 
-    @AfterAll
-    void afterAll() {
-        repository.deleteAll();
+        account = repository.save(Account.builder()
+                .ownerName("cho")
+                .balance(10000L)
+                .build());
     }
 
     /**
@@ -51,22 +53,15 @@ public class BankServiceTest {
     @DisplayName("은행 계좌에 입금 가능해야 한다.")
     void shouldBeAbleToDepositTest() {
         //given
-        Long PREV_AMOUNT = 0L;
-        Account account = Account.builder()
-                .ownerName("cho")
-                .balance(PREV_AMOUNT)
-                .build();
-        Account prevAccount = repository.save(account);
-
         Long DEPOSIT_AMOUNT = 10000L;
-        long expected = prevAccount.getBalance() + DEPOSIT_AMOUNT;
-        DepositDto depositDto = new DepositDto(prevAccount.getId(), DEPOSIT_AMOUNT);
+        long expected = account.getBalance() + DEPOSIT_AMOUNT;
+        DepositRequest depositRequest = new DepositRequest(account.getId(), account.getOwnerName(), DEPOSIT_AMOUNT);
 
         //when
-        service.deposit(depositDto);
+        DepositResponse response = service.deposit(depositRequest);
 
         //then
-        Optional<Account> targetAccount = repository.findById(prevAccount.getId());
+        Optional<Account> targetAccount = repository.findById(account.getId());
         Assertions.assertThat(targetAccount).isNotEmpty();
         Assertions.assertThat(targetAccount.get().getBalance()).isEqualTo(expected);
     }
@@ -75,22 +70,15 @@ public class BankServiceTest {
     @DisplayName("은행 계좌에서 인출 가능해야 한다.")
     void shouldBeAbleToWithdraw() {
         //given
-        Long PREV_BALANCE = 10000L;
-        Account account = Account.builder()
-                .ownerName("cho")
-                .balance(PREV_BALANCE)
-                .build();
-        Account prevAccount = repository.save(account);
-
         Long WITHDRAW_AMOUNT = 10000L;
-        long expected = prevAccount.getBalance() - WITHDRAW_AMOUNT;
-        WithdrawDto withdrawDto = new WithdrawDto(prevAccount.getId(), WITHDRAW_AMOUNT);
+        long expected = account.getBalance() - WITHDRAW_AMOUNT;
+        WithdrawRequest request = new WithdrawRequest(account.getId(), account.getOwnerName(), WITHDRAW_AMOUNT);
 
         //when
-        service.withdraw(withdrawDto);
+        WithdrawResponse withdraw = service.withdraw(request);
 
         //then
-        Optional<Account> targetAccount = repository.findById(prevAccount.getId());
+        Optional<Account> targetAccount = repository.findById(account.getId());
         Assertions.assertThat(targetAccount).isNotEmpty();
         Assertions.assertThat(targetAccount.get().getBalance()).isEqualTo(expected);
     }
@@ -99,19 +87,12 @@ public class BankServiceTest {
     @DisplayName("계좌에 가진 돈 이상을 인출시, throw Exception")
     void shouldNotBeAbleToWithdrawMoreThanYouHave() {
         //given
-        Long PREV_BALANCE = 10000L;
-        Account account = Account.builder()
-                .ownerName("cho")
-                .balance(PREV_BALANCE)
-                .build();
-        Account prevAccount = repository.save(account);
-
         Long WITHDRAW_AMOUNT = 20000L;
-        WithdrawDto withdrawDto = new WithdrawDto(prevAccount.getId(), WITHDRAW_AMOUNT);
+        WithdrawRequest request = new WithdrawRequest(account.getId(), account.getOwnerName(), WITHDRAW_AMOUNT);
 
         //when & then
         Assertions.assertThatThrownBy(() -> {
-            service.withdraw(withdrawDto);
+            service.withdraw(request);
         }).isInstanceOf(CannotWithdrawBalanceIsBelowZero.class)
         .hasMessageContaining("본인이 가진 액수 이상으로 출금할 수 없습니다.");
     }
