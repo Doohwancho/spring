@@ -1,5 +1,6 @@
 package com.example.hexagonal.bank;
 
+import com.example.hexagonal.bank.fixture.AccountFixture;
 import com.example.hexagonal.dto.deposit.DepositRequest;
 import com.example.hexagonal.dto.deposit.DepositResponse;
 import com.example.hexagonal.dto.withdraw.WithdrawRequest;
@@ -23,10 +24,12 @@ import java.util.Optional;
 public class AccountServiceTest {
 
     private static final Logger log = LoggerFactory.getLogger(AccountServiceTest.class);
-    public static final long INITIAL_BALANCE = 10000L;
 
     @Autowired
     private DatabaseCleanup databaseCleanup;
+
+    @Autowired
+    AccountFixture accountFixture;
 
     @Autowired
     private AccountService service;
@@ -40,10 +43,7 @@ public class AccountServiceTest {
         databaseCleanup.afterPropertiesSet();
         databaseCleanup.execute();
 
-        account = repository.save(Account.builder()
-                .ownerName("cho")
-                .balance(INITIAL_BALANCE)
-                .build());
+        account = accountFixture.계정준비();
     }
 
     /**
