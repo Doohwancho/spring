@@ -1,5 +1,10 @@
-package com.example.hexagonal.bank;
+package com.example.hexagonal.controller;
 
+import com.example.hexagonal.dto.deposit.DepositRequest;
+import com.example.hexagonal.dto.deposit.DepositResponse;
+import com.example.hexagonal.dto.withdraw.WithdrawRequest;
+import com.example.hexagonal.dto.withdraw.WithdrawResponse;
+import com.example.hexagonal.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

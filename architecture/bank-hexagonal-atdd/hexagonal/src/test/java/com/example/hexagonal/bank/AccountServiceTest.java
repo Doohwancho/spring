@@ -1,5 +1,13 @@
 package com.example.hexagonal.bank;
 
+import com.example.hexagonal.dto.deposit.DepositRequest;
+import com.example.hexagonal.dto.deposit.DepositResponse;
+import com.example.hexagonal.dto.withdraw.WithdrawRequest;
+import com.example.hexagonal.dto.withdraw.WithdrawResponse;
+import com.example.hexagonal.exception.CannotWithdrawBalanceIsBelowZero;
+import com.example.hexagonal.repository.AccountRepository;
+import com.example.hexagonal.service.AccountService;
+import com.example.hexagonal.vo.Account;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 import org.slf4j.Logger;
@@ -14,6 +22,7 @@ import java.util.Optional;
 public class AccountServiceTest {
 
     private static final Logger log = LoggerFactory.getLogger(AccountServiceTest.class);
+    public static final long INITIAL_BALANCE = 10000L;
 
     @Autowired
     private AccountService service;
@@ -28,8 +37,13 @@ public class AccountServiceTest {
 
         account = repository.save(Account.builder()
                 .ownerName("cho")
-                .balance(10000L)
+                .balance(INITIAL_BALANCE)
                 .build());
+    }
+
+    @AfterAll
+    void afterAll() {
+        repository.deleteAll();
     }
 
     /**

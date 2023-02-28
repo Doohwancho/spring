@@ -1,5 +1,12 @@
-package com.example.hexagonal.bank;
+package com.example.hexagonal.service;
 
+import com.example.hexagonal.dto.deposit.DepositRequest;
+import com.example.hexagonal.dto.deposit.DepositResponse;
+import com.example.hexagonal.dto.withdraw.WithdrawRequest;
+import com.example.hexagonal.dto.withdraw.WithdrawResponse;
+import com.example.hexagonal.exception.AccountDoesNotExist;
+import com.example.hexagonal.repository.AccountRepository;
+import com.example.hexagonal.vo.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
-class AccountService {
+public class AccountService {
 
     @Autowired
     AccountRepository repository;

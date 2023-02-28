@@ -1,6 +1,7 @@
-package com.example.hexagonal.bank;
+package com.example.hexagonal.vo;
 
 
+import com.example.hexagonal.exception.CannotWithdrawBalanceIsBelowZero;
 import lombok.*;
 
 import javax.persistence.Entity;

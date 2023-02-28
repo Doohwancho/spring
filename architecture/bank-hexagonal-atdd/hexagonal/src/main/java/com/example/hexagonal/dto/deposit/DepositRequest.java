@@ -1,4 +1,4 @@
-package com.example.hexagonal.bank;
+package com.example.hexagonal.dto.deposit;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
