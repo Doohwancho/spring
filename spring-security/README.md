@@ -1,7 +1,7 @@
 ---\
 Objective
 
-modularize concepts in spring-security 
+modularize concepts in spring-security
 
 
 
@@ -16,6 +16,7 @@ e. jwt :white_check_mark:\
 f. authentication :white_check_mark:\
 g. jwt-refresh-token :white_check_mark:\
 h. react+springboot+jwt :white_check_mark:\
+i. jwt+refresh-token+redis :white_check_mark:\
 x. CORS
 
 
@@ -66,6 +67,8 @@ g-1. jwt token + refresh token :white_check_mark:
 h-1. 로그인 성공시 서버로부터 jwt토큰 받은걸 localstorage에 저장한 후, 두고두고 꺼내 씀 (ApiService.js) :white_check_mark:\
 h-2. 로그아웃 시, localstorage에 jwt토큰 null 입력 (ApiService.js) :white_check_mark:
 
+i-0. init jwt+refresh token+redis :white_check_mark:
+
 ---\
 reference
 
@@ -91,3 +94,4 @@ f-2. [token 기반 authentication](https://mangkyu.tistory.com/57)
 g-1. [jwt token + refresh token](https://blog.naver.com/sosow0212/222747372730) \
 g-2. [jwt + refresh token race condition problem](https://dev.to/supertokens/the-best-way-to-securely-manage-user-sessions-2ja6)
 
+i. [jwt login practice](https://github.com/JmKanmo/jwt_login_practice)
