@@ -17,7 +17,7 @@ import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
-@EnableCaching
+@EnableCaching //TODO - redis는 in-memory인데 caching까지 사용하기 때문에 더 빠르다.
 @EnableRedisRepositories
 public class RedisConfig {
     @Value("${spring.redis.host}")

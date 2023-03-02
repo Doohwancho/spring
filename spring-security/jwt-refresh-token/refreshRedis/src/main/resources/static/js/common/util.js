@@ -38,7 +38,7 @@ class UtilController {
         return new Promise((resolve, reject) => {
             const authorizeXhr = new XMLHttpRequest();
             authorizeXhr.open("POST", "/member/authorize", true);
-            authorizeXhr.setRequestHeader("Authorization", this.getLocalStorage("Authorization"));
+            authorizeXhr.setRequestHeader("Authorization", this.getLocalStorage("Authorization")); //authorize()할 떈, jwt-access-token을 보낸다.
 
             authorizeXhr.addEventListener("loadend", event => {
                 let status = event.target.status;
@@ -48,7 +48,7 @@ class UtilController {
                     // AccessToken 만료 or 토큰 입력 정보가 올바르지 않아서 or 미인증 접속 으로 인해 Filter/Controller 측에서 걸러짐
                     resolve(false);
                 } else {
-                    this.sendReissue(responseValue);
+                    this.sendReissue(responseValue); //jwt-access-token이 spring-security-context에 보관하는 Principal 정보와 일치함이 확인되면, refresh-token을 reissue 를 한다.
                     resolve(true);
                 }
             });
@@ -64,7 +64,7 @@ class UtilController {
     sendReissue(responseValue) {
         const reissueXhr = new XMLHttpRequest();
         reissueXhr.open("POST", "/member/reissue", true);
-        reissueXhr.setRequestHeader("Authorization", responseValue["accessToken"]);
+        reissueXhr.setRequestHeader("Authorization", responseValue["accessToken"]); //재갱신 떄는 jwt-access-token을 보내는게 아니라, refresh token을 보낸다.
 
         reissueXhr.addEventListener("loadend", event => {
             let status = event.target.status;

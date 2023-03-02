@@ -1,5 +1,5 @@
-class TestController extends UtilController {
-    constructor() {
+class TestController extends UtilController { //TODO - 공통되는 메서드들은 UTIL에 다 박고, 부모로 상속해서 쓰는구나
+    constructor() { //TODO - 생성자에서는 DOM element를 받아서 올려버리네?
         super();
         this.loginLink = document.getElementById("login_link");
         this.userInfoContainer = document.getElementById("user_info_container");

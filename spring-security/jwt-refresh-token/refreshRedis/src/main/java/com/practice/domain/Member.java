@@ -20,7 +20,7 @@ import java.util.Collection;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Member implements UserDetails {
+public class Member implements UserDetails { //security에 관리된 User객체라 UserDetails를 받네?
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,7 +29,7 @@ public class Member implements UserDetails {
 
     private String password;
 
-    private String intro;
+    private String intro; //TODO - clear! what is this intro for? A. 회원가입란의 소개란임. 중요한거 아님.
 
     @Override
     @JsonIgnore
@@ -37,6 +37,8 @@ public class Member implements UserDetails {
         return null;
     }
 
+
+    //TODO - implements UserDetails 했기 때문에, 구현해야하는 메서드들.
     @Override
     @JsonIgnore
     public boolean isAccountNonExpired() {

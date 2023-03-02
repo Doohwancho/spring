@@ -26,7 +26,7 @@ class TradeController extends UtilController {
     }
 
     initEventListener() {
-        this.tradeResultInquireButton.addEventListener("click", evt => {
+        this.tradeResultInquireButton.addEventListener("click", evt => { //TODO - 모든 서버와 POST 통신하는건, local storage에 jwt-access-token 담아서 보내는구나.
             const tradeXhr = new XMLHttpRequest();
             tradeXhr.open("POST", "/global/trade/request");
             tradeXhr.setRequestHeader("Authorization", this.getLocalStorage("Authorization"));

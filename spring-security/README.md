@@ -67,7 +67,13 @@ g-1. jwt token + refresh token :white_check_mark:
 h-1. 로그인 성공시 서버로부터 jwt토큰 받은걸 localstorage에 저장한 후, 두고두고 꺼내 씀 (ApiService.js) :white_check_mark:\
 h-2. 로그아웃 시, localstorage에 jwt토큰 null 입력 (ApiService.js) :white_check_mark:
 
-i-0. init jwt+refresh token+redis :white_check_mark:
+i-0. init jwt+refresh token+redis :white_check_mark:\
+i-1. refresh token mechanism :white_check_mark:\
+i-2. Refresh token의 취약점 :white_check_mark:\
+i-3. Why use Redis? :white_check_mark:\
+i-4. reissue() :white_check_mark:\
+i-5. logout :white_check_mark:
+
 
 ---\
 reference
@@ -94,4 +100,6 @@ f-2. [token 기반 authentication](https://mangkyu.tistory.com/57)
 g-1. [jwt token + refresh token](https://blog.naver.com/sosow0212/222747372730) \
 g-2. [jwt + refresh token race condition problem](https://dev.to/supertokens/the-best-way-to-securely-manage-user-sessions-2ja6)
 
-i. [jwt login practice](https://github.com/JmKanmo/jwt_login_practice)
+i. [jwt login practice](https://github.com/JmKanmo/jwt_login_practice) \
+i-x. [jwt+refresh token + redis 고도화 블로그 글](https://kobumddaring.tistory.com/60) \
+i-x. [jwt+refresh token + redis 고도화 github에 spring-redis/ 참조](https://github.dev/kobeomseok95/playground)
