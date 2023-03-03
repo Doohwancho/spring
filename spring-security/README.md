@@ -73,7 +73,8 @@ i-2. Refresh token의 취약점 :white_check_mark:\
 i-3. Why use Redis? :white_check_mark:\
 i-4. reissue() :white_check_mark:\
 i-5. logout :white_check_mark:\
-i-6. optimize - loadByUserName()에 @Cache 걸어서 db io 최소화 하기 :white_check_mark:
+i-6. optimize - loadByUserName()에 Redis @Cache 걸어서 db io 최소화 하기 :white_check_mark:\
+i-7. Member.java를 CustomUserDetails로 분리
 
 
 ---\
@@ -102,5 +103,5 @@ g-1. [jwt token + refresh token](https://blog.naver.com/sosow0212/222747372730) 
 g-2. [jwt + refresh token race condition problem](https://dev.to/supertokens/the-best-way-to-securely-manage-user-sessions-2ja6)
 
 i. [jwt login practice](https://github.com/JmKanmo/jwt_login_practice) \
-i-x. [jwt+refresh token + redis 고도화 블로그 글](https://kobumddaring.tistory.com/60) \
-i-x. [jwt+refresh token + redis 고도화 github에 spring-redis/ 참조](https://github.dev/kobeomseok95/playground)
+i-6. [optimize loadByUserName() by using Redis Cache](https://kobumddaring.tistory.com/61) \
+i-7. [jwt+refresh token + redis 고도화 github에 spring-redis/ 참조](https://github.dev/kobeomseok95/playground)

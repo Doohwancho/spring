@@ -17,6 +17,7 @@ import com.practice.service.token.LogoutAccessTokenService;
 import com.practice.service.token.RefreshTokenService;
 import com.practice.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -112,6 +113,7 @@ public class MemberServiceImpl implements MemberService {
         return member;
     }
 
+    @CacheEvict(value = CacheKey.USER, key = "#username")
     public void logout(String accessToken) {
         String username = jwtTokenUtil.parseToken(jwtTokenUtil.resolveToken(accessToken));
         accessToken = jwtTokenUtil.resolveToken(accessToken);

@@ -2,14 +2,15 @@
 Index
 
 
-A. how to start?
-B. tech stack
-C. 프로젝트 구조
-D. refresh token mechanism
-E. Refresh token의 취약점
-F. Why use Redis?
-G. reissue()
-H. logout
+A. how to start?\
+B. tech stack\
+C. 프로젝트 구조\
+D. refresh token mechanism\
+E. Refresh token의 취약점\
+F. Why use Redis?\
+G. reissue()\
+H. logout\
+I. optimization - loadUserByUsername() with Redis @Cache\
 I. more
 
 
@@ -125,6 +126,115 @@ LogoutAccessTokenService.existsLogoutAccessTokenById()를 통해서.
 
 
 
+---\
+I. optimization - loadUserByUsername() with Redis @Cache\
+
+
+http request 올 떄마다, jwt token authenticate할 때, memberService.loadUserByUsername(); 해서 db io하는데, 부하되니까, 이 UserDetails 부분을 Cache하자.
+
+
+1. JwtAuthenticationFilter.doFilterInternal()
+2. this.tokenManager.getAuthenticate();
+3. MemberServiceImpl.loadUserByUsername();
+	- 원래대로라면, db io 발생한 후, UserDetails를 반환했다면,
+	- @Cacheable(value = CacheKey.USER, key = "#username", unless = "#result == null")
+	- 이걸 걸어서, db io 거치지 않고, cache단에서 반환할 수 있도록 한다.
+
+이걸 하기 위해, 먼저, RedisConfig.java에서 캐시 설정 부분을 추가해주고,
+
+```java
+@Bean(name = "cacheManager")
+public CacheManager redisCacheManager(RedisConnectionFactory redisConnectionFactory) {
+	RedisCacheConfiguration conf = RedisCacheConfiguration.defaultCacheConfig()
+			.disableCachingNullValues() //TODO - MemberService.loadUserByName()에 @Cache 처리 위해 적용
+			.entryTtl(Duration.ofSeconds(CacheKey.DEFAULT_EXPIRE_SEC)) //TODO - MemberService.loadUserByName()에 @Cache 처리 위해 적용
+			.computePrefixWith(CacheKeyPrefix.simple()) //TODO - MemberService.loadUserByName()에 @Cache 처리 위해 적용
+			.serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+			.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
+
+	return RedisCacheManager.RedisCacheManagerBuilder
+			.fromConnectionFactory(redisConnectionFactory)
+			.cacheDefaults(conf)
+			.build();
+}
+```
+
+
+
+CacheKey class 정의해야 한다.
+
+```java
+@Getter
+public class CacheKey {
+    public static final String USER = "user";
+    public static final int DEFAULT_EXPIRE_SEC = 60*30;
+}
+
+```
+여기서 expire_second도 정하네.
+
+4. 또한, logout() 시에, Redis에 보관하던 cache를 없애야 하기 때문에,
+	- @CacheEvict(value = CacheKey.USER, key = "#username") 처리를 해준다.
+
+
+
+redis로 진짜 들어갔는지 확인해보자.
+```redis
+redis-cli
+FLUSHALL
+```
+
+1. run app
+2. http:localhost:8080/main
+3. 회원가입
+4.redis에서 cache된 UserDetails객체를 확인해보자.
+    ```redis
+    redis-cli
+    keys *
+    ```
+4. pk8294라는 아이디로 가입했더니, redis에 user::pk8294 라고 뜬다.
+5. CacheKey에서 exp_time을 60초로 설정했으니, 1분 기다려보고, 다시 keys * 해보자.
+   1. user:pk8294가 사라진걸 확인할 수 있다.
+6. 다시 무역거래 탭으로 들어가면, cache에 user::pk8294가 들어간걸 확인할 수 있다.
+
+
+Q. 응? 근데 refresh token도 redis에 있어야 하지 않나?
+A. 로그아웃하고 로그인 다시 하면, redis cache에 생김
+
+```
+127.0.0.1:6379> keys *
+1) "user::pk8294"
+2) "refreshToken"
+3) "refreshToken:pk8294"
+4) "logoutAccessToken:eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwazgyOTQiLCJ1c2VybmFtZSI6InBrODI5NCIsImlhdCI6MTY3NzgzOTI1NCwiZXhwIjoxNjc3ODQyODU0fQ.OPFScYgzxy2OzEfc5tBmzo5NWzXw2_l83ulVwKR_R7PLEkHmkGGDpOrVVAcaOmSb0oqgXqxwqzaCsvTlSDxgJw"
+5) "logoutAccessToken"
+```
+
+60초 후면, user::pk8294는 없어지고,\
+6시간 후면 refresh token이 사라지겠지.
+
+로그아웃도 햇으니까, logoutAccessToken도 생긴걸 확인 가능.\
+근데, 얘는 hash값으로 저장되네?
+
+```java
+@CacheEvict(value = CacheKey.USER, key = "#username")
+public void logout(String accessToken) {
+	String username = jwtTokenUtil.parseToken(jwtTokenUtil.resolveToken(accessToken));
+	accessToken = jwtTokenUtil.resolveToken(accessToken);
+	long remainTime = jwtTokenUtil.getRemainTime(accessToken); //logout 시, jwt-access-token의 남은 시간만큼 까서 저장함.
+	refreshTokenService.deleteRefreshTokenById(username);
+	logoutAccessTokenService.saveLogoutAccessToken(LogoutAccessToken.from(username, accessToken, remainTime));
+}
+
+public String parseToken(String token) {
+	return parseClaims(token).getSubject();
+}
+```
+
+여기서 parseClaims할 떄, 얘가 hash 함수라 그런듯?
+
+
+
 
 ---\
 more
@@ -133,6 +243,7 @@ more
 1. logout 되었을 때, 해커가 jwt token들고 authorize()나 reissue() 하려고 하면,
 LogoutAccessTokenService.existsLogoutAccessTokenById()를 통해서 방어하는 코드 미구현.(both front and back)
 2. MemberServiceImpl.loadUserByUsername()을 @Cacheable로 만들어서, db io 줄이게끔 하는 것 미구현.
+3. Member -> CustomUserDetails.java 분리
 
 
 
