@@ -14,7 +14,7 @@ public class JwtTokenDto { //TODO - 얘가 실질적으로 jwt-access-token 역�
     private String grantType; //"Bearer-";
     private String accessToken;
 
-    public static JwtTokenDto from(String accessToken) {
+    public static JwtTokenDto of(String accessToken) {
         return JwtTokenDto.builder()
                 .grantType(JwtTokenUtil.TOKEN_PREFIX)
                 .accessToken(accessToken)

@@ -240,10 +240,7 @@ public String parseToken(String token) {
 more
 
 
-1. logout 되었을 때, 해커가 jwt token들고 authorize()나 reissue() 하려고 하면,
-LogoutAccessTokenService.existsLogoutAccessTokenById()를 통해서 방어하는 코드 미구현.(both front and back)
-2. MemberServiceImpl.loadUserByUsername()을 @Cacheable로 만들어서, db io 줄이게끔 하는 것 미구현.
-3. Member -> CustomUserDetails.java 분리
+1. Member -> CustomUserDetails.java 분리
 
 
 

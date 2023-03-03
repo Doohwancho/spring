@@ -1,73 +1,64 @@
 package com.practice.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.practice.model.MemberModel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import com.practice.dto.JoinDto;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.Collection;
+import javax.persistence.*;
+import java.util.*;
+
+import static java.util.stream.Collectors.toList;
+import static javax.persistence.CascadeType.ALL;
 
 @Entity
 @Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class Member implements UserDetails { //security에 관리된 User객체라 UserDetails를 받네?
+@NoArgsConstructor(access= AccessLevel.PROTECTED)
+@AllArgsConstructor(access= AccessLevel.PROTECTED)
+public class Member { //security에 관리된 User객체라 UserDetails를 받네?
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MEMBER_ID")
     private Long id;
 
+    @Column(unique = true) //unique id
     private String username;
 
     private String password;
 
     private String intro; //TODO - clear! what is this intro for? A. 회원가입란의 소개란임. 중요한거 아님.
 
-    @Override
-    @JsonIgnore
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+    @OneToMany(mappedBy = "member", cascade = ALL, orphanRemoval = true)
+    @Builder.Default
+    private Set<Authority> authorities = new HashSet<>();
+
+
+    private void addAuthority(Authority authority) {
+        authorities.add(authority);
     }
 
-
-    //TODO - implements UserDetails 했기 때문에, 구현해야하는 메서드들.
-    @Override
-    @JsonIgnore
-    public boolean isAccountNonExpired() {
-        return false;
+    public List<String> getRoles() {
+        return authorities.stream()
+                .map(Authority::getRole)
+                .collect(toList());
     }
 
-    @Override
-    @JsonIgnore
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    @JsonIgnore
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    @JsonIgnore
-    public boolean isEnabled() {
-        return false;
-    }
-
-    public static Member from(MemberModel memberModel) {
-        return Member.builder()
-                .username(memberModel.getUsername())
-                .password(memberModel.getPassword())
-                .intro(memberModel.getIntro())
+    public static Member ofUser(JoinDto joinDto) {
+        Member member = Member.builder()
+                .username(joinDto.getUsername())
+                .password(joinDto.getPassword())
+                .intro(joinDto.getIntro()) //not necessary
                 .build();
+        member.addAuthority(Authority.ofUser(member)); //ROLE_USER를 더한다.
+        return member;
+    }
+
+    public static Member ofAdmin(JoinDto joinDto) {
+        Member member = Member.builder()
+                .username(joinDto.getUsername())
+                .password(joinDto.getPassword())
+                .intro(joinDto.getIntro()) //not necessary
+                .build();
+        member.addAuthority(Authority.ofAdmin(member)); //ROLE_ADMIN을 더한다.
+        return member;
     }
 }

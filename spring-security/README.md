@@ -74,7 +74,8 @@ i-3. Why use Redis? :white_check_mark:\
 i-4. reissue() :white_check_mark:\
 i-5. logout :white_check_mark:\
 i-6. optimize - loadByUserName()에 Redis @Cache 걸어서 db io 최소화 하기 :white_check_mark:\
-i-7. Member.java를 CustomUserDetails로 분리
+i-7. Member.java를 CustomUserDetails로 분리 :white_check_mark:\
+i-8. apply Authority("ROLE_USER" to user, "ROLE_ADMIN" to admin) :white_check_mark:
 
 
 ---\
@@ -104,4 +105,4 @@ g-2. [jwt + refresh token race condition problem](https://dev.to/supertokens/the
 
 i. [jwt login practice](https://github.com/JmKanmo/jwt_login_practice) \
 i-6. [optimize loadByUserName() by using Redis Cache](https://kobumddaring.tistory.com/61) \
-i-7. [jwt+refresh token + redis 고도화 github에 spring-redis/ 참조](https://github.dev/kobeomseok95/playground)
+i-7,8. [jwt refresh token 예제](https://github.dev/kobeomseok95/playground)

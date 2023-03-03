@@ -4,22 +4,19 @@ package com.practice.service.member;
 import com.practice.domain.Member;
 import com.practice.dto.JwtTokenDto;
 import com.practice.dto.MemberDto;
-import com.practice.model.LoginModel;
-import com.practice.model.MemberModel;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import com.practice.dto.LoginDto;
+import com.practice.dto.JoinDto;
 
 import java.security.Principal;
 
-public interface MemberService extends UserDetailsService {
-    JwtTokenDto login(LoginModel loginModel);
+public interface MemberService {
+    JwtTokenDto login(LoginDto loginModel);
 
-    UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+    Long register(JoinDto memberModel);
 
-    Long register(MemberModel memberModel);
+    Long registerAdmin(JoinDto memberModel);
 
-    Member authenticate(LoginModel loginModel);
+    Member authenticate(LoginDto loginModel);
 
     void logout(String accessToken);
 

@@ -25,7 +25,7 @@ public class LogoutAccessToken { //TODO - why just use refresh token? why need a
     @TimeToLive //TODO - what does @TimeToLive do?
     private Long expiration;
 
-    public static LogoutAccessToken from(String username, String accessToken, Long expirationTime) {
+    public static LogoutAccessToken of(String username, String accessToken, Long expirationTime) {
         return LogoutAccessToken.builder()
                 .id(accessToken)
                 .username(username)

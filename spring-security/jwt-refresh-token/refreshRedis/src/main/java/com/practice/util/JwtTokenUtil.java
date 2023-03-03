@@ -22,9 +22,9 @@ import java.util.Date;
 @Data
 public class JwtTokenUtil {
     // Token
-    public static final Long ACCESS_TOKEN_EXPIRE_TIME = 1000L * 60 * 60 * 1; // ACCESS 토근 만료 시간: 1시간
-    public static final Long REFRESH_TOKEN_EXPIRE_TIME = 1000L * 60 * 60 * 6; // Refresh 토큰 만료 시간 : 6시간
-    public static final Long REISSUE_EXPIRE_TIME = 1000L * 60 * 60 * 3; // Reissue 만료 시간 : 3시간
+    public static final Long ACCESS_TOKEN_EXPIRE_TIME = 1000L * 60 * 60 * 1; // ACCESS 토근 만료 시간: 1시간 (1~2 hr is ideal)
+    public static final Long REFRESH_TOKEN_EXPIRE_TIME = 1000L * 60 * 60 * 24 * 7; // Refresh 토큰 만료 시간 : 7일 (1~2 week is ideal)
+    public static final Long REISSUE_EXPIRE_TIME = 1000L * 60 * 60 * 1; // Reissue 만료 시간 : 1시간 (same with access token 만료기간)
 
     // header
     public static final String TOKEN_HEADER = "Authorization";

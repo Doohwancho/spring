@@ -10,43 +10,63 @@ import com.practice.dto.MemberDto;
 import com.practice.exception.message.ExceptionMessage;
 import com.practice.exception.model.TokenCheckFailException;
 import com.practice.exception.model.UserAuthException;
-import com.practice.model.LoginModel;
-import com.practice.model.MemberModel;
+import com.practice.dto.LoginDto;
+import com.practice.dto.JoinDto;
 import com.practice.repository.member.MemberRepository;
 import com.practice.service.token.LogoutAccessTokenService;
 import com.practice.service.token.RefreshTokenService;
 import com.practice.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.*;
 import java.security.Principal;
 
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
     private final PasswordEncoder passwordEncoder;
-    private final MemberRepository memberRepository;
 
     private final JwtTokenUtil jwtTokenUtil;
 
+    private final MemberRepository memberRepository;
     private final RefreshTokenService refreshTokenService;
-
     private final LogoutAccessTokenService logoutAccessTokenService;
+
+
+    @Transactional
+    public Long register(JoinDto joinDto) {
+        String username = joinDto.getUsername();
+
+        if (this.memberRepository.existsByUsername(username)) {
+            throw new UserAuthException("이미 존재하는 회원입니다.");
+        }
+
+        joinDto.setPassword(this.passwordEncoder.encode(joinDto.getPassword()));
+        return memberRepository.save(Member.ofUser(joinDto)).getId();
+    }
+
+    @Transactional
+    public Long registerAdmin(JoinDto joinDto) {
+        String username = joinDto.getUsername();
+
+        if (this.memberRepository.existsByUsername(username)) {
+            throw new UserAuthException("이미 존재하는 회원입니다.");
+        }
+
+        joinDto.setPassword(this.passwordEncoder.encode(joinDto.getPassword()));
+        return memberRepository.save(Member.ofAdmin(joinDto)).getId();
+    }
 
     @Transactional(readOnly = true)
     @Override
-    public JwtTokenDto login(LoginModel loginModel) {
+    public JwtTokenDto login(LoginDto loginDto) {
 
         //TODO - important! login할 떄, jwt token 만들고 http response에 담아 보내는 동시에, refresh token을 db에 저장 후, 쿠키에 담아 보내는 과정.
         //step1) authenticate
-        Member member = authenticate(loginModel);
+        Member member = authenticate(loginDto);
 
         //step2) generate jwt token with exp_time of 1hr
         String token = this.jwtTokenUtil.generateToken(member.getUsername(), JwtTokenUtil.ACCESS_TOKEN_EXPIRE_TIME); //TODO - login할 때, jwt 토큰 주는데, expire time 붙여서 주는구나.
@@ -67,38 +87,11 @@ public class MemberServiceImpl implements MemberService {
         //   하지만 XSS 취약점을 통해 API 콜을 보낼 때는 무방비하니 XSS 자체를 막기 위해 서버와 클라이언트 모두 노력해야 함
 
         //step5) http response에서는 jwt token만 담아 보냄. cookie엔 refresh token이 있고.
-        return JwtTokenDto.from(token);
-    }
-
-    /**
-     * Cacheable의 동작 방식은 캐시에서 메서드의 파라미터로 캐시를 먼저 조회합니다.
-     * 제가 사용한 Redis에 데이터가 있을 경우는 Redis에 저장된 데이터를 그대로 반환해주고, 없을 경우는 DB에 직접 조회합니다.
-     * Cacheable을 통해 저장된 데이터는 어노테이션에 설정된 value::key 의 형태로 Redis의 Key로 저장됩니다.
-     * 그에 대한 값은 CustomUserDetails의 형태로 저장됩니다.
-     */
-    //TODO - 토큰을 가지고 요청할 때 마다 DB에서 회원을 조회하는 것을 줄이기 위해 Cacheable 어노테이션을 이용 가능하다.
-    @Cacheable(value = CacheKey.USER, key = "#username", unless = "#result == null")
-    @Transactional(readOnly = true)
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return this.memberRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("회원 정보를 찾을 수 없습니다."));
+        return JwtTokenDto.of(token);
     }
 
 
-    @Transactional
-    public Long register(MemberModel memberModel) {
-        String username = memberModel.getUsername();
-
-        if (this.memberRepository.existsByUsername(username)) {
-            throw new UserAuthException("이미 존재하는 회원입니다.");
-        }
-
-        memberModel.setPassword(this.passwordEncoder.encode(memberModel.getPassword()));
-        return memberRepository.save(Member.from(memberModel)).getId();
-    }
-
-    public Member authenticate(LoginModel loginModel) {
+    public Member authenticate(LoginDto loginModel) {
         String username = loginModel.getUsername();
 
         if (!this.memberRepository.existsByUsername(username)) { //TODO - 이렇게 안하고, 밑에 .findByUserName()으로 한번 db io로 검증하면 되잖아?
@@ -119,7 +112,7 @@ public class MemberServiceImpl implements MemberService {
         accessToken = jwtTokenUtil.resolveToken(accessToken);
         long remainTime = jwtTokenUtil.getRemainTime(accessToken); //logout 시, jwt-access-token의 남은 시간만큼 까서 저장함.
         refreshTokenService.deleteRefreshTokenById(username);
-        logoutAccessTokenService.saveLogoutAccessToken(LogoutAccessToken.from(username, accessToken, remainTime));
+        logoutAccessTokenService.saveLogoutAccessToken(LogoutAccessToken.of(username, accessToken, remainTime));
     }
 
     @Override
@@ -132,7 +125,7 @@ public class MemberServiceImpl implements MemberService {
 
         //step2. Principal.name으로 db에서 관리하던 refresh token 가져옴
         String curUserName = principal.getName();
-        RefreshToken redisRefreshToken = refreshTokenService.findRefreshTokenById(curUserName); //redis에 넣나보네?
+        RefreshToken redisRefreshToken = refreshTokenService.findRefreshTokenById(curUserName);
 
         //step3. 만약 refresh token이 db에 없었다면, throw error
         if (refreshToken == null || !refreshToken.equals(redisRefreshToken.getRefreshToken())) {
@@ -141,13 +134,6 @@ public class MemberServiceImpl implements MemberService {
 
         //step4) refresh token 생성
         return createRefreshToken(refreshToken, curUserName);
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public MemberDto findMemberById(String username) {
-        Member member = memberRepository.findByUsername(username).orElseThrow(() -> new UserAuthException(ExceptionMessage.USER_NOT_FOUND));
-        return MemberDto.from(member);
     }
 
     private JwtTokenDto createRefreshToken(String refreshToken, String username) {
@@ -162,12 +148,19 @@ public class MemberServiceImpl implements MemberService {
 
             //ste4) cookie에 refresh token 담아서 던진다.
             jwtTokenUtil.setRefreshTokenAtCookie(newRedisToken);
-            return JwtTokenDto.from(accessToken);
+            return JwtTokenDto.of(accessToken);
         }
-        return JwtTokenDto.from(jwtTokenUtil.generateToken(username, JwtTokenUtil.ACCESS_TOKEN_EXPIRE_TIME));
+        return JwtTokenDto.of(jwtTokenUtil.generateToken(username, JwtTokenUtil.ACCESS_TOKEN_EXPIRE_TIME));
     }
 
     private boolean lessThanReissueExpirationTimesLeft(String refreshToken) {
         return jwtTokenUtil.getRemainTime(refreshToken) < JwtTokenUtil.REISSUE_EXPIRE_TIME;
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public MemberDto findMemberById(String username) {
+        Member member = memberRepository.findByUsername(username).orElseThrow(() -> new UserAuthException(ExceptionMessage.USER_NOT_FOUND));
+        return MemberDto.of(member);
     }
 }

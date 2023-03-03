@@ -16,7 +16,7 @@ public class MemberDto {
 
     private String intro;
 
-    public static MemberDto from(Member member) {
+    public static MemberDto of(Member member) {
         return MemberDto.builder()
                 .id(member.getId())
                 .username(member.getUsername())

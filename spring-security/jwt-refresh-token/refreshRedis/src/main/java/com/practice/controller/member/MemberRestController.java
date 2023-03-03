@@ -3,8 +3,8 @@ package com.practice.controller.member;
 import com.practice.dto.JwtTokenDto;
 import com.practice.exception.message.ExceptionMessage;
 import com.practice.exception.model.UserAuthException;
-import com.practice.model.LoginModel;
-import com.practice.model.MemberModel;
+import com.practice.dto.LoginDto;
+import com.practice.dto.JoinDto;
 import com.practice.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,8 +31,8 @@ public class MemberRestController {
 
     // 요청 방식은 Content-Type 상관없이 ...
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(MemberModel memberModel) {
-        var result = this.memberService.register(memberModel);
+    public ResponseEntity<?> signup(JoinDto joinDto) {
+        var result = this.memberService.register(joinDto);
         return ResponseEntity.ok(result);
     }
 
@@ -58,12 +58,12 @@ public class MemberRestController {
         if (principal == null || principal.getName() == null) {
             throw new UserAuthException(ExceptionMessage.NOT_AUTHORIZED_ACCESS);
         }
-        return ResponseEntity.ok(JwtTokenDto.from(accessToken));
+        return ResponseEntity.ok(JwtTokenDto.of(accessToken));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(LoginModel loginModel) {
-        return ResponseEntity.status(HttpStatus.OK).body(memberService.login(loginModel));
+    public ResponseEntity<?> login(LoginDto loginDto) {
+        return ResponseEntity.status(HttpStatus.OK).body(memberService.login(loginDto));
     }
 
     //TODO - what happens when POST /member/logout?
