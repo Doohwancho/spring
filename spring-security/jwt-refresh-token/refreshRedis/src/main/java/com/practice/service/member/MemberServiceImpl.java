@@ -1,6 +1,7 @@
 package com.practice.service.member;
 
 
+import com.practice.config.redis.cache.CacheKey;
 import com.practice.domain.Member;
 import com.practice.domain.token.LogoutAccessToken;
 import com.practice.domain.token.RefreshToken;
@@ -16,6 +17,7 @@ import com.practice.service.token.LogoutAccessTokenService;
 import com.practice.service.token.RefreshTokenService;
 import com.practice.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -74,7 +76,7 @@ public class MemberServiceImpl implements MemberService {
      * 그에 대한 값은 CustomUserDetails의 형태로 저장됩니다.
      */
     //TODO - 토큰을 가지고 요청할 때 마다 DB에서 회원을 조회하는 것을 줄이기 위해 Cacheable 어노테이션을 이용 가능하다.
-    //@Cacheable(value = CacheKey.USER, key = "#username", unless = "#result == null")
+    @Cacheable(value = CacheKey.USER, key = "#username", unless = "#result == null")
     @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

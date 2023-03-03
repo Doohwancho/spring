@@ -72,7 +72,8 @@ i-1. refresh token mechanism :white_check_mark:\
 i-2. Refresh token의 취약점 :white_check_mark:\
 i-3. Why use Redis? :white_check_mark:\
 i-4. reissue() :white_check_mark:\
-i-5. logout :white_check_mark:
+i-5. logout :white_check_mark:\
+i-6. optimize - loadByUserName()에 @Cache 걸어서 db io 최소화 하기 :white_check_mark:
 
 
 ---\

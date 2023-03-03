@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Slf4j
@@ -21,6 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtEntryPoint jwtEntryPoint;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+//    private final CustomUserDetailService customUserDetailService; //TODO - CustomUserDetailService -> MemberServiceImpl.loadUserByUsername() 로 대체됨.
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -28,19 +31,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors()
                 .and()
                 .csrf().disable()
-                .authorizeRequests() // 5
+                .authorizeRequests()
                 .antMatchers("/member/signup/**", "/member/login/**", "/member/authorize/**", "/member/reissue/**").permitAll()
                 .antMatchers("/logout").authenticated()
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtEntryPoint)
                 .and()
-                .logout().disable() // 6
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and() // 7
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .logout().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //TODO - jwt + refresh token handled in-memory = STATELESS
+                .and()
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); //UsernamePasswordAuthenticationFilter 전에 개발자가 custom-defined한 jwtAuthenticationFilter를 추가.
     }
-
 
     @Override
     public void configure(final WebSecurity web) throws Exception {
@@ -48,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/favicon.ico");
     }
 
-    // spring boot 2.x
+    // setting for spring boot 2.x
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {

@@ -30,7 +30,7 @@ public class TokenManager {
             throw new TokenCheckFailException(ExceptionMessage.MISMATCH_USERNAME_TOKEN);
         }
 
-        UserDetails userDetails = memberService.loadUserByUsername(tokenUserName);
+        UserDetails userDetails = memberService.loadUserByUsername(tokenUserName); //customUserDetailService.loadUserByUsername(username); 을, memberService로 처리했네?
 
         if (!userDetails.getUsername().equals(tokenUserName)) {
             throw new TokenCheckFailException(ExceptionMessage.MISMATCH_USERNAME_TOKEN);
