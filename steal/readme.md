@@ -13,7 +13,7 @@ Prey
 a. legacy bbs from '코드로 배우는 스프링 웹 프로젝트' :white_check_mark:\
 b. springboot bbs from '스프링 부트와 AWS로 혼자 구현하는 웹 서비스' :white_check_mark:\
 c. [community.springboot](https://github.com/sosow0212/community) :white_check_mark:\
-d. [blog rest api](https://github.dev/RameshMF/springboot_blog_rest_api_latest) :white_check_mark:
+d. [blog rest api](https://github.dev/RameshMF/springboot_blog_rest_api_latest) :white_check_mark:\
 e. [simple 메모장](https://www.codelatte.io/courses/java_programming_basic/5T45PAUJSXLOZ7DA) :white_check_mark:\
 f. [chatting app using spring webflux, mongodb, sse](https://github.com/codingspecialist/springboot-webflux-mongo-chatapp) :white_check_mark:
 

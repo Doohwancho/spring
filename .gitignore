@@ -698,3 +698,17 @@ zookeeper/
 
 .idea/
 build/
+gradle/wrapper/
+gradlew
+gradlew.bat
+.gradle/
+.idea/
+target/
+.mvn/wrapper/
+mvnw
+mvnw.cmd
+*.iml
+.settings/
+bin/
+.classpath
+.project
