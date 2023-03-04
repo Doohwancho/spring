@@ -23,7 +23,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtEntryPoint jwtEntryPoint;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-//    private final CustomUserDetailService customUserDetailService; //TODO - CustomUserDetailService -> MemberServiceImpl.loadUserByUsername() 로 대체됨.
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

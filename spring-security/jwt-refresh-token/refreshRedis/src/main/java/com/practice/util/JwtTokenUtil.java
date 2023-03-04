@@ -79,8 +79,8 @@ public class JwtTokenUtil {
 
     public void setRefreshTokenAtCookie(RefreshToken refreshToken) {
         Cookie cookie = new Cookie("RefreshToken", refreshToken.getRefreshToken());
-        cookie.setHttpOnly(true); //http only
-        cookie.setSecure(true); //https. 근데 웹사이트가 애초에 https를 허용하지 않아서, https:localhost:8080/main 하면 페이지가 안뜬다.
+//        cookie.setHttpOnly(true); //http only
+//        cookie.setSecure(true); //https. 근데 웹사이트가 애초에 https를 허용하지 않아서, https:localhost:8080/main 하면 페이지가 안뜬다.
         cookie.setMaxAge(refreshToken.getExpiration().intValue()); //쿠키가 refresh token expiration time에 맞춰서 없어지네. 그건 6시간이고.
         HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder
                 .getRequestAttributes()).getResponse();

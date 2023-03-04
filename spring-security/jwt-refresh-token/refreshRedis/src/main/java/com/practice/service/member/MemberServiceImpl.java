@@ -40,11 +40,11 @@ public class MemberServiceImpl implements MemberService {
     public Long register(JoinDto joinDto) {
         String username = joinDto.getUsername();
 
-        if (this.memberRepository.existsByUsername(username)) {
+        if (memberRepository.existsByUsername(username)) {
             throw new UserAuthException("이미 존재하는 회원입니다.");
         }
 
-        joinDto.setPassword(this.passwordEncoder.encode(joinDto.getPassword()));
+        joinDto.setPassword(passwordEncoder.encode(joinDto.getPassword()));
         return memberRepository.save(Member.ofUser(joinDto)).getId();
     }
 
@@ -52,11 +52,11 @@ public class MemberServiceImpl implements MemberService {
     public Long registerAdmin(JoinDto joinDto) {
         String username = joinDto.getUsername();
 
-        if (this.memberRepository.existsByUsername(username)) {
+        if (memberRepository.existsByUsername(username)) {
             throw new UserAuthException("이미 존재하는 회원입니다.");
         }
 
-        joinDto.setPassword(this.passwordEncoder.encode(joinDto.getPassword()));
+        joinDto.setPassword(passwordEncoder.encode(joinDto.getPassword()));
         return memberRepository.save(Member.ofAdmin(joinDto)).getId();
     }
 
@@ -69,7 +69,7 @@ public class MemberServiceImpl implements MemberService {
         Member member = authenticate(loginDto);
 
         //step2) generate jwt token with exp_time of 1hr
-        String token = this.jwtTokenUtil.generateToken(member.getUsername(), JwtTokenUtil.ACCESS_TOKEN_EXPIRE_TIME); //TODO - login할 때, jwt 토큰 주는데, expire time 붙여서 주는구나.
+        String token = jwtTokenUtil.generateToken(member.getUsername(), JwtTokenUtil.ACCESS_TOKEN_EXPIRE_TIME); //TODO - login할 때, jwt 토큰 주는데, expire time 붙여서 주는구나.
 
         //step3) save refresh token to database with exp_time of 6hr
         //TODO - 근데 jwt-access-token만 쓰지, 왜 굳이 refresh token쓰면서 db에 io까지 해가며 해야함?
@@ -91,16 +91,16 @@ public class MemberServiceImpl implements MemberService {
     }
 
 
-    public Member authenticate(LoginDto loginModel) {
-        String username = loginModel.getUsername();
+    public Member authenticate(LoginDto loginDto) {
+        String username = loginDto.getUsername();
 
         if (!this.memberRepository.existsByUsername(username)) { //TODO - 이렇게 안하고, 밑에 .findByUserName()으로 한번 db io로 검증하면 되잖아?
             throw new UserAuthException("회원 정보를 찾을 수 없습니다");
         }
 
-        Member member = this.memberRepository.findByUsername(username).get();
+        Member member = memberRepository.findByUsername(username).get();
 
-        if (!this.passwordEncoder.matches(loginModel.getPassword(), member.getPassword())) {
+        if (!this.passwordEncoder.matches(loginDto.getPassword(), member.getPassword())) {
             throw new UserAuthException(ExceptionMessage.MISMATCH_PASSWORD);
         }
         return member;
@@ -164,3 +164,5 @@ public class MemberServiceImpl implements MemberService {
         return MemberDto.of(member);
     }
 }
+
+

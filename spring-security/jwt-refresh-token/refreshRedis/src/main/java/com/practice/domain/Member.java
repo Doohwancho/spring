@@ -27,7 +27,7 @@ public class Member { //security에 관리된 User객체라 UserDetails를 받�
 
     private String intro; //TODO - clear! what is this intro for? A. 회원가입란의 소개란임. 중요한거 아님.
 
-    @OneToMany(mappedBy = "member", cascade = ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "member", cascade = ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @Builder.Default
     private Set<Authority> authorities = new HashSet<>();
 

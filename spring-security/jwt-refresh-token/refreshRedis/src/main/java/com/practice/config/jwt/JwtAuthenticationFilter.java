@@ -57,4 +57,5 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter { //TODO - why
         String token = request.getHeader(JwtTokenUtil.TOKEN_HEADER);
         return jwtTokenUtil.resolveToken(token);
     }
+    
 }
