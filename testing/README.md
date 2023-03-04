@@ -14,7 +14,8 @@ fields
 
 a. tdd\
 b. steal: 상품-주문 api 개발로 알아보는 TDD\
-c. steal: mini-atdd-practice
+c. steal: mini-atdd-practice\
+d. module: reset database by platform
 
 
 

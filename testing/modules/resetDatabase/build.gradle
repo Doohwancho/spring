@@ -1,0 +1,34 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.3'
+    id 'io.spring.dependency-management' version '1.0.13.RELEASE'
+    id 'org.asciidoctor.convert' version '1.5.8'
+    id 'java'
+    id 'war'
+}
+
+group = 'com.service'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    runtimeOnly 'mysql:mysql-connector-java'
+    implementation 'mysql:mysql-connector-java'
+
+    testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '4.2.0'
+
+    implementation 'com.google.guava:guava:31.1-jre' //DatabaseCleanup.java 때문에 필요.
+}
+
+test {
+    useJUnitPlatform()
+}
