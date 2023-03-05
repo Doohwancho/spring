@@ -25,26 +25,53 @@ ext {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    //spring boot
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    //spring security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+
+    //thymeleaf
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.projectlombok:lombok:1.18.20'
+
+    //lombok
     compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    //jpa
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    //jdbc
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+
+    //mysql
     runtimeOnly 'mysql:mysql-connector-java'
     implementation 'mysql:mysql-connector-java'
-    annotationProcessor 'org.projectlombok:lombok'
-    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
-    testImplementation 'org.springframework.security:spring-security-test'
+
+    //redis
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.session:spring-session-data-redis'
+
+    //tomcat
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+
     // JWT 관련 의존성
     implementation group: 'org.jsoup', name: 'jsoup', version: '1.7.2'
     implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+
+    //test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+    testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '4.2.0'
+
+    //guava
+    implementation 'com.google.guava:guava:31.1-jre' //DatabaseCleanup.java 때문에 필요.
+
+    //devtools
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
 }
 
 tasks.named('test') {

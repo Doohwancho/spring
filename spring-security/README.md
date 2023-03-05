@@ -75,7 +75,9 @@ i-4. reissue() :white_check_mark:\
 i-5. logout :white_check_mark:\
 i-6. optimize - loadByUserName()에 Redis @Cache 걸어서 db io 최소화 하기 :white_check_mark:\
 i-7. Member.java를 CustomUserDetails로 분리 :white_check_mark:\
-i-8. apply Authority("ROLE_USER" to user, "ROLE_ADMIN" to admin) :white_check_mark:
+i-8. apply Authority("ROLE_USER" to user, "ROLE_ADMIN" to admin) :white_check_mark:\
+i-9. unit test :white_check_mark:\
+i-10. integration test - register, login, access token, refresh token :white_check_mark:
 
 
 ---\

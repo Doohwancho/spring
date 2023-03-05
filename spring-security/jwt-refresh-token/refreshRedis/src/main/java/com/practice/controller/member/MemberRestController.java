@@ -31,7 +31,7 @@ public class MemberRestController {
 
     // 요청 방식은 Content-Type 상관없이 ...
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(JoinDto joinDto) {
+    public ResponseEntity<Long> signup(@RequestBody JoinDto joinDto) { //TODO - @RequestBody 가 없이 postman으로 body에 json을 넣어서 보내면, 파싱을 못해서, null값으로 들어온다.
         var result = this.memberService.register(joinDto);
         return ResponseEntity.ok(result);
     }
@@ -62,7 +62,7 @@ public class MemberRestController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(LoginDto loginDto) {
+    public ResponseEntity<JwtTokenDto> login(@RequestBody LoginDto loginDto) {
         return ResponseEntity.status(HttpStatus.OK).body(memberService.login(loginDto));
     }
 
