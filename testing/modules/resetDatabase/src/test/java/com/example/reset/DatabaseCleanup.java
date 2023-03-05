@@ -63,11 +63,11 @@ public class DatabaseCleanup implements InitializingBean {
     public void execute() {
         entityManager.flush();
 
-        if(databasePlatform.equals("h2")) {
+        if(databasePlatform.equalsIgnoreCase("h2")) {
             resetH2();
             return;
         }
-        if(databasePlatform.equals("mysql")) {
+        if(databasePlatform.equalsIgnoreCase("mysql")) {
             resetMysql();
             return;
         }
