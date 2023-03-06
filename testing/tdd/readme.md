@@ -25,7 +25,8 @@ todo
 
 a-1. clone code crash course * n -> generalize :white_check_mark:\
 a-2. indexing :white_check_mark:\
-a-3. etc(lombok, jpa, etc...) :white_check_mark:
+a-3. etc(lombok, jpa, etc...) :white_check_mark:\
+a-4. dynamic test for 시나리오 테스트 :white_check_mark:
 
 b-1. why TDD? :white_check_mark:\
 b-2. BDD :white_check_mark:
@@ -61,7 +62,8 @@ reference
 
 a-1. [10분 테코톡 - 🌊 바다의 JUnit5 사용법](https://www.youtube.com/watch?v=EwI3E9Natcw&ab_channel=%EC%9A%B0%EC%95%84%ED%95%9CTech) \
 a-1. [JUnit 5: Front To Back (FULL COURSE)](https://www.youtube.com/watch?v=-RW_hyAtujo&ab_channel=Mannodermaus) \
-a-1. [Junit 5 documentation](https://junit.org/junit5/docs/current/user-guide/)
+a-1. [Junit 5 documentation](https://junit.org/junit5/docs/current/user-guide/) \
+a-4. [dynamic test 도입](https://velog.io/@bagt/Dynamic-Test)
 
 b-1. what is TDD\
 b-1. [테스트하기 좋은 코드 - 테스트하기 어려운 코드](https://jojoldu.tistory.com/674) \
