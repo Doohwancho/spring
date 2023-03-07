@@ -1,4 +1,4 @@
-package com.cos.person.domain;
+package com.cos.person.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

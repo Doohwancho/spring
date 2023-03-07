@@ -1,4 +1,21 @@
 ---
+Index
+
+
+Q1. what is aop?
+Q2. 언제 필터쓰고 언제 AOP씀?
+Q3. step1 - MyExceptionHandler
+Q4. step2 - log method name & params
+Q5. step3 - monitor time of method
+Q6. step4 - retry operation
+Q7. step5 - log request URI
+Q8. step6 - @Valid check -> sentry 연동
+Q9. what is sentry?
+Q10. sentry의 로그파일을 서버 안 파일 말고 웹으로 보기
+
+
+
+---
 Q1. what is aop?
 
 
@@ -52,7 +69,7 @@ AOP쓰자. 이미 만들어져 있으니까.
 
 
 ---
-Q3. MyExceptionHandler?
+Q3. step1 - MyExceptionHandler
 
 
 원래 래거시 스프링에서는 Controller에서 db에 .save(), .update() 등... 한 후,
@@ -78,43 +95,20 @@ Error creating bean with name 'handlerExceptionResolver'
 
 
 ---
-Q4. Message Converter?
-
-
-Controller에서,
-
-
-@GetMapping("/user")
-public List<User> findAll() {
-    return userRepository.findAll(); // MessageConverter (JavaObject -> Json String)
-}
-
-MessageConverter가 List<User>인 Java Object를 Json으로 바꿔서 반환해줌.
-
-Springboot는 Message Converter가 기본으로 구비되있고,
-스프링 레거시는 수동 설정해줘야 함.
-
-
-
-
+Q4. step2 - log method name & params
 
 ---
-Q5. BindingAdvice.validCheck()?
+Q5. step3 - monitor time of method
 
+---
+Q6. step4 - retry operation
 
-guess)
-컨트롤러 전,후에 @Around로 필터 걸어서
-에러있으면 서버 콘솔에 에러로그찍고, sentry로도 찍고
-404 반환하는거 같은데,
-설명 더 들어봐야할 듯.
+---
+Q7. step5 - log request URI
 
-ProceedingJoinPoint 얘를 reflection으로 처리하는거 같은데,
-얘가 정확히 뭔질 모르겠네.
-controller method 실행시킬 때 어떤 메서드 실행시키고, 어떤 args들어가고에 대한 정보 담는 녀석 같긴 한데.
+---
+Q8. step6 - @Valid check -> sentry 연동
 
-
-
-Ans)
 
 clinet->server 로 HttpRequest 보낼 때,
 값을 아래 3형태로 보내면,
@@ -148,49 +142,11 @@ reflection으로 받은 HttpRequest의 파라미터값이, 저 조건에 어긋�
 
 
 
----
-Q6. DTO 따로 설계하는 이유?
-
-
-
-그냥 VO인 User 쓰지,
-왜 귀찮게 JoinReqDto 따로, UpdateReqDto 따로, CommonDto 따로 설계하는거야?
-
-
-AOP로 @Valid 체크하기 편하기도 하고,
-다른 상황에서 다른 @Valid 설정을 유연하게 못하잖아?
-
-예를들어서, User 하나만 쓰면,
-회원가입할 때 id에 @valid()로 username은 null이면 안되고 등 제한을 거는데,
-update할 땐, username이 null이면 안된다는 제한이 필요 없을 수 있잖아?
-
-
-
-
-
-
 
 ---
-Q7. sentry?
+Q9. what is sentry?
 
 
-guess)
-
-logging framework인거 같은데
-
-그럼 log4j랑 뭐가 다른거지?
-
-
-
-logback-spring.xml?
-
-sentry 전용 config 파일인가?
-
-log4j처럼 로그 레벨에 따라 policy 다르게 적용하는게 보이네.
-
-
-
-Ans)
 BindingAdvice.validCheck() 할 때,
 @Valid에 에러나서 에러처리한 이후에,
 에러 로그를 파일로 남기고 싶을 때 쓰는게 센트리.
@@ -207,7 +163,7 @@ Sentry.captureMessage(type+"."+method+"() => 필드 : "+error.getField()+", 메�
 
 
 ---
-Q8. sentry의 로그파일을 서버 안 파일 말고 웹으로 보기
+Q10. sentry의 로그파일을 서버 안 파일 말고 웹으로 보기
 
 
 logback-spring.xml로 센트리 설정하면,

@@ -34,12 +34,16 @@ x. spring batch
 ---\
 Todo
 
+
 a-1. build mvc framework from scratch :white_check_mark:
+
 
 b-1. 우테코 cache 예제 파악 :white_check_mark:\
 b-2. 우테코 cache 예제 solution보고 개별 문제 풀기 :white_check_mark:
 
+
 c-1. spring 내장 cache :white_check_mark:
+
 
 d-1. 우테코 di 예제 stage-n setting :white_check_mark:\
 d-2. 우테코 di 예제 stage-n 문제 해결 :white_check_mark:\
@@ -48,15 +52,18 @@ d-4. field injection :white_check_mark:\
 d-5. setter injection :white_check_mark:\
 d-6. consturctor injection :white_check_mark:
 
+
 e-1. 우테코 thread 예제 stage-n setting :white_check_mark:\
 e-2. 우테코 thread 예제 stage-n 분석 :white_check_mark:
+
 
 f-1. 깡통 WAS setup & 파악 :white_check_mark:\
 f-2. http://localhost:8080/index.html 로 접속했을 때, webapp/index.html 출력 :white_check_mark: \
 f-3. register using GET, POST :white_check_mark: \
 f-4. login with cookie :white_check_mark: \
 f-5. list(사용자 목록 출력) by verifying cookie :white_check_mark: \
-f-6. cookie -> session 구현 :white_check_mark: 
+f-6. cookie -> session 구현 :white_check_mark:
+
 
 g-1. [우테코 - tomcat MVP setup](https://github.dev/woowacourse/jwp-dashboard-http) :white_check_mark:\
 g-2. tomcat MVP 분석 && 요구사항 파악 :white_check_mark:\
@@ -74,6 +81,7 @@ g-12. server socket의 threadpool :white_check_mark:
 
 h-1. 서브릿 예제 분석 :white_check_mark:
 
+
 i-1. 우테코 reflection 예제 :white_check_mark:\
 i-2. simple di framework using reflection :white_check_mark:\
 i-3. 우테코 reflection 예제 해결 :white_check_mark:\
@@ -82,16 +90,22 @@ i-5. analyze reflection by meta coding - implement Dispatcher, componentScan + D
 i-6. reflection으로 DispatcherServlet extends HttpServlet 만들기 :white_check_mark:\
 i-7. reflection으로 ComponentScan 만들기 :white_check_mark:
 
-j-1. project init - meta coding aop :white_check_mark:\
-j-2. filter vs aop :white_check_mark:\
-j-3. MyExceptionHandler :white_check_mark:\
-j-4. @Valid in JoinReqDto at BindingAdvice.validationCheck() :white_check_mark:\
-j-5. vo 그냥 안쓰고 dto 따로 설계하는 이유 :white_check_mark:\
-j-6. sentry :white_check_mark:\
-j-7. Message Converter :white_check_mark:
+
+j-1. what is aop? :white_check_mark:\
+j-2. 언제 필터쓰고 언제 AOP씀? :white_check_mark:\
+j-3. step1 - MyExceptionHandler :white_check_mark:\
+j-4. step2 - log method name & params :white_check_mark:\
+j-5. step3 - monitor time of method :white_check_mark:\
+j-6. step4 - retry operation :white_check_mark:\
+j-7. step5 - log request URI :white_check_mark:\
+j-8. step6 - @Valid check -> sentry 연동 :white_check_mark:\
+j-9. what is sentry? :white_check_mark:\
+j-10. sentry의 로그파일을 서버 안 파일 말고 웹으로 보기 :white_check_mark:
+
 
 k-1. filter init :white_check_mark:\
 k-2. DelegatingFilterProxy로 Filter를 빈에 등록 :white_check_mark:
+
 
 l-1. controller: x-www-form-urlencoded -> (String id, String pw) :white_check_mark:\
 l-2. controller: text/plain(raw) -> @RequestBody String data :white_check_mark:\
@@ -114,14 +128,18 @@ l-18. error-handling: @ControllerAdvice :white_check_mark:\
 l-19. error-handling: @ResponseStatus :white_check_mark:\
 l-20. domain: @Embedded :white_check_mark:
 
+
 m-1. interceptor init :white_check_mark:\
 m-2. interceptor vs filter vs aop :white_check_mark:
+
 
 n-1. lifecycle: InitializingBean, DisposableBean :white_check_mark:\
 n-2. lifecycle: @PostConstruct, @PreDestroy :white_check_mark:
 
+
 o-1. exception handling project init :white_check_mark:\
 o-2. exception handling 부가 설명 :white_check_mark:
+
 
 p-1. bean & scope :white_check_mark:\
 p-2. Environment(ex. Profile) :white_check_mark:\
@@ -131,7 +149,9 @@ p-5. Validation :white_check_mark:\
 p-6. DataBinding, Converter, Formatter :white_check_mark:\
 p-7. ResourceLoader :white_check_mark:
 
+
 q-1. spring-actuator with prometheus + grafana :white_check_mark:
+
 
 ---\
 reference
@@ -189,7 +209,7 @@ m-1. [interceptor init](https://blog.naver.com/PostView.naver?blogId=getinthere&
 m-2. [interceptor vs filter vs aop](https://mangkyu.tistory.com/173)
 
 n-1. [lifecycle: InitializingBean, DisposableBean](https://mangkyu.tistory.com/126?category=761302) \
-n-2. [lifecycle: @PostConstruct, @PreDestroy](https://mangkyu.tistory.com/126?category=761302) 
+n-2. [lifecycle: @PostConstruct, @PreDestroy](https://mangkyu.tistory.com/126?category=761302)
 
 o-1. [exception handling project init](https://github.dev/thombergs/code-examples/tree/master/spring-boot/exception-handling) \
 o-2. [exception handling 부가 설명](https://mangkyu.tistory.com/204?category=761302)
@@ -212,7 +232,7 @@ x-1. [우테코 - 프레임워크 구현](https://github.com/woowacourse/jwp-mvc
 x-1. [우테코 -mvc 단계별 구현](https://github.com/jeonye/jwp-basic) \
 x-1. [우테코 - mvc 구현하기 start](https://github.dev/woowacourse/jwp-dashboard-mvc) \
 x-2. [우테코 - mvc 타인이 구현한 것1](https://github.dev/joelonsw/jwp-dashboard-mvc) \
-x-2. [우테코 - mvc 타인이 구현한 것2](https://github.dev/NewWisdom/jwp-dashboard-http/tree/step1) 
+x-2. [우테코 - mvc 타인이 구현한 것2](https://github.dev/NewWisdom/jwp-dashboard-http/tree/step1)
 
 x-1. [우테코 - jdbc 구현하기](https://github.com/woowacourse/jwp-dashboard-jdbc) \
 x-2. [우테코 - jdbc 구현하기 by joelonsw](https://github.com/joelonsw/jwp-dashboard-jdbc)
@@ -241,4 +261,4 @@ x-x. [source code 기반 spring ioc analysis](https://www.fatalerrors.org/a/sour
 
 x-x. [springboot actuator crashcourse](https://www.youtube.com/watch?v=LQlypTjmgZM) \
 x-x. [springboot actuator github code](https://reflectoring.io/spring-boot-info-endpoint/) \
-x-x. [healthcheck using actuator && prometheus](https://reflectoring.io/spring-boot-health-check/) 
+x-x. [healthcheck using actuator && prometheus](https://reflectoring.io/spring-boot-health-check/)

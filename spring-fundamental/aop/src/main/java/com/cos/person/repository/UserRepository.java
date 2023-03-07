@@ -1,8 +1,11 @@
-package com.cos.person.domain;
+package com.cos.person.repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cos.person.domain.User;
+import com.cos.person.dto.JoinReqDto;
+import com.cos.person.dto.UpdateReqDto;
 import org.springframework.stereotype.Repository;
 
 @Repository

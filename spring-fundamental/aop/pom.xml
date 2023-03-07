@@ -24,7 +24,7 @@
 
         <dependency>
             <groupId>io.sentry</groupId>
-            <artifactId>sentry-spring-boot-starter</artifactId>
+            <artifactId>sentry-spring-boot-starter</artifactId> <!-- TODO - sentry -->
             <version>3.2.0</version>
         </dependency>
 

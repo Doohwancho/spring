@@ -1,4 +1,4 @@
-package com.cos.person.domain;
+package com.cos.person.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
