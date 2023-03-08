@@ -17,6 +17,7 @@ import com.practice.service.token.LogoutAccessTokenService;
 import com.practice.service.token.RefreshTokenService;
 import com.practice.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,10 @@ import java.security.Principal;
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
+
+    //logger
+    private final org.slf4j.Logger log = LoggerFactory.getLogger(MemberServiceImpl.class);
+
     private final PasswordEncoder passwordEncoder;
 
     private final JwtTokenUtil jwtTokenUtil;
@@ -106,13 +111,17 @@ public class MemberServiceImpl implements MemberService {
         return member;
     }
 
-    @CacheEvict(value = CacheKey.USER, key = "#username")
-    public void logout(String accessToken) {
-        String username = jwtTokenUtil.parseToken(jwtTokenUtil.resolveToken(accessToken));
+    //TODO - username은 중복될 수 있으니까, id로 해야함.
+    @CacheEvict(value = CacheKey.USER, key = "#username", condition="#username!=null") //TODO - paramter에 username이 있을 때에만, #username을 인식한다.
+    public void logout(String accessToken, String username) {
+        String tokenValidatedUsername = jwtTokenUtil.parseToken(jwtTokenUtil.resolveToken(accessToken));
+        if(!tokenValidatedUsername.equals(username)) {
+            throw new UserAuthException(ExceptionMessage.NOT_AUTHORIZED_ACCESS);
+        }
         accessToken = jwtTokenUtil.resolveToken(accessToken);
         long remainTime = jwtTokenUtil.getRemainTime(accessToken); //logout 시, jwt-access-token의 남은 시간만큼 까서 저장함.
-        refreshTokenService.deleteRefreshTokenById(username);
-        logoutAccessTokenService.saveLogoutAccessToken(LogoutAccessToken.of(username, accessToken, remainTime));
+        refreshTokenService.deleteRefreshTokenById(tokenValidatedUsername);
+        logoutAccessTokenService.saveLogoutAccessToken(LogoutAccessToken.of(tokenValidatedUsername, accessToken, remainTime));
     }
 
     @Override

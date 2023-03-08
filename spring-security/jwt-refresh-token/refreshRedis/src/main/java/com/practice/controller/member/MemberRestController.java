@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.security.Principal;
 
@@ -32,6 +33,7 @@ public class MemberRestController {
     // 요청 방식은 Content-Type 상관없이 ...
     @PostMapping("/signup")
     public ResponseEntity<Long> signup(@RequestBody JoinDto joinDto) { //TODO - @RequestBody 가 없이 postman으로 body에 json을 넣어서 보내면, 파싱을 못해서, null값으로 들어온다.
+        log.info(joinDto.toString());
         var result = this.memberService.register(joinDto);
         return ResponseEntity.ok(result);
     }
@@ -68,8 +70,8 @@ public class MemberRestController {
 
     //TODO - what happens when POST /member/logout?
     @PostMapping("/logout")
-    public void logout(@RequestHeader("Authorization") String accessToken) {
-        memberService.logout(accessToken);
+    public void logout(@RequestHeader("Authorization") String accessToken, Principal principal) {
+        memberService.logout(accessToken, principal.getName());
     }
 
     //TODO - when does POST /member/reissue used?

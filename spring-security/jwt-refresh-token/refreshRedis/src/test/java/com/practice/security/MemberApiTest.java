@@ -10,6 +10,7 @@ import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
@@ -92,4 +98,22 @@ public class MemberApiTest extends ApiTest {
         assertThat(response.cookie("refreshToken")).isNotNull();
     }
 
+    @Test
+    @DisplayName("로그아웃 테스트")
+    void shouldLogout(){
+        //given
+        ExtractableResponse<Response> response = 로그인완료();
+        String refreshToken = response.cookie("RefreshToken");
+
+        //when
+        ValidatableResponse validatableResponse = given().log().all()
+                .contentType("application/json")
+                .header("Authorization", "Bearer-" + response.body().as(JwtTokenDto.class).getAccessToken()
+                ).cookie("RefreshToken", refreshToken)
+                .when().post("/member/logout")
+                .then().log().all();
+
+        //then
+        assertThat(validatableResponse.extract().statusCode()).isEqualTo(HttpStatus.SC_OK);
+    }
 }

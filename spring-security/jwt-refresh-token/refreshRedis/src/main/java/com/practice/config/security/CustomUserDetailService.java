@@ -4,6 +4,7 @@ import com.practice.config.redis.cache.CacheKey;
 import com.practice.domain.Member;
 import com.practice.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,7 +29,7 @@ public class CustomUserDetailService implements UserDetailsService {
     //TODO - 토큰을 가지고 요청할 때 마다 DB에서 회원을 조회하는 것을 줄이기 위해 Cacheable 어노테이션을 이용 가능하다.
     @Override
     @Transactional(readOnly = true)
-    @Cacheable(value = CacheKey.USER, key = "#username", unless = "#result == null")
+    @Cacheable(value = CacheKey.USER, key = "#username", unless = "#result == null") //if result of method is not null, cache it
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Member member = memberRepository.findByUsernameWithAuthority(username).orElseThrow(() -> new NoSuchElementException("없는 회원입니다."));
         return CustomUserDetails.of(member);

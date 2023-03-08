@@ -18,7 +18,7 @@ public interface MemberService {
 
     Member authenticate(LoginDto loginModel);
 
-    void logout(String accessToken);
+    void logout(String accessToken, String username);
 
     JwtTokenDto reissue(String refreshToken, Principal principal);
 
