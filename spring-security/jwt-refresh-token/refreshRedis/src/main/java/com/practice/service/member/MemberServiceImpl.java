@@ -112,6 +112,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     //TODO - username은 중복될 수 있으니까, id로 해야함.
+    //TODO - 만약 principal.username이 없는 경우도 있지 않을까?
     @CacheEvict(value = CacheKey.USER, key = "#username", condition="#username!=null") //TODO - paramter에 username이 있을 때에만, #username을 인식한다.
     public void logout(String accessToken, String username) {
         String tokenValidatedUsername = jwtTokenUtil.parseToken(jwtTokenUtil.resolveToken(accessToken));

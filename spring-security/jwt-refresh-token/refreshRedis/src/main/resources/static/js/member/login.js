@@ -9,6 +9,7 @@ class LoginController extends UtilController {
         this.loginButton.addEventListener("click", evt => {
             const xhr = new XMLHttpRequest();
             xhr.open("POST", "/member/login");
+            xhr.setRequestHeader("Content-Type", "application/json");
 
             xhr.addEventListener("loadend", event => {
                 let status = event.target.status;
@@ -26,7 +27,14 @@ class LoginController extends UtilController {
                 this.showToastMessage('로그인에 실패하였습니다.');
             });
 
-            xhr.send(new FormData(this.loginForm));
+            let data = new FormData(this.loginForm);
+            let jsonData = {};
+
+            for (let [key, value] of data) {
+                jsonData[key] = value;
+            }
+
+            xhr.send(JSON.stringify(jsonData));
         });
     }
 }

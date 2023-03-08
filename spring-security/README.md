@@ -78,7 +78,8 @@ i-7. Member.java를 CustomUserDetails로 분리 :white_check_mark:\
 i-8. apply Authority("ROLE_USER" to user, "ROLE_ADMIN" to admin) :white_check_mark:\
 i-9. unit test :white_check_mark:\
 i-10. integration test - register, login, access token, refresh token :white_check_mark:\
-i-11. integration test - logout :white_check_mark:
+i-11. integration test - logout :white_check_mark:\
+i-12. content-type: application/json :white_check_mark:
 
 
 ---\

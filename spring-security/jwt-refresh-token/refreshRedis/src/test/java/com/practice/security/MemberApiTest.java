@@ -116,4 +116,5 @@ public class MemberApiTest extends ApiTest {
         //then
         assertThat(validatableResponse.extract().statusCode()).isEqualTo(HttpStatus.SC_OK);
     }
+    
 }

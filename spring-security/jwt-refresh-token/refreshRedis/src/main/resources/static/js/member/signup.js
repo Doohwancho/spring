@@ -9,6 +9,7 @@ class SignupController extends UtilController {
         this.signupFormButton.addEventListener("click", evt => {
             const xhr = new XMLHttpRequest();
             xhr.open("POST", "/member/signup");
+            xhr.setRequestHeader("Content-Type", "application/json");
 
             xhr.addEventListener("loadend", event => {
                 let status = event.target.status;
@@ -25,7 +26,14 @@ class SignupController extends UtilController {
                 this.showToastMessage('회원가입에 실패하였습니다.');
             });
 
-            xhr.send(new FormData(this.signupForm));
+            let data = new FormData(this.signupForm);
+            let jsonData = {};
+
+            for (let [key, value] of data) {
+                jsonData[key] = value;
+            }
+
+            xhr.send(JSON.stringify(jsonData));
         });
     }
 }
