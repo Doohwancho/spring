@@ -5,6 +5,7 @@ import com.practice.util.JwtTokenUtil;
 import com.practice.util.TokenManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -38,7 +39,10 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter { //TODO - why extends OncePerRequestFilter?
 
     //TODO - 이 두 필드 모두 user defined custom class인데?
+    @Autowired
     private final TokenManager tokenManager;
+
+    @Autowired
     private final JwtTokenUtil jwtTokenUtil;
 
     @Override

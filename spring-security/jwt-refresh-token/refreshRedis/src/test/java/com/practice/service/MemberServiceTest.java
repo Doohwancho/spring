@@ -47,8 +47,8 @@ public class MemberServiceTest {
 
     @Test
     @DisplayName("일반 유저 회원가입 테스트")
-    @Transactional
-    public void shouldBeAbleToRegisterUserWithROLE_USER() {
+    @Transactional //for Member.authority is LAZY
+    public void shouldRegisterUserWithROLE_USER() {
         // given
         String userName = UUID.randomUUID().toString();
         String userPassword = "password";
@@ -73,7 +73,7 @@ public class MemberServiceTest {
     @Test
     @DisplayName("ADMIN 유저 회원가입 테스트")
     @Transactional //for Member.authority is LAZY
-    public void shouldBeAbleToRegisterADMINWithROLE_ADMIN() {
+    public void shouldRegisterADMINWithROLE_ADMIN() {
 
         // given
         String userName = UUID.randomUUID().toString();

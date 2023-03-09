@@ -5,6 +5,7 @@ import com.practice.exception.message.ExceptionMessage;
 import com.practice.exception.model.TokenCheckFailException;
 import com.practice.service.token.LogoutAccessTokenService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,10 +17,9 @@ import java.util.Date;
 @Component
 @RequiredArgsConstructor
 public class TokenManager {
+
     private final CustomUserDetailService customUserDetailService;
-
     private final LogoutAccessTokenService logoutAccessTokenService;
-
     private final JwtTokenUtil jwtTokenUtil;
 
     //TODO - JwtAuthenticationFilter.doFilterInternal 에서 옴.

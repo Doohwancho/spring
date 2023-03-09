@@ -65,6 +65,7 @@ public class MemberRestController {
 
     @PostMapping("/login")
     public ResponseEntity<JwtTokenDto> login(@RequestBody LoginDto loginDto) {
+        log.info("loginDto: " + loginDto.toString());
         return ResponseEntity.status(HttpStatus.OK).body(memberService.login(loginDto));
     }
 

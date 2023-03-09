@@ -79,7 +79,8 @@ i-8. apply Authority("ROLE_USER" to user, "ROLE_ADMIN" to admin) :white_check_ma
 i-9. unit test :white_check_mark:\
 i-10. integration test - register, login, access token, refresh token :white_check_mark:\
 i-11. integration test - logout :white_check_mark:\
-i-12. content-type: application/json :white_check_mark:
+i-12. content-type: application/json :white_check_mark:\
+i-13. mock test - reissue refresh token :white_check_mark:
 
 
 ---\

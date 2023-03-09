@@ -2,6 +2,7 @@ package com.practice.config.security;
 
 import com.practice.config.jwt.JwtAuthenticationFilter;
 import com.practice.config.jwt.JwtEntryPoint;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .cors()
                 .and()
-                .csrf().disable()
+                .csrf().disable() //token 방식이므로 csrf 비활성화
                 .authorizeRequests()
                 .antMatchers("/member/signup/**", "/member/login/**", "/member/authorize/**", "/member/reissue/**").permitAll()
                 .antMatchers("/logout").authenticated()
