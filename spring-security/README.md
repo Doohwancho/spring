@@ -1,12 +1,14 @@
 ---\
 Objective
 
+
 modularize concepts in spring-security
 
 
 
 ---\
 Concepts
+
 
 a. spring security basics :white_check_mark:\
 b. cookie\
@@ -17,11 +19,14 @@ f. authentication :white_check_mark:\
 g. jwt-refresh-token :white_check_mark:\
 h. react+springboot+jwt :white_check_mark:\
 i. jwt+refresh-token+redis :white_check_mark:\
+j. tdd-security :white_check_mark:\
 x. CORS
+
 
 
 ---\
 Todos
+
 
 a-1. springboot security project setup :white_check_mark:\
 a-2. basic register :white_check_mark:\
@@ -83,8 +88,10 @@ i-12. content-type: application/json :white_check_mark:\
 i-13. mock test - reissue refresh token :white_check_mark:
 
 
+
 ---\
 reference
+
 
 a-1~5. [spring boot security project init by meta coding](https://github.dev/codingspecialist/Sringboot-Security-Basic-V1) \
 a-x. [초보자가 이해하는 스프링 시큐리티](https://okky.kr/articles/382738) \
@@ -111,3 +118,5 @@ g-2. [jwt + refresh token race condition problem](https://dev.to/supertokens/the
 i. [jwt login practice](https://github.com/JmKanmo/jwt_login_practice) \
 i-6. [optimize loadByUserName() by using Redis Cache](https://kobumddaring.tistory.com/61) \
 i-7,8. [jwt refresh token 예제](https://github.dev/kobeomseok95/playground)
+
+j. [spring security를 유닛테스트 하라!](https://github.com/jongwon/spring-security-junit5-test)
