@@ -9,6 +9,7 @@ a-2. error handling 전체 구조
     Q. Exception handling을 따로 처리하는 이유
     Q. 서버 에러 로그를 response payload에 "여러개" 첨가해서 보내는 방법
 a-3. 서버 에러 로그를 response payload에 첨가해서 보내는 방법 in application.yml
+a-4. Employee가 던지는 Exception을 SecondLeader -> Leader로 던져 Leader가 Exception 처리
 
 
 
@@ -152,5 +153,6 @@ GET http://localhost:8080/product/1?trace=true
    "message":"Item with id 1 not found",
    "stackTrace":"io.reflectoring.exception.exception.NoSuchElementFoundException: Item with id 1 not found\n\tat io.reflectoring.exception.service.ProductService.lambda$getProduct$0(ProductService.java:24) ...
 }
+
 
 
