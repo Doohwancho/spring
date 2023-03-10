@@ -20,6 +20,7 @@ public class ProductService {
     private final MessageSource messageSource;
 
     public Product getProduct(String id) {
+        //TODO - a-1. modern한 방식으로 Exception handling
         return repository.findById(id).orElseThrow(()->
                 new NoSuchElementFoundException(getLocalMessage(I18Constants.NO_ITEM_FOUND.getKey(), id)));
     }

@@ -1,4 +1,4 @@
-package io.reflectoring.exception.exception;
+package io.reflectoring.exception.exception.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
@@ -28,6 +28,7 @@ public class ErrorResponse {
         private final String message;
     }
 
+    //TODO - Q. 서버 에러 로그를 response payload에 "여러개" 첨가해서 보내는 방법
     public void addValidationError(String field, String message){
         if(Objects.isNull(errors)){
             errors = new ArrayList<>();

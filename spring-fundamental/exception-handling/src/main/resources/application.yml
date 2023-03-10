@@ -1,5 +1,5 @@
 server:
-  error:
+  error: #TODO - a-3. 서버 에러 로그를 response payload에 첨가해서 보내는 방법.
     include-message: always
     include-binding-errors: always
     include-stacktrace: on_trace_param

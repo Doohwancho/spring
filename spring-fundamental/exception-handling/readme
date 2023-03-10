@@ -1,8 +1,20 @@
+---
+Index
+
+
+a-1. modern한 방식으로 exception handling하기
+a-2. error handling 전체 구조
+    Q. I18constant 처리 하는 이유
+    Q. @RestControllerAdvice 는 왜 쓰는가?
+    Q. Exception handling을 따로 처리하는 이유
+    Q. 서버 에러 로그를 response payload에 "여러개" 첨가해서 보내는 방법
+a-3. 서버 에러 로그를 response payload에 첨가해서 보내는 방법 in application.yml
+
+
+
 
 ---
-Q. 에러 핸들링 전체 구조
-
-Service같은 곳에서 에러날만한 곳에 함수형+람다로 throw new CustomException()
+a-1. modern한 방식으로 exception handling하기
 
 ex.
 public Product getProduct(String id) {
@@ -11,45 +23,97 @@ public Product getProduct(String id) {
 }
 
 
-그럼 해당 CustomException 클래스에서 에러 메시지를 받음과 동시에 @ResponseStatus로 404인지 500인지 등 결정함
+.orElseThrow()를 활용해서, Exception 처리를 해준다.
 
+
+---
+a-2. 에러 핸들링 전체 구조
+
+
+1. a-1.에서 throw Exception 하면,
+```java
+public Product getProduct(String id) {
+    return repository.findById(id).orElseThrow(()->
+            new NoSuchElementFoundException(getLocalMessage(I18Constants.NO_ITEM_FOUND.getKey(), id)));
+}
+```
+
+2. I18Constants에서 에러 메시지를 가져온다. (I18Constants는 국제 표준화를 위한 enum)
+```java
+@Getter
+public enum I18Constants {
+    NO_ITEM_FOUND("item.absent");
+
+    String key;
+    I18Constants(String key) {
+        this.key = key;
+    }
+}
+```
+
+```res.properties
+item.absent=Item with id {0} not found
+```
+
+
+3. 메시지 가지고 해당 Exception이 만들어짐
+
+```java
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
 public class NoSuchElementFoundException extends RuntimeException {
     public NoSuchElementFoundException(String message){
         super(message);
     }
 }
-
-@Controller 하위에 서비스가 작동하다 에러난거니,
-Controller를 AOP하는 @ControllerAdvice로 선언한 GlobalExceptionHandler가 에러를 일괄처리함.
-
-이 방식은 일괄처리해서 관리도 편하고,
-그냥 response 404 error 보내는 것 보다,
-HttpStatus도 바꿀 수 있고,
-HttpResponseBody의 payload에 에러 내용을 자세히 적을 수 있어서 더 유연하다. (ErrorResponse에 private List<ValidationError> errors; 랑 stackTrace 참조)
+```
+@ResponseStatusExceptionResolver handles error through ResponseStatus in @ControllerAdvice.
+if not, exception is handled by DefaultHandlerExceptionResolver
 
 
 
 
+4. @RestControllerAdvice가 붙은 GlobalExceptionHandler에서 catch해서,
+    a. 로그 남기고,
+    b. 상태코드 정하고
+    c. 에러 메시지를 response payload에 담아서 보내준다.
 
+example)
 
----
-Q. @ResponseStatus
-
-
-@ResponseStatus(value = HttpStatus.NOT_FOUND)
-public class NoSuchElementFoundException extends RuntimeException {
-    public NoSuchElementFoundException(String message){
-        super(message);
-    }
+```java
+@ExceptionHandler(NoSuchElementFoundException.class)
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public ResponseEntity<Object> handleNoSuchElementFoundException(NoSuchElementFoundException itemNotFoundException, WebRequest request) {
+    log.error("Failed to find the requested element", itemNotFoundException);
+    return buildErrorResponse(itemNotFoundException, HttpStatus.NOT_FOUND, request);
 }
-
-HttpResponse의 404이든 500이든 상태 전할 때, custom exception에 붙이는 어노테이션이네.
+```
 
 
 
 ---
-Q. @RestControllerAdvice 는 왜 쓰는겨?
+Q. I18constant 처리 하는 이유
+
+
+국제 표준 코드를 사용하면, 나중에 다국어 지원할 때 편하다.
+
+ex. 에러 메시지를 한국, 영어, 일본어 버전으로 지정하고, locale에 따라서 메시지를 다르게 보여줄 수 있다.
+
+
+---
+Q. Exception handling을 따로 처리하는 이유
+
+
+이 방식을 그냥 response 404 error 보내는 것 보다,
+1. 일괄처리해서 관리도 편하고,
+2. HttpStatus도 바꿀 수 있고,
+3. Exception message 언어도 I18Constants를 써서 다개국어 지원 가능하고
+4. httpResponseBody의 payload에 에러 내용을 자세히 적을 수 있어서 더 유연하다. (ErrorResponse에 private List<ValidationError> errors; 랑 stackTrace 참조)
+
+
+
+---
+Q. @RestControllerAdvice 는 왜 쓰는가?
+
 
 @RestController에서 Exception처리까지 해주면, 너무 부하가 크니까,
 Exception 처리 전용 컨트롤러 따로 빼서 (GlobalExceptionHandler) 처리하는 것
@@ -67,20 +131,10 @@ Exception 처리에 딱이네.
 
 
 
----
-Q. @RestControllerAdvice 로 Error Handling Logic Flow
-
-1. error 발생!
-2. if @ExceptionHandler within that @Controller, its handled by @ExceptionHandler. if not, look for @ControllerAdvice
-3. if @ResponseStatus is in @ControllerAdvice, ResponseStatusExceptionResolver handles error. if not, exception is handled by DefaultHandlerExceptionResolver
-4. return response to client
-
-
-
 
 
 ---
-Q. 서버 에러 로그를 response payload에 첨가해서 보내는 방법.
+a-3. 서버 에러 로그를 response payload에 첨가해서 보내는 방법 in application.yml
 
 application.yml
 
