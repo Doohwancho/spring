@@ -2,6 +2,7 @@ package io.reflectoring.step2TransactionExceptionHandling;
 
 import org.springframework.transaction.annotation.Transactional;
 
+//TODO - a-7 exception handling in @Transactional
 public class Case2Transactional {
     public static void main(String[] args) {
         //Q. 상품발송 안에 세 메서드중 하나라도 실패하면, 모두 실패하게끔 처리하고 싶다면? Exception 처리를 어떻게 해야할까?

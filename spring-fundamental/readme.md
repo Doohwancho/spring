@@ -147,7 +147,8 @@ o-3. 서버 에러 로그를 response payload에 첨가해서 보내는 방법 i
 o-4. Employee가 던지는 Exception을 SecondLeader -> Leader로 던져 Leader가 Exception 처리 :white_check_mark:\
 o-5. Exception 종류 (checked, unchecked) :white_check_mark:\
 o-6. exception handling tips :white_check_mark:\
-a-7. exception handling in @Transactional :white_check_mark:
+a-7. exception handling in @Transactional :white_check_mark:\
+a-8. spring retry on controller & service :white_check_mark:
 
 p-1. bean & scope :white_check_mark:\
 p-2. Environment(ex. Profile) :white_check_mark:\
