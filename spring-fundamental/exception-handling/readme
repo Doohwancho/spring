@@ -12,6 +12,7 @@ a-3. 서버 에러 로그를 response payload에 첨가해서 보내는 방법 i
 a-4. Employee가 던지는 Exception을 SecondLeader -> Leader로 던져 Leader가 Exception 처리
 a-5. Exception 종류 (checked, unchecked)
 a-6. exception handling tips
+a-7. exception handling in @Transactional
 
 
 

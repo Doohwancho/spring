@@ -1,12 +1,11 @@
-package io.reflectoring.exception.model;
+package io.reflectoring.step0Exception.model;
 
 
-import io.reflectoring.exception.entity.Category;
+import io.reflectoring.step0Exception.entity.Category;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Getter

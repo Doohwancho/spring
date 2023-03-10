@@ -1,11 +1,11 @@
-package io.reflectoring.exception.service;
+package io.reflectoring.step0Exception.service;
 
-import io.reflectoring.exception.commons.I18Constants;
-import io.reflectoring.exception.entity.Category;
-import io.reflectoring.exception.entity.Product;
-import io.reflectoring.exception.exception.NoSuchElementFoundException;
-import io.reflectoring.exception.model.ProductInput;
-import io.reflectoring.exception.repository.ProductRepository;
+import io.reflectoring.step0Exception.commons.I18Constants;
+import io.reflectoring.step0Exception.entity.Category;
+import io.reflectoring.step0Exception.entity.Product;
+import io.reflectoring.step0Exception.exception.NoSuchElementFoundException;
+import io.reflectoring.step0Exception.model.ProductInput;
+import io.reflectoring.step0Exception.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;

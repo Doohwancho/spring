@@ -1,4 +1,4 @@
-package io.reflectoring.exception.model;
+package io.reflectoring.step0Exception.model;
 
 import lombok.Getter;
 import lombok.Setter;

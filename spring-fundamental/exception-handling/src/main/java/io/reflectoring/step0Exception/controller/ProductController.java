@@ -1,8 +1,8 @@
-package io.reflectoring.exception.controller;
+package io.reflectoring.step0Exception.controller;
 
-import io.reflectoring.exception.entity.Product;
-import io.reflectoring.exception.model.ProductInput;
-import io.reflectoring.exception.service.ProductService;
+import io.reflectoring.step0Exception.entity.Product;
+import io.reflectoring.step0Exception.model.ProductInput;
+import io.reflectoring.step0Exception.service.ProductService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;

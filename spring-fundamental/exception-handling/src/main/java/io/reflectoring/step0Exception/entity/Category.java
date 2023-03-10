@@ -1,4 +1,4 @@
-package io.reflectoring.exception.entity;
+package io.reflectoring.step0Exception.entity;
 
 public enum Category {
     MOBILE,

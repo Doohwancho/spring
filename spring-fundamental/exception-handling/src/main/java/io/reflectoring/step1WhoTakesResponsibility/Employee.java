@@ -1,4 +1,4 @@
-package io.reflectoring.tobe.step1whoTakesResponsibility;
+package io.reflectoring.step1WhoTakesResponsibility;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

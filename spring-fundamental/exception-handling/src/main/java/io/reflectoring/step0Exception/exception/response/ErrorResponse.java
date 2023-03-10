@@ -1,10 +1,9 @@
-package io.reflectoring.exception.exception.response;
+package io.reflectoring.step0Exception.exception.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.springframework.validation.Errors;
 
 import java.util.ArrayList;
 import java.util.List;
