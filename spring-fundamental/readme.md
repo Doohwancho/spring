@@ -129,8 +129,11 @@ l-19. error-handling: @ResponseStatus :white_check_mark:\
 l-20. domain: @Embedded :white_check_mark:
 
 
-m-1. interceptor init :white_check_mark:\
-m-2. interceptor vs filter vs aop :white_check_mark:
+m-1. http request 진행 순서 :white_check_mark:\
+m-2. interceptor vs filter :white_check_mark:\
+m-3. interceptor vs AOP :white_check_mark:\
+m-4. interceptor을 통한 간단한 인증 구현 :white_check_mark:\
+m-5. afterCompletion()에서 예외 처리하기 :white_check_mark:
 
 
 n-1. lifecycle: InitializingBean, DisposableBean :white_check_mark:\

@@ -13,8 +13,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new SessionInterceptor())
-                .addPathPatterns("/board/**")
-                .excludePathPatterns("/board/list")
+                .addPathPatterns("/board/**") //이 url로 오는 컨트롤러에만 interceptor를 붙인다.
+                .excludePathPatterns("/board/list") //이 url들은 제외한다. (로그인 안해도 접근 가능)
                 .excludePathPatterns("/board/detail/**");
         //registry.addInterceptor(new AdminInterceptor())
         //.addPathPatterns("/admin/**");
