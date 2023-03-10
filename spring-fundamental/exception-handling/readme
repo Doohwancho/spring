@@ -10,7 +10,8 @@ a-2. error handling 전체 구조
     Q. 서버 에러 로그를 response payload에 "여러개" 첨가해서 보내는 방법
 a-3. 서버 에러 로그를 response payload에 첨가해서 보내는 방법 in application.yml
 a-4. Employee가 던지는 Exception을 SecondLeader -> Leader로 던져 Leader가 Exception 처리
-
+a-5. Exception 종류 (checked, unchecked)
+a-6. exception handling tips
 
 
 
@@ -155,4 +156,60 @@ GET http://localhost:8080/product/1?trace=true
 }
 
 
+
+
+---
+a-5. Exception 종류 (checked, unchecked)
+
+
+spring에서는 checked exception, unchecked exception이 존재
+
+checked exception은 컴파일 시점에 체크해줌.
+unchecked exception은 컴파일 시점에 체크해주지 않음.
+
+ex. checked exception
+```java
+public class CheckedService {
+    public void checkedException() throws IOException {
+        throw new IOException();
+    }
+}
+```
+
+ex. unchecked exception
+```java
+public class UncheckedService {
+    public void uncheckedException() {
+        throw new RuntimeException();
+    }
+}
+```
+
+jvm out of memory나 system crash같은 개발자가 처리할 수 없는 심각한 error도 unchecked exception.
+
+
+이 3종류 중에서,
+1. error (unchecked exception)
+2. checked exception
+3. unchecked exception
+
+
+
+1. error는 어짜피 처리할 수 없기 때문에, 발생하는 즉시 개발자에게 알람이 가도록 처리해야 한다.
+2. checked exception은 컴파일 시점에 체크해주긴 하는데,
+    a. 수천개의 sql관련 exception드리 하나의 SQLException로 묶여있다거나 하는 문제가 있어서, CustomException으로 따로 감싸줘서 처리하거나, (명확한 Exception 표시 용)
+    b. 수십개의 db 벤더들, 그리고 비슷한 Exception을 하나로 처리하는 xml파일 등을 만들어서, Exception을 처리할 수도 있고,
+    c. checked exception은 crash 하니까, crash 안하게 하기 위해 Runtime Exception인 EJBException으로 감싸서 처리할 수도 있음.
+    d. 근데 얘도 결국 개발자에게 바로 알람이 가게 해야 함.
+3. unchecked exception은 컴파일 시점에 체크해주지 않기 때문에, 미리 CustomException 만들어줘서, try~catch문으로 예외처리 해줘야 함.
+    a. 보통 runtime error는 개발자 실수가 많기 때문에, try~catch문으로 예외처리 해주는데, 복구 시도함(retry 시도하던지)
+
+
+---
+a-6. exception handling tips
+
+
+1. error id & message는 미리 동료개발자와 상의해서 정해놓고(음수인지 양수인지, 몇번대인지 등) 개발 시작하자
+2. system crash나는 error나 checked exception이면, 던지는거 의미 없으니까, throw 하지 말고,
+3. runtime error도, 던져서 굳이 윗놈이 복구처리해야 하는 의미가 없으면, throw하지말고 그 자리에서 try~catch로 처리해.
 

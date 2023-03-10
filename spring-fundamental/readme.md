@@ -139,13 +139,14 @@ n-2. lifecycle: @PostConstruct, @PreDestroy :white_check_mark:
 
 o-1. modern한 방식으로 exception handling하기 :white_check_mark:\
 o-2. error handling 전체 구조 :white_check_mark:\
-&nbsp;&nbsp;&nbsp;&nbsp;Q. I18constant 처리 하는 이유 :white_check_mark:\
-    Q. @RestControllerAdvice 는 왜 쓰는가? :white_check_mark:\
-    Q. Exception handling을 따로 처리하는 이유 :white_check_mark:\
-    Q. 서버 에러 로그를 response payload에 "여러개" 첨가해서 보내는 방법 :white_check_mark:\
+>Q. I18constant 처리 하는 이유 :white_check_mark:\
+>Q. @RestControllerAdvice 는 왜 쓰는가? :white_check_mark:\
+>Q. Exception handling을 따로 처리하는 이유 :white_check_mark:\
+>Q. 서버 에러 로그를 response payload에 "여러개" 첨가해서 보내는 방법 :white_check_mark:\
 o-3. 서버 에러 로그를 response payload에 첨가해서 보내는 방법 in application.yml :white_check_mark:\
-o-4. Employee가 던지는 Exception을 SecondLeader -> Leader로 던져 Leader가 Exception 처리 :white_check_mark:
-
+o-4. Employee가 던지는 Exception을 SecondLeader -> Leader로 던져 Leader가 Exception 처리 :white_check_mark:\
+o-5. Exception 종류 (checked, unchecked) :white_check_mark:\
+o-6. exception handling tips :white_check_mark:
 
 
 p-1. bean & scope :white_check_mark:\
