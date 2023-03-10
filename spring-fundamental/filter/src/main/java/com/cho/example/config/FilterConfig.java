@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FilterConfig {
 
+    //TODO - k-1. FilterRegistrationBean을 통해 필터를 등록할 수 있다.
     @Bean
     public FilterRegistrationBean<MyFilter1> filter1(){
         FilterRegistrationBean<MyFilter1> bean = new FilterRegistrationBean<>(new MyFilter1());

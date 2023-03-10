@@ -103,8 +103,9 @@ j-9. what is sentry? :white_check_mark:\
 j-10. sentry의 로그파일을 서버 안 파일 말고 웹으로 보기 :white_check_mark:
 
 
-k-1. filter init :white_check_mark:\
-k-2. DelegatingFilterProxy로 Filter를 빈에 등록 :white_check_mark:
+k-1. Custom Filter 등록하는 법 :white_check_mark:\
+k-2. Filter에서 @Bean 사용 가능한가?  :white_check_mark:\
+k-3. 주의! Application.java에 @ServletComponentScan를 추가하고, 또 CustomFilter에 @WebFilter를 추가하면, 스캔 2번한다! :white_check_mark:
 
 
 l-1. controller: x-www-form-urlencoded -> (String id, String pw) :white_check_mark:\

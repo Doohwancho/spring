@@ -19,7 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.addFilterBefore(new MyFilter1(), SecurityContextPersistenceFilter.class); //SecurityFilterChain 검색해서 보면, 제일 첫번째 애가 SecurityContextPersistenceFilter. 얘 이전에 필터 실행시키겠다는 뜻.
+        http.addFilterBefore(new MyFilter1(), SecurityContextPersistenceFilter.class); //TODO - k-1. SecurityFilterChain 검색해서 보면, 제일 첫번째 애가 SecurityContextPersistenceFilter. 얘 이전에 필터 실행시키겠다는 뜻.
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
