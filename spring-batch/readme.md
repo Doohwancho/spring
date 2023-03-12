@@ -26,7 +26,8 @@ x. entermprise integration
 Todo
 
 
-a-1. simple spring batch MVP :white_check_mark:
+a-1. simple spring batch MVP :white_check_mark:\
+a-2. read csv -> apply date & id -> print :white_check_mark:
 
 
 
