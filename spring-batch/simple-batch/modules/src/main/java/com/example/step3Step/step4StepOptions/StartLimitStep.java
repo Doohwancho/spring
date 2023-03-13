@@ -7,6 +7,7 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +33,14 @@ public class StartLimitStep {
     @Bean
     @JobScope
     public Step Step() {
+        return stepBuilderFactory.get("step")
+                .tasklet((contribution, chunkContext) -> {
+                    log.info("Step!");
+                    return RepeatStatus.FINISHED;
+                })
+                .build();
+
+
 //        //step1) startLimit
 //        return stepBuilderFactory.get("Step")
 //                .startLimit(3) //해당 Step의 실패 이후 재시작 가능 횟수를 의미합니다. startlimit 이후 실행에서는 Exception이 발생하게 됩니다.

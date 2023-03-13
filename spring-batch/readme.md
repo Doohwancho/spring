@@ -16,6 +16,7 @@ c. job
 d. steps
 e. tasklet
 f. chunk
+
 x. bulletproof jobs
 x. transactional management
 x. test batch
@@ -42,6 +43,10 @@ d-4. .startLimit() :white_check_mark:\
 d-5. .skipLimit() :white_check_mark:\
 d-6. .retryLimit() :white_check_mark:\
 d-7. .noRollback() :white_check_mark:
+
+e-1. lambda :white_check_mark:\
+e-2. method invoke adapter :white_check_mark:\
+e-3. external class :white_check_mark:
 
 ---\
 Reference
