@@ -35,6 +35,13 @@ a-2. read csv -> apply date & id -> print :white_check_mark:
 
 b-1. spring-batch build.gradle :white_check_mark:
 
+d-1. single step :white_check_mark:\
+d-2. multiple steps :white_check_mark:\
+d-3. flow :white_check_mark:\
+d-4. .startLimit() :white_check_mark:\
+d-5. .skipLimit() :white_check_mark:\
+d-6. .retryLimit() :white_check_mark:\
+d-7. .noRollback() :white_check_mark:
 
 ---\
 Reference

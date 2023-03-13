@@ -1,4 +1,4 @@
-package com.example.step1Config;
+package com.example.step3Step;
 
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.boot.SpringApplication;
