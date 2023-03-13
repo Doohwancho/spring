@@ -48,6 +48,10 @@ e-1. lambda :white_check_mark:\
 e-2. method invoke adapter :white_check_mark:\
 e-3. external class :white_check_mark:
 
+f-1. jdbc chunk :white_check_mark:\
+f-2. mybatis chunk :white_check_mark:\
+f-3. jpa chunk :white_check_mark:
+
 ---\
 Reference
 

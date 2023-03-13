@@ -1,5 +1,6 @@
 package com.example.step3Step.step4StepOptions;
 
+import com.example.domain.Member;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
