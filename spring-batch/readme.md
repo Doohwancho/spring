@@ -36,6 +36,10 @@ a-2. read csv -> apply date & id -> print :white_check_mark:
 
 b-1. spring-batch build.gradle :white_check_mark:
 
+c-1. @Scheduled(cron = "") :white_check_mark:
+c-2. @JobScope :white_check_mark:\
+c-3. @StepScope :white_check_mark:
+
 d-1. single step :white_check_mark:\
 d-2. multiple steps :white_check_mark:\
 d-3. flow :white_check_mark:\
