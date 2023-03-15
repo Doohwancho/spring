@@ -9,6 +9,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 class AppTest {
 
+    //TODO - e-3. tomcat의 thread pool config 을 변경하며 실험해보기
+
     /**
      * 1. App 클래스의 애플리케이션을 실행시켜 서버를 띄운다.
      * 2. 아래 테스트를 실행시킨다.

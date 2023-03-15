@@ -42,6 +42,7 @@ public class ConcurrencyTest {
         // 하지만 디버거로 개별 스레드를 일시 중지하면 if절 조건이 true가 되고 크기가 2가 된다. 왜 그럴까?
         System.out.println(userServlet.getUsers().size()); //유저가 2개가 아닌 1개인 이유는, UserServlet에 .join()에서 유저가 중복되면 add하지 말라는 명령어가 있기 때문.
         assertThat("user servlet has size of one", userServlet.getUsers().size() == 1); //어쩔땐 1이었다가, 2었다가.. 근데 synchronized 쓰면 항상 1!
+        //TODO - e-2. 두 스레드가 동시에 접근할 경우 어떤 문제가 발생할 수 있을까?
     }
 
     /*

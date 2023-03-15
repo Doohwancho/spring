@@ -28,7 +28,7 @@ q. springboot-actuator :white_check_mark:\
 x. multipart\
 x. logging framework\
 x. scheduling\
-x. spring batch
+
 
 
 ---\
@@ -52,10 +52,10 @@ d-4. field injection :white_check_mark:\
 d-5. setter injection :white_check_mark:\
 d-6. consturctor injection :white_check_mark:
 
-
-e-1. 우테코 thread 예제 stage-n setting :white_check_mark:\
-e-2. 우테코 thread 예제 stage-n 분석 :white_check_mark:
-
+e-1. why use multi-thread? :white_check_mark:\
+e-2. why multi-thread could be problematic? :white_check_mark:\
+e-3. tomcat의 thread pool config 을 변경하며 실험해보기 :white_check_mark:\
+e-4. thread pool의 동작방식 이해하기 :white_check_mark:
 
 f-1. 깡통 WAS setup & 파악 :white_check_mark:\
 f-2. http://localhost:8080/index.html 로 접속했을 때, webapp/index.html 출력 :white_check_mark: \
