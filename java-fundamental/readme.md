@@ -13,7 +13,7 @@ a. exception\
 b. Collection\
 c. java util class\
 d. java time\
-e. thread :white_check_mark:\
+e. thread -> concurrency-issue/\
 f. IO :white_check_mark:\
 g. java socket programming :white_check_mark:\
 h. generics :white_check_mark:\
@@ -34,27 +34,6 @@ x. debugging
 Todo
 
 
-
-e-0. thread summary in my word :white_check_mark:\
-e-1. thread basic :white_check_mark:\
-e-1. thread basic: wait() && notify() :white_check_mark:\
-e-2. thread pool :white_check_mark:\
-e-3. concurrency :white_check_mark:\
-e-3. race condition :white_check_mark:\
-e-4. synchronization :white_check_mark:\
-e-4. synchronized block for optimization :white_check_mark:\
-e-5. volatile :white_check_mark:\
-e-6. atomic integer :white_check_mark:\
-e-7. deadlock :white_check_mark:\
-e-8. deadlock solution - hold and wait :white_check_mark:\
-e-9. critical section - mutex :white_check_mark:\
-e-10. critical section - semaphore :white_check_mark:\
-e-11. critical section - monitor :white_check_mark:\
-e-12. daemon thread :white_check_mark:\
-e-13. thread dump 떠서 데드락 확인
-
-
-
 f-1. io overall structure :white_check_mark:\
 f-2. File Input/Output Stream, read by single byte :white_check_mark:\
 f-3. File Input/Output Stream, read by buffer :white_check_mark:\
@@ -62,7 +41,6 @@ f-4. DataOutputStream, decorator :white_check_mark:\
 f-5. BufferedReader :white_check_mark:\
 f-6. io between threads :white_check_mark:\
 f-7. serialization :white_check_mark:
-
 
 
 g-1. what is web socket? :white_check_mark:\
@@ -76,6 +54,7 @@ h-3. T extends X && T super X :white_check_mark:\
 h-4. wild card :white_check_mark:\
 h-5. example) builder pattern in abstract class :white_check_mark:\
 h-6. generic method advanced :white_check_mark:
+
 
 i-1. 불변객체 :white_check_mark:\
 i-2. 순수함수 :white_check_mark:\
@@ -107,8 +86,10 @@ l-2. javacode in method area, heap, stack :white_check_mark:
 
 m-1. calculator from pop to oop :white_check_mark:
 
+
 ---\
 Reference
+
 
 e-1. [thread basic](https://github.com/woowacourse/jwp-hands-on) \
 e-2. [thread pool](https://github.com/woowacourse/jwp-hands-on) \
@@ -123,7 +104,6 @@ e-11. [Monitor 설명](https://velog.io/@hosunghan0821/Java-Monitor) \
 e-12. [thread dump 떠서 데드락 확인](https://syundev.tistory.com/284?category=870166)
 
 
-
 f-1. [io overall structure](https://www.youtube.com/watch?v=FqqzbRPSAks&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=15) \
 f-2. [File Input/Output Stream](https://www.youtube.com/watch?v=fpOGpBywvR4&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=16) \
 f-3. [File Input/Output Stream with buffer size](https://www.youtube.com/watch?v=4DtJ1QcZZkI&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=17) \
@@ -133,11 +113,9 @@ f-6. io between threads - 자바의 정석 \
 f-7. serialization - 자바의 정석
 
 
-
 g-1. [what is web socket?](https://www.youtube.com/watch?v=yXPCg5eupGM) \
 g-2. [자바 소켓 통신(Socket)을 사용하는 이유와 동작 원리 및 코드](https://wildeveloperetrain.tistory.com/122) \
 g-3. [TCP socket programming - chatting](https://lktprogrammer.tistory.com/64?category=672211)
-
 
 
 h-1..4. [제네릭 기본, generic method, T extends X && T super X, wild card](https://www.youtube.com/watch?v=Vv0PGUxOzq0) \
@@ -152,7 +130,9 @@ i-14..17. [functional interface most frequently used](https://yhmane.tistory.com
 i-x. [monad](https://www.youtube.com/channel/UCrlZnbV0o2cnUNWdEORTxsw/videos) \
 i-x. [3분 모나드](https://overcurried.com/3%EB%B6%84%20%EB%AA%A8%EB%82%98%EB%93%9C/)
 
+
 j-1. [A Solid Guide to SOLID Principles](https://www.baeldung.com/solid-principles)
+
 
 k-1. [이유와 솔루션으로 정리하는 객체지향 생활체조 원칙](https://hudi.blog/thoughtworks-anthology-object-calisthenics/) \
 k-2. [rule of 6](https://davidamos.dev/the-rule-of-six/) \
@@ -161,7 +141,9 @@ k-x. Code Complete 2 \
 k-x. Refactoring 2 \
 k-x. Working Effectively with Legacy Code
 
+
 l-1. [call by value, call by reference](https://gyoogle.dev/blog/computer-language/Java/Call%20by%20value%20&%20Call%20by%20reference.html) \
 l-2. [method, stack, heap area](https://www.youtube.com/watch?v=Vd1C3-wHc4Y&ab_channel=%EC%BD%94%EB%93%9C%EB%9D%BC%EB%96%BC)
+
 
 m-1. [calculator from pop to oop](https://github.com/serverwizard/oop-practice)

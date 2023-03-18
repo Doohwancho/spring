@@ -30,6 +30,19 @@ a-7. database - update query :white_check_mark:\
 a-8. performance test of all lock methods :white_check_mark:
 
 
+b-1. thread :white_check_mark:\
+b-2. thread pool :white_check_mark:\
+b-3. daemon therad :white_check_mark:\
+b-4. race condition :white_check_mark:\
+b-5. deadlock :white_check_mark:\
+b-6. os-solution1 - hold and wait :white_check_mark:\
+b-7. os-solution2 - mutex :white_check_mark:\
+b-8. os-solution3 - semaphore :white_check_mark:\
+b-9. os-solution4 - monitor :white_check_mark:\
+b-10. java-solution1 - synchronized :white_check_mark:\
+b-11. java-solution2 - volatile :white_check_mark:\
+b-12. java-solution3 - atomic class :white_check_mark:
+
 
 
 ---\
