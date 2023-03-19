@@ -46,9 +46,9 @@ class UtilController {
 
                 if ((status >= 400 && status <= 500) || (status > 500)) {
                     // AccessToken 만료 or 토큰 입력 정보가 올바르지 않아서 or 미인증 접속 으로 인해 Filter/Controller 측에서 걸러짐
+                    this.sendReissue(responseValue); //fix: access token이 만료되야 refresh token을 보내서 access token 재발급 요청함.
                     resolve(false);
                 } else {
-                    this.sendReissue(responseValue); //jwt-access-token이 spring-security-context에 보관하는 Principal 정보와 일치함이 확인되면, refresh-token을 reissue 를 한다.
                     resolve(true);
                 }
             });
@@ -70,7 +70,7 @@ class UtilController {
             let status = event.target.status;
             const responseValue = JSON.parse(event.target.responseText);
 
-            if (((status >= 400 && status <= 500) || (status > 500)) === false) {
+            if (((status >= 400 && status <= 500) || (status > 500)) === false) { //reissue()에 성공하면, refresh token을 받아서, local storage에 저장한다.
                 this.setLocalStorage("Authorization", responseValue["grantType"] + responseValue["accessToken"]);
             }
         });
