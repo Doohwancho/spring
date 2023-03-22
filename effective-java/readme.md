@@ -1,4 +1,3 @@
-
 ---\
 Objective
 
@@ -6,6 +5,11 @@ Objective
 modularize concepts from book:"effective java"
 
 
+---\
+How
+
+
+QnA: https://github.com/Java-Bom/ReadingRecord/issues?q=label%3A%22Effective+Java+3%22+is%3Aclosed
 
 
 ---\
@@ -26,7 +30,7 @@ concepts
 
 
 3장 모든 객체의 공통 메서드\
-아이템 10. equals는 일반 규약을 지켜 재정의하라\
+아이템 10. equals는 일반 규약을 지켜 재정의하라 :white_check_mark:\
 아이템 11. equals를 재정의하려거든 hashCode도 재정의하라\
 아이템 12. toString을 항상 재정의하라\
 아이템 13. clone 재정의는 주의해서 진행하라\
