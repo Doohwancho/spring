@@ -11,7 +11,8 @@ modularize architecture
 Concepts
 
 
-a. steal: bank example (hexagonal architecture + atdd)
+a. bank example (hexagonal architecture + atdd) \
+b. multi-module
 
 
 
@@ -29,6 +30,8 @@ a-5. refactoring - cleanup database before each test for 테스트 격리 :white
 a-6. test - controller integration test :white_check_mark:\
 a-7. n-tier architecture to hexagonal architecture :white_check_mark:
 
+b-1. multi-module mvp :white_check_mark:\
+b-2. application.yml 관리 방법 :white_check_mark:
 
 
 
@@ -37,3 +40,5 @@ Reference
 
 
 a. [bank example in hexagonal architecture + atdd](https://github.com/ejoongseok/atdd-in-hexagonal)
+
+b. [spring multi module example](https://github.com/DolphaGo/spring-multi-module-example)

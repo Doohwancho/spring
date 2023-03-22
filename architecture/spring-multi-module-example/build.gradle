@@ -1,0 +1,55 @@
+buildscript {
+    ext {
+        springBootVersion = '2.4.4'
+        dependencyManagementVersion = '1.0.11.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath "io.spring.gradle:dependency-management-plugin:${dependencyManagementVersion}"
+    }
+}
+// root 프로젝트까지 적용하고 싶다면 allprojects로 등록하시면 됩니다.
+subprojects { // subprojects는 settings.gradle에 include된 프로젝트 전부를 관리합니다
+//    하위 프로젝트들 모두 SpringBoot와 Java에 의존성을 두고 있기에 관련된 plugin을 등록하였습니다.
+    group 'me'
+    version '1.0'
+
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = 11
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.6.3'
+        testCompile 'org.junit.jupiter:junit-jupiter-api'
+
+        compileOnly 'org.projectlombok:lombok'
+        developmentOnly 'org.springframework.boot:spring-boot-devtools'
+        annotationProcessor 'org.projectlombok:lombok'
+
+        implementation 'org.springframework.boot:spring-boot-starter-test'
+    }
+}
+// project의 경우 하위 프로젝트간의 의존성을 관리합니다.
+// 참고로 :은 디렉토리 path를 얘기합니다.
+// root 프로젝트에서 하위 프로젝트 사이에 계층이 하나 존재하기 때문에 추가하였습니다.
+project(':module-service') {
+    dependencies {
+        implementation project(':module-core')
+    }
+}
+
+project(':module-api') {
+    dependencies {
+        implementation project(':module-core')
+        implementation project(':module-service')
+    }
+}
