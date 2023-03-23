@@ -1,0 +1,10 @@
+spring:
+  data:
+    mongodb:
+        uri: mongodb://localhost:27017/user-authority
+#      username: root
+#      password: root
+
+#      database: user-authority
+#      host: localhost
+#      port: 27017

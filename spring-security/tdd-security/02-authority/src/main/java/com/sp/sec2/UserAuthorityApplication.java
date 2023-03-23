@@ -1,4 +1,4 @@
-package com.sp.sec;
+package com.sp.sec2;
 
 
 import org.springframework.boot.SpringApplication;
@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 @SpringBootApplication
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class UserAuthorityApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(UserAuthorityApplication.class, args);
     }
