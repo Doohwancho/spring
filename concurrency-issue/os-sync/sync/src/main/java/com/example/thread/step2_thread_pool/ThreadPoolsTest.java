@@ -1,4 +1,4 @@
-package main.java.com.example.os.thread.step2_thread_pool;
+package main.java.com.example.thread.step2_thread_pool;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;

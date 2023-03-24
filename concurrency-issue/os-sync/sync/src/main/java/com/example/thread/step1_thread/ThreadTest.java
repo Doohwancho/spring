@@ -1,4 +1,4 @@
-package main.java.com.example.os.thread.step1_thread;
+package main.java.com.example.thread.step1_thread;
 
 
 import java.util.Random;

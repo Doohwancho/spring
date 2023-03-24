@@ -1,4 +1,4 @@
-package main.java.com.example.os.thread.step3_daemon_thread;
+package main.java.com.example.thread.step3_daemon_thread;
 
 public class DaemonThreadTest implements Runnable{
 	

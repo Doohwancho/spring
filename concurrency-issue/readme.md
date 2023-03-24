@@ -47,8 +47,8 @@ b-12. java-solution3 - atomic class :white_check_mark:\
 b-13. simple lock - class level lock vs block level lock :white_check_mark:\
 b-14. simple lock - Object lock :white_check_mark:\
 b-15. producer/consumer queue :white_check_mark:\
-b-16. producer/consumer from scratch using wait() & notify() :white_check_mark:
-
+b-16. producer/consumer from scratch using wait() & notify() :white_check_mark:\
+b-17. callable & future :white_check_mark:
 
 
 ---\
@@ -56,3 +56,5 @@ Reference
 
 
 a. [재고시스템으로 알아보는 동시성이슈 해결방법](https://www.inflearn.com/course/lecture?courseSlug=%EB%8F%99%EC%8B%9C%EC%84%B1%EC%9D%B4%EC%8A%88-%EC%9E%AC%EA%B3%A0%EC%8B%9C%EC%8A%A4%ED%85%9C&unitId=125484&tab=curriculum)
+
+b. java multi-threading, udemy course by John Purcell
