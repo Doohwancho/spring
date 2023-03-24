@@ -1,4 +1,4 @@
-package com.sp.sec2;
+package com.sp.sec2.util;
 
 
 import com.sp.sec2.domain.Authority;
@@ -28,6 +28,7 @@ public class UserTestHelper {
                 .name(name)
                 .email(name+"@test.com")
                 .password(passwordEncoder.encode(name+"123"))
+                .role("ROLE_USER")
                 .enabled(true)
                 .build();
         return userService.save(user);

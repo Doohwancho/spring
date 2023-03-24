@@ -75,7 +75,7 @@ public class UserService implements UserDetailsService {
 
     public boolean addAuthority(String userId, String authority){
         Update update = new Update();
-        update.push("authorities", new Authority((authority)));
+        update.push("authorities", new Authority(authority));
         update.set("updated", LocalDateTime.now()); //TODO - j-b-2: 유저 정보 수정할 때마다 update time을 갱신해야 함
         return mongoTemplate.updateFirst(Query.query(Criteria.where("userId").is(userId)),
                 update, User.class).wasAcknowledged();

@@ -1,5 +1,6 @@
-package com.sp.sec2;
+package com.sp.sec2.repository;
 
+import com.sp.sec2.util.WithUserTest;
 import com.sp.sec2.domain.Authority;
 import com.sp.sec2.domain.User;
 
@@ -7,9 +8,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
@@ -20,6 +22,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @ActiveProfiles("test")
 @DataMongoTest
 public class UserAuthorityJpaTest extends WithUserTest {
+
+    private static final Logger log = LoggerFactory.getLogger(UserAuthorityJpaTest.class);
 
     @BeforeEach
     void before(){
@@ -48,18 +52,19 @@ public class UserAuthorityJpaTest extends WithUserTest {
 
     //TODO - j-b-3: user authority test 방법론
 
-    @Disabled("authority를 추가하는 부분에서 문제가 발생한다. string -> SimpleGrantedAuthority로 변환해야 한다.")
+    @Disabled("UserService.addAuthority()에서 update 시간 변경하는건 되는데, authority가 추가되지 않음")
     @DisplayName("3. authority를 부여한다.")
     @Test
     void test_3() throws DuplicateKeyException {
         User user1 = userTestHelper.createUser("user1", Authority.ROLE_USER);
         userService.addAuthority(user1.getUserId(), Authority.ROLE_ADMIN);
         User savedUser = userService.findUser(user1.getUserId()).get();
+        log.info("savedUser : {}", savedUser);
         userTestHelper.assertUser(savedUser, "user1", Authority.ROLE_USER, Authority.ROLE_ADMIN);
     }
 
 
-    @Disabled("authority를 추가하는 부분에서 문제가 발생한다. string -> SimpleGrantedAuthority로 변환해야 한다.")
+    @Disabled("UserService.addAuthority()에서 update 시간 변경하는건 되는데, authority가 추가되지 않음")
     @DisplayName("4. authority를 뺏는다.")
     @Test
     void test_4() throws DuplicateKeyException {
@@ -77,7 +82,7 @@ public class UserAuthorityJpaTest extends WithUserTest {
         userTestHelper.assertUser(saved, "user1");
     }
 
-    @Disabled("authority를 추가하는 부분에서 문제가 발생한다. string -> SimpleGrantedAuthority로 변환해야 한다.")
+    @Disabled("UserService.addAuthority()에서 update 시간 변경하는건 되는데, authority가 추가되지 않음")
     @DisplayName("6. role이 중복되서 추가되지 않는다.")
     @Test
     void test_6() throws DuplicateKeyException {

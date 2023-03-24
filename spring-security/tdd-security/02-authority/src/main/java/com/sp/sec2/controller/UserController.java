@@ -7,6 +7,8 @@ import com.sp.sec2.util.RestResponsePage;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -15,7 +17,6 @@ import java.util.Optional;
 @RequestMapping("/user")
 @AllArgsConstructor
 public class UserController {
-
 
     private final UserService userService;
 

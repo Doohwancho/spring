@@ -8,3 +8,10 @@ spring:
 #      database: user-authority
 #      host: localhost
 #      port: 27017
+
+
+# show all jpa log
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace

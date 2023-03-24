@@ -27,7 +27,7 @@ j-b. user authority test :white_check_mark:
 
 
 ---\
-Takeaways
+Todos
 
 
 j-a-1. controller에서 유저 권한에 다른 접근 제어 :white_check_mark:\
@@ -36,4 +36,12 @@ j-a-3. status code 401 vs 403 :white_check_mark:
 
 j-b-1. User implements UserDetails에서 필드 & override methods 쓰임세 :white_check_mark:\
 j-b-2. user 정보 update할 떄마다 update time 갱신 :white_check_mark:\
-j-b-3. user authority test 방법론 :white_check_mark:
+j-b-3. user & admin authority test 방법론 :white_check_mark:
+
+
+
+---\
+Reference
+
+https://github.com/jongwon/spring-security-junit5-test
+
