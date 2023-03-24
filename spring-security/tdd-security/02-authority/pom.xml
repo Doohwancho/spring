@@ -10,7 +10,7 @@
     <groupId>com.sp.sec</groupId>
     <artifactId>02-authority</artifactId>
     <version>1.0.0</version>
-    <name>security-basic</name>
+    <name>02-authority</name>
     <description>사용자 모듈</description>
 
     <properties>
