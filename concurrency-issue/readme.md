@@ -48,7 +48,8 @@ b-13. simple lock - class level lock vs block level lock :white_check_mark:\
 b-14. simple lock - Object lock :white_check_mark:\
 b-15. producer/consumer queue :white_check_mark:\
 b-16. producer/consumer from scratch using wait() & notify() :white_check_mark:\
-b-17. callable & future :white_check_mark:
+b-17. callable & future :white_check_mark:\
+b-18. thread interrupted :white_check_mark:
 
 
 ---\
