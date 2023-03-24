@@ -1,4 +1,4 @@
-package main.java.com.example.etc.producer_consumer;
+package main.java.com.example.producer_consumer.step1_basic;
 
 import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
