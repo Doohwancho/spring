@@ -1,6 +1,7 @@
 ---
 Index
 
+
 b-1. thread
 b-2. thread pool
 b-3. daemon therad
@@ -13,6 +14,8 @@ b-9. os-solution4 - monitor
 b-10. java-solution1 - synchronized
 b-11. java-solution2 - volatile
 b-12. java-solution3 - atomic class
+b-13. simple lock - class level lock vs block level lock
+b-14. simple lock - Object lock
 
 
 
@@ -42,16 +45,16 @@ f. Terminated (Running상태에서 run()메서드 종료되면 Dead상태가 된
 b-4. problem - race condition
 
 1. 한 자원을 여러 쓰레드가 동시 참조 -> 문제 발생 농후
-2. 쓰레드들이 서로 다른 값을 참조함	
+2. 쓰레드들이 서로 다른 값을 참조함
 	Thread A,B,C가 RAM에 올라온 Process안에 똑같은 곳의 공유자원을 참조하는게 아니라, 성능 향상을 위해 RAM에서 카피해온 값을 자신의 CPU cache에 저장해 놓고 사용함.
 	그래서 Thread A, C가 값을 바꾸면, Thread A.cache의 값과 Thread C.cache의 값이 다름(???)
-3. 성능 저하 
+3. 성능 저하
 	num자원을 A가 쓰고 바로 제자리에 반환하는게 아니라,
 	다른 여러 작업 끝나고 반환하면,
 	B,C는 A가 num뿐만 아니라 다른 작업 다 끝날 때 까지 기다려야 함.
 4. 서순 보장 X
 	Thread C->A->B 인지, B->A->C 인지 예측 불가능
-	근데 서순 필요한건 굳이 병렬처리된 멀티 쓰레드 쓰지 마 ㅋㅋ. 이건 문제가 아닌 
+	근데 서순 필요한건 굳이 병렬처리된 멀티 쓰레드 쓰지 마 ㅋㅋ. 이건 문제가 아닌
 
 
 해결 방법은 3가지.
@@ -67,9 +70,9 @@ Q. 한 자원에 여러 쓰레드가 동시 참조하는 문제를 어떻게 해
 
 A. Critical Section(임계 영역)을 정해주기.
 
-임계영역: @Transactional 하는 최소단위. 
+임계영역: @Transactional 하는 최소단위.
 
-Critical Section 정해주고, 
+Critical Section 정해주고,
 Thread A가 Critical Section안에 있을 때, 다른 Thread B,C가 Critical Section안에 침범하지 못하게 보장해주
 
 화장실에 들어갈 땐, 한번에 한놈만 들어갈 수 있어!
@@ -77,13 +80,13 @@ Thread A가 Critical Section안에 있을 때, 다른 Thread B,C가 Critical Sec
 
 어떻게?
 
-int synchronized num = 0; 하면, 
+int synchronized num = 0; 하면,
 
-num에 대해 Thread A, Thread B, Thread C가 한번에 한놈 씩 밖에 접근할 수 없다.  
+num에 대해 Thread A, Thread B, Thread C가 한번에 한놈 씩 밖에 접근할 수 없다.
 
 
 
-성능은 race condition보다는 좋으나, 
+성능은 race condition보다는 좋으나,
 volatile, Atomic Class보단 떨어지는 편.
 
 
@@ -107,8 +110,8 @@ A. Thread A,B,C를 강제로 로컬 CPU cache쓰게 하지 말고, 공유자원 
 Thread A만 write하고, 나머지 Thread B,C, ...는 read only할 때에만 volatile 쓰자.
 
 왜?
-volatile은 모든 쓰레드가 공유자원을 쓰라는거지, 
-동시에 .write()했을 때 문제는 해결한 방법이 아니다. 
+volatile은 모든 쓰레드가 공유자원을 쓰라는거지,
+동시에 .write()했을 때 문제는 해결한 방법이 아니다.
 
 
 

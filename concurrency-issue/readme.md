@@ -43,7 +43,9 @@ b-8. os-solution3 - semaphore :white_check_mark:\
 b-9. os-solution4 - monitor :white_check_mark:\
 b-10. java-solution1 - synchronized :white_check_mark:\
 b-11. java-solution2 - volatile :white_check_mark:\
-b-12. java-solution3 - atomic class :white_check_mark:
+b-12. java-solution3 - atomic class :white_check_mark:\
+b-13. simple lock - class level lock vs block level lock :white_check_mark:\
+b-14. simple lock - Object lock :white_check_mark:
 
 
 
