@@ -3,6 +3,7 @@ package com.sp.sec2.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sp.sec2.domain.Authority;
 import com.sp.sec2.domain.User;
+import com.sp.sec2.dto.SecurityMessage;
 import com.sp.sec2.service.UserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

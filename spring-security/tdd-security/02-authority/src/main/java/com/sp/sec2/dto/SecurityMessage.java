@@ -1,4 +1,4 @@
-package com.sp.sec2.controller;
+package com.sp.sec2.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

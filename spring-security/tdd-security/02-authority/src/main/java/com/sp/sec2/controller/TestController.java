@@ -1,5 +1,6 @@
 package com.sp.sec2.controller;
 
+import com.sp.sec2.dto.SecurityMessage;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
