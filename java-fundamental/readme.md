@@ -23,7 +23,6 @@ k. clean code :question:\
 l. how jvm works :soon:\
 m. oop :white_check_mark:\
 n. mvc :white_check_mark:\
-o. reactive programming\
 x. enums\
 x. annotation\
 x. garbage collector\
@@ -153,4 +152,5 @@ l-2. [method, stack, heap area](https://www.youtube.com/watch?v=Vd1C3-wHc4Y&ab_c
 
 m-1. [calculator from pop to oop](https://github.com/serverwizard/oop-practice)
 
-n-1,2. build mvc from scratch - udemy "java design pattern and architecture" by John Purcell
+n-1,2. build mvc from scratch - udemy "java design pattern and architecture" by John Purcell\
+n-3. [calculator using observer pattern](https://dev4-me.tistory.com/entry/MVC-%ED%8C%A8%ED%84%B4%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC-Java-SWING%EC%9C%BC%EB%A1%9C-%EA%B3%84%EC%82%B0%EA%B8%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EB%A7%8C%EB%93%A4%EA%B8%B0)

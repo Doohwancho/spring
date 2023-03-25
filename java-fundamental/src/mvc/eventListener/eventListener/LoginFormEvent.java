@@ -1,4 +1,4 @@
-package reactive.eventListener;
+package mvc.eventListener.eventListener;
 
 public class LoginFormEvent {
     private String name;

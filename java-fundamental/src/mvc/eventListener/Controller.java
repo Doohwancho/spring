@@ -1,7 +1,7 @@
-package reactive;
+package mvc.eventListener;
 
-import reactive.eventListener.LoginFormEvent;
-import reactive.eventListener.LoginListener;
+import mvc.eventListener.eventListener.LoginFormEvent;
+import mvc.eventListener.eventListener.LoginListener;
 
 public class Controller implements LoginListener {
     private View view;

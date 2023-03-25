@@ -1,4 +1,4 @@
-package reactive.eventListener;
+package mvc.eventListener.eventListener;
 
 public interface LoginListener {
     public void loginPerformed(LoginFormEvent event);
