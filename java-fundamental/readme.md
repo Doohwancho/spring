@@ -88,7 +88,9 @@ l-2. javacode in method area, heap, stack :white_check_mark:
 
 m-1. calculator from pop to oop :white_check_mark:
 
-n-1. build mvc from scratch :white_check_mark:
+n-1. build mvc from scratch :white_check_mark:\
+n-2. build event listener from scratch using observer pattern :white_check_mark:
+
 
 ---\
 Reference
@@ -151,4 +153,4 @@ l-2. [method, stack, heap area](https://www.youtube.com/watch?v=Vd1C3-wHc4Y&ab_c
 
 m-1. [calculator from pop to oop](https://github.com/serverwizard/oop-practice)
 
-n-1. build mvc from scratch - udemy "java design pattern and architecture" by John Purcell
+n-1,2. build mvc from scratch - udemy "java design pattern and architecture" by John Purcell
