@@ -32,6 +32,5 @@ public class ControllerCalculator implements ActionListener {
                 }
             }
         }
-
     }
 }
