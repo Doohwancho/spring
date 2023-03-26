@@ -1,8 +1,8 @@
 package org.example.com.bbs.util;
 
-import org.example.com.jwt.repository.UserRepository;
-import org.example.com.jwt.service.UserService;
-import org.example.com.jwt.util.UserTestHelper;
+import org.example.com.security.repository.UserRepository;
+import org.example.com.security.service.UserService;
+import org.example.com.security.util.UserTestHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
