@@ -1,7 +1,6 @@
 package org.example.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.jwt.config.JWTUtil;
 import org.example.jwt.domain.Authority;
 import org.example.jwt.dto.UserLogin;
 import org.example.jwt.service.UserService;

@@ -1,4 +1,4 @@
-package org.example.jwt.config;
+package org.example.jwt.security.jwt;
 
 
 import lombok.Data;

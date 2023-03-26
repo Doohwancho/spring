@@ -1,5 +1,4 @@
-package org.example.jwt.config;
-
+package org.example.jwt.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,8 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class VerifyResult {
+public class Tokens {
 
-    private String userId;
-    private boolean result;
+    private String accessToken;
+    private String refreshToken;
+
 }

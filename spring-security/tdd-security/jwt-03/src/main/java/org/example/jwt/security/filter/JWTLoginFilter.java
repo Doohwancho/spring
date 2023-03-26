@@ -1,9 +1,9 @@
-package org.example.jwt.config.filter;
+package org.example.jwt.security.filter;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
-import org.example.jwt.config.JWTUtil;
+import org.example.jwt.security.jwt.JWTUtil;
 import org.example.jwt.domain.User;
 import org.example.jwt.dto.UserLogin;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,6 +31,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
         setFilterProcessesUrl("/login");
     }
 
+    //로그인 시도시, 아이디, 비밀번호로 authenticationManager를 통해 인증을 시도하고, 인증이 성공하면 successfulAuthentication 메소드가 실행됨
     @SneakyThrows
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
@@ -41,6 +42,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
         return authenticationManager.authenticate(authToken);
     }
 
+    //인증이 성공하면, response header에 JWT를 추가해서 보내준다.
     @Override
     protected void successfulAuthentication(
             HttpServletRequest request,
@@ -53,6 +55,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
 //        super.successfulAuthentication(request, response, chain, authResult);
     }
 
+    //인증이 실패하면, 실패한 이유를 출력한다.
     @Override
     protected void unsuccessfulAuthentication(
             HttpServletRequest request,

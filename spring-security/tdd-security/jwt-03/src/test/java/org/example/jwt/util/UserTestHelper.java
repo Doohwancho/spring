@@ -25,6 +25,7 @@ public class UserTestHelper {
                 .email(name+"@test.com")
                 .password(passwordEncoder.encode(name+"123"))
                 .role("ROLE_USER")
+                .authorities(Stream.of("ROLE_USER").map(Authority::new).collect(Collectors.toSet()))
                 .enabled(true)
                 .build();
         return userService.save(user);
@@ -36,6 +37,23 @@ public class UserTestHelper {
         return user;
     }
 
+
+    public User createAdmin(String name) {
+        User user = User.builder()
+                .name(name)
+                .email(name+"@test.com")
+                .password(passwordEncoder.encode(name+"123"))
+                .role("ROLE_ADMIN")
+                .authorities(Stream.of("ROLE_ADMIN").map(Authority::new).collect(Collectors.toSet()))
+                .enabled(true)
+                .build();
+        return userService.save(user);
+    }
+    public User createAdmin(String name, String... authorities) throws DuplicateKeyException {
+        User user = createAdmin(name);
+        Stream.of(authorities).forEach(auth->userService.addAuthority(user.getUserId(), auth));
+        return user;
+    }
     public void assertUser(User user, String name){
         assertNotNull(user.getUserId());
         assertNotNull(user.getCreated());
@@ -52,5 +70,6 @@ public class UserTestHelper {
                 Stream.of(authorities).map(auth->new Authority(auth)).collect(Collectors.toList())
         ));
     }
+
 
 }

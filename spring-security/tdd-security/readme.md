@@ -40,7 +40,8 @@ j-b-2. user 정보 update할 떄마다 update time 갱신 :white_check_mark:\
 j-b-3. user & admin authority test 방법론 :white_check_mark:
 
 j-c-1. jwt token 생성 테스트 :white_check_mark:\
-j-c-2. login filter :white_check_mark:
+j-c-2. login filter :white_check_mark:\
+j-c-3. JWTCheckFilter로 jwt token verify 후 SecurityContextHolder에 유저 저장 :white_check_mark:
 
 
 

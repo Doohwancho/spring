@@ -1,8 +1,10 @@
-package org.example.jwt.config;
+package org.example.jwt.security;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.jwt.config.filter.JWTLoginFilter;
+import org.example.jwt.security.filter.JWTCheckFilter;
+import org.example.jwt.security.filter.JWTLoginFilter;
+import org.example.jwt.security.jwt.JWTUtil;
 import org.example.jwt.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -48,11 +50,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         JWTLoginFilter jwtLoginFilter = new JWTLoginFilter(authenticationManager(), jwtUtil, objectMapper);
-//        JWTCheckFilter checkFilter = new JWTCheckFilter(authenticationManager(), userService, jwtUtil);
+        JWTCheckFilter checkFilter = new JWTCheckFilter(authenticationManager(), userService, jwtUtil);
         http
                 .csrf().disable()
-                .addFilter(jwtLoginFilter)
-//                .addFilter(checkFilter)
+                .addFilter(jwtLoginFilter) //로그인 authentication 통과하면,
+                .addFilter(checkFilter) //jwt token 검증함.
         ;
     }
 }
