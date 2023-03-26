@@ -22,7 +22,7 @@ Concepts
 
 j-a. access test with authority :white_check_mark:\
 j-b. user authority test :white_check_mark:\
-j-c. jwt token :white_check_mark:
+j-c. bbs + jwt + refresh token :white_check_mark:
 
 
 
@@ -41,8 +41,8 @@ j-b-3. user & admin authority test 방법론 :white_check_mark:
 
 j-c-1. jwt token 생성 테스트 :white_check_mark:\
 j-c-2. login filter :white_check_mark:\
-j-c-3. JWTCheckFilter로 jwt token verify 후 SecurityContextHolder에 유저 저장 :white_check_mark:
-
+j-c-3. JWTCheckFilter로 jwt token verify 후 SecurityContextHolder에 유저 저장 :white_check_mark:\
+j-c-4. apply bbs :white_check_mark:
 
 
 
