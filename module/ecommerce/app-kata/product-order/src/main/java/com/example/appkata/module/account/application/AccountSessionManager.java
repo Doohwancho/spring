@@ -1,4 +1,4 @@
-package com.example.appkata.module.account.application.dto;
+package com.example.appkata.module.account.application;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

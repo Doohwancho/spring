@@ -1,6 +1,5 @@
 package com.example.appkata.module.account.application;
 
-import com.example.appkata.module.account.application.dto.AccountSessionManager;
 import com.example.appkata.module.account.application.dto.CreateAccountRequest;
 import com.example.appkata.module.account.application.dto.UpdateAccountRequest;
 import com.example.appkata.module.account.domain.Account;

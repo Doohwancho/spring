@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 
 import static com.example.appkata.fixture.AccountFixture.FIXTURE_USER_EMAIL;
 import static com.example.appkata.fixture.AccountFixture.FIXTURE_USER_NAME;
-import static com.example.appkata.module.account.application.dto.AccountSessionManager.LOGIN_USER_KEY;
+import static com.example.appkata.module.account.application.AccountSessionManager.LOGIN_USER_KEY;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 

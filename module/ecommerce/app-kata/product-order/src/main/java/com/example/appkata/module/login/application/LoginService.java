@@ -1,6 +1,6 @@
 package com.example.appkata.module.login.application;
 
-import com.example.appkata.module.account.application.dto.AccountSessionManager;
+import com.example.appkata.module.account.application.AccountSessionManager;
 import com.example.appkata.module.account.domain.Account;
 import com.example.appkata.module.account.domain.AccountRepository;
 import com.example.appkata.module.login.application.dto.LoginRequest;
