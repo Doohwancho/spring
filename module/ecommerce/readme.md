@@ -16,7 +16,7 @@ c-a. user-product-order
 2. product :white_check_mark:
 	1. CaffeineCache library :white_check_mark:
 	2. cache test 코드 작성 :white_check_mark:
-3. order
+3. order :white_check_mark:
 4. archunit for dependency test
 
 
