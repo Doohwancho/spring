@@ -4,7 +4,9 @@ import com.example.appkata.module.account.application.dto.CreateAccountRequest;
 import com.example.appkata.module.account.application.dto.UpdateAccountRequest;
 import com.example.appkata.module.account.domain.Account;
 import com.example.appkata.module.account.domain.AccountRepository;
+import com.example.appkata.module.account.infra.CreatedAccountEmailSendEvent;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,10 +14,12 @@ import org.springframework.stereotype.Service;
 public class AccountService {
     private final AccountRepository repository;
     private final AccountSessionManager sessionManager;
+    private final ApplicationEventPublisher publisher;
 
     public Account join(CreateAccountRequest request) {
         Account account = new Account(request.getUsername(), request.getEmail());
         repository.save(account);
+        publisher.publishEvent(new CreatedAccountEmailSendEvent(account.getEmail(), account.getUsername())); //TODO - c-a-1-1: user register시, email 발송
         return account;
     }
 
