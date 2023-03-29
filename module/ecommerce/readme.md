@@ -5,6 +5,8 @@ Goal
 modularize ecommerce
 
 
+
+
 ---\
 Concept
 
@@ -21,8 +23,24 @@ c-a. user-product-order
 	1. test for no cyclinic dependencies between packages :white_check_mark:
 
 
+c-b. order-in-hexagonal
+1. 회원
+	1. password encoding using commons-codec lib :white_check_mark:
+2. 상품
+3. 주문
+4. 할인
+5. 결제
+6. 재고
+7. 배송
+
+
+
+
+
 ---\
 Reference
 
 
 c-a. [user-product-order by ejoongseok](https://github.com/ejoongseok/app-kata)
+
+c-b. [order-in-hexagonal](https://github.com/ejoongseok/order-in-hexagonal)
