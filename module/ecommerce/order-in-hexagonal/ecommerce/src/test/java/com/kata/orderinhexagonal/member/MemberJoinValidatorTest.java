@@ -34,7 +34,7 @@ class MemberJoinValidatorTest {
     MemberRepository memberRepository;
 
     @Autowired
-    private Validator validator;
+    Validator validator;
 
     @BeforeEach
     void setUp() {
@@ -77,6 +77,7 @@ class MemberJoinValidatorTest {
                 .isInstanceOf(ExistsEmailException.class);
     }
 
+    //TODO - c-b-1-3: email validator
     @ParameterizedTest
     @CsvSource({
             "test@example.com, true",
@@ -107,6 +108,7 @@ class MemberJoinValidatorTest {
         }
     }
 
+    //TODO - c-b-1-3: password validator
     @ParameterizedTest
     @CsvSource({
             "123456a!, true",

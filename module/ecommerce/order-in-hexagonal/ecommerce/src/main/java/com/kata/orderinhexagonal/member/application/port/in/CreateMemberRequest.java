@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.*;
 
+//TODO - c-b-1-3: email & password validator
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
