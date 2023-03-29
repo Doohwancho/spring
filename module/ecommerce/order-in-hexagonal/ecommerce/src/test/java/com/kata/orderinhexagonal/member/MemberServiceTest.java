@@ -1,6 +1,6 @@
 package com.kata.orderinhexagonal.member;
 
-import com.kata.orderinhexagonal.member.adapter.in.web.CreateMemberRequest;
+import com.kata.orderinhexagonal.member.application.port.in.CreateMemberRequest;
 import com.kata.orderinhexagonal.member.application.port.out.PasswordEncoder;
 import com.kata.orderinhexagonal.member.domain.Member;
 import com.kata.orderinhexagonal.member.application.service.MemberService;
@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
-
-import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
