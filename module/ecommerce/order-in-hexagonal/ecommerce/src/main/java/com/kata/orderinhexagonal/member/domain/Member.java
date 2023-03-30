@@ -14,11 +14,8 @@ import javax.persistence.GenerationType;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
 public class Member {
 
-    @javax.persistence.Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String email;
     private String name;

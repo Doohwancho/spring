@@ -24,11 +24,12 @@ c-a. user-product-order
 
 
 c-b. order-in-hexagonal
-1. 회원
+1. 회원 :white_check_mark:
 	1. password encoding using commons-codec lib :white_check_mark:
 	2. member join & find in hexagonal way :white_check_mark:
 	3. email, password validator :white_check_mark:
-2. 상품
+2. 상품 :white_check_mark:
+	1. item validator :white_check_mark:
 3. 주문
 4. 할인
 5. 결제
