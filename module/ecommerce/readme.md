@@ -30,10 +30,10 @@ c-b. order-in-hexagonal
 	3. email, password validator :white_check_mark:
 2. 상품 :white_check_mark:
 	1. item validator :white_check_mark:
-3. 주문
-4. 할인
-5. 결제
-6. 재고
+3. 재고 :white_check_mark:
+4. 주문
+5. 할인
+6. 결제
 7. 배송
 
 
