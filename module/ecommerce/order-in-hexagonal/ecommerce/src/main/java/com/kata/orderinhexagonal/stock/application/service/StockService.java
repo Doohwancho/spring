@@ -4,6 +4,7 @@ import com.kata.orderinhexagonal.item.domain.Item;
 import com.kata.orderinhexagonal.stock.application.port.in.StockInRequest;
 import com.kata.orderinhexagonal.stock.application.port.in.StockInUsecase;
 import com.kata.orderinhexagonal.stock.application.port.in.StockOutRequest;
+import com.kata.orderinhexagonal.stock.application.port.in.StockOutUsecase;
 import com.kata.orderinhexagonal.stock.application.port.out.LoadItemPort;
 import com.kata.orderinhexagonal.stock.application.port.out.SaveStockPort;
 import com.kata.orderinhexagonal.stock.domain.Stock;
@@ -14,13 +15,13 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class StockService implements StockInUsecase {
+public class StockService implements StockInUsecase, StockOutUsecase {
 
     private final LoadItemPort loadItemPort;
     private final SaveStockPort saveStockPort;
 
     public Stock stockIn(StockInRequest request) {
-        Item item = loadItemPort.load(request.getId());
+        Item item = loadItemPort.load(request.getItemId());
         Integer stockInQuantity = request.getQuantity();
         item.stockInQuantity(stockInQuantity);
         Stock stock = new StockIn(request.getQuantity(), item);

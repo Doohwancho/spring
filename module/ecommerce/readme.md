@@ -31,6 +31,7 @@ c-b. order-in-hexagonal
 2. 상품 :white_check_mark:
 	1. item validator :white_check_mark:
 3. 재고 :white_check_mark:
+	1. stock validator
 4. 주문
 5. 할인
 6. 결제
