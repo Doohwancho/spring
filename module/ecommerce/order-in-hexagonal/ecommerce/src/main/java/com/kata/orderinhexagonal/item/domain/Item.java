@@ -20,4 +20,18 @@ public class Item {
     public void initializeStockQuantity(int stockQuantity) {
         this.stockQuantity = stockQuantity;
     }
+
+    public void stockInQuantity(Integer stockInQuantity) {
+        this.stockQuantity += stockInQuantity;
+    }
+    public void stockOutQuantity(Integer stockOutQuantity) {
+        verifyStockOutQuantity(stockOutQuantity);
+        this.stockQuantity -= stockOutQuantity;
+    }
+
+    private void verifyStockOutQuantity(Integer stockOutQuantity) {
+        if((this.stockQuantity - stockOutQuantity) < 0) {
+            throw new RuntimeException("Stock Out quantity is greater than stock quantity");
+        }
+    }
 }
