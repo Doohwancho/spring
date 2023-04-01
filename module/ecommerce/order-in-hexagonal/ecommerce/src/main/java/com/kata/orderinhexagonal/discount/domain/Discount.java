@@ -19,4 +19,16 @@ public class Discount {
     public void assignId(Long id) {
         this.id = id;
     }
+
+    public int discountPrice(int orderPrice) {
+        int result = 0;
+        if (this.discountType == DiscountType.PERCENTAGE) {
+            result = orderPrice - (orderPrice * this.discountRate / 100);
+        }
+        if (this.discountType == DiscountType.AMOUNT) {
+            result = orderPrice - this.discountRate;
+        }
+
+        return Math.max(result, 0);
+    }
 }

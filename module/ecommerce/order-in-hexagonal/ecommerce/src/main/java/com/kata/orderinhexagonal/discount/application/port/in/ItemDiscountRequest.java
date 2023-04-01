@@ -6,12 +6,20 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ItemDiscountRequest {
+    @NotNull
+    @Min(1)
     private Long itemId;
+    @NotNull
     private DiscountType discountType;
+    @NotNull
+    @Min(1)
     private int discountRate;
 
 

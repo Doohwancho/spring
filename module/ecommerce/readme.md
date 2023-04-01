@@ -33,7 +33,7 @@ c-b. order-in-hexagonal
 3. stock :white_check_mark:
 	1. stock validator :white_check_mark:
 4. discount :white_check_mark:
-	1. discount validator
+	1. discount validator :white_check_mark:
 5. order
 6. payment
 7. delivery
