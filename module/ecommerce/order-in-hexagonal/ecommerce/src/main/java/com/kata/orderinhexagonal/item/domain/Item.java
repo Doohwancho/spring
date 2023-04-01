@@ -10,8 +10,8 @@ import lombok.Getter;
 public class Item {
     private Long id;
     private String name;
-    private int price;
-    private int stockQuantity;
+    private Integer price;
+    private Integer stockQuantity;
 
     public void assignId(long id) {
         this.id = id;
@@ -22,9 +22,19 @@ public class Item {
     }
 
     public void stockInQuantity(Integer stockInQuantity) {
+        verifyStockQuantityIsInitialized();
+
         this.stockQuantity += stockInQuantity;
     }
+
+    private void verifyStockQuantityIsInitialized() {
+        if(this.stockQuantity == null) {
+            throw new RuntimeException("Stock quantity is not initialized");
+        }
+    }
+
     public void stockOutQuantity(Integer stockOutQuantity) {
+        verifyStockQuantityIsInitialized();
         verifyStockOutQuantity(stockOutQuantity);
         this.stockQuantity -= stockOutQuantity;
     }

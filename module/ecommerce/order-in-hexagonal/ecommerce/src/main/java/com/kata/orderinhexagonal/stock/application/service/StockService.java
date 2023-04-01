@@ -24,7 +24,7 @@ public class StockService implements StockInUsecase, StockOutUsecase {
         Item item = loadItemPort.load(request.getItemId());
         Integer stockInQuantity = request.getQuantity();
         item.stockInQuantity(stockInQuantity);
-        Stock stock = new StockIn(request.getQuantity(), item);
+        Stock stock = new StockIn(stockInQuantity, item);
         return saveStockPort.save(stock);
     }
 

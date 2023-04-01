@@ -39,7 +39,7 @@ public class StockServiceTest {
         Assertions.assertThat(stock.getItem().getId()).isEqualTo(item.getId());
         Assertions.assertThat(stock.getItem().getName()).isEqualTo(item.getName());
         Assertions.assertThat(stock.getItem().getPrice()).isEqualTo(item.getPrice());
-        Assertions.assertThat(stock.getItem().getStockQuantity()).isEqualTo(item.getStockQuantity());
+        Assertions.assertThat(stock.getItem().getStockQuantity()).isEqualTo(quantity);
     }
 
     @Test
@@ -67,4 +67,23 @@ public class StockServiceTest {
         Assertions.assertThat(stock.getItem().getPrice()).isEqualTo(item.getPrice());
     }
 
+    @Test
+    void 출고량은_기존_재고량을_초과하면_안된다() {
+        //given
+        Item item = itemFixture.createItem("노트북", 1_000_000);
+        int stockInQuantity = 5;
+        int stockOutQuantity = 10;
+        Stock stockedInItem = stockFixture.stockIn(item, stockInQuantity);
+
+        Item stockInItem = itemFixture.getItem(item.getId());
+        int expectedStockQuantity = stockInItem.getStockQuantity() - stockOutQuantity;
+
+        StockOutRequest request = StockOutRequest.of(item.getId(), stockOutQuantity);
+
+        //when & then
+        Assertions.assertThatThrownBy(() -> {
+                    Stock stock = stockService.stockOut(request);
+        }).isInstanceOf(RuntimeException.class)
+        .hasMessageContaining("Stock Out quantity is greater than stock quantity");
+    }
 }

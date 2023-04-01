@@ -1,5 +1,6 @@
 package com.kata.orderinhexagonal.item;
 
+import com.kata.orderinhexagonal.item.application.port.in.CreateItemRequest;
 import com.kata.orderinhexagonal.item.application.service.ItemService;
 import com.kata.orderinhexagonal.item.domain.Item;
 import org.assertj.core.api.Assertions;
@@ -18,7 +19,7 @@ public class ItemServiceTest {
         //given
         String name = "item1";
         int price = 100_000_000;
-        com.kata.orderinhexagonal.item.application.port.in.CreateItemRequest request = new com.kata.orderinhexagonal.item.application.port.in.CreateItemRequest(name, price);
+        CreateItemRequest request = new CreateItemRequest(name, price);
 
         //when
         Item newItem = itemService.createItem(request);

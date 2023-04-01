@@ -1,7 +1,7 @@
-package com.kata.orderinhexagonal.item;
+package com.kata.orderinhexagonal.stock;
 
-import com.kata.orderinhexagonal.item.application.port.in.CreateItemRequest;
-import org.junit.jupiter.api.DisplayName;
+import com.kata.orderinhexagonal.stock.application.port.in.StockInRequest;
+import org.hibernate.validator.internal.util.Contracts;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -11,39 +11,38 @@ import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import static org.hibernate.validator.internal.util.Contracts.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-public class ItemValidatorTest {
+public class StockValidatorTest {
 
     @Autowired
     Validator validator;
 
     @Test
-    void 상품명은_null값이면_안된다() {
+    void 상품ID가_null이면_안된다() {
         //given
-        CreateItemRequest request = new CreateItemRequest(null, 1000);
+        StockInRequest request = new StockInRequest(null, 10);
         Errors errors = new BeanPropertyBindingResult(request, "request");
 
         //when
         validator.validate(request, errors);
 
         //then
-        assertTrue(errors.hasErrors(), "Expected name as null to be invalid, therefore validation errors were found");
+        assertTrue(errors.hasErrors(), "Expected item id as null to be invalid, therefore validation errors were found");
     }
 
     @ParameterizedTest
     @CsvSource({
-            "0, true",
             "1, true",
             "100000000, true",
+            "0, false",
             "-1, false"
     })
-    @DisplayName("이메일 형식 유효여부 확인")
-    void 가격_유효여부_확인(int price, boolean expected) {
+    void 재고_수량은_1개_이상이어야_한다(int quantity, boolean expected) {
         //given
-        CreateItemRequest request = new CreateItemRequest("name", price);
+        StockInRequest request = new StockInRequest(1L, quantity);
         Errors errors = new BeanPropertyBindingResult(request, "request");
 
         //when
@@ -51,9 +50,9 @@ public class ItemValidatorTest {
 
         //then
         if (expected == true) {
-            assertFalse(errors.hasErrors(), "Expected price to be valid, therefore no validation errors were found");
+            assertFalse(errors.hasErrors(), "Expected quantity to be valid, therefore no validation errors were found");
         } else if(expected == false){
-            assertTrue(errors.hasErrors(), "Expected price to be invalid, therefore validation errors were found");
+            Contracts.assertTrue(errors.hasErrors(), "Expected quantity to be invalid, therefore validation errors were found");
         }
     }
 }
