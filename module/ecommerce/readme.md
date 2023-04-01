@@ -24,18 +24,18 @@ c-a. user-product-order
 
 
 c-b. order-in-hexagonal
-1. 회원 :white_check_mark:
+1. member:white_check_mark:
 	1. password encoding using commons-codec lib :white_check_mark:
 	2. member join & find in hexagonal way :white_check_mark:
 	3. email, password validator :white_check_mark:
-2. 상품 :white_check_mark:
+2. item :white_check_mark:
 	1. item validator :white_check_mark:
-3. 재고 :white_check_mark:
+3. stock :white_check_mark:
 	1. stock validator
-4. 주문
-5. 할인
-6. 결제
-7. 배송
+4. discount
+5. order
+6. payment
+7. delivery
 
 
 
