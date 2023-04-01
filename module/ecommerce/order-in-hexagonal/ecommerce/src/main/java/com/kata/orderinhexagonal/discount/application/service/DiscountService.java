@@ -1,6 +1,7 @@
 package com.kata.orderinhexagonal.discount.application.service;
 
 import com.kata.orderinhexagonal.discount.adapter.out.persistence.CreateDiscountAdapter;
+import com.kata.orderinhexagonal.discount.application.port.in.CreateItemDiscountUsecase;
 import com.kata.orderinhexagonal.discount.application.port.in.ItemDiscountRequest;
 import com.kata.orderinhexagonal.discount.application.port.out.CreateDiscountPort;
 import com.kata.orderinhexagonal.discount.application.port.out.DiscountItemLoadPort;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class DiscountService {
+public class DiscountService implements CreateItemDiscountUsecase {
 
     private final DiscountItemLoadPort discountItemLoadPort;
     private final DiscountPolicyValidator discountPolicyValidator;
