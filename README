@@ -5,16 +5,6 @@ Objective
 modularize backend concepts
 
 
----
-Approach
-
-
-1. identify the core concepts
-2. steal
-3. build from scratch, with little twig
-4. modularize, index it for easy search.
-
-
 
 ---
 Fields
