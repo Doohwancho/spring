@@ -99,7 +99,7 @@ f-4. rollbackFor :white_check_mark:
 
 g-1. requirements :white_check_mark:\
 g-2. erd modeling :white_check_mark:\
-g-3. entity modeling
+g-3. entity modeling :white_check_mark:
 
 
 
