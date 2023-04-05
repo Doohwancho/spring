@@ -16,7 +16,8 @@ b. spring-data-jpa\
 c. queryDSL
 d. steal: jpashop\
 e. steal: jpa-best-practices-cheese10yun\
-f. jpa-best-practices
+f. jpa-best-practices\
+g. steal: JY_Commerce
 
 
 
@@ -96,6 +97,7 @@ f-3. dynamic-insert-update :white_check_mark:\
 f-4. rollbackFor :white_check_mark:
 
 
+g-1. requirements :white_check_mark:
 
 
 
@@ -112,5 +114,6 @@ Reference
 7. [jpa 상속관계](https://ict-nroo.tistory.com/128)
 8. [jpa 프로그래밍 기본기 다지기](https://ryan-han.com/post/dev/jpa_basics/)
 9. [inflearn 실전 querydsl 강좌](https://github.com/freespringlecture/jpashop-querydsl)
+10. [JY_Commerce](https://github.com/galid1/JY_Commerce)
 
 x-x. [amigoscode spring-data-jpa-course 뜯어보기](https://github.com/amigoscode/spring-data-jpa-course)
