@@ -24,19 +24,24 @@ c-a. user-product-order
 
 
 c-b. order-in-hexagonal
-1. member:white_check_mark:
+
+1. database modeling
+	1. requirements :white_check_mark:
+	2. erd
+	3. entity-modeling
+2. member:white_check_mark:
 	1. password encoding using commons-codec lib :white_check_mark:
 	2. member join & find in hexagonal way :white_check_mark:
 	3. email, password validator :white_check_mark:
-2. item :white_check_mark:
+3. item :white_check_mark:
 	1. item validator :white_check_mark:
-3. stock :white_check_mark:
+4. stock :white_check_mark:
 	1. stock validator :white_check_mark:
-4. discount :white_check_mark:
+5. discount :white_check_mark:
 	1. discount validator :white_check_mark:
-5. order
-6. payment
-7. delivery
+6. order
+7. payment
+8. delivery
 
 
 
