@@ -20,6 +20,8 @@ public class Order {
     @Column(name = "order_id")
     private Long id;
 
+    private LocalDateTime orderDate;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
@@ -30,8 +32,6 @@ public class Order {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL) //cascade 넣으면, 여기에 save하면, 알아서 persist(); 날아감. 이 프로젝트에 OrderItem과 Delivery는 Order 이외 다른곳 참조 안함. 여기가 유일함. 그래서 cascade줘도 위허하지 않다.
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
-
-    private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING) //status 표시를 위한 enum을 jpa에선 이런 어노테이션 사용
     private OrderStatus status;

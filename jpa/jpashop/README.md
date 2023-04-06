@@ -2,7 +2,7 @@
 Index
 
 
-A. entity modeling\
+A. requirements -> entity modeling\
 B. jpql conditional 처리\
 C. Criteria\
 D. java generics 활용 on Controller\
@@ -13,20 +13,20 @@ G. update시 팁: merge 보다는 find() 후 setter 하고 냅둬
 
 
 ---\
-A. entity modeling
+A. requirements -> entity modeling
 
 
 a. 요구사항
-- 회원 기능
+- 회원 기능 -- O
     1. 회원 등록
     2. 회원 조회
-- 상품 기능
+- 상품 기능 -- O
     1. 상품 등록
     2. 상품 수정
     3. 상품 조회
-- 주문 기능
+- 주문 기능 -- O
     1. 상품 주문
-    2. 주문 내역 조회
+    2. 주문 내역 조회 -- O
     3. 주문 취소
 - 기타 요구사항
     1. 상품의 종류는 도서, 음반, 영화가 있다.

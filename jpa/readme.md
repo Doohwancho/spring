@@ -73,7 +73,7 @@ c-17. Spring Data Page, Pageable을 통한 Pagination 구현 :white_check_mark:
 
 
 d-1. jpashop initialize :white_check_mark:\
-d-2. entity modeling :white_check_mark:\
+d-2. requirements -> entity modeling :white_check_mark:\
 d-3. jpql 조건에 따른 처리 :white_check_mark:\
 d-4. Criteria 구경하기 :white_check_mark:\
 d-5. java generics used for controller layer Response Object :white_check_mark:\
