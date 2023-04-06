@@ -14,7 +14,7 @@ fields in persistence framework
 a. jpa\
 b. spring-data-jpa\
 c. queryDSL
-d. steal: jpashop\
+d. steal: jpashop from 김영한 책\
 e. steal: jpa-best-practices-cheese10yun\
 f. jpa-best-practices\
 g. steal: JY_Commerce
@@ -73,13 +73,15 @@ c-17. Spring Data Page, Pageable을 통한 Pagination 구현 :white_check_mark:
 
 
 d-1. jpashop initialize :white_check_mark:\
-d-2. requirements -> entity modeling :white_check_mark:\
+d-2. requirements -> erd :white_check_mark:\
 d-3. jpql 조건에 따른 처리 :white_check_mark:\
 d-4. Criteria 구경하기 :white_check_mark:\
 d-5. java generics used for controller layer Response Object :white_check_mark:\
 d-6. flush() :white_check_mark:\
 d-7. controller에서 파라미터로 받은 객체는 영속성 객체가 아니다 :white_check_mark:\
-d-8. update시 팁: merge 보다는 find() 후 setter 하고 냅둬 :white_check_mark:
+d-8. update시 팁: merge 보다는 find() 후 setter 하고 냅둬 :white_check_mark:\
+d-9. erd -> entity modeling :white_check_mark:
+
 
 
 e-1. init jpa-best-practices-cheese-yun :white_check_mark:\
