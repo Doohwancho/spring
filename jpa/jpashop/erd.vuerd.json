@@ -97,7 +97,7 @@
           "active": false,
           "left": 689,
           "top": 166.5,
-          "zIndex": 157,
+          "zIndex": 1,
           "widthName": 60,
           "widthComment": 60
         },
@@ -228,7 +228,7 @@
           "active": false,
           "left": 136.25,
           "top": 144.25,
-          "zIndex": 171,
+          "zIndex": 5,
           "widthName": 60,
           "widthComment": 60
         },
@@ -336,7 +336,7 @@
           "active": false,
           "left": 1237.25,
           "top": 445.75,
-          "zIndex": 181,
+          "zIndex": 7,
           "widthName": 60,
           "widthComment": 60
         },
@@ -421,7 +421,7 @@
           "active": false,
           "left": 1252.25,
           "top": 954.75,
-          "zIndex": 187,
+          "zIndex": 10,
           "widthName": 60,
           "widthComment": 60
         },
@@ -506,7 +506,7 @@
           "active": false,
           "left": 1259.25,
           "top": 701.25,
-          "zIndex": 182,
+          "zIndex": 8,
           "widthName": 78.12788391113281,
           "widthComment": 60
         },
@@ -637,7 +637,7 @@
           "active": false,
           "left": 677.25,
           "top": 455.75,
-          "zIndex": 160,
+          "zIndex": 2,
           "widthName": 60,
           "widthComment": 60
         },
@@ -699,7 +699,7 @@
           "active": false,
           "left": 708,
           "top": 757,
-          "zIndex": 162,
+          "zIndex": 4,
           "widthName": 68.806884765625,
           "widthComment": 60
         },
@@ -830,7 +830,7 @@
           "active": false,
           "left": 1234,
           "top": 176.25,
-          "zIndex": 195,
+          "zIndex": 12,
           "widthName": 60.33091735839844,
           "widthComment": 60
         },
@@ -913,9 +913,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 109.75,
-          "top": 466,
-          "zIndex": 176,
+          "left": 108.5,
+          "top": 478.5,
+          "zIndex": 17,
           "widthName": 60,
           "widthComment": 60
         },
@@ -977,7 +977,7 @@
           "active": false,
           "left": 122.5,
           "top": 738,
-          "zIndex": 161,
+          "zIndex": 3,
           "widthName": 82.43087768554688,
           "widthComment": 60
         },
@@ -995,7 +995,7 @@
           "active": false,
           "left": 253.75,
           "top": 18.75,
-          "zIndex": 209,
+          "zIndex": 14,
           "width": 310,
           "height": 110
         },
@@ -1007,31 +1007,19 @@
           "active": false,
           "left": 427,
           "top": 310.25,
-          "zIndex": 207,
+          "zIndex": 13,
           "width": 193,
           "height": 136
         },
         "id": "a5d7ff2e-e68c-4209-8359-dd15e9d672d9"
       },
       {
-        "value": "김영한은 하나의 아이템이 여러개의 카테고리를 가질 수 있다고 봤구나. ",
-        "ui": {
-          "active": false,
-          "left": 1658.25,
-          "top": 702.75,
-          "zIndex": 185,
-          "width": 127,
-          "height": 100
-        },
-        "id": "6e531972-7271-4a9c-998d-e05a0b05d696"
-      },
-      {
         "value": "디비였으면 셀프참조를 이런식으로 자신의 pk를 fk로 받는식으로 했을텐데, jpa에서는 코드가 저런식으로 되어있네?",
         "ui": {
           "active": false,
           "left": 1612.75,
-          "top": 935,
-          "zIndex": 192,
+          "top": 928.75,
+          "zIndex": 16,
           "width": 127,
           "height": 100
         },
@@ -1043,7 +1031,7 @@
           "active": false,
           "left": 925.25,
           "top": 867.25,
-          "zIndex": 212,
+          "zIndex": 15,
           "width": 263,
           "height": 110
         },
@@ -1279,8 +1267,8 @@
           "columnIds": [
             "3e744223-1828-4390-93f6-379032bedbbc"
           ],
-          "x": 301.6674270629883,
-          "y": 596.5,
+          "x": 300.4174270629883,
+          "y": 609,
           "direction": "bottom"
         },
         "constraintName": "fk_delivery_status_to_delivery",
@@ -1296,8 +1284,8 @@
           "columnIds": [
             "1aefdb1b-3f67-4c1e-9009-b7750a4b3be5"
           ],
-          "x": 493.58485412597656,
-          "y": 531.25,
+          "x": 492.33485412597656,
+          "y": 543.75,
           "direction": "right"
         },
         "end": {
@@ -1331,8 +1319,8 @@
           "columnIds": [
             "76170dfe-c26a-4da9-901a-326b4091f75a"
           ],
-          "x": 301.6674270629883,
-          "y": 466,
+          "x": 300.4174270629883,
+          "y": 478.5,
           "direction": "top"
         },
         "constraintName": "fk_address_to_delivery",

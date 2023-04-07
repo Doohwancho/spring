@@ -28,7 +28,7 @@ c-b. order-in-hexagonal
 1. database modeling
 	1. requirements :white_check_mark:
 	2. erd (using vuerd tool from VSC) :white_check_mark:
-	3. entity-modeling
+	3. entity-modeling :white_check_mark:
 2. member:white_check_mark:
 	1. password encoding using commons-codec lib :white_check_mark:
 	2. member join & find in hexagonal way :white_check_mark:

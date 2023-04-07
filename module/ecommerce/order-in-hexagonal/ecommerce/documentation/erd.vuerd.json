@@ -3,8 +3,8 @@
     "version": "2.2.11",
     "width": 2000,
     "height": 2000,
-    "scrollTop": -17,
-    "scrollLeft": -39,
+    "scrollTop": -59,
+    "scrollLeft": -27,
     "zoomLevel": 1,
     "show": {
       "tableComment": true,
@@ -245,13 +245,36 @@
               "widthDefault": 60
             },
             "id": "b6e55684-0c67-4a80-af39-6967f9c587ed"
+          },
+          {
+            "name": "stockQuantity",
+            "comment": "해당 아이템에 여러 variation의 총량",
+            "dataType": "",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 78.1668701171875,
+              "widthComment": 120,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "a587a598-62cb-4dc5-8c46-181e9c79ef31"
           }
         ],
         "ui": {
           "active": false,
-          "left": 582,
-          "top": 726,
-          "zIndex": 201,
+          "left": 536,
+          "top": 818,
+          "zIndex": 287,
           "widthName": 60,
           "widthComment": 60
         },
@@ -309,7 +332,7 @@
             "id": "04f5c2e2-10ca-4173-b324-8fa6df0c892f"
           },
           {
-            "name": "discount_rate",
+            "name": "discount_value",
             "comment": "",
             "dataType": "",
             "default": "",
@@ -324,7 +347,7 @@
               "pk": false,
               "fk": false,
               "pfk": false,
-              "widthName": 74.53987121582031,
+              "widthName": 81.6768798828125,
               "widthComment": 60,
               "widthDataType": 60,
               "widthDefault": 60
@@ -357,9 +380,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 115,
-          "top": 682,
-          "zIndex": 260,
+          "left": 81,
+          "top": 716,
+          "zIndex": 288,
           "widthName": 60,
           "widthComment": 60
         },
@@ -465,9 +488,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 536,
-          "top": 294,
-          "zIndex": 257,
+          "left": 565,
+          "top": 297,
+          "zIndex": 266,
           "widthName": 60,
           "widthComment": 60
         },
@@ -476,7 +499,7 @@
       },
       {
         "name": "stock",
-        "comment": "",
+        "comment": "개별 아이템의 stock",
         "columns": [
           {
             "name": "id",
@@ -573,11 +596,11 @@
         ],
         "ui": {
           "active": false,
-          "left": 1030,
-          "top": 711,
-          "zIndex": 261,
+          "left": 1053,
+          "top": 777,
+          "zIndex": 285,
           "widthName": 60,
-          "widthComment": 60
+          "widthComment": 105.25889587402344
         },
         "visible": true,
         "id": "627ccb77-9d1e-4446-ae63-13e0018e1b1a"
@@ -703,10 +726,10 @@
           }
         ],
         "ui": {
-          "active": false,
-          "left": 544,
-          "top": 503,
-          "zIndex": 259,
+          "active": true,
+          "left": 550,
+          "top": 552,
+          "zIndex": 290,
           "widthName": 60.33091735839844,
           "widthComment": 60
         },
@@ -739,29 +762,6 @@
               "widthDefault": 60
             },
             "id": "97ad59b0-a06a-4460-8545-9fe1d09ce127"
-          },
-          {
-            "name": "order_id",
-            "comment": "",
-            "dataType": "",
-            "default": "",
-            "option": {
-              "autoIncrement": false,
-              "primaryKey": false,
-              "unique": false,
-              "notNull": true
-            },
-            "ui": {
-              "active": false,
-              "pk": false,
-              "fk": true,
-              "pfk": false,
-              "widthName": 60,
-              "widthComment": 60,
-              "widthDataType": 60,
-              "widthDefault": 60
-            },
-            "id": "a55c5cff-a460-43cf-9948-e23690477f2a"
           },
           {
             "name": "card_number",
@@ -900,13 +900,36 @@
               "widthDefault": 60
             },
             "id": "f73ee46b-1df6-4a9c-97ee-f8b373407555"
+          },
+          {
+            "name": "order_id",
+            "comment": "",
+            "dataType": "",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": true,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "a55c5cff-a460-43cf-9948-e23690477f2a"
           }
         ],
         "ui": {
           "active": false,
           "left": 551,
           "top": 24,
-          "zIndex": 240,
+          "zIndex": 265,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1027,12 +1050,12 @@
   "memo": {
     "memos": [
       {
-        "value": "Q. stock의 테이블을 어떻게 만들어야 하지?\n\n보통 item에 stock_quantity로 관리하지 않나?\n\n왜 굳이 쪼개서 관리해야하지?",
+        "value": "Q. stock의 테이블을 어떻게 만들어야 하지?\n\n보통 item에 stock_quantity로 관리하지 않나?\n\n왜 굳이 쪼개서 관리해야하지?\n\n-> 이 프로젝트에서는\nitem이 갤럭시폰이라면,\nstock은 개별 갤럭시폰의 색상에 따른 각각의 재고를 의미하는 듯?",
         "ui": {
           "active": false,
-          "left": 1291,
-          "top": 749,
-          "zIndex": 251,
+          "left": 1120,
+          "top": 558,
+          "zIndex": 289,
           "width": 221,
           "height": 128
         },
@@ -1051,8 +1074,8 @@
           "columnIds": [
             "5b85d08b-766a-44ed-9cfb-395de3b940e5"
           ],
-          "x": 582,
-          "y": 791.25,
+          "x": 536,
+          "y": 893.5,
           "direction": "left"
         },
         "end": {
@@ -1060,8 +1083,8 @@
           "columnIds": [
             "f2d5fa27-8946-44c7-80b7-0fcd59878e9f"
           ],
-          "x": 479.39988708496094,
-          "y": 757.5,
+          "x": 449.6768798828125,
+          "y": 791.5,
           "direction": "right"
         },
         "constraintName": "fk_item_to_discount",
@@ -1070,15 +1093,15 @@
       },
       {
         "identification": false,
-        "relationshipType": "OneOnly",
+        "relationshipType": "OneN",
         "startRelationshipType": "Dash",
         "start": {
           "tableId": "4beb2917-d182-4fee-ab80-add3d9fde976",
           "columnIds": [
             "5b85d08b-766a-44ed-9cfb-395de3b940e5"
           ],
-          "x": 929,
-          "y": 791.25,
+          "x": 961.1668701171875,
+          "y": 893.5,
           "direction": "right"
         },
         "end": {
@@ -1086,8 +1109,8 @@
           "columnIds": [
             "f05b36ab-f6d1-4749-bb48-d2ef508edbc5"
           ],
-          "x": 1030,
-          "y": 786.5,
+          "x": 1053,
+          "y": 852.5,
           "direction": "left"
         },
         "constraintName": "fk_item_to_stock",
@@ -1103,8 +1126,8 @@
           "columnIds": [
             "449d5309-d07e-4c19-9da2-b058002f465b"
           ],
-          "x": 713.9034423828125,
-          "y": 445,
+          "x": 742.9034423828125,
+          "y": 448,
           "direction": "bottom"
         },
         "end": {
@@ -1112,8 +1135,8 @@
           "columnIds": [
             "c3a8ef66-46f2-4299-94bf-d5bdf59e9e21"
           ],
-          "x": 728.1239318847656,
-          "y": 503,
+          "x": 734.1239318847656,
+          "y": 552,
           "direction": "top"
         },
         "constraintName": "fk_order_to_order_item",
@@ -1129,8 +1152,8 @@
           "columnIds": [
             "5b85d08b-766a-44ed-9cfb-395de3b940e5"
           ],
-          "x": 755.5,
-          "y": 726,
+          "x": 748.5834350585938,
+          "y": 818,
           "direction": "top"
         },
         "end": {
@@ -1138,8 +1161,8 @@
           "columnIds": [
             "b33209d4-4212-4b60-817d-9284dee09708"
           ],
-          "x": 728.1239318847656,
-          "y": 674.5,
+          "x": 734.1239318847656,
+          "y": 723.5,
           "direction": "bottom"
         },
         "constraintName": "fk_item_to_order_item",
@@ -1164,8 +1187,8 @@
           "columnIds": [
             "89894859-1019-48fc-8e76-d58f4a94466a"
           ],
-          "x": 536,
-          "y": 369.5,
+          "x": 565,
+          "y": 372.5,
           "direction": "left"
         },
         "constraintName": "fk_member_to_order",
@@ -1181,8 +1204,8 @@
           "columnIds": [
             "449d5309-d07e-4c19-9da2-b058002f465b"
           ],
-          "x": 713.9034423828125,
-          "y": 294,
+          "x": 742.9034423828125,
+          "y": 297,
           "direction": "top"
         },
         "end": {
@@ -1216,8 +1239,8 @@
           "columnIds": [
             "9c0bd584-c0f1-47b3-be9a-63d6461663ef"
           ],
-          "x": 891.806884765625,
-          "y": 369.5,
+          "x": 920.806884765625,
+          "y": 372.5,
           "direction": "right"
         },
         "constraintName": "fk_delivery_to_order",
