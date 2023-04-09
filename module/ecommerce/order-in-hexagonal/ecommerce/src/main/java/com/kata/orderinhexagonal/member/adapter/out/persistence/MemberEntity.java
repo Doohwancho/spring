@@ -1,20 +1,17 @@
 package com.kata.orderinhexagonal.member.adapter.out.persistence;
 
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.kata.orderinhexagonal.order.adapter.out.persistence.OrderEntity;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MemberEntity {
     @Id
     @GeneratedValue
@@ -28,4 +25,15 @@ public class MemberEntity {
     private String password;
     @Column(nullable = false)
     private String location;
+
+    @OneToMany(mappedBy = "member")
+    private List<OrderEntity> orders = new ArrayList<>();
+
+    public MemberEntity(long id, String name, String email, String password, String location) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.location = location;
+    }
 }

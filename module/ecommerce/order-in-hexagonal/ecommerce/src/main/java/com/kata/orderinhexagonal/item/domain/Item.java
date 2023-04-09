@@ -1,5 +1,6 @@
 package com.kata.orderinhexagonal.item.domain;
 
+import com.kata.orderinhexagonal.discount.domain.Discount;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,6 +13,8 @@ public class Item {
     private String name;
     private Integer price;
     private Integer stockQuantity;
+
+    private Discount discount; //TODO - c-b-6-1. 원래 discount는 item에 속하지 않지만, repository에서 item을 가져올 때 discount를 가져오기 위해 임시로 있는 필드.
 
     public void assignId(long id) {
         this.id = id;

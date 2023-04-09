@@ -3,8 +3,8 @@
     "version": "2.2.11",
     "width": 2000,
     "height": 2000,
-    "scrollTop": -59,
-    "scrollLeft": -27,
+    "scrollTop": -176,
+    "scrollLeft": -34,
     "zoomLevel": 1,
     "show": {
       "tableComment": true,
@@ -166,7 +166,7 @@
           "active": false,
           "left": 78,
           "top": 275,
-          "zIndex": 258,
+          "zIndex": 1,
           "widthName": 60,
           "widthComment": 60
         },
@@ -272,9 +272,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 536,
-          "top": 818,
-          "zIndex": 287,
+          "left": 553,
+          "top": 784,
+          "zIndex": 17,
           "widthName": 60,
           "widthComment": 60
         },
@@ -380,9 +380,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 81,
-          "top": 716,
-          "zIndex": 288,
+          "left": 104,
+          "top": 725,
+          "zIndex": 18,
           "widthName": 60,
           "widthComment": 60
         },
@@ -488,9 +488,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 565,
-          "top": 297,
-          "zIndex": 266,
+          "left": 577,
+          "top": 306,
+          "zIndex": 24,
           "widthName": 60,
           "widthComment": 60
         },
@@ -596,9 +596,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 1053,
-          "top": 777,
-          "zIndex": 285,
+          "left": 1063,
+          "top": 767,
+          "zIndex": 19,
           "widthName": 60,
           "widthComment": 105.25889587402344
         },
@@ -726,10 +726,10 @@
           }
         ],
         "ui": {
-          "active": true,
-          "left": 550,
-          "top": 552,
-          "zIndex": 290,
+          "active": false,
+          "left": 547,
+          "top": 529,
+          "zIndex": 21,
           "widthName": 60.33091735839844,
           "widthComment": 60
         },
@@ -929,7 +929,7 @@
           "active": false,
           "left": 551,
           "top": 24,
-          "zIndex": 265,
+          "zIndex": 3,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1037,7 +1037,7 @@
           "active": false,
           "left": 1022,
           "top": 366,
-          "zIndex": 262,
+          "zIndex": 2,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1050,13 +1050,13 @@
   "memo": {
     "memos": [
       {
-        "value": "Q. stock의 테이블을 어떻게 만들어야 하지?\n\n보통 item에 stock_quantity로 관리하지 않나?\n\n왜 굳이 쪼개서 관리해야하지?\n\n-> 이 프로젝트에서는\nitem이 갤럭시폰이라면,\nstock은 개별 갤럭시폰의 색상에 따른 각각의 재고를 의미하는 듯?",
+        "value": "Q. stock의 테이블을 어떻게 만들어야 하지?\n\n보통 item에 stock_quantity로 관리하지 않나?\n\n왜 굳이 쪼개서 관리해야하지?\n\nA. \n-> 이 프로젝트에서는\nitem이 갤럭시폰이라면,\nstock은 개별 갤럭시폰의 색상에 따른 각각의 재고를 의미하는 듯?",
         "ui": {
           "active": false,
           "left": 1120,
           "top": 558,
-          "zIndex": 289,
-          "width": 221,
+          "zIndex": 23,
+          "width": 314,
           "height": 128
         },
         "id": "02b4a643-d18b-450e-ba2d-6504e275553f"
@@ -1074,8 +1074,8 @@
           "columnIds": [
             "5b85d08b-766a-44ed-9cfb-395de3b940e5"
           ],
-          "x": 536,
-          "y": 893.5,
+          "x": 553,
+          "y": 859.5,
           "direction": "left"
         },
         "end": {
@@ -1083,8 +1083,8 @@
           "columnIds": [
             "f2d5fa27-8946-44c7-80b7-0fcd59878e9f"
           ],
-          "x": 449.6768798828125,
-          "y": 791.5,
+          "x": 472.6768798828125,
+          "y": 800.5,
           "direction": "right"
         },
         "constraintName": "fk_item_to_discount",
@@ -1100,8 +1100,8 @@
           "columnIds": [
             "5b85d08b-766a-44ed-9cfb-395de3b940e5"
           ],
-          "x": 961.1668701171875,
-          "y": 893.5,
+          "x": 978.1668701171875,
+          "y": 859.5,
           "direction": "right"
         },
         "end": {
@@ -1109,8 +1109,8 @@
           "columnIds": [
             "f05b36ab-f6d1-4749-bb48-d2ef508edbc5"
           ],
-          "x": 1053,
-          "y": 852.5,
+          "x": 1063,
+          "y": 842.5,
           "direction": "left"
         },
         "constraintName": "fk_item_to_stock",
@@ -1126,8 +1126,8 @@
           "columnIds": [
             "449d5309-d07e-4c19-9da2-b058002f465b"
           ],
-          "x": 742.9034423828125,
-          "y": 448,
+          "x": 754.9034423828125,
+          "y": 457,
           "direction": "bottom"
         },
         "end": {
@@ -1135,8 +1135,8 @@
           "columnIds": [
             "c3a8ef66-46f2-4299-94bf-d5bdf59e9e21"
           ],
-          "x": 734.1239318847656,
-          "y": 552,
+          "x": 731.1239318847656,
+          "y": 529,
           "direction": "top"
         },
         "constraintName": "fk_order_to_order_item",
@@ -1152,8 +1152,8 @@
           "columnIds": [
             "5b85d08b-766a-44ed-9cfb-395de3b940e5"
           ],
-          "x": 748.5834350585938,
-          "y": 818,
+          "x": 765.5834350585938,
+          "y": 784,
           "direction": "top"
         },
         "end": {
@@ -1161,8 +1161,8 @@
           "columnIds": [
             "b33209d4-4212-4b60-817d-9284dee09708"
           ],
-          "x": 734.1239318847656,
-          "y": 723.5,
+          "x": 731.1239318847656,
+          "y": 700.5,
           "direction": "bottom"
         },
         "constraintName": "fk_item_to_order_item",
@@ -1187,8 +1187,8 @@
           "columnIds": [
             "89894859-1019-48fc-8e76-d58f4a94466a"
           ],
-          "x": 565,
-          "y": 372.5,
+          "x": 577,
+          "y": 381.5,
           "direction": "left"
         },
         "constraintName": "fk_member_to_order",
@@ -1204,8 +1204,8 @@
           "columnIds": [
             "449d5309-d07e-4c19-9da2-b058002f465b"
           ],
-          "x": 742.9034423828125,
-          "y": 297,
+          "x": 754.9034423828125,
+          "y": 306,
           "direction": "top"
         },
         "end": {
@@ -1239,8 +1239,8 @@
           "columnIds": [
             "9c0bd584-c0f1-47b3-be9a-63d6461663ef"
           ],
-          "x": 920.806884765625,
-          "y": 372.5,
+          "x": 932.806884765625,
+          "y": 381.5,
           "direction": "right"
         },
         "constraintName": "fk_delivery_to_order",

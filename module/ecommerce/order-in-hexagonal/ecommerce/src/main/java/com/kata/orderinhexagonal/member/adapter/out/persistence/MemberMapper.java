@@ -10,7 +10,7 @@ public class MemberMapper {
         return new MemberEntity(domain.getId(), domain.getName(), domain.getEmail(), domain.getPassword(), domain.getLocation());
     }
 
-    public static Member toDomain(MemberEntity memberEntity) {
+    public Member toDomain(MemberEntity memberEntity) {
         return Member.toDomain(memberEntity);
     }
 }
