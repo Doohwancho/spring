@@ -36,6 +36,6 @@ public class MemberService implements CreateMemberUsecase {
     }
 
     public Member getMemberById(Long id) {
-        return findMemberPort.findById(id).orElseThrow(() -> new IllegalArgumentException("Member not found with id:" + id));
+        return findMemberPort.findById(id);
     }
 }

@@ -28,7 +28,7 @@ A. MemberEntity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberEntity {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "member_id")
 	private long id;
 
@@ -57,7 +57,7 @@ B. ItemEntity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ItemEntity {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "item_id")
 	private Long id;
 
@@ -86,7 +86,7 @@ C. DiscountEntity
 public class DiscountEntity {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Enumerated(EnumType.STRING)
@@ -112,7 +112,7 @@ C. StockEntity
 public class StockEntity {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)e
 	private Long id;
 
 	private Integer quantity;
@@ -137,7 +137,7 @@ E. OrderItemEntity
 public class OrderItemEntity {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)e
 	@Column(name = "order_item_id")
 	private Long id;
 
@@ -168,7 +168,7 @@ F. OrderEntity
 public class OrderEntity {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "order_id")
 	private Long id;
 
@@ -198,7 +198,7 @@ G. DeliveryEntity
 public class DeliveryEntity {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "delivery_id")
 	private Long id;
 
@@ -225,7 +225,7 @@ H. PaymentEntity
 public class PaymentEntity {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@OneToOne(fetch = javax.persistence.FetchType.LAZY)

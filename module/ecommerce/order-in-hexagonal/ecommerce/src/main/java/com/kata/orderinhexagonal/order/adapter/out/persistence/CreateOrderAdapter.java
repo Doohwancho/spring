@@ -17,7 +17,7 @@ public class CreateOrderAdapter implements SaveOrderPort {
     @Override
     public void save(Order order) {
         OrderEntity orderEntity = orderMapper.toEntity(order);
-        orderRepository.save(orderEntity);
+        orderRepository.save(orderEntity); //error! -> 이 떄, orderEntity안에 orderItemEntity안에 itemEntity의 id가 자동으로 3으로 들어가는데, 이걸 원래 id를 받아오는걸로 바꿔야 한다.
         order.assignId(orderEntity.getId());
 
         for (int i = 0; i < orderEntity.getOrderItems().size(); i++) {

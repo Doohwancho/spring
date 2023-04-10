@@ -6,6 +6,7 @@ import com.kata.orderinhexagonal.item.domain.Item;
 import com.kata.orderinhexagonal.member.domain.Member;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -13,7 +14,7 @@ public class Order {
     private Long id;
     private OrderStatus status;
     private Member member;
-    private List<OrderItem> orderItems;
+    private List<OrderItem> orderItems = new ArrayList<>();;
 
     public Order(Member orderer) {
         this.member = orderer;

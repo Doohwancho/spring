@@ -5,16 +5,16 @@ import com.kata.orderinhexagonal.member.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
 @RequiredArgsConstructor
 @Component
 public class FindMemberAdapter implements FindMemberPort {
 
     private final MemberRepository memberRepository;
+    private final MemberMapper memberMapper;
 
     @Override
-    public Optional<Member> findById(Long id) {
-        return memberRepository.findById(id).map(MemberMapper::toDomain);
+    public Member findById(Long id) {
+        MemberEntity memberEntity = memberRepository.findById(id).orElseThrow(() -> new RuntimeException("member with id of"+id+" were not found"));
+        return memberMapper.toDomain(memberEntity);
     }
 }

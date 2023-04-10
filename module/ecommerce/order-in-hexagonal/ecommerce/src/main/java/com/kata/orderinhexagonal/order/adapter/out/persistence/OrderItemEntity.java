@@ -11,11 +11,11 @@ import javax.persistence.*;
 @Getter
 public class OrderItemEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_item_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY) //casecade를 쓰지 않는 이유는, orderItem을 삭제하면 item도 삭제되면 안되기 때문이다.
     @JoinColumn(name = "item_id")
     private ItemEntity item;
 

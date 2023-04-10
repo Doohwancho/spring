@@ -2,22 +2,27 @@ package com.kata.orderinhexagonal.order;
 
 import com.kata.orderinhexagonal.fixture.ItemFixture;
 import com.kata.orderinhexagonal.fixture.MemberFixture;
+import com.kata.orderinhexagonal.fixture.OrderFixture;
 import com.kata.orderinhexagonal.fixture.StockFixture;
+import com.kata.orderinhexagonal.item.adapter.out.persistence.ItemEntity;
 import com.kata.orderinhexagonal.item.domain.Item;
 import com.kata.orderinhexagonal.member.domain.Member;
 import com.kata.orderinhexagonal.order.adapter.out.persistence.OrderEntity;
+import com.kata.orderinhexagonal.order.adapter.out.persistence.OrderItemEntity;
 import com.kata.orderinhexagonal.order.application.port.in.CreateOrderRequest;
 import com.kata.orderinhexagonal.order.application.port.in.OrderItemRequest;
 import com.kata.orderinhexagonal.order.application.service.OrderService;
 import com.kata.orderinhexagonal.order.domain.Order;
-import com.kata.orderinhexagonal.order.domain.OrderItem;
+import com.kata.orderinhexagonal.order.domain.OrderStatus;
 import com.kata.orderinhexagonal.stock.domain.Stock;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,31 +31,47 @@ public class OrderServiceTest {
 
     @Autowired
     MemberFixture memberFixture;
-
     @Autowired
     ItemFixture itemFixture;
-
     @Autowired
     StockFixture stockFixture;
-
     @Autowired
     OrderService orderService;
+    @Autowired
+    OrderFixture orderFixture;
+
+    @BeforeEach
+    void setUp() {
+        orderFixture.clearOrder();
+        memberFixture.clearMember();
+        itemFixture.clearItem();
+    }
+
+    @AfterEach
+    void tearDown() {
+        orderFixture.clearOrder();
+        memberFixture.clearMember();
+        itemFixture.clearItem();
+    }
 
     @Test
-    @Disabled
+    @Transactional
     void save_order_test() throws InterruptedException {
         //given
+        int item1Price = 10000;
         int item1StockQuantity = 10;
-        int item2StockQuantity = 20;
         int item1OrderQuantity = 1;
+
+        int item2Price = 20000;
+        int item2StockQuantity = 20;
         int item2OrderQuantity = 2;
 
-        Member member = memberFixture.createMember("member1", "email@gmail.com", "gimpo");
+        Member orderer = memberFixture.createMember("member1", "email@gmail.com", "gimpo");
 
-        Item item1 = itemFixture.createItem("item1", 10000);
+        Item item1 = itemFixture.createItem("item1", item1Price);
         Stock stock1 = stockFixture.stockIn(item1, item1StockQuantity);
 
-        Item item2 = itemFixture.createItem("item2", 20000);
+        Item item2 = itemFixture.createItem("item2", item2Price);
         Stock stock2 = stockFixture.stockIn(item2, item2StockQuantity);
 
         List<OrderItemRequest> orderItemRequests = new ArrayList<>();
@@ -58,42 +79,40 @@ public class OrderServiceTest {
         orderItemRequests.add(OrderItemRequest.of(item2.getId(), item2OrderQuantity));
 
         CreateOrderRequest request = CreateOrderRequest.of(orderItemRequests);
-        request.assignOrdererId(member.getId());
+        request.assignOrdererId(orderer.getId());
 
-
-//        Member orderer = loadOrdererPort.load(request.getOrdererId());
-//        Order order = new Order(orderer);
-//        request.getOrderItemRequests().forEach(orderItemRequest -> {
-//            Item item = loadOrderItemPort.loadItem(orderItemRequest.getItemId());
-//            int orderPrice = item.getPrice() * orderItemRequest.getOrderQuantity();
-//            order.addOrderItem(item, orderItemRequest.getOrderQuantity(), orderPrice);
-//        });
-//        List<OrderItem> orderItems = order.getOrderItems();
-//        for (OrderItem orderItem : orderItems) {
-//            itemOrderStockOutPort.stockOut(orderItem.getItem(), orderItem.getOrderQuantity());
-//        }
-//
-//
-//        Thread.sleep(1000);
 
         //when
         Order result = orderService.createOrder(request);
 
+
         //then
-//        OrderEntity orderEntity = orderFixture.getOrderEntity(result.getId());
-//        Assertions.assertThat(orderEntity.getMemberId()).isEqualTo(member.getId());
-//
-//        Item resultItem1 = orderEntity.getOrderItems().get(0).getItem();
-//        Item resultItem2 = orderEntity.getOrderItems().get(1).getItem();
-//
-//        Assertions.assertThat(item1.getId()).isEqualTo(resultItem1.getId());
-//        Assertions.assertThat(item1.getName()).isEqualTo(resultItem1.getName());
-//        Assertions.assertThat(item1.getPrice()).isEqualTo(resultItem1.getPrice());
-//        Assertions.assertThat(item1.getStockQuantity()).isEqualTo(item1StockQuantity - item1OrderQuantity);
-//
-//        Assertions.assertThat(item2.getId()).isEqualTo(resultItem2.getId());
-//        Assertions.assertThat(item2.getName()).isEqualTo(resultItem2.getName());
-//        Assertions.assertThat(item2.getPrice()).isEqualTo(resultItem2.getPrice());
-//        Assertions.assertThat(item2.getStockQuantity()).isEqualTo(item2StockQuantity - item2OrderQuantity);
+        Thread.sleep(1000); //wait 1 second for stock quantity to asynchrously update
+
+        OrderEntity resultOrderEntity = orderFixture.getOrderEntity(result.getId());
+        Assertions.assertThat(resultOrderEntity.getMember().getId()).isEqualTo(orderer.getId());
+        Assertions.assertThat(resultOrderEntity.getStatus()).isEqualTo(OrderStatus.NOT_PAYED);
+
+        OrderItemEntity resultItemEntity1 = resultOrderEntity.getOrderItems().get(0);
+        OrderItemEntity resultItemEntity2 = resultOrderEntity.getOrderItems().get(1);
+
+        Assertions.assertThat(resultItemEntity1.getOrderPrice()).isEqualTo(item1Price);
+        Assertions.assertThat(resultItemEntity1.getOrderQuantity()).isEqualTo(item1OrderQuantity);
+
+        Assertions.assertThat(resultItemEntity2.getOrderPrice()).isEqualTo(item2Price);
+        Assertions.assertThat(resultItemEntity2.getOrderQuantity()).isEqualTo(item2OrderQuantity);
+
+        ItemEntity resultItem1 = resultItemEntity1.getItem();
+        ItemEntity resultItem2 = resultItemEntity2.getItem();
+
+        Assertions.assertThat(resultItem1.getId()).isEqualTo(item1.getId());
+        Assertions.assertThat(resultItem1.getName()).isEqualTo(item1.getName());
+        Assertions.assertThat(resultItem1.getPrice()).isEqualTo(item1.getPrice());
+        Assertions.assertThat(resultItem1.getStockQuantity()).isEqualTo(item1StockQuantity - item1OrderQuantity); //stock quantity should be updated
+
+        Assertions.assertThat(resultItem2.getId()).isEqualTo(item2.getId());
+        Assertions.assertThat(resultItem2.getName()).isEqualTo(item2.getName());
+        Assertions.assertThat(resultItem2.getPrice()).isEqualTo(item2.getPrice());
+        Assertions.assertThat(resultItem2.getStockQuantity()).isEqualTo(item2StockQuantity - item2OrderQuantity); //stock quantity should be updated
     }
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class ItemOrderStockAdapter implements ItemStockOutPort {
-    private ItemOrderStockNetworkClient itemOrderStockNetworkClient;
+    private final ItemOrderStockNetworkClient itemOrderStockNetworkClient;
 
     @Override
     public void stockOut(Item item, int orderQuantity) {

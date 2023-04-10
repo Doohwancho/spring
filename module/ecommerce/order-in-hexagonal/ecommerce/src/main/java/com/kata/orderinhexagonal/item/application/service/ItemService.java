@@ -14,10 +14,7 @@ public class ItemService implements CreateItemUsecase {
     private final SaveItemPort saveItemPort;
 
     public Item createItem(CreateItemRequest request) {
-        Item item = Item.builder()
-                .name(request.getName())
-                .price(request.getPrice())
-                .build();
+        Item item = new Item(request.getName(), request.getPrice());
 
         saveItemPort.saveItem(item);
 

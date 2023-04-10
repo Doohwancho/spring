@@ -30,4 +30,8 @@ public class ItemFixture {
                 .orElseThrow(() -> new RuntimeException("Item not found"));
         return itemMapper.toDomain(itemEntity);
     }
+
+    public void clearItem() {
+        itemRepository.deleteAll();
+    }
 }

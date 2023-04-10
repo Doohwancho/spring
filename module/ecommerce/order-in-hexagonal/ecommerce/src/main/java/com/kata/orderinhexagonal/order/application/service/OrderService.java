@@ -5,6 +5,7 @@ import com.kata.orderinhexagonal.discount.domain.DiscountType;
 import com.kata.orderinhexagonal.item.domain.Item;
 import com.kata.orderinhexagonal.member.domain.Member;
 import com.kata.orderinhexagonal.order.application.port.in.CreateOrderRequest;
+import com.kata.orderinhexagonal.order.application.port.in.CreateOrderUsecase;
 import com.kata.orderinhexagonal.order.application.port.out.ItemStockOutPort;
 import com.kata.orderinhexagonal.order.application.port.out.LoadOrderItemPort;
 import com.kata.orderinhexagonal.order.application.port.out.LoadOrdererPort;
@@ -19,7 +20,7 @@ import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class OrderService {
+public class OrderService implements CreateOrderUsecase {
 
     //TODO - c-b-6-3. Q. Member의 service를 주입받아도 되나? 아니면 port를 주입받아야 하나? (의존성 문제)
     //A. 여기서 다른 모듈의 서비스 주입받지 말고, adapter.out.persistence까지 가서 port로 다른 모듈의 repository를 주입받으면 된다.
@@ -65,9 +66,9 @@ public class OrderService {
 
         //step4. order.orderItems를 돌면서 request에 있던 수량 만큼 stockOut() 한다.
         order.getOrderItems().forEach(orderItem -> {
-//            orderItem.getItem().stockOut(orderItem.getOrderQuantity());
             //TODO - c-b-6-4. Q. item에서 stockOut()하면, domain에서 service로 의존성 생기지 않나? 그러면 hexagonal의 원칙에 어긋나지 않나?
-            //의존성 방향 지키면서 어떻게 stockOut()하지?
+            //orderItem.getItem().stockOut(orderItem.getOrderQuantity());
+            //Q. 의존성 방향 지키면서 어떻게 stockOut()하지?
 
             //A. 역시 Port를 이용하자.
             itemStockOutPort.stockOut(orderItem.getItem(), orderItem.getOrderQuantity()); //stockOut요청을 queue에 async로 넣는가보다.

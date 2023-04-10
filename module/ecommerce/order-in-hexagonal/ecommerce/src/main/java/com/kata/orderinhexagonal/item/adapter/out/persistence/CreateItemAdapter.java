@@ -16,7 +16,7 @@ public class CreateItemAdapter implements SaveItemPort {
     @Override
     public void saveItem(Item item) {
         item.initializeStockQuantity(0);
-        ItemEntity itemEntity = itemMapper.toEntity(item);
+        ItemEntity itemEntity = itemMapper.toEntity(item.getName(), item.getPrice(), item.getStockQuantity());
         ItemEntity savedItem = itemRepository.save(itemEntity);
         item.assignId(savedItem.getId());
     }

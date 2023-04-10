@@ -18,6 +18,7 @@ public class OrderMapper {
 
     public OrderEntity toEntity(Order order) {
         OrderEntity orderEntity = new OrderEntity(order.getId(), order.getStatus());
+
         MemberEntity memberEntity = memberMapper.toEntity(order.getMember());
         orderEntity.initMember(memberEntity);
 
@@ -26,6 +27,7 @@ public class OrderMapper {
 
             OrderItemEntity orderItemEntity = new OrderItemEntity(orderItem.getOrderQuantity(),
                     orderItem.getOrderPrice(), itemEntity);
+
             orderEntity.addOrderItem(orderItemEntity);
         }
         return orderEntity;

@@ -4,16 +4,20 @@ import com.kata.orderinhexagonal.member.adapter.out.persistence.MemberEntity;
 import com.kata.orderinhexagonal.member.domain.Member;
 import com.kata.orderinhexagonal.order.domain.OrderItem;
 import com.kata.orderinhexagonal.order.domain.OrderStatus;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
     private Long id;
 
@@ -25,7 +29,7 @@ public class OrderEntity {
     private MemberEntity member;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderItemEntity> orderItems;
+    private List<OrderItemEntity> orderItems = new ArrayList<>();
 
     public OrderEntity(Long id, OrderStatus status) {
         this.id = id;
