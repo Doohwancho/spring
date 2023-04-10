@@ -56,17 +56,8 @@ public class OrderService {
             Item item = loadOrderItemPort.load(orderItemRequest.getItemId());
 
             //b. item의 discount를 고려한 price를 구한다.
-            int orderPrice = 0;
-
-            if(item.getDiscount() == null) {
-                orderPrice = item.getPrice();
-            }
-            else if(item.getDiscount().getDiscountType() == DiscountType.PERCENTAGE){
-                orderPrice = item.getPrice()*(1-item.getDiscount().getDiscountRate());
-            }
-            else if(item.getDiscount().getDiscountType() == DiscountType.AMOUNT){
-                orderPrice = item.getPrice()-item.getDiscount().getDiscountRate();
-            }
+            //TODO - c-b-6-6. refactor - discounted price of item using switch
+            int orderPrice = order.calculateDiscountedPrice(item);
 
             //c. order.addOrderItem();
             order.addOrderItem(item, orderItemRequest.getOrderQuantity(), orderPrice);

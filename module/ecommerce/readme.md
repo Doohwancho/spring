@@ -44,7 +44,8 @@ c-b. order-in-hexagonal
 	2. order시에 stockOut을 async queue로 처리 :white_check_mark:
 	3. OrderService에서 MemberService를 바로 주입받지 말고 port타고 나가서 MemberRepository 받아 해결 :white_check_mark:
 	4. OrderService에서 item.stockOut() 해서 domain을 stockService에 의존시키지 말고, port로 의존성 돌리자 :white_check_mark:
-	5. DI 필드에 final을 붙이는 이유 :white_check_mark:
+	5. DI 필드에 final을 붙이는 이유 :white_check_mark:\
+	6. refactor - discounted price of item using switch :white_check_mark:
 7. payment
 8. delivery
 

@@ -1,6 +1,7 @@
 package com.kata.orderinhexagonal.order.domain;
 
 
+import com.kata.orderinhexagonal.discount.domain.DiscountType;
 import com.kata.orderinhexagonal.item.domain.Item;
 import com.kata.orderinhexagonal.member.domain.Member;
 import lombok.Getter;
@@ -31,5 +32,20 @@ public class Order {
 
     public void addOrderItem(Item item, int orderQuantity, int orderPrice) {
         orderItems.add(new OrderItem(this, item, orderQuantity, orderPrice));
+    }
+
+
+    //TODO - c-b-6-6. refactor - discounted price of item using switch
+    public int calculateDiscountedPrice(Item item) {
+        if (item.getDiscount() == null) {
+            return item.getPrice();
+        }
+
+        DiscountType discountType = item.getDiscount().getDiscountType();
+        return switch (discountType) {
+            case PERCENTAGE -> (int) (item.getPrice() * (1 - item.getDiscount().getDiscountRate()));
+            case AMOUNT -> item.getPrice() - item.getDiscount().getDiscountRate();
+            default -> item.getPrice();
+        };
     }
 }
