@@ -3,12 +3,15 @@ package com.kata.orderinhexagonal.order.adapter.out.persistence;
 import com.kata.orderinhexagonal.item.adapter.out.persistence.ItemEntity;
 import com.kata.orderinhexagonal.item.domain.Item;
 import com.kata.orderinhexagonal.order.domain.Order;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

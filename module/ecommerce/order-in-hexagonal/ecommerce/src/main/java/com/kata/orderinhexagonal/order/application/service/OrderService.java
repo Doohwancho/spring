@@ -1,22 +1,18 @@
 package com.kata.orderinhexagonal.order.application.service;
 
-import com.kata.orderinhexagonal.discount.adapter.out.persistence.CreateDiscountAdapter;
-import com.kata.orderinhexagonal.discount.domain.DiscountType;
 import com.kata.orderinhexagonal.item.domain.Item;
 import com.kata.orderinhexagonal.member.domain.Member;
+import com.kata.orderinhexagonal.order.application.port.in.CancelOrderRequest;
 import com.kata.orderinhexagonal.order.application.port.in.CreateOrderRequest;
 import com.kata.orderinhexagonal.order.application.port.in.CreateOrderUsecase;
-import com.kata.orderinhexagonal.order.application.port.out.ItemStockOutPort;
-import com.kata.orderinhexagonal.order.application.port.out.LoadOrderItemPort;
-import com.kata.orderinhexagonal.order.application.port.out.LoadOrdererPort;
-import com.kata.orderinhexagonal.order.application.port.out.SaveOrderPort;
+import com.kata.orderinhexagonal.order.application.port.out.*;
 import com.kata.orderinhexagonal.order.domain.Order;
-import com.kata.orderinhexagonal.stock.adapter.in.web.StockController;
-import com.kata.orderinhexagonal.stock.adapter.out.web.LoadItemAdapter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Timer;
+import java.util.concurrent.Flow;
 
 @Service
 @RequiredArgsConstructor
@@ -41,9 +37,13 @@ public class OrderService implements CreateOrderUsecase {
     private final LoadOrderItemPort loadOrderItemPort;
     private final ItemStockOutPort itemStockOutPort;
     private final SaveOrderPort saveOrderPort;
+    private final LoadOrderPort loadOrderPort;
+//    private final CancelPaymentPort cancelPaymentPort;
+    private final CancelStockOutItemPort cancelStockOutItemPort;
+    private final CancelOrderPort cancelOrderPort;
 
 
-    @Transactional //Q. 붙어야..겠지? Q. 중간에 exception이 발생하면 어떻게 처리하지?
+    @Transactional //TODO - Q. transactional 붙어야..겠지? 중간에 exception이 발생하면 어떻게 처리하지?
     public Order createOrder(CreateOrderRequest request) {
         //step1. 주문자의 ID를 통해 주문자 정보가 db에 있는지 확인하고, 없으면 throw no member exception
         Member orderer = loadOrdererPort.load(request.getOrdererId());
@@ -78,6 +78,43 @@ public class OrderService implements CreateOrderUsecase {
         saveOrderPort.save(order);
 
         //step6. return order
+        return order;
+    }
+
+    @Transactional
+    public Order cancelOrder(CancelOrderRequest request) {
+        //step1. 주문자의 ID를 통해 주문자 정보가 db에 있는지 확인하고, 없으면 throw no member exception
+        Member cancelRequester = loadOrdererPort.load(request.getOrdererId());
+
+        //step2. 주문자가 주문 취소 요청한 사람과 일치하지 않으면 throw exception
+        Order order = loadOrderPort.loadOrder(request.getOrderId());
+        if(!order.isOrdererAndRequesterMatch(cancelRequester)){
+            throw new IllegalStateException("주문한 사람과 주문 취소 요청자가 일치하지 않습니다.");
+        }
+
+        //step3. 주문이 이미 취소된 상품이면 throw exception (중복 요청 방지)
+        if(order.isCanceled()){
+            throw new IllegalStateException("이미 취소된 상품입니다.");
+        }
+
+        //step4. 주문이 이미 배송된 상품이면 throw exception
+        if(order.isDelivered()){
+            throw new IllegalStateException("이미 배송된 상품은 취소할 수 없습니다.");
+        }
+
+        //step5. 주문이 이미 결제된 상품이면 주문 취소 요청을 payment에 보낸다.
+//        if(order.isPayed()){
+//            cancelPaymentPort.request(order);
+//        }
+
+        //step6. 주문을 삭제하기 전, 주문 하위에 orderItem들의 주문 수량만큼 기존 Item의 quantity를 다시 복구시켜준다.
+        order.getOrderItems().forEach(orderItem -> {
+            cancelStockOutItemPort.cancelStockOutItem(orderItem.getItem(), orderItem.getOrderQuantity());
+        });
+
+        //step7. 주문을 삭제한다.
+        cancelOrderPort.cancel(order);
+
         return order;
     }
 }

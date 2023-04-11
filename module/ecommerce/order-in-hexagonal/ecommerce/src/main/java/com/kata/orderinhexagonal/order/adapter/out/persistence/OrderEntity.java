@@ -28,7 +28,7 @@ public class OrderEntity {
     @JoinColumn(name = "member_id")
     private MemberEntity member;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL) //order이 삭제되면, orderItem들도 삭제된다.
     private List<OrderItemEntity> orderItems = new ArrayList<>();
 
     public OrderEntity(Long id, OrderStatus status) {
@@ -48,5 +48,9 @@ public class OrderEntity {
     public void addOrderItem(OrderItemEntity orderItemEntity) {
         orderItemEntity.setOrder(this);
         this.orderItems.add(orderItemEntity);
+    }
+
+    public void cancel() {
+        this.status = OrderStatus.CANCELED;
     }
 }

@@ -48,4 +48,22 @@ public class OrderFixture {
         request.assignOrdererId(ordererId);
         return createOrderUsecase.createOrder(request);
     }
+
+    public Order createOrderWithMultipleItems(long ordererId){
+
+        Item item1 = itemFixture.createItem("노트북", 1_000_000);
+        stockFixture.stockIn(item1, 10);
+
+        Item item2 = itemFixture.createItem("마우스", 10_000);
+        stockFixture.stockIn(item2, 20);
+
+        CreateOrderRequest request = CreateOrderRequest.of(List.of(
+                OrderItemRequest.of(item1.getId(), 1),
+                OrderItemRequest.of(item2.getId(), 2)
+        ));
+        request.assignOrdererId(ordererId);
+
+        return createOrderUsecase.createOrder(request);
+
+    }
 }

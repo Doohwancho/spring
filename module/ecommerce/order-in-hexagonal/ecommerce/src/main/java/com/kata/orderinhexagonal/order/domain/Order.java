@@ -49,4 +49,24 @@ public class Order {
             default -> item.getPrice();
         };
     }
+
+    public boolean isOrdererAndRequesterMatch(Member cancelRequester) {
+        return this.getMember().getId() == cancelRequester.getId();
+    }
+
+    public boolean isCanceled() {
+        return this.status == OrderStatus.CANCELED;
+    }
+
+    public boolean isPayed() {
+        return this.status == OrderStatus.PAYED;
+    }
+
+    public boolean isDelivered() {
+        return this.status == OrderStatus.DELIVERED;
+    }
+
+    public void cancel() {
+        this.status = OrderStatus.CANCELED;
+    }
 }

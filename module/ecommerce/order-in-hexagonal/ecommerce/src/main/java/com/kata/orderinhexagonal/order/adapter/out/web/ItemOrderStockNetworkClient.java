@@ -4,4 +4,6 @@ import com.kata.orderinhexagonal.item.domain.Item;
 
 public interface ItemOrderStockNetworkClient {
     void stockOut(Item item, int orderQuantity);
+
+    void stockIn(Item item, int orderQuantity);
 }

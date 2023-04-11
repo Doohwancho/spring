@@ -20,6 +20,7 @@ public class CreateOrderAdapter implements SaveOrderPort {
         orderRepository.save(orderEntity); //error! -> 이 떄, orderEntity안에 orderItemEntity안에 itemEntity의 id가 자동으로 3으로 들어가는데, 이걸 원래 id를 받아오는걸로 바꿔야 한다.
         order.assignId(orderEntity.getId());
 
+        //TODO - c-b-6-8. order 저장 후, entity에서 가져온 id를 domain order에 넣음과 동시에 orderItem에도 넣어줘야 한다.
         for (int i = 0; i < orderEntity.getOrderItems().size(); i++) {
             OrderItemEntity orderItemEntity = orderEntity.getOrderItems().get(i);
             OrderItem orderItem = order.getOrderItems().get(i);

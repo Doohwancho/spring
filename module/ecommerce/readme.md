@@ -44,8 +44,14 @@ c-b. order-in-hexagonal
 	2. order시에 stockOut을 async queue로 처리 :white_check_mark:
 	3. OrderService에서 MemberService를 바로 주입받지 말고 port타고 나가서 MemberRepository 받아 해결 :white_check_mark:
 	4. OrderService에서 item.stockOut() 해서 domain을 stockService에 의존시키지 말고, port로 의존성 돌리자 :white_check_mark:
-	5. DI 필드에 final을 붙이는 이유 :white_check_mark:\
+	5. DI 필드에 final을 붙이는 이유 :white_check_mark:
 	6. refactor - discounted price of item using switch :white_check_mark:
+	7. order domain -> entity 변환 시, 그 안에 orderItem도 entity로 변환해야 한다 :white_check_mark:
+	8. order 저장 후, entity에서 가져온 id를 domain order에 넣음과 동시에 orderItem에도 넣어줘야 한다. :white_check_mark:
+	9. order을 jpa repository로 찾을 때, member를 fetch join하여 찾는다 :white_check_mark:
+	10. orderItem을 repository로 찾을 때, item과 order를 fetch join하여 찾는다. :white_check_mark:
+	11. orderItem이 erd상에는 order에 속해있지 않지만, 필요하여 domain에 껴있으니, order를 찾은 후, orderItem도 찾아 더해준다. :white_check_mark:
+	12. cancel order은 soft delete for later customer behavior analysis for market :white_check_mark:
 7. payment
 8. delivery
 

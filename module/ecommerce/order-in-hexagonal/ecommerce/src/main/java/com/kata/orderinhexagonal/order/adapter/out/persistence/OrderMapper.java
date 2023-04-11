@@ -22,6 +22,7 @@ public class OrderMapper {
         MemberEntity memberEntity = memberMapper.toEntity(order.getMember());
         orderEntity.initMember(memberEntity);
 
+        //TODO - c-b-6-7. order domain -> entity 변환 시, 그 안에 orderItem도 entity로 변환해야 한다.
         for (OrderItem orderItem : order.getOrderItems()) {
             ItemEntity itemEntity = itemMapper.toEntity(orderItem.getItem());
 

@@ -9,10 +9,12 @@ import com.kata.orderinhexagonal.item.domain.Item;
 import com.kata.orderinhexagonal.member.domain.Member;
 import com.kata.orderinhexagonal.order.adapter.out.persistence.OrderEntity;
 import com.kata.orderinhexagonal.order.adapter.out.persistence.OrderItemEntity;
+import com.kata.orderinhexagonal.order.application.port.in.CancelOrderRequest;
 import com.kata.orderinhexagonal.order.application.port.in.CreateOrderRequest;
 import com.kata.orderinhexagonal.order.application.port.in.OrderItemRequest;
 import com.kata.orderinhexagonal.order.application.service.OrderService;
 import com.kata.orderinhexagonal.order.domain.Order;
+import com.kata.orderinhexagonal.order.domain.OrderItem;
 import com.kata.orderinhexagonal.order.domain.OrderStatus;
 import com.kata.orderinhexagonal.stock.domain.Stock;
 import org.assertj.core.api.Assertions;
@@ -39,20 +41,6 @@ public class OrderServiceTest {
     OrderService orderService;
     @Autowired
     OrderFixture orderFixture;
-
-    @BeforeEach
-    void setUp() {
-        orderFixture.clearOrder();
-        memberFixture.clearMember();
-        itemFixture.clearItem();
-    }
-
-    @AfterEach
-    void tearDown() {
-        orderFixture.clearOrder();
-        memberFixture.clearMember();
-        itemFixture.clearItem();
-    }
 
     @Test
     @Transactional
@@ -114,5 +102,25 @@ public class OrderServiceTest {
         Assertions.assertThat(resultItem2.getName()).isEqualTo(item2.getName());
         Assertions.assertThat(resultItem2.getPrice()).isEqualTo(item2.getPrice());
         Assertions.assertThat(resultItem2.getStockQuantity()).isEqualTo(item2StockQuantity - item2OrderQuantity); //stock quantity should be updated
+    }
+
+
+    @Test
+    @Transactional
+    void cancel_order_test() {
+        //given
+        Member member = memberFixture.createMember("member1", "email@gmail.com", "gimpo");
+        Order order = orderFixture.createOrder(member.getId());
+
+        CancelOrderRequest request = CancelOrderRequest.of(order.getId());
+        request.setOrdererId(member.getId());
+
+        //when
+        Order cancelOrder = orderService.cancelOrder(request);
+
+        //then
+        Assertions.assertThat(cancelOrder.getStatus()).isEqualTo(OrderStatus.CANCELED);
+        OrderEntity orderEntity = orderFixture.getOrderEntity(cancelOrder.getId());
+        Assertions.assertThat(orderEntity.getStatus()).isEqualTo(OrderStatus.CANCELED);
     }
 }
