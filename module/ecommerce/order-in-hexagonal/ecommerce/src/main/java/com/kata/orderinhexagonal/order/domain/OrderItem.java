@@ -21,4 +21,8 @@ public class OrderItem {
     public void assignId(Long id) {
         this.id = id;
     }
+
+    public int getOrderPrice() {
+        return orderPrice;
+    }
 }

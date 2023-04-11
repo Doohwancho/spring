@@ -69,4 +69,10 @@ public class Order {
     public void cancel() {
         this.status = OrderStatus.CANCELED;
     }
+
+    public int getTotalPrice() {
+        return orderItems.stream()
+                .mapToInt(orderItem -> orderItem.getOrderPrice() * orderItem.getOrderQuantity())
+                .sum();
+    }
 }

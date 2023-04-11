@@ -3,6 +3,7 @@ package com.kata.orderinhexagonal.order.application.service;
 import com.kata.orderinhexagonal.item.domain.Item;
 import com.kata.orderinhexagonal.member.domain.Member;
 import com.kata.orderinhexagonal.order.application.port.in.CancelOrderRequest;
+import com.kata.orderinhexagonal.order.application.port.in.CancelOrderUsecase;
 import com.kata.orderinhexagonal.order.application.port.in.CreateOrderRequest;
 import com.kata.orderinhexagonal.order.application.port.in.CreateOrderUsecase;
 import com.kata.orderinhexagonal.order.application.port.out.*;
@@ -16,7 +17,7 @@ import java.util.concurrent.Flow;
 
 @Service
 @RequiredArgsConstructor
-public class OrderService implements CreateOrderUsecase {
+public class OrderService implements CreateOrderUsecase, CancelOrderUsecase {
 
     //TODO - c-b-6-3. Q. Member의 service를 주입받아도 되나? 아니면 port를 주입받아야 하나? (의존성 문제)
     //A. 여기서 다른 모듈의 서비스 주입받지 말고, adapter.out.persistence까지 가서 port로 다른 모듈의 repository를 주입받으면 된다.

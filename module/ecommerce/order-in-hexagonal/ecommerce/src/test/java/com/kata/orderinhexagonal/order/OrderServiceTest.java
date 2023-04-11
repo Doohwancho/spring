@@ -14,12 +14,9 @@ import com.kata.orderinhexagonal.order.application.port.in.CreateOrderRequest;
 import com.kata.orderinhexagonal.order.application.port.in.OrderItemRequest;
 import com.kata.orderinhexagonal.order.application.service.OrderService;
 import com.kata.orderinhexagonal.order.domain.Order;
-import com.kata.orderinhexagonal.order.domain.OrderItem;
 import com.kata.orderinhexagonal.order.domain.OrderStatus;
 import com.kata.orderinhexagonal.stock.domain.Stock;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -113,7 +110,7 @@ public class OrderServiceTest {
         Order order = orderFixture.createOrder(member.getId());
 
         CancelOrderRequest request = CancelOrderRequest.of(order.getId());
-        request.setOrdererId(member.getId());
+        request.assignOrdererId(member.getId());
 
         //when
         Order cancelOrder = orderService.cancelOrder(request);

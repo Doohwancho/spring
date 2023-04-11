@@ -19,7 +19,7 @@ public class CancelOrderRequest {
         return new CancelOrderRequest(orderId);
     }
 
-    public void setOrdererId(long ordererId) {
+    public void assignOrdererId(long ordererId) {
         this.ordererId = ordererId;
     }
 }

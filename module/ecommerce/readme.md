@@ -24,7 +24,10 @@ c-a. user-product-order
 
 
 c-b. order-in-hexagonal
-
+0. goal
+	1. familiarized with hexagonal architecture
+	2. requirements -> erd -> entity modeling (especially order-orderItem-item part)
+	3. complex eommerce business requirement logics to java code
 1. database modeling
 	1. requirements :white_check_mark:
 	2. erd (using vuerd tool from VSC) :white_check_mark:
