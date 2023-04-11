@@ -55,6 +55,7 @@ c-b. order-in-hexagonal
 	10. orderItem을 repository로 찾을 때, item과 order를 fetch join하여 찾는다. :white_check_mark:
 	11. orderItem이 erd상에는 order에 속해있지 않지만, 필요하여 domain에 껴있으니, order를 찾은 후, orderItem도 찾아 더해준다. :white_check_mark:
 	12. cancel order은 soft delete for later customer behavior analysis for market :white_check_mark:
+	13. order request validator :white_check_mark:
 7. payment
 8. delivery
 

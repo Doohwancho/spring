@@ -14,9 +14,9 @@ public class OrderItemRequest {
     private Long itemId;
     @NotNull(message = "주문할 상품의 개수를 입력해주세요.")
     @Min(value = 1, message = "주문할 상품의 개수를 1개 이상으로 입력해주세요.")
-    private int orderQuantity;
+    private Integer orderQuantity;
 
-    public OrderItemRequest(Long itemId, int orderQuantity) {
+    public OrderItemRequest(Long itemId, Integer orderQuantity) {
         this.itemId = itemId;
         this.orderQuantity = orderQuantity;
     }
