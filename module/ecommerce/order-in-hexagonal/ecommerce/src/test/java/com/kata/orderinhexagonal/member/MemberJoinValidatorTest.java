@@ -51,7 +51,7 @@ class MemberJoinValidatorTest {
     @DisplayName("존재하지 않는 이메일")
     void 이메일_존재여부_확인() {
         //given
-        String email = "doohwancho@gmail.com";
+        String email = "hahahahhahahaha@gmail.com";
         //when
         boolean verify = memberJoinValidator.verifyExistsEmail(email);
         //then

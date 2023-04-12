@@ -53,4 +53,8 @@ public class OrderEntity {
     public void cancel() {
         this.status = OrderStatus.CANCELED;
     }
+
+    public void changeStatus(OrderStatus status) {
+        this.status = status;
+    }
 }

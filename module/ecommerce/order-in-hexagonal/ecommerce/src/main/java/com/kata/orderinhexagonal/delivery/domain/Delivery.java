@@ -1,7 +1,6 @@
 package com.kata.orderinhexagonal.delivery.domain;
 
 import com.kata.orderinhexagonal.order.domain.Order;
-import lombok.Getter;
 
 import java.time.LocalDateTime;
 

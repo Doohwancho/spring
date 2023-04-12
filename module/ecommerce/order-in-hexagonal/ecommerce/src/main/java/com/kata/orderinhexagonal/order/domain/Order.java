@@ -1,6 +1,7 @@
 package com.kata.orderinhexagonal.order.domain;
 
 
+import com.kata.orderinhexagonal.delivery.domain.DeliveryStatus;
 import com.kata.orderinhexagonal.discount.domain.DiscountType;
 import com.kata.orderinhexagonal.item.domain.Item;
 import com.kata.orderinhexagonal.member.domain.Member;
@@ -74,5 +75,9 @@ public class Order {
         return orderItems.stream()
                 .mapToInt(orderItem -> orderItem.getOrderPrice() * orderItem.getOrderQuantity())
                 .sum();
+    }
+
+    public void updateDeliveredStatus() {
+        this.status = OrderStatus.DELIVERED;
     }
 }

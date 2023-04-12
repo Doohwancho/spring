@@ -1,13 +1,16 @@
 package com.kata.orderinhexagonal.member;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kata.orderinhexagonal.member.adapter.out.persistence.MemberRepository;
 import com.kata.orderinhexagonal.member.application.port.in.CreateMemberRequest;
 import com.kata.orderinhexagonal.member.application.port.in.CreateMemberResponse;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -24,6 +27,13 @@ class MemberApiTest {
     @Autowired
     MockMvc mockMvc;
 
+    @Autowired
+    private MemberRepository memberRepository;
+
+    @BeforeEach
+    void setUp() {
+        memberRepository.deleteAll();
+    }
     @Test
     void 회원가입() throws Exception {
         //given

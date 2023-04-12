@@ -10,7 +10,6 @@ import com.kata.orderinhexagonal.order.application.port.in.*;
 import com.kata.orderinhexagonal.order.domain.Order;
 import com.kata.orderinhexagonal.order.domain.OrderStatus;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,12 +55,6 @@ class OrderApiTest {
         memberFixture.clearMember();
     }
 
-    @AfterEach
-    void tearDown() {
-        orderFixture.clearOrder();
-        memberFixture.clearMember();
-    }
-
     @Test
     void 상품_주문() throws Exception {
         // given
@@ -87,6 +80,7 @@ class OrderApiTest {
         OrderItemRequest orderItemRequest1 = OrderItemRequest.of(item1.getId(), orderQuantity1);
         OrderItemRequest orderItemRequest2 = OrderItemRequest.of(item2.getId(), orderQuantity2);
         CreateOrderRequest orderRequest = CreateOrderRequest.of(List.of(orderItemRequest1, orderItemRequest2));
+        orderRequest.assignOrdererId(1L);
 
         // when
         MockHttpServletResponse response = mockMvc.perform(post("/orders")

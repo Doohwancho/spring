@@ -56,8 +56,12 @@ c-b. order-in-hexagonal
 	11. orderItem이 erd상에는 order에 속해있지 않지만, 필요하여 domain에 껴있으니, order를 찾은 후, orderItem도 찾아 더해준다. :white_check_mark:
 	12. cancel order은 soft delete for later customer behavior analysis for market :white_check_mark:
 	13. order request validator :white_check_mark:
-7. payment
-8. delivery
+7. delivery
+	1. entity modeling based off of erd :white_check_mark:
+	2. OrderEntity를 .setter로 필드값 변경하면, transaction 끝나는 시점에 자동으로 update query 날려준다 :white_check_mark:
+	3. commit() 이전 1차 캐시에서 OrderEntity 객체 주솟값 비교 :white_check_mark:\
+	4. deliveryServiceTest시 order이 다른 테스트와 충돌하는 문제 어떻게 해결?
+8. payment
 
 
 
