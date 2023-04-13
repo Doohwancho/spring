@@ -80,4 +80,8 @@ public class Order {
     public void updateDeliveredStatus() {
         this.status = OrderStatus.DELIVERED;
     }
+
+    public void payed() {
+        this.status = OrderStatus.PAYED;
+    }
 }

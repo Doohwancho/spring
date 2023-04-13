@@ -59,10 +59,12 @@ c-b. order-in-hexagonal
 7. delivery
 	1. entity modeling based off of erd :white_check_mark:
 	2. OrderEntity를 .setter로 필드값 변경하면, transaction 끝나는 시점에 자동으로 update query 날려준다 :white_check_mark:
-	3. commit() 이전 1차 캐시에서 OrderEntity 객체 주솟값 비교 :white_check_mark:\
+	3. commit() 이전 1차 캐시에서 OrderEntity 객체 주솟값 비교 :white_check_mark:
 	4. deliveryServiceTest시 order이 다른 테스트와 충돌하는 문제 어떻게 해결?
 8. payment
-
+	1. 외부 api 연동해서 사용하는건 adapter.out.api에서 하네? :white_check_mark:
+	2. 결제 취소 async 요청날린걸 order 모듈에 eventlistener에서 잡아서 처리 :white_check_mark:
+	3. 왜 결제 취소할 때 굳이 payment에서 order 모듈로 보낸 후 처리하는건가?
 
 
 

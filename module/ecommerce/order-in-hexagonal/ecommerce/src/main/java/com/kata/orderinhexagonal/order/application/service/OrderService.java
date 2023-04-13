@@ -42,6 +42,7 @@ public class OrderService implements CreateOrderUsecase, CancelOrderUsecase {
 //    private final CancelPaymentPort cancelPaymentPort;
     private final CancelStockOutItemPort cancelStockOutItemPort;
     private final CancelOrderPort cancelOrderPort;
+    private final CancelPaymentPort cancelPaymentPort;
 
 
     @Transactional //TODO - Q. transactional 붙어야..겠지? 중간에 exception이 발생하면 어떻게 처리하지?
@@ -104,9 +105,9 @@ public class OrderService implements CreateOrderUsecase, CancelOrderUsecase {
         }
 
         //step5. 주문이 이미 결제된 상품이면 주문 취소 요청을 payment에 보낸다.
-//        if(order.isPayed()){
-//            cancelPaymentPort.request(order);
-//        }
+        if(order.isPayed()){
+            cancelPaymentPort.request(order);
+        }
 
         //step6. 주문을 삭제하기 전, 주문 하위에 orderItem들의 주문 수량만큼 기존 Item의 quantity를 다시 복구시켜준다.
         order.getOrderItems().forEach(orderItem -> {
