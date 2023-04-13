@@ -49,11 +49,11 @@ class OrderApiTest {
     @Autowired
     OrderFixture orderFixture;
 
-    @BeforeEach
-    void setUp() {
-        orderFixture.clearOrder();
-        memberFixture.clearMember();
-    }
+//    @BeforeEach
+//    void setUp() {
+//        orderFixture.clearOrder();
+//        memberFixture.clearMember();
+//    }
 
     @Test
     void 상품_주문() throws Exception {

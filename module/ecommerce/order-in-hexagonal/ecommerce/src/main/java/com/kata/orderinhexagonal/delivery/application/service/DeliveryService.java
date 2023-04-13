@@ -1,5 +1,6 @@
 package com.kata.orderinhexagonal.delivery.application.service;
 
+import com.kata.orderinhexagonal.delivery.application.port.in.CreateDeliveryUsecase;
 import com.kata.orderinhexagonal.delivery.application.port.in.DeliveryRequest;
 import com.kata.orderinhexagonal.delivery.application.port.out.OrderDeliveryLoadPort;
 import com.kata.orderinhexagonal.delivery.application.port.out.SaveDeliveryPort;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class DeliveryService {
+public class DeliveryService implements CreateDeliveryUsecase {
     private final SaveDeliveryPort saveDeliveryPort;
 
     private final OrderDeliveryLoadPort orderDeliveryPort;

@@ -30,10 +30,10 @@ class MemberApiTest {
     @Autowired
     private MemberRepository memberRepository;
 
-    @BeforeEach
-    void setUp() {
-        memberRepository.deleteAll();
-    }
+//    @BeforeEach
+//    void setUp() {
+//        memberRepository.deleteAll();
+//    }
     @Test
     void 회원가입() throws Exception {
         //given
