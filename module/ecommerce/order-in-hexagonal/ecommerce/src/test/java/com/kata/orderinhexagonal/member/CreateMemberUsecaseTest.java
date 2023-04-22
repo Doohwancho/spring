@@ -4,25 +4,20 @@ import com.kata.orderinhexagonal.member.application.port.in.CreateMemberRequest;
 import com.kata.orderinhexagonal.member.adapter.out.persistence.MemberRepository;
 import com.kata.orderinhexagonal.member.application.port.in.CreateMemberUsecase;
 import com.kata.orderinhexagonal.member.domain.Member;
+import com.kata.orderinhexagonal.util.TestConfig;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class CreateMemberUsecaseTest {
+class CreateMemberUsecaseTest extends TestConfig {
 
     @Autowired
     CreateMemberUsecase memberService;
 
     @Autowired
     MemberRepository memberRepository;
-
-    @BeforeEach
-    void setUp() {
-        memberRepository.deleteAll();
-    }
 
 
     @Test

@@ -3,13 +3,13 @@ package com.kata.orderinhexagonal.member;
 import com.kata.orderinhexagonal.member.application.port.out.PasswordEncoder;
 import com.kata.orderinhexagonal.member.application.port.out.SaveMemberPort;
 import com.kata.orderinhexagonal.member.domain.Member;
+import com.kata.orderinhexagonal.util.TestConfig;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class SaveMemberPortTest {
+class SaveMemberPortTest extends TestConfig {
     @Autowired
     SaveMemberPort saveMemberPort;
     @Autowired

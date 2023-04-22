@@ -7,13 +7,13 @@ import com.kata.orderinhexagonal.stock.application.port.in.StockInRequest;
 import com.kata.orderinhexagonal.stock.application.port.in.StockOutRequest;
 import com.kata.orderinhexagonal.stock.application.service.StockService;
 import com.kata.orderinhexagonal.stock.domain.Stock;
+import com.kata.orderinhexagonal.util.TestConfig;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-public class StockServiceTest {
+public class StockServiceTest extends TestConfig {
 
     @Autowired
     ItemFixture itemFixture;

@@ -7,6 +7,7 @@ import com.kata.orderinhexagonal.discount.application.port.in.ItemDiscountRespon
 import com.kata.orderinhexagonal.discount.domain.DiscountType;
 import com.kata.orderinhexagonal.fixture.ItemFixture;
 import com.kata.orderinhexagonal.item.domain.Item;
+import com.kata.orderinhexagonal.util.TestConfig;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
 @AutoConfigureMockMvc
-public class DiscountApiTest {
+public class DiscountApiTest extends TestConfig {
 
     @Autowired
     MockMvc mockMvc;

@@ -16,6 +16,7 @@ import com.kata.orderinhexagonal.order.application.service.OrderService;
 import com.kata.orderinhexagonal.order.domain.Order;
 import com.kata.orderinhexagonal.order.domain.OrderStatus;
 import com.kata.orderinhexagonal.stock.domain.Stock;
+import com.kata.orderinhexagonal.util.TestConfig;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-@SpringBootTest
-public class OrderServiceTest {
+public class OrderServiceTest extends TestConfig {
 
     @Autowired
     MemberFixture memberFixture;

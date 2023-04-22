@@ -14,6 +14,7 @@ import com.kata.orderinhexagonal.payment.application.port.in.PaymentResponse;
 import com.kata.orderinhexagonal.payment.domain.CardCompany;
 import com.kata.orderinhexagonal.payment.domain.CardType;
 import com.kata.orderinhexagonal.payment.domain.PaymentType;
+import com.kata.orderinhexagonal.util.TestConfig;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,9 +29,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 
-@SpringBootTest
 @AutoConfigureMockMvc
-class PaymentApiTest {
+class PaymentApiTest extends TestConfig {
 
     @Autowired
     MockMvc mockMvc;
@@ -45,20 +45,6 @@ class PaymentApiTest {
 
     @Autowired
     PaymentFixture paymentFixture;
-
-    @BeforeEach
-    void setUp() {
-        paymentFixture.clearPayment();
-        orderFixture.clearOrder();
-        memberFixture.clearMember();
-    }
-    @AfterEach
-    void tearDown() {
-        paymentFixture.clearPayment();
-        orderFixture.clearOrder();
-        memberFixture.clearMember();
-    }
-
 
 
     @Test

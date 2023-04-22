@@ -6,6 +6,7 @@ import com.kata.orderinhexagonal.member.adapter.out.persistence.MemberRepository
 import com.kata.orderinhexagonal.member.application.port.in.CreateMemberRequest;
 import com.kata.orderinhexagonal.member.application.port.in.CreateMemberUsecase;
 import com.kata.orderinhexagonal.member.domain.Member;
+import com.kata.orderinhexagonal.util.TestConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;

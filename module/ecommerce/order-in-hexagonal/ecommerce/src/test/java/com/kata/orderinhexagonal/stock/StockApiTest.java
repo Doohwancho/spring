@@ -7,6 +7,7 @@ import com.kata.orderinhexagonal.item.domain.Item;
 import com.kata.orderinhexagonal.stock.application.port.in.StockInRequest;
 import com.kata.orderinhexagonal.stock.application.port.in.StockInResponse;
 import com.kata.orderinhexagonal.stock.application.port.in.StockOutRequest;
+import com.kata.orderinhexagonal.util.TestConfig;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 
-@SpringBootTest
 @AutoConfigureMockMvc
-public class StockApiTest {
+public class StockApiTest extends TestConfig {
 
     @Autowired
     MockMvc mockMvc;

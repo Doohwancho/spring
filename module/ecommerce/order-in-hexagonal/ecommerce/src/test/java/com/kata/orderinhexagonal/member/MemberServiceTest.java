@@ -4,6 +4,7 @@ import com.kata.orderinhexagonal.member.application.port.in.CreateMemberRequest;
 import com.kata.orderinhexagonal.member.application.port.out.PasswordEncoder;
 import com.kata.orderinhexagonal.member.domain.Member;
 import com.kata.orderinhexagonal.member.application.service.MemberService;
+import com.kata.orderinhexagonal.util.TestConfig;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,7 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
-public class MemberServiceTest {
+public class MemberServiceTest extends TestConfig {
 
     @Autowired
     MemberService memberService;

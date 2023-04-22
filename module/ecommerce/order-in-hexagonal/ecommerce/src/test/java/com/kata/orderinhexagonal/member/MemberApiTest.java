@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kata.orderinhexagonal.member.adapter.out.persistence.MemberRepository;
 import com.kata.orderinhexagonal.member.application.port.in.CreateMemberRequest;
 import com.kata.orderinhexagonal.member.application.port.in.CreateMemberResponse;
+import com.kata.orderinhexagonal.util.TestConfig;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,9 +19,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
-@SpringBootTest
 @AutoConfigureMockMvc
-class MemberApiTest {
+class MemberApiTest extends TestConfig {
 
     @Autowired
     ObjectMapper objectMapper;
@@ -30,10 +30,6 @@ class MemberApiTest {
     @Autowired
     private MemberRepository memberRepository;
 
-//    @BeforeEach
-//    void setUp() {
-//        memberRepository.deleteAll();
-//    }
     @Test
     void 회원가입() throws Exception {
         //given

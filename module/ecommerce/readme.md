@@ -65,6 +65,8 @@ c-b. order-in-hexagonal
 	1. 외부 api 연동해서 사용하는건 adapter.out.api에서 하네? :white_check_mark:
 	2. 결제 취소 async 요청날린걸 order 모듈에 eventlistener에서 잡아서 처리 :white_check_mark:
 	3. 왜 결제 취소할 때 굳이 payment에서 order 모듈로 보낸 후 처리하는건가?
+9. etc
+	1. test 격리를 위한 DB 초기화 :white_check_mark:
 
 
 

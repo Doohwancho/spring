@@ -7,6 +7,7 @@ import com.kata.orderinhexagonal.member.domain.Member;
 import com.kata.orderinhexagonal.order.application.port.out.CancelStockOutItemPort;
 import com.kata.orderinhexagonal.order.domain.Order;
 import com.kata.orderinhexagonal.order.domain.OrderItem;
+import com.kata.orderinhexagonal.util.TestConfig;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,8 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class CancelStockOutItemPortTest {
+class CancelStockOutItemPortTest extends TestConfig {
 
 
     @Autowired
@@ -25,18 +25,6 @@ class CancelStockOutItemPortTest {
     MemberFixture memberFixture;
     @Autowired
     CancelStockOutItemPort cancelStockOutItemPort;
-
-    @BeforeEach
-    void setUp() {
-        orderFixture.clearOrder();
-        memberFixture.clearMember();
-    }
-
-    @AfterEach
-    void tearDown() {
-        orderFixture.clearOrder();
-        memberFixture.clearMember();
-    }
 
 
     @Test

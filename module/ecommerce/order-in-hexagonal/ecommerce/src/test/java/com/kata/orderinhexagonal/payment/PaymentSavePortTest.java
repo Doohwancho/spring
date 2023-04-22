@@ -9,6 +9,7 @@ import com.kata.orderinhexagonal.order.domain.Order;
 import com.kata.orderinhexagonal.payment.adapter.out.persistence.PaymentEntity;
 import com.kata.orderinhexagonal.payment.application.port.out.PaymentSavePort;
 import com.kata.orderinhexagonal.payment.domain.*;
+import com.kata.orderinhexagonal.util.TestConfig;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,8 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class PaymentSavePortTest {
+class PaymentSavePortTest extends TestConfig {
 
     @Autowired
     MemberFixture memberFixture;
@@ -30,19 +30,6 @@ class PaymentSavePortTest {
     @Autowired
     PaymentFixture paymentFixture;
 
-    @BeforeEach
-    void setUp() {
-        paymentFixture.clearPayment();
-        orderFixture.clearOrder();
-        memberFixture.clearMember();
-    }
-
-    @AfterEach
-    void tearDown() {
-        paymentFixture.clearPayment();
-        orderFixture.clearOrder();
-        memberFixture.clearMember();
-    }
 
     @Test
     void 결제저장() {

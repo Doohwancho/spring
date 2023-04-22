@@ -16,6 +16,7 @@ import javax.persistence.*;
 public class DiscountEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "discount_id")
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)

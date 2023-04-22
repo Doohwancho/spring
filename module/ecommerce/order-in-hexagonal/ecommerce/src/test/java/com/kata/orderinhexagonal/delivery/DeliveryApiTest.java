@@ -8,6 +8,7 @@ import com.kata.orderinhexagonal.fixture.MemberFixture;
 import com.kata.orderinhexagonal.fixture.OrderFixture;
 import com.kata.orderinhexagonal.member.domain.Member;
 import com.kata.orderinhexagonal.order.domain.Order;
+import com.kata.orderinhexagonal.util.TestConfig;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,9 +23,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 
-@SpringBootTest
 @AutoConfigureMockMvc
-public class DeliveryApiTest {
+public class DeliveryApiTest extends TestConfig {
     @Autowired
     MockMvc mockMvc;
     @Autowired

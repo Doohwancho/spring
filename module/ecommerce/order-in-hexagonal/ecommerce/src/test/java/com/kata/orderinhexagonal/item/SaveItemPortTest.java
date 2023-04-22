@@ -1,13 +1,13 @@
 package com.kata.orderinhexagonal.item;
 
 import com.kata.orderinhexagonal.item.application.port.out.SaveItemPort;
+import com.kata.orderinhexagonal.util.TestConfig;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.kata.orderinhexagonal.item.domain.Item;
-@SpringBootTest
-class SaveItemPortTest {
+class SaveItemPortTest extends TestConfig {
 
     @Autowired
     SaveItemPort saveItemPort;

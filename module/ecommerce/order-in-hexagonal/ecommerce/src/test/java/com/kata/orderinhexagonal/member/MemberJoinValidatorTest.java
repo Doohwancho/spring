@@ -6,6 +6,7 @@ import com.kata.orderinhexagonal.member.application.port.in.CreateMemberRequest;
 import com.kata.orderinhexagonal.member.application.port.out.MemberJoinValidator;
 import com.kata.orderinhexagonal.member.application.port.out.SaveMemberPort;
 import com.kata.orderinhexagonal.member.domain.Member;
+import com.kata.orderinhexagonal.util.TestConfig;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,8 +23,7 @@ import org.springframework.validation.Validator;
 import static org.hibernate.validator.internal.util.Contracts.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-@SpringBootTest
-class MemberJoinValidatorTest {
+class MemberJoinValidatorTest extends TestConfig {
 
     @Autowired
     MemberJoinValidator memberJoinValidator;
@@ -35,16 +35,6 @@ class MemberJoinValidatorTest {
 
     @Autowired
     Validator validator;
-
-    @BeforeEach
-    void setUp() {
-        memberRepository.deleteAll();
-    }
-
-    @AfterEach
-    void tearDown() {
-        memberRepository.deleteAll();
-    }
 
 
     @Test

@@ -18,6 +18,7 @@ public class PaymentEntity {
 
     @Id
     @GeneratedValue
+    @Column(name = "payment_id")
     private Long id;
 
     @OneToOne(fetch = javax.persistence.FetchType.LAZY)

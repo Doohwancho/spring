@@ -5,13 +5,13 @@ import com.kata.orderinhexagonal.item.domain.Item;
 import com.kata.orderinhexagonal.stock.application.port.in.StockInRequest;
 import com.kata.orderinhexagonal.stock.application.port.in.StockInUsecase;
 import com.kata.orderinhexagonal.stock.domain.Stock;
+import com.kata.orderinhexagonal.util.TestConfig;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class StockInUsecaseTest {
+class StockInUsecaseTest extends TestConfig {
 
     @Autowired
     ItemFixture itemFixture;

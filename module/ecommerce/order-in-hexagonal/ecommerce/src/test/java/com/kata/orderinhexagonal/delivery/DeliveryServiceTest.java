@@ -3,7 +3,6 @@ package com.kata.orderinhexagonal.delivery;
 import com.kata.orderinhexagonal.delivery.adapter.out.persistence.DeliveryEntity;
 import com.kata.orderinhexagonal.delivery.adapter.out.persistence.OrderDeliveryEntity;
 import com.kata.orderinhexagonal.delivery.application.port.in.DeliveryRequest;
-import com.kata.orderinhexagonal.delivery.application.port.out.SaveDeliveryPort;
 import com.kata.orderinhexagonal.delivery.application.service.DeliveryService;
 import com.kata.orderinhexagonal.delivery.domain.Delivery;
 import com.kata.orderinhexagonal.delivery.domain.DeliveryStatus;
@@ -12,21 +11,14 @@ import com.kata.orderinhexagonal.fixture.MemberFixture;
 import com.kata.orderinhexagonal.fixture.OrderFixture;
 import com.kata.orderinhexagonal.member.domain.Member;
 import com.kata.orderinhexagonal.order.domain.Order;
+import com.kata.orderinhexagonal.util.TestConfig;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
-@SpringBootTest
-@DirtiesContext
-class DeliveryServiceTest {
+class DeliveryServiceTest extends TestConfig {
 
     @Autowired
     MemberFixture memberFixture;
@@ -40,12 +32,6 @@ class DeliveryServiceTest {
     @Autowired
     DeliveryService deliveryService;
 
-//    @BeforeEach
-//    void setUp() {
-//        deliveryFixture.clearDelivery();
-//        orderFixture.clearOrder();
-//        memberFixture.clearMember();
-//    }
 
     //TODO - c-b-7-4. deliveryServiceTest시 order이 다른 테스트와 충돌하는 문제 어떻게 해결?
     @Test

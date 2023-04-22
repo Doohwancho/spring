@@ -10,6 +10,7 @@ import com.kata.orderinhexagonal.payment.domain.CardCompany;
 import com.kata.orderinhexagonal.payment.domain.CardType;
 import com.kata.orderinhexagonal.payment.domain.PaymentStatus;
 import com.kata.orderinhexagonal.payment.domain.PaymentType;
+import com.kata.orderinhexagonal.util.TestConfig;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,8 +19,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-public class RequestPayPortTest {
+public class RequestPayPortTest extends TestConfig {
     @Autowired
     MemberFixture memberFixture;
     @Autowired
@@ -28,17 +28,6 @@ public class RequestPayPortTest {
     RequestPayPort requestPayPort;
 
 
-    @BeforeEach
-    void setUp() {
-        orderFixture.clearOrder();
-        memberFixture.clearMember();
-    }
-
-    @AfterEach
-    void tearDown() {
-        orderFixture.clearOrder();
-        memberFixture.clearMember();
-    }
     @Test
     void requestPayTest() {
         // given

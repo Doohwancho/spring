@@ -2,6 +2,7 @@ package com.kata.orderinhexagonal.order;
 
 import com.kata.orderinhexagonal.order.application.port.in.CreateOrderRequest;
 import com.kata.orderinhexagonal.order.application.port.in.OrderItemRequest;
+import com.kata.orderinhexagonal.util.TestConfig;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -18,8 +19,7 @@ import java.util.List;
 import static org.hibernate.validator.internal.util.Contracts.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-@SpringBootTest
-public class OrderValidatorTest {
+public class OrderValidatorTest extends TestConfig {
 
     @Autowired
     Validator validator;

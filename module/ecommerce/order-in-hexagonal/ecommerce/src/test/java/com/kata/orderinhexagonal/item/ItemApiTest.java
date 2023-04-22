@@ -3,6 +3,7 @@ package com.kata.orderinhexagonal.item;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kata.orderinhexagonal.item.application.port.in.CreateItemRequest;
 import com.kata.orderinhexagonal.item.application.port.in.CreateItemResponse;
+import com.kata.orderinhexagonal.util.TestConfig;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 
-@SpringBootTest
 @AutoConfigureMockMvc
-public class ItemApiTest {
+public class ItemApiTest extends TestConfig {
 
     @Autowired
     MockMvc mockMvc;

@@ -9,6 +9,7 @@ import com.kata.orderinhexagonal.order.adapter.out.persistence.OrderItemEntity;
 import com.kata.orderinhexagonal.order.application.port.in.*;
 import com.kata.orderinhexagonal.order.domain.Order;
 import com.kata.orderinhexagonal.order.domain.OrderStatus;
+import com.kata.orderinhexagonal.util.TestConfig;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,9 +26,8 @@ import java.util.List;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 
-@SpringBootTest
 @AutoConfigureMockMvc
-class OrderApiTest {
+class OrderApiTest extends TestConfig {
 
     @Autowired
     MockMvc mockMvc;
@@ -49,11 +49,6 @@ class OrderApiTest {
     @Autowired
     OrderFixture orderFixture;
 
-//    @BeforeEach
-//    void setUp() {
-//        orderFixture.clearOrder();
-//        memberFixture.clearMember();
-//    }
 
     @Test
     void 상품_주문() throws Exception {

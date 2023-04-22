@@ -6,6 +6,7 @@ import com.kata.orderinhexagonal.item.adapter.out.persistence.ItemRepository;
 import com.kata.orderinhexagonal.item.application.port.in.CreateItemRequest;
 import com.kata.orderinhexagonal.item.application.service.ItemService;
 import com.kata.orderinhexagonal.item.domain.Item;
+import com.kata.orderinhexagonal.util.TestConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -5,13 +5,13 @@ import com.kata.orderinhexagonal.fixture.ItemFixture;
 import com.kata.orderinhexagonal.item.adapter.out.persistence.ItemEntity;
 import com.kata.orderinhexagonal.item.domain.Item;
 import com.kata.orderinhexagonal.stock.application.port.out.LoadItemPort;
+import com.kata.orderinhexagonal.util.TestConfig;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class LoadItemPortTest {
+class LoadItemPortTest extends TestConfig {
 
     @Autowired
     ItemFixture itemFixture;

@@ -1,6 +1,7 @@
 package com.kata.orderinhexagonal.stock;
 
 import com.kata.orderinhexagonal.stock.application.port.in.StockInRequest;
+import com.kata.orderinhexagonal.util.TestConfig;
 import org.hibernate.validator.internal.util.Contracts;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -14,8 +15,7 @@ import org.springframework.validation.Validator;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@SpringBootTest
-public class StockValidatorTest {
+public class StockValidatorTest extends TestConfig {
 
     @Autowired
     Validator validator;

@@ -1,6 +1,7 @@
 package com.kata.orderinhexagonal.item;
 
 import com.kata.orderinhexagonal.item.application.port.in.CreateItemRequest;
+import com.kata.orderinhexagonal.util.TestConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -14,8 +15,7 @@ import org.springframework.validation.Validator;
 import static org.hibernate.validator.internal.util.Contracts.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-@SpringBootTest
-public class ItemValidatorTest {
+public class ItemValidatorTest extends TestConfig {
 
     @Autowired
     Validator validator;

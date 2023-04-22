@@ -7,13 +7,13 @@ import com.kata.orderinhexagonal.discount.domain.Discount;
 import com.kata.orderinhexagonal.discount.domain.DiscountType;
 import com.kata.orderinhexagonal.fixture.ItemFixture;
 import com.kata.orderinhexagonal.item.domain.Item;
+import com.kata.orderinhexagonal.util.TestConfig;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-public class DiscountValidatorTest {
+public class DiscountValidatorTest extends TestConfig {
 
     @Autowired
     DiscountPolicyValidator discountPolicyValidator;

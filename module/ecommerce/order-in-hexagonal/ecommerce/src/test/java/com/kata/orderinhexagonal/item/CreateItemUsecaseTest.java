@@ -3,13 +3,13 @@ package com.kata.orderinhexagonal.item;
 import com.kata.orderinhexagonal.item.application.port.in.CreateItemRequest;
 import com.kata.orderinhexagonal.item.application.port.in.CreateItemUsecase;
 import com.kata.orderinhexagonal.item.domain.Item;
+import com.kata.orderinhexagonal.util.TestConfig;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class CreateItemUsecaseTest {
+class CreateItemUsecaseTest extends TestConfig {
 
     @Autowired
     CreateItemUsecase createItemUsecase;
