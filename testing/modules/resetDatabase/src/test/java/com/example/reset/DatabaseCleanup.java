@@ -1,6 +1,7 @@
 package com.example.reset;
 
 import com.google.common.base.CaseFormat;
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Scalar.String;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -77,8 +78,8 @@ public class DatabaseCleanup implements InitializingBean {
         entityManager.createNativeQuery("SET REFERENTIAL_INTEGRITY FALSE").executeUpdate(); //해당 테이블 지우려고 하는데, 다른 테이블과 FK로 연결되있으면 잘 안지워지니까, 그런걸 무시하는 코드
 
         for (final String tableName : tableNames) {
-            entityManager.createNativeQuery("TRUNCATE TABLE " + tableName).executeUpdate(); //테이블 비우고
-            entityManager.createNativeQuery("ALTER TABLE " + tableName + " ALTER COLUMN ID RESTART WITH 1").executeUpdate(); //해당 테이블 id auto_increment 된 것을 다시 1로 초기화해주는 것
+            entityManager.createNativeQuery("TRUNCATE TABLE " + tableName + "RESTART IDENTITY").executeUpdate(); //테이블 비우고 해당 테이블 id auto_increment 된 것을 다시 1로 초기화해주는 것
+//            entityManager.createNativeQuery("ALTER TABLE " + tableName + " ALTER COLUMN ID RESTART WITH 1").executeUpdate(); //error: 90017-214 org.h2.jdbc.JdbcSQLSyntaxErrorException: Attempt to define a second primary key; SQL statement:-> TRUNCATE TABLE <table_name> RESTART IDENTITY 로 변경
         }
 
         entityManager.createNativeQuery("SET REFERENTIAL_INTEGRITY TRUE").executeUpdate();
