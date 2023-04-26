@@ -107,7 +107,9 @@ g-3. entity modeling :white_check_mark:
 
 h-1. Chapter01.jdbc -> mybatis -> hibernate(orm) 변천사 :white_check_mark:\
 h-2. N:1 relations에서 jpql 수동 sql query :white_check_mark:\
-h-3. N:1 양방향 관계시 N을 먼저 다 지운 후, 1을 지워야 한다 :white_check_mark:
+h-3. N:1 양방향 관계시 N을 먼저 다 지운 후, 1을 지워야 한다 :white_check_mark:\
+h-4. 1:1 단방향/양방향 관계 jpa 처리 :white_check_mark:\
+h-5. N:M 단방향/양방향 relations 유무에 따른 처리 :white_check_mark:
 
 
 ---\
