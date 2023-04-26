@@ -113,7 +113,8 @@ h-5. N:M 단방향/양방향 relations 유무에 따른 처리 :white_check_mark
 h-6. named query :white_check_mark:\
 h-7. 묵시적 join in jpql :white_check_mark:\
 h-8. subquery :white_check_mark:\
-h-9. pagination read query :white_check_mark:
+h-9. pagination read query :white_check_mark:\
+h-10. jpql의 criteria를 이용한 where절 조건검색 :white_check_mark:
 
 ---\
 Reference
