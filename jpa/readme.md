@@ -114,7 +114,8 @@ h-6. named query :white_check_mark:\
 h-7. 묵시적 join in jpql :white_check_mark:\
 h-8. subquery :white_check_mark:\
 h-9. pagination read query :white_check_mark:\
-h-10. jpql의 criteria를 이용한 where절 조건검색 :white_check_mark:
+h-10. jpql의 criteria를 이용한 where절 조건검색 :white_check_mark:\
+h-11. @ToString(exclude = ...) for avoiding circular reference :white_check_mark:
 
 ---\
 Reference
