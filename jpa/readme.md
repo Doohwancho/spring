@@ -17,7 +17,8 @@ c. queryDSL
 d. steal: jpashop from 김영한 책\
 e. steal: jpa-best-practices-cheese10yun\
 f. jpa-best-practices\
-g. steal: JY_Commerce
+g. steal: JY_Commerce\
+h. steal: jpa_quickstart
 
 
 
@@ -104,6 +105,7 @@ g-2. erd modeling :white_check_mark:\
 g-3. entity modeling :white_check_mark:
 
 
+h-1. Chapter01.jdbc -> mybatis -> hibernate(orm) 변천사 :white_check_mark:
 
 
 ---\
@@ -119,5 +121,6 @@ Reference
 8. [jpa 프로그래밍 기본기 다지기](https://ryan-han.com/post/dev/jpa_basics/)
 9. [inflearn 실전 querydsl 강좌](https://github.com/freespringlecture/jpashop-querydsl)
 10. [JY_Commerce](https://github.com/galid1/JY_Commerce)
+11. [book - jpa_quickstart](http://www.yes24.com/Product/Goods/92287236)
 
 x-x. [amigoscode spring-data-jpa-course 뜯어보기](https://github.com/amigoscode/spring-data-jpa-course)
