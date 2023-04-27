@@ -8,12 +8,12 @@ Goal
 
 
 ---\
-fields in persistence framework
+projects
 
 
 a. jpa\
 b. spring-data-jpa\
-c. queryDSL
+c. queryDSL\
 d. steal: jpashop from 김영한 책\
 e. steal: jpa-best-practices-cheese10yun\
 f. jpa-best-practices\

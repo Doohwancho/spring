@@ -68,6 +68,7 @@ C. Behavioral: 객체들의 상호작용 패턴
 12. interpreter : 컴파일러 인터프리터 만들 때 사용.
 
 
+![](images/2023-04-27-16-34-36.png)
 
 ![design-pattern](./design-pattern.png)
 
@@ -80,3 +81,4 @@ credit
 2. https://github.dev/bethrobson/Head-First-Design-Patterns/tree/master/src/headfirst/designpatterns
 3. https://beomseok95.tistory.com/category/DesignPattern
 4. https://www.tutorialspoint.com/design_pattern/index.htm
+5. https://twitter.com/alexxubyte/status/1650888663960805376
