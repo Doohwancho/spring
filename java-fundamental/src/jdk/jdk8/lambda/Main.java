@@ -1,4 +1,4 @@
-package functional.lambda;
+package jdk.jdk8.lambda;
 
 import java.util.Arrays;
 import java.util.Collections;

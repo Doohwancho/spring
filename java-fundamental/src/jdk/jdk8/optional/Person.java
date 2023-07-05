@@ -1,4 +1,4 @@
-package functional.optional;
+package jdk.jdk8.optional;
 
 public class Person {
 	String name;

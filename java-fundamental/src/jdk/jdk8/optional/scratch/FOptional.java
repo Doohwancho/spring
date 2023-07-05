@@ -1,4 +1,4 @@
-package functional.optional.scratch;
+package jdk.jdk8.optional.scratch;
 
 import java.util.function.Function;
 

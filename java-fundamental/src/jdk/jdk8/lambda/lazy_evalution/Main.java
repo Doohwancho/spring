@@ -1,4 +1,4 @@
-package functional.lambda.lazy_evalution;
+package jdk.jdk8.lambda.lazy_evalution;
 
 import java.util.function.Supplier;
 

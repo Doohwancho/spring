@@ -23,6 +23,7 @@ k. clean code :question:\
 l. how jvm works :soon:\
 m. oop :white_check_mark:\
 n. mvc :white_check_mark:\
+o. jdk verion별 문법\
 x. enums\
 x. annotation\
 x. garbage collector\
@@ -91,6 +92,11 @@ n-1. build mvc from scratch :white_check_mark:\
 n-2. build event listener from scratch using observer pattern :white_check_mark:\
 n-3. build calculator in mvc + observer pattern :white_check_mark:\
 n-4. build search in mvc pattern using event listener :white_check_mark:
+
+o-a. jdk8\
+o-a-1. default method(interface) :white_check_mark:
+
+o-b. jdk11
 
 
 ---\
