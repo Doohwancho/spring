@@ -94,7 +94,11 @@ n-3. build calculator in mvc + observer pattern :white_check_mark:\
 n-4. build search in mvc pattern using event listener :white_check_mark:
 
 o-a. jdk8\
-o-a-1. default method(interface) :white_check_mark:
+o-a-1. default method(interface) :white_check_mark:\
+o-a-2. stream - 1. 스트림 만들기 :white_check_mark:\
+o-a-3. stream - 2. 가공하기 :white_check_mark:\
+o-a-4. stream - 3. 결과 만들기 :white_check_mark:
+
 
 o-b. jdk11
 

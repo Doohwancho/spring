@@ -1,8 +1,14 @@
 package jdk.jdk8.stream._03_결과만들기;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.IntSummaryStatistics;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.OptionalInt;
+import java.util.Set;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
@@ -106,13 +112,71 @@ public class Main {
             .sum(); // 86
 
 
+    IntSummaryStatistics statistics =
+        productList.stream()
+            .collect(Collectors.summarizingInt(Product::getAmount)); // IntSummaryStatistics {count=5, sum=86, min=13, average=17.200000, max=23}
+
+    Map<Integer, List<Product>> collectorMapOfLists =
+        productList.stream()
+            .collect(Collectors.groupingBy(Product::getAmount));
+
+    /*
+      {23=[Product{amount=23, name='potatoes'},
+      Product{amount=23, name='bread'}],
+      13=[Product{amount=13, name='lemon'},
+      Product{amount=13, name='sugar'}],
+      14=[Product{amount=14, name='orange'}]}
+     */
+
+    Map<Boolean, List<Product>> mapPartitioned =
+        productList.stream()
+            .collect(Collectors.partitioningBy(el -> el.getAmount() > 15));
+
+    /*
+    {false=[Product{amount=14, name='orange'},
+        Product{amount=13, name='lemon'},
+        Product{amount=13, name='sugar'}],
+ true=[Product{amount=23, name='potatoes'},
+       Product{amount=23, name='bread'}]}
+     */
+
+    Set<Product> unmodifiableSet =
+        productList.stream()
+            .collect(Collectors.collectingAndThen(Collectors.toSet(), //Set 으로 collect 한 후
+                Collections::unmodifiableSet)); //수정불가한 Set 으로 변환하는 작업
+
+
+    Collector<Product, ?, LinkedList<Product>> toLinkedList =
+        Collector.of(LinkedList::new,
+            LinkedList::add,
+            (first, second) -> {
+              first.addAll(second);
+              return first;
+            });
+
+    LinkedList<Product> linkedListOfPersons = productList.stream().collect(toLinkedList); //위 코드와 동일
+
 
 
     /****************************************/
     //step4. matching
 
+    List<String> names = Arrays.asList("Eric", "Elena", "Java");
+
+    boolean anyMatch = names.stream()
+        .anyMatch(name -> name.contains("a"));
+    boolean allMatch = names.stream()
+        .allMatch(name -> name.length() > 3);
+    boolean noneMatch = names.stream()
+        .noneMatch(name -> name.endsWith("s"));
+
+
+
     /****************************************/
     //step5. iterating
+
+    names.stream().forEach(System.out::println);
+
   }
 
 }
