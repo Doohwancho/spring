@@ -100,7 +100,7 @@ o-a-2. diamond problem for interface :white_check_mark:\
 o-a-3. stream - 1. 스트림 만들기 :white_check_mark:\
 o-a-4. stream - 2. 가공하기 :white_check_mark:\
 o-a-5. stream - 3. 결과 만들기 :white_check_mark:\
-o-a-6. stream - 4.  :white_check_mark:
+o-a-6. stream - 4. 고급(동작 순서, 성능향상, 재사용, 지연처리, null-safe 스트림 생성, shortcuts) :white_check_mark:
 
 o-b. jdk11
 
