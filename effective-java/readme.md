@@ -6,13 +6,6 @@ modularize concepts from book:"effective java"
 
 
 ---\
-How
-
-
-QnA: https://github.com/Java-Bom/ReadingRecord/issues?q=label%3A%22Effective+Java+3%22+is%3Aclosed
-
-
----\
 concepts
 
 
@@ -31,7 +24,7 @@ concepts
 
 3장 모든 객체의 공통 메서드\
 아이템 10. equals는 일반 규약을 지켜 재정의하라 :white_check_mark:\
-아이템 11. equals를 재정의하려거든 hashCode도 재정의하라\
+아이템 11. equals를 재정의하려거든 hashCode도 재정의하라 :white_check_mark:\
 아이템 12. toString을 항상 재정의하라\
 아이템 13. clone 재정의는 주의해서 진행하라\
 아이템 14. Comparable을 구현할지 고려하라
@@ -138,3 +131,13 @@ concepts
 아이템 88. readObject 메서드는 방어적으로 작성하라\
 아이템 89. 인스턴스 수를 통제해야 한다면 readResolve보다는 열거 타입을 사용하라\
 아이템 90. 직렬화된 인스턴스 대신 직렬화 프록시 사용을 검토하라
+
+
+
+---\
+How
+
+
+QnA: https://github.com/Java-Bom/ReadingRecord/issues?q=label%3A%22Effective+Java+3%22+is%3Aclosed
+
+
