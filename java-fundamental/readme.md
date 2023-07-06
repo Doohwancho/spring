@@ -24,6 +24,7 @@ l. how jvm works :soon:\
 m. oop :white_check_mark:\
 n. mvc :white_check_mark:\
 o. jdk verion별 문법\
+p. access modifier :white_check_mark:\
 x. enums\
 x. annotation\
 x. garbage collector\
@@ -95,12 +96,22 @@ n-4. build search in mvc pattern using event listener :white_check_mark:
 
 o-a. jdk8\
 o-a-1. default method(interface) :white_check_mark:\
-o-a-2. stream - 1. 스트림 만들기 :white_check_mark:\
-o-a-3. stream - 2. 가공하기 :white_check_mark:\
-o-a-4. stream - 3. 결과 만들기 :white_check_mark:
-
+o-a-2. diamond problem for interface :white_check_mark:\
+o-a-3. stream - 1. 스트림 만들기 :white_check_mark:\
+o-a-4. stream - 2. 가공하기 :white_check_mark:\
+o-a-5. stream - 3. 결과 만들기 :white_check_mark:\
+o-a-6. stream - 4.  :white_check_mark:
 
 o-b. jdk11
+
+p-1. public - anti pattern :white_check_mark:\
+p-2. private - what :white_check_mark:\
+p-3. private - ex1. singleton :white_check_mark:\
+p-4. private - ex2. util class :white_check_mark:\
+p-5. private package(default) - what :white_check_mark:\
+p-6. protected - what :white_check_mark:\
+p-7. protected - ex1. Bird :white_check_mark:\
+p-8. protected - ex2. factory method :white_check_mark:
 
 
 ---\
@@ -167,3 +178,5 @@ m-1. [calculator from pop to oop](https://github.com/serverwizard/oop-practice)
 n-1,2. build mvc from scratch - udemy "java design pattern and architecture" by John Purcell\
 n-3. [calculator using observer pattern](https://dev4-me.tistory.com/entry/MVC-%ED%8C%A8%ED%84%B4%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC-Java-SWING%EC%9C%BC%EB%A1%9C-%EA%B3%84%EC%82%B0%EA%B8%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EB%A7%8C%EB%93%A4%EA%B8%B0) \
 n-4. [build search in mvc + observer pattern](https://link-intersystems.com/blog/2013/07/20/the-mvc-pattern-implemented-with-java-swing/)
+
+o-a. [stream 기초, 고급](https://futurecreator.github.io/2018/08/26/java-8-streams-advanced/)
