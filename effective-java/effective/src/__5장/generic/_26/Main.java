@@ -1,4 +1,4 @@
-package __5장.제네릭._26;
+package __5장.generic._26;
 
 import java.util.ArrayList;
 import java.util.List;
