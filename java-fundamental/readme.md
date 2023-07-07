@@ -16,7 +16,7 @@ d. java time\
 e. thread -> concurrency-issue/\
 f. IO :white_check_mark:\
 g. java socket programming :white_check_mark:\
-h. generics :white_check_mark:\
+h. oop.generics :white_check_mark:\
 i. functional programming :question:\
 j. SOLID :white_check_mark:\
 k. clean code :question:\
@@ -51,7 +51,7 @@ g-2. java socket programming code :white_check_mark:\
 g-3. chatting program :white_check_mark:
 
 
-h-1. what is generics? :white_check_mark:\
+h-1. what is oop.generics? :white_check_mark:\
 h-2. generic method :white_check_mark:\
 h-3. T extends X && T super X :white_check_mark:\
 h-4. wild card :white_check_mark:\
