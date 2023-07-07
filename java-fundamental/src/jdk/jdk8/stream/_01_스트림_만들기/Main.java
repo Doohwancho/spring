@@ -9,6 +9,38 @@ import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
+
+/*
+---
+1. Structure of Stream
+
+스트림 객체를 뜯어보자.
+
+public interface Collection<E> extends Iterable<E> {
+
+    default Stream<E> stream() {
+        return StreamSupport.stream(spliterator(), false);
+    }
+
+}
+
+Collection 인터페이스면서, Iterable을 받는다.
+
+
+맨 처음에 personList.stream() 할 때, default Stream<E> stream() {}가 되어,
+그 다음 타자한테 계속 Stream<E>객체를 넘겨주다가,
+맨 마지막에 .get()이던, .sum()이던, .collect()이던, .count()이던,  스트림 객체에서 primitive type || wrapper class로 형변환 후 반환해준다.
+
+
+
+.stream()이후에 붙는건 주로,
+1. .collect()
+2. .filter()
+3. .sort()
+4. .reduce()
+가 있다.
+
+*/
 public class Main {
   public static void main(String[] args) {
 

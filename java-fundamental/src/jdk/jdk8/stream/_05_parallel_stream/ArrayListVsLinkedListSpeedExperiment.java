@@ -1,4 +1,4 @@
-package functional.stream.parallel;
+package jdk.jdk8.stream._05_parallel_stream;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -6,13 +6,13 @@ import java.util.List;
 
 /** experiment */
 //parallel stream 했을 때, ArrayList vs LinkedList 중, 뭐가 더 빠를까?
-public class ArrayListVsLinkedListEx {
+public class ArrayListVsLinkedListSpeedExperiment {
   public static void work(int value) {
   }
 
   public static long testParallel(List<Integer> list) {
     long start = System.nanoTime();
-    list.stream().parallel().forEach(ArrayListVsLinkedListEx::work);
+    list.stream().parallel().forEach(ArrayListVsLinkedListSpeedExperiment::work);
     long end = System.nanoTime();
     long runTime = end - start;
     return runTime;

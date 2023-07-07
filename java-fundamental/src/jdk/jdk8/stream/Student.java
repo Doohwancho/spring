@@ -1,4 +1,4 @@
-package functional.stream.parallel;
+package jdk.jdk8.stream;
 
 public class Student {
   private String name;

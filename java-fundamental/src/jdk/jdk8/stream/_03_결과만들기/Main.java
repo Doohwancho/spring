@@ -1,5 +1,6 @@
 package jdk.jdk8.stream._03_결과만들기;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.IntSummaryStatistics;
@@ -8,18 +9,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.OptionalInt;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
+import jdk.jdk8.stream.Person;
 import jdk.jdk8.stream.Product;
 
 public class Main {
 
   public static void main(String[] args) {
     //part3. 결과 만들기
+    List<Person> personList = new ArrayList<>();
+    personList.add(new Person("짱구", 23, "010-1234-1234"));
+    personList.add(new Person("유리", 24, "010-2341-2341"));
+    personList.add(new Person("철수", 29, "010-3412-3412"));
+    personList.add(new Person("맹구", 25, null));
 
 
     /****************************************/
@@ -66,6 +74,17 @@ public class Main {
               return a + b;
             }); //36
 
+
+
+    //ex) reduce
+    List<Integer> list = List.of(5, 4, 2, 1, 6, 7, 8, 3);
+
+    Integer result = list.stream()
+        .reduce(0, (value1, value2) -> value1 + value2);// 36
+
+    int intResult = list.stream()
+        // 또는 .mapToInt(x -> x).sum();
+        .mapToInt(Integer::intValue).sum(); //이렇게 하면 박싱 비용 줄일 수 있다.
 
     /****************************************/
     //step3. collecting
@@ -155,6 +174,25 @@ public class Main {
             });
 
     LinkedList<Product> linkedListOfPersons = productList.stream().collect(toLinkedList); //위 코드와 동일
+
+
+    //
+    Map<String, Person> personMap = personList.stream().collect(Collectors.toMap(Person::getName, Function.identity())); // Function.identity는 t -> t, 항상 입력된 인자(자신)를 반환합니다.
+
+
+    //same thing with above
+    Map<String, Person> personMap2 = personList.stream()
+        .collect(Collectors.toMap(new Function<Person, String>() {
+          @Override
+          public String apply(Person person) {
+            return person.getName();
+          }
+        }, new Function<Person, Person>() {
+          @Override
+          public Person apply(Person person) {
+            return person;
+          }
+        }));
 
 
 

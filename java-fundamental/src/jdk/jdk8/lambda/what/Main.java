@@ -1,4 +1,4 @@
-package jdk.jdk8.lambda;
+package jdk.jdk8.lambda.what;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,7 +24,7 @@ public class Main {
 		
 		int big = f.max(5, 3);  //익명 객체의 메서드 호출
 		
-		MyFunction f2 = (int a, int b) -> a > b ? a : b; //람다로 선
+		MyFunction f2 = (int a, int b) -> a > b ? a : b; //람다 (MyFunction은 인터페이스로 따로 정의해야 함)
 		int big2 = f2.max(5, 3);
 		
 		

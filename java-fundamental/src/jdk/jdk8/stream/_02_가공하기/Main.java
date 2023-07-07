@@ -1,11 +1,16 @@
 package jdk.jdk8.stream._02_가공하기;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+import jdk.jdk8.stream.Person;
 
 public class Main {
 
@@ -14,11 +19,37 @@ public class Main {
 
     List<String> names = Arrays.asList("Eric", "Elena", "Java");
 
+    List<Person> personList = new ArrayList<>();
+    personList.add(new Person("짱구", 23, "010-1234-1234"));
+    personList.add(new Person("유리", 24, "010-2341-2341"));
+    personList.add(new Person("철수", 29, "010-3412-3412"));
+    personList.add(new Person("맹구", 25, null));
+
+
     /****************************************/
     //step1. filter()
 
     //Stream<T> filter(Predicate<? super T> predicate);
     Stream<String> stream1 = names.stream().filter(name -> name.contains("a")); // [Elena, Java]
+
+
+    //ex) filter
+    Map<String, Person> personFilterMap = personList.stream()
+        .filter(person -> person.getAge() > 24) // 25살 이상만 골라낸다.
+        .collect(Collectors.toMap(Person::getName, Function.identity()));
+
+
+    //ex) filter로 null제
+    Stream<String> stream = Stream.of("철수", "훈이", null, "유리", null);
+    List<String> filteredList = stream.filter(Objects::nonNull)
+        .collect(Collectors.toList());
+
+
+    //ex) filter로 조건찾기
+    Person person = personList.stream()
+        .filter(p -> p.getAge() == 23)
+        .findFirst().get();
+
 
 
     /****************************************/
@@ -75,6 +106,12 @@ public class Main {
     lang.stream()
         .sorted((s1, s2) -> s2.length() - s1.length())
         .collect(Collectors.toList()); // [Groovy, Python, Scala, Swift, Java, Go]
+
+
+
+    personList.stream()
+        .sorted(Comparator.comparing(Person::getAge))
+        .forEach(p -> System.out.println(p.getName()));
 
 
 

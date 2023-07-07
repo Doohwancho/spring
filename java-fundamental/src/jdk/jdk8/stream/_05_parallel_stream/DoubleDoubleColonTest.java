@@ -1,9 +1,37 @@
-package functional.stream.parallel;
+package jdk.jdk8.stream._05_parallel_stream;
 
 import java.util.Arrays;
 import java.util.List;
+import jdk.jdk8.stream.MaleStudent;
+import jdk.jdk8.stream.Student;
+/*
+---
+Q. :: ?
 
-public class ParallelStreamTest {
+
+Map<String, Person> personMap = personList.stream()
+        .collect(Collectors.toMap(Person::getName, Function.identity()));
+
+
+여기에서, Person::getName 은 뭘까?
+가끔 System.out::println 도 쓰던데.
+
+Stream<String> stream
+            = Stream.of("Geeks", "For",
+                        "Geeks", "A",
+                        "Computer",
+                        "Portal");
+
+stream.forEach(s -> System.out.println(s));
+stream.forEach(System.out::println); //위에 코드와 같다.
+
+
+
+<Class name>::<method name>
+해당 클래스 안에 메서드를 쓰겠다는 것.
+ */
+
+public class DoubleDoubleColonTest {
   public static void main(String[] args) {
 	    List<Student> totalList = Arrays.asList(
 	        new Student("홍길동", 10, Student.Sex.MALE),
@@ -12,23 +40,24 @@ public class ParallelStreamTest {
 	        new Student("김여", 8, Student.Sex.FEMALE)
 	    );
 
-	    System.out.println("using lambda");
+	    System.out.println("step1) using lambda\n");
+
 	    MaleStudent maleStudentListLambda = totalList.parallelStream()
 	        .filter(s -> s.getSex() == Student.Sex.MALE)
 	        .collect(
 	            () -> new MaleStudent(), //.collect(요소, 누적기, 저장될 컬렉션) 
-	            (r, t) -> r.accumulate(t), //??? r,t 어디서 튀어나온겨? r이 Stream()객체고 t가 MaleStudent인거 같은데..
-	            (r1, r2) -> r1.combine(r2)); //??? r1, r2는 어서 튀어나온겨?  -> 그냥 lambda말고 :: 쓰자. 더 쉽고 직관적다. 
+	            (r, t) -> r.accumulate(t), //??? r,t 어디서 튀어나온겨? r은 MaleStudent. 그래서 r.accumulate()가 가능한 것. t는 Student
+	            (r1, r2) -> r1.combine(r2)); //??? r1, r2는 어서 튀어나온겨?  -> r1도 MaleStudent. 그래서 r1.combine()이 가능한 것. r2도 MaleStudent.
 	    maleStudentListLambda.getList().stream().forEach(s -> System.out.println(s.getName()));
 	    /*
 	     	---
 			console.log
 			
-			
+
 			using lambda
 			[main] MaleStudent()
-			[main] accumulate() 
-			[ForkJoinPool.commonPool-worker-1] MaleStudent() //각 쓰레드가 new MaleStudent()함 
+			[main] accumulate()
+			[ForkJoinPool.commonPool-worker-1] MaleStudent() //각 쓰레드가 new MaleStudent()함
 			[ForkJoinPool.commonPool-worker-3] MaleStudent()
 			[ForkJoinPool.commonPool-worker-2] MaleStudent()
 			[ForkJoinPool.commonPool-worker-3] accumulate()
@@ -37,8 +66,8 @@ public class ParallelStreamTest {
 			[ForkJoinPool.commonPool-worker-2] combine()
 			홍길동
 			김남
-			
-			
+
+
 			머지소트처럼되네?
 			main이 .accumulate()로 thread 1,2중에 new MaleStudent() 하나 먹고,
 			thread3이 .accumulate()로 thread 1,2중에 new MaleStudent() 하나 먹어서 
@@ -59,7 +88,9 @@ public class ParallelStreamTest {
 			 얘는 n-1번 합쳐야 하니까 좀 다르긴 하네. 
 	     */
 
-	    System.out.println("\n using method reference");
+	    System.out.println("\nstep2) using method reference ::\n");
+
+			//step1과 똑같은데, 차이점은 ::로 간소화 시켰냐의 차이.
 	    MaleStudent maleStudentListMethodReference = totalList.parallelStream()
 	        .filter(s -> s.getSex() == Student.Sex.MALE)
 	        .collect(MaleStudent::new, MaleStudent::accumulate, MaleStudent::combine); //.collect(요소, 누적기, 저장될 컬렉션) 

@@ -1,4 +1,4 @@
-package functional.stream.parallel;
+package jdk.jdk8.stream;
 
 import java.util.ArrayList;
 import java.util.List;

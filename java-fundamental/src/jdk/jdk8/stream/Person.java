@@ -1,6 +1,6 @@
-package functional.stream;
+package jdk.jdk8.stream;
 
-class Person {
+public class Person {
     private String name;
     private int age;
     private String phoneNumber;
