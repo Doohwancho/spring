@@ -101,7 +101,16 @@ o-a-3. stream - 1. 스트림 만들기 :white_check_mark:\
 o-a-4. stream - 2. 가공하기 :white_check_mark:\
 o-a-5. stream - 3. 결과 만들기 :white_check_mark:\
 o-a-6. stream - 4. 고급(동작 순서, 성능향상, 재사용, 지연처리, null-safe 스트림 생성, shortcuts) :white_check_mark:\
-o-a-7. stream - 5. ::, parallel stream performance test :white_check_mark:
+o-a-7. stream - 5. parallel stream performance test :white_check_mark:
+o-a-8. lambda - why lambda is created :white_check_mark:\
+o-a-9. lambda - 참조 지역변수는 final로 선언하라 :white_check_mark:\
+o-a-10. lambda - functional interface :white_check_mark:\
+o-a-11. lambda - :: :white_check_mark:\
+o-a-12. lambda - ::'s example - factory method :white_check_mark:\
+o-a-13. lambda - usecase - lazy evaluation  :white_check_mark:\
+o-a-14. lambda - usecase - execute around pattern :white_check_mark:\
+o-a-15. lambda - usecase - builder pattern :white_check_mark:\
+o-a-16. lambda - usecase - decorator pattern :white_check_mark:
 
 
 o-b. jdk11

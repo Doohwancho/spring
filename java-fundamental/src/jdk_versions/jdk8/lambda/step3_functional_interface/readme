@@ -1,0 +1,8 @@
+---
+summary
+
+1. Predicate<String> isEmptyString = (String s) -> s.isEmpty();
+2. Consumer<Integer> printInt = (int i) -> System.out.println("" + i);
+3. Function<String, Integer> strCount = (String s) -> s.length();
+4. Supplier<People> makeObject = () -> new People();
+5. UnaryOperator<Integer, Integer> sum = (int i) -> i + i;
