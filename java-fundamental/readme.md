@@ -9,22 +9,23 @@ modularize concepts in java
 Concepts
 
 
-a. exception\
-b. Collection\
-c. java util class\
-d. java time\
-e. thread -> concurrency-issue/\
-f. IO :white_check_mark:\
-g. java socket programming :white_check_mark:\
-h. oop.generics :white_check_mark:\
-i. functional programming :question:\
-j. SOLID :white_check_mark:\
-k. clean code :question:\
-l. how jvm works :soon:\
-m. oop :white_check_mark:\
-n. mvc :white_check_mark:\
-o. jdk verion별 문법\
-p. access modifier :white_check_mark:\
+a. IO :white_check_mark:\
+b. java socket programming :white_check_mark:\
+c. jdk verion별 문법 :white_check_mark:\
+d. oop :white_check_mark:\
+e. generics :white_check_mark:\
+f. access modifier :white_check_mark:\
+g. SOLID :white_check_mark:\
+h. mvc :white_check_mark:\
+
+i. clean code :question:\
+j. functional programming :question:\
+l. how jvm works :question:\
+
+x. exception\
+x. Collection\
+x. java util class\
+x. java time\
 x. enums\
 x. annotation\
 x. garbage collector\
@@ -37,164 +38,164 @@ x. debugging
 Todo
 
 
-f-1. io overall structure :white_check_mark:\
-f-2. File Input/Output Stream, read by single byte :white_check_mark:\
-f-3. File Input/Output Stream, read by buffer :white_check_mark:\
-f-4. DataOutputStream, decorator :white_check_mark:\
-f-5. BufferedReader :white_check_mark:\
-f-6. io between threads :white_check_mark:\
-f-7. serialization :white_check_mark:
+a-1. io overall structure :white_check_mark:\
+a-2. File Input/Output Stream, read by single byte :white_check_mark:\
+a-3. File Input/Output Stream, read by buffer :white_check_mark:\
+a-4. DataOutputStream, decorator :white_check_mark:\
+a-5. BufferedReader :white_check_mark:\
+a-6. io between threads :white_check_mark:\
+a-7. serialization :white_check_mark:
 
 
-g-1. what is web socket? :white_check_mark:\
-g-2. java socket programming code :white_check_mark:\
-g-3. chatting program :white_check_mark:
+b-1. what is web socket? :white_check_mark:\
+b-2. java socket programming code :white_check_mark:\
+b-3. chatting program :white_check_mark:
 
-
-h-1. what is oop.generics? :white_check_mark:\
-h-2. generic method :white_check_mark:\
-h-3. T extends X && T super X :white_check_mark:\
-h-4. wild card :white_check_mark:\
-h-5. example) builder pattern in abstract class :white_check_mark:\
-h-6. generic method advanced :white_check_mark:
-
-
-i-1. 불변객체 :white_check_mark:\
-i-2. 순수함수 :white_check_mark:\
-i-3. 고차함수 :white_check_mark:\
-i-4. embedded iteratable :white_check_mark:\
-i-5. lambda :white_check_mark:\
-i-6. stream :white_check_mark:\
-i-7. closure :white_check_mark:\
-i-8. optional :white_check_mark:\
-i-9. lazy evaluation :white_check_mark:\
-i-10. compose :white_check_mark:\
-i-11. recursion :white_check_mark:\
-i-12. currying :white_check_mark:\
-i-13. functor :white_check_mark:\
-i-14. functional interface - Predicate :white_check_mark:\
-i-15. functional interface - Consumer :white_check_mark:\
-i-16. functional interface - Supplier :white_check_mark:\
-i-17. functional interface - Function :white_check_mark:\
-i-x. monad
-
-j-1. baeldung SOLID :white_check_mark:
-
-k-1. 이유와 솔루션으로 정리하는 객체지향 생활체조 원칙 :white_check_mark:\
-k-2. rule of 6 :white_check_mark:\
-k-3. clean code is "subjective" :white_check_mark:
-
-l-1. call by value vs call by reference :white_check_mark:\
-l-2. javacode in method area, heap, stack :white_check_mark:
-
-m-1. calculator from pop to oop :white_check_mark:
-
-n-1. build mvc from scratch :white_check_mark:\
-n-2. build event listener from scratch using observer pattern :white_check_mark:\
-n-3. build calculator in mvc + observer pattern :white_check_mark:\
-n-4. build search in mvc pattern using event listener :white_check_mark:
-
-o-a. jdk8\
-o-a-1. default method(interface) :white_check_mark:\
-o-a-2. diamond problem for interface :white_check_mark:\
-o-a-3. stream - 1. 스트림 만들기 :white_check_mark:\
-o-a-4. stream - 2. 가공하기 :white_check_mark:\
-o-a-5. stream - 3. 결과 만들기 :white_check_mark:\
-o-a-6. stream - 4. 고급(동작 순서, 성능향상, 재사용, 지연처리, null-safe 스트림 생성, shortcuts) :white_check_mark:\
-o-a-7. stream - 5. parallel stream performance test :white_check_mark:
-o-a-8. lambda - why lambda is created :white_check_mark:\
-o-a-9. lambda - 참조 지역변수는 final로 선언하라 :white_check_mark:\
-o-a-10. lambda - functional interface :white_check_mark:\
-o-a-11. lambda - :: :white_check_mark:\
-o-a-12. lambda - ::'s example - factory method :white_check_mark:\
-o-a-13. lambda - usecase - lazy evaluation  :white_check_mark:\
-o-a-14. lambda - usecase - execute around pattern :white_check_mark:\
-o-a-15. lambda - usecase - builder pattern :white_check_mark:\
-o-a-16. lambda - usecase - decorator pattern :white_check_mark:\
-o-a-17. future - what :white_check_mark:\
-o-a-18. optional - why :white_check_mark:\
-o-a-19. optional - what :white_check_mark:\
-o-a-20. optional - build from scratch :white_check_mark:\
-o-a-21. optional - best practices :white_check_mark:\
-o-a-22. optional - how to refactor into optional :white_check_mark:
+c-ㄱ. jdk8\
+c-ㄱ-가-1. default method(interface) :white_check_mark:\
+c-ㄱ-가-2. diamond problem for interface :white_check_mark:\
+c-ㄱ-나-1. stream - 1. 스트림 만들기 :white_check_mark:\
+c-ㄱ-나-2. stream - 2. 가공하기 :white_check_mark:\
+c-ㄱ-나-3. stream - 3. 결과 만들기 :white_check_mark:\
+c-ㄱ-나-4. stream - 4. 고급(동작 순서, 성능향상, 재사용, 지연처리, null-safe 스트림 생성, shortcuts) :white_check_mark:\
+c-ㄱ-나-5. stream - 5. parallel stream performance test :white_check_mark:
+c-ㄱ-다-1. lambda - why lambda is created :white_check_mark:\
+c-ㄱ-다-2. lambda - 참조 지역변수는 final로 선언하라 :white_check_mark:\
+c-ㄱ-다-3. lambda - functional interface :white_check_mark:\
+c-ㄱ-다-4. lambda - :: :white_check_mark:\
+c-ㄱ-다-5. lambda - ::'s example - factory method :white_check_mark:\
+c-ㄱ-다-6. lambda - usecase - lazy evaluation  :white_check_mark:\
+c-ㄱ-다-7. lambda - usecase - execute around pattern :white_check_mark:\
+c-ㄱ-다-8. lambda - usecase - builder pattern :white_check_mark:\
+c-ㄱ-다-9. lambda - usecase - decorator pattern :white_check_mark:\
+c-ㄱ-라-10. future - what :white_check_mark:\
+c-ㄱ-마-1. optional - why :white_check_mark:\
+c-ㄱ-마-2. optional - what :white_check_mark:\
+c-ㄱ-마-3. optional - build from scratch :white_check_mark:\
+c-ㄱ-마-4. optional - best practices :white_check_mark:\
+c-ㄱ-마-5. optional - how to refactor into optional :white_check_mark:
 
 
 
-o-b. jdk11
+c-ㄴ. jdk11
 
-p-1. public - anti pattern :white_check_mark:\
-p-2. private - what :white_check_mark:\
-p-3. private - ex1. singleton :white_check_mark:\
-p-4. private - ex2. util class :white_check_mark:\
-p-5. private package(default) - what :white_check_mark:\
-p-6. protected - what :white_check_mark:\
-p-7. protected - ex1. Bird :white_check_mark:\
-p-8. protected - ex2. factory method :white_check_mark:
+
+
+d-가. calculator from pop to oop :white_check_mark:
+
+
+
+e-1. what is oop.generics? :white_check_mark:\
+e-2. generic method :white_check_mark:\
+e-3. T extends X && T super X :white_check_mark:\
+e-4. wild card :white_check_mark:\
+e-5. example) builder pattern in abstract class :white_check_mark:\
+e-6. generic method advanced :white_check_mark:
+
+
+f-ㄱ-1. public - anti pattern :white_check_mark:\
+f-ㄴ-1. private - what :white_check_mark:\
+f-ㄴ-2. private - ex1. singleton :white_check_mark:\
+f-ㄴ-3. private - ex2. util class :white_check_mark:\
+f-ㄷ-1. private package(default) - what :white_check_mark:\
+f-ㄹ-1. protected - what :white_check_mark:\
+f-ㄹ-2. protected - ex1. Bird :white_check_mark:\
+f-ㄹ-3. protected - ex2. factory method :white_check_mark:
+
+g-1. baeldung SOLID :white_check_mark:
+
+
+h-1. build mvc from scratch :white_check_mark:\
+h-2. build event listener from scratch using observer pattern :white_check_mark:\
+h-3. build calculator in mvc + observer pattern :white_check_mark:\
+h-4. build search in mvc pattern using event listener :white_check_mark:
+
+
+
+i-1. 이유와 솔루션으로 정리하는 객체지향 생활체조 원칙 :white_check_mark:\
+i-2. rule of 6 :white_check_mark:\
+i-3. clean code is "subjective" :white_check_mark:
+
+
+
+j-ㄱ-1. 불변객체 :white_check_mark:\
+j-ㄴ-1. 순수함수 :white_check_mark:\
+j-ㄷ-1. 고차함수 :white_check_mark:\
+j-ㄹ-1. embedded iteratable :white_check_mark:\
+j-ㅁ-1. lambda :white_check_mark:\
+j-ㅂ-1. stream :white_check_mark:\
+j-ㅅ-1. closure :white_check_mark:\
+j-ㅇ-1. optional :white_check_mark:\
+j-ㅈ-1. lazy evaluation :white_check_mark:\
+j-ㅊ-1. compose :white_check_mark:\
+j-ㅋ-1. recursion :white_check_mark:\
+j-ㅌ-1. currying :white_check_mark:\
+j-ㅍ-1. functor :white_check_mark:\
+j-x. monad
+
+
+k-1. call by value vs call by reference :white_check_mark:\
+k-2. javacode in method area, heap, stack :white_check_mark:
+
 
 
 ---\
 Reference
 
 
-e-1. [thread basic](https://github.com/woowacourse/jwp-hands-on) \
-e-2. [thread pool](https://github.com/woowacourse/jwp-hands-on) \
-e-3. [race condition](https://hudi.blog/race-condition-critical-section-mutual-exclusion/) \
-e-4. [synchronization](https://github.com/woowacourse/jwp-hands-on) \
-e-5. [Volatile 이란?](https://ttl-blog.tistory.com/238) \
-e-6. [Atomic Class에서 CAS란?](https://javaplant.tistory.com/23#:~:text=AtomicInteger%EB%9E%80%20%EC%9B%90%EC%9E%90%EC%84%B1%EC%9D%84,%ED%95%98%EA%B8%B0%20%EC%9C%84%ED%95%B4%EC%84%9C%20%EA%B3%A0%EC%95%88%EB%90%9C%20%EB%B0%A9%EB%B2%95%EC%9D%B4%EB%8B%A4.) \
-e-7. [자바 쓰레드 교착상태](https://math-coding.tistory.com/175) \
-e-9. [크리티컬 섹션, 뮤텍스, 세마포어 설명](https://do-rang.tistory.com/90) \
-e-10. [세마포어 설명](https://javaplant.tistory.com/30?category=789385) \
-e-11. [Monitor 설명](https://velog.io/@hosunghan0821/Java-Monitor) \
-e-12. [thread dump 떠서 데드락 확인](https://syundev.tistory.com/284?category=870166)
+a-1. [io overall structure](https://www.youtube.com/watch?v=FqqzbRPSAks&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=15) \
+a-2. [File Input/Output Stream](https://www.youtube.com/watch?v=fpOGpBywvR4&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=16) \
+a-3. [File Input/Output Stream with buffer size](https://www.youtube.com/watch?v=4DtJ1QcZZkI&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=17) \
+a-4. [DataOutputStream, decorator](https://www.youtube.com/watch?v=ewZhpmriRN8&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=19) \
+a-5. [BufferedReader](https://www.youtube.com/watch?v=vaOjTx5pPhY&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=20) \
+a-6. io between threads - 자바의 정석 \
+a-7. serialization - 자바의 정석
 
 
-f-1. [io overall structure](https://www.youtube.com/watch?v=FqqzbRPSAks&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=15) \
-f-2. [File Input/Output Stream](https://www.youtube.com/watch?v=fpOGpBywvR4&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=16) \
-f-3. [File Input/Output Stream with buffer size](https://www.youtube.com/watch?v=4DtJ1QcZZkI&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=17) \
-f-4. [DataOutputStream, decorator](https://www.youtube.com/watch?v=ewZhpmriRN8&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=19) \
-f-5. [BufferedReader](https://www.youtube.com/watch?v=vaOjTx5pPhY&list=PLz4XWo74AOafFAkhYJK3SDBIrXjsaIu66&index=20) \
-f-6. io between threads - 자바의 정석 \
-f-7. serialization - 자바의 정석
+b-1. [what is web socket?](https://www.youtube.com/watch?v=yXPCg5eupGM) \
+b-2. [자바 소켓 통신(Socket)을 사용하는 이유와 동작 원리 및 코드](https://wildeveloperetrain.tistory.com/122) \
+b-3. [TCP socket programming - chatting](https://lktprogrammer.tistory.com/64?category=672211)
+
+c-a. [stream 기초, 고급](https://futurecreator.github.io/2018/08/26/java-8-streams-advanced/) \
+c-a. [java Optional 바르게 쓰기 - 기계인간](https://homoefficio.github.io/2019/10/03/Java-Optional-%EB%B0%94%EB%A5%B4%EA%B2%8C-%EC%93%B0%EA%B8%B0/)
+
+d-가. [calculator from pop to oop](https://github.com/serverwizard/oop-practice)
 
 
-g-1. [what is web socket?](https://www.youtube.com/watch?v=yXPCg5eupGM) \
-g-2. [자바 소켓 통신(Socket)을 사용하는 이유와 동작 원리 및 코드](https://wildeveloperetrain.tistory.com/122) \
-g-3. [TCP socket programming - chatting](https://lktprogrammer.tistory.com/64?category=672211)
+
+e-1..4. [제네릭 기본, generic method, T extends X && T super X, wild card](https://www.youtube.com/watch?v=Vv0PGUxOzq0) \
+e-5. example) builder pattern in abstract class - effective java\
+e-6. [generic method advanced](https://devlog-wjdrbs96.tistory.com/201)
+
+g-1. [A Solid Guide to SOLID Principles](https://www.baeldung.com/solid-principles)
 
 
-h-1..4. [제네릭 기본, generic method, T extends X && T super X, wild card](https://www.youtube.com/watch?v=Vv0PGUxOzq0) \
-h-5. example) builder pattern in abstract class - effective java\
-h-6. [generic method advanced](https://devlog-wjdrbs96.tistory.com/201)
+h-1,2. build mvc from scratch - udemy "java design pattern and architecture" by John Purcell\
+h-3. [calculator using observer pattern](https://dev4-me.tistory.com/entry/MVC-%ED%8C%A8%ED%84%B4%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC-Java-SWING%EC%9C%BC%EB%A1%9C-%EA%B3%84%EC%82%B0%EA%B8%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EB%A7%8C%EB%93%A4%EA%B8%B0) \
+h-4. [build search in mvc + observer pattern](https://link-intersystems.com/blog/2013/07/20/the-mvc-pattern-implemented-with-java-swing/)
 
 
-i-1..4. [자바 코드로 보는 함수형 프로그래밍](https://warpgate3.tistory.com/entry/%EC%9E%90%EB%B0%94%EC%BD%94%EB%93%9C%EB%A1%9C-%EB%B3%B4%EB%8A%94-%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-Functional-Programming-in-Java) \
-i-6. [자바 스트림 예제](https://madplay.github.io/post/java-streams-examples) \
-i-9. [lazy evaluation](https://sthwin.tistory.com/21#:~:text=%EC%9E%90%EB%B0%94%EC%97%90%EC%84%9C%20%EC%9D%BC%EA%B8%89%ED%95%A8%EC%88%98%EC%97%90%20%EA%B0%80%EC%9E%A5%20%EA%B0%80%EA%B9%8C%EC%9A%B4%20%EA%B2%83%EC%9D%B4%20%EB%9E%8C%EB%8B%A4%ED%91%9C%ED%98%84%20%28Lambda,expressions%29%EC%9D%B4%EB%8B%A4.Function%2CConsumer%2CPredicate%2CSupplier%EC%99%80%20%EA%B0%99%EC%9D%80%20%ED%95%A8%EC%88%98%ED%98%95%20%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4%EB%93%A4%EC%9D%B4%20%EC%A4%80%EB%B9%84%EB%90%98%EC%96%B4%20%EC%9E%88%EC%9C%BC%EB%A9%B0java.util.function%ED%8C%A8%ED%82%A4%EC%A7%80%20%EB%82%B4%EC%97%90%20%EC%A1%B4%EC%9E%AC%ED%95%9C%EB%8B%A4.) \
-i-14..17. [functional interface most frequently used](https://yhmane.tistory.com/203) \
-i-x. [monad](https://www.youtube.com/channel/UCrlZnbV0o2cnUNWdEORTxsw/videos) \
-i-x. [3분 모나드](https://overcurried.com/3%EB%B6%84%20%EB%AA%A8%EB%82%98%EB%93%9C/)
+
+i-1. [이유와 솔루션으로 정리하는 객체지향 생활체조 원칙](https://hudi.blog/thoughtworks-anthology-object-calisthenics/) \
+i-2. [rule of 6](https://davidamos.dev/the-rule-of-six/) \
+i-3. [is the term "clean code" subjective?](https://www.youtube.com/watch?v=ou6x2qcLOLI) \
+i-x. Code Complete 2 \
+i-x. Refactoring 2 \
+i-x. Working Effectively with Legacy Code
+
+j-1..4. [자바 코드로 보는 함수형 프로그래밍](https://warpgate3.tistory.com/entry/%EC%9E%90%EB%B0%94%EC%BD%94%EB%93%9C%EB%A1%9C-%EB%B3%B4%EB%8A%94-%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-Functional-Programming-in-Java) \
+j-6. [자바 스트림 예제](https://madplay.github.io/post/java-streams-examples) \
+j-9. [lazy evaluation](https://sthwin.tistory.com/21#:~:text=%EC%9E%90%EB%B0%94%EC%97%90%EC%84%9C%20%EC%9D%BC%EA%B8%89%ED%95%A8%EC%88%98%EC%97%90%20%EA%B0%80%EC%9E%A5%20%EA%B0%80%EA%B9%8C%EC%9A%B4%20%EA%B2%83%EC%9D%B4%20%EB%9E%8C%EB%8B%A4%ED%91%9C%ED%98%84%20%28Lambda,expressions%29%EC%9D%B4%EB%8B%A4.Function%2CConsumer%2CPredicate%2CSupplier%EC%99%80%20%EA%B0%99%EC%9D%80%20%ED%95%A8%EC%88%98%ED%98%95%20%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4%EB%93%A4%EC%9D%B4%20%EC%A4%80%EB%B9%84%EB%90%98%EC%96%B4%20%EC%9E%88%EC%9C%BC%EB%A9%B0java.util.function%ED%8C%A8%ED%82%A4%EC%A7%80%20%EB%82%B4%EC%97%90%20%EC%A1%B4%EC%9E%AC%ED%95%9C%EB%8B%A4.) \
+j-14..17. [functional interface most frequently used](https://yhmane.tistory.com/203) \
+j-x. [monad](https://www.youtube.com/channel/UCrlZnbV0o2cnUNWdEORTxsw/videos) \
+j-x. [3분 모나드](https://overcurried.com/3%EB%B6%84%20%EB%AA%A8%EB%82%98%EB%93%9C/)
 
 
-j-1. [A Solid Guide to SOLID Principles](https://www.baeldung.com/solid-principles)
 
 
-k-1. [이유와 솔루션으로 정리하는 객체지향 생활체조 원칙](https://hudi.blog/thoughtworks-anthology-object-calisthenics/) \
-k-2. [rule of 6](https://davidamos.dev/the-rule-of-six/) \
-k-3. [is the term "clean code" subjective?](https://www.youtube.com/watch?v=ou6x2qcLOLI) \
-k-x. Code Complete 2 \
-k-x. Refactoring 2 \
-k-x. Working Effectively with Legacy Code
+
+k-1. [call by value, call by reference](https://gyoogle.dev/blog/computer-language/Java/Call%20by%20value%20&%20Call%20by%20reference.html) \
+k-2. [method, stack, heap area](https://www.youtube.com/watch?v=Vd1C3-wHc4Y&ab_channel=%EC%BD%94%EB%93%9C%EB%9D%BC%EB%96%BC)
 
 
-l-1. [call by value, call by reference](https://gyoogle.dev/blog/computer-language/Java/Call%20by%20value%20&%20Call%20by%20reference.html) \
-l-2. [method, stack, heap area](https://www.youtube.com/watch?v=Vd1C3-wHc4Y&ab_channel=%EC%BD%94%EB%93%9C%EB%9D%BC%EB%96%BC)
 
-
-m-1. [calculator from pop to oop](https://github.com/serverwizard/oop-practice)
-
-n-1,2. build mvc from scratch - udemy "java design pattern and architecture" by John Purcell\
-n-3. [calculator using observer pattern](https://dev4-me.tistory.com/entry/MVC-%ED%8C%A8%ED%84%B4%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC-Java-SWING%EC%9C%BC%EB%A1%9C-%EA%B3%84%EC%82%B0%EA%B8%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EB%A7%8C%EB%93%A4%EA%B8%B0) \
-n-4. [build search in mvc + observer pattern](https://link-intersystems.com/blog/2013/07/20/the-mvc-pattern-implemented-with-java-swing/)
-
-o-a. [stream 기초, 고급](https://futurecreator.github.io/2018/08/26/java-8-streams-advanced/)
