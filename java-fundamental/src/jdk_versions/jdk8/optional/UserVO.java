@@ -5,7 +5,7 @@ public class UserVO {
 	UserVO getUser() {
 		return null;
 	}
-	Address getAddress() {
+	public Address getAddress() {
 		return null;
 	}
 }

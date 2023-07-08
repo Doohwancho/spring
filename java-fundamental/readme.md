@@ -110,7 +110,14 @@ o-a-12. lambda - ::'s example - factory method :white_check_mark:\
 o-a-13. lambda - usecase - lazy evaluation  :white_check_mark:\
 o-a-14. lambda - usecase - execute around pattern :white_check_mark:\
 o-a-15. lambda - usecase - builder pattern :white_check_mark:\
-o-a-16. lambda - usecase - decorator pattern :white_check_mark:
+o-a-16. lambda - usecase - decorator pattern :white_check_mark:\
+o-a-17. future - what :white_check_mark:\
+o-a-18. optional - why :white_check_mark:\
+o-a-19. optional - what :white_check_mark:\
+o-a-20. optional - build from scratch :white_check_mark:\
+o-a-21. optional - best practices :white_check_mark:\
+o-a-22. optional - how to refactor into optional :white_check_mark:
+
 
 
 o-b. jdk11
