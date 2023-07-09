@@ -1,8 +1,8 @@
-package oop.example.calculator.domain;
+package oop.pop.ex2.oop_calculator.domain;
 
-import oop.example.calculator.tobe.ArithmeticOperator;
-import oop.example.calculator.tobe.AdditionOperator;
-import oop.example.calculator.tobe.DivisionOperator;
+import oop.pop.ex2.oop_calculator.tobe.ArithmeticOperator;
+import oop.pop.ex2.oop_calculator.tobe.AdditionOperator;
+import oop.pop.ex2.oop_calculator.tobe.DivisionOperator;
 
 import java.util.List;
 

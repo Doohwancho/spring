@@ -1,4 +1,4 @@
-package oop.example.calculator.domain;
+package oop.pop.ex2.oop_calculator.domain;
 
 public class PositiveNumber {
     private static final String ZERO_OR_NEGATIVE_NUMBER_EXCEPTION_MESSAGE = "0 또는 음수를 전달할 수 없습니다.";

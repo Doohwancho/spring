@@ -78,9 +78,9 @@ c-ㄱ-마-5. optional - how to refactor into optional :white_check_mark:
 c-ㄴ. jdk11
 
 
-
-d-가. calculator from pop to oop :white_check_mark:
-
+d-ㄱ. pop\
+d-ㄱ-가. calculator from pop to oop :white_check_mark:\
+d-ㄱ-나. pop -> oop 도형 예제 :white_check_mark:
 
 
 e-1. what is oop.generics? :white_check_mark:\

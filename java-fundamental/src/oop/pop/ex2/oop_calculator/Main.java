@@ -1,9 +1,9 @@
-package oop.example.calculator;
+package oop.pop.ex2.oop_calculator;
 
-import oop.example.calculator.domain.Calculator;
-import oop.example.calculator.domain.PositiveNumber;
-import oop.example.calculator.ui.ConsoleInputUI;
-import oop.example.calculator.ui.ConsoleOutputUI;
+import oop.pop.ex2.oop_calculator.domain.Calculator;
+import oop.pop.ex2.oop_calculator.domain.PositiveNumber;
+import oop.pop.ex2.oop_calculator.ui.ConsoleInputUI;
+import oop.pop.ex2.oop_calculator.ui.ConsoleOutputUI;
 
 public class Main{
 

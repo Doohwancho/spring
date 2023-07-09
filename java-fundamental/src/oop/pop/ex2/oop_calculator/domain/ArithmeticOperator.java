@@ -1,4 +1,4 @@
-package oop.example.calculator.domain;
+package oop.pop.ex2.oop_calculator.domain;
 
 
 import java.util.Arrays;

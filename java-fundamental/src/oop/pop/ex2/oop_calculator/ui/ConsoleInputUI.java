@@ -1,4 +1,4 @@
-package oop.example.calculator.ui;
+package oop.pop.ex2.oop_calculator.ui;
 
 
 import java.util.Scanner;

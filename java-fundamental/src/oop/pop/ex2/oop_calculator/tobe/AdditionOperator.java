@@ -1,6 +1,6 @@
-package oop.example.calculator.tobe;
+package oop.pop.ex2.oop_calculator.tobe;
 
-import oop.example.calculator.domain.PositiveNumber;
+import oop.pop.ex2.oop_calculator.domain.PositiveNumber;
 
 public class AdditionOperator implements ArithmeticOperator {
 
