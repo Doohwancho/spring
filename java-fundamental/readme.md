@@ -116,7 +116,8 @@ i-ㄱ-나-1. rule of 6 :white_check_mark:\
 i-ㄴ. comment
 
 i-ㄷ. variables
-i-ㄷ-1. 원시값 & 문자열 포장한 클래스 :white_check_mark:
+i-ㄷ-1. 원시값 & 문자열 포장한 클래스 :white_check_mark:\
+i-ㄷ-2. 축약어 풀어써라 :white_check_mark:
 
 i-ㄹ. function\
 i-ㄹ-가. if\
@@ -126,7 +127,9 @@ i-ㄹ-가-3. if - if else -> 역조건 :white_check_mark:
 
 
 i-ㅁ. class\
-i-ㅁ-가-1. immutable class :white_check_mark:
+i-ㅁ-가. immutable class\
+i-ㅁ-가-1. why :white_check_mark:\
+i-ㅁ-가-2. 일급 컬렉션 :white_check_mark:
 
 i-ㅂ. query
 

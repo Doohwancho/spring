@@ -1,4 +1,4 @@
-package clean_code._05_class_.immutable_class;
+package clean_code._05_class_.immutable_class.why;
 
 /*
   Q. why use 불변 객체?
