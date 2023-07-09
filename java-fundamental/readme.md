@@ -125,7 +125,11 @@ i-ㄹ-가-2. if - if-else -> switch :white_check_mark:\
 i-ㄹ-가-3. if - if else -> 역조건 :white_check_mark:\
 i-ㄹ-나. getter\
 i-ㄹ-나-1. don't ask, just tell :white_check_mark:\
-i-ㄹ-다. setter
+i-ㄹ-다. setter\
+i-ㄹ-다-1. don't ask, just tell :white_check_mark:\
+i-ㄹ-다-2. 의도치 않은 필드(ex. id)의 setter() 방어 :white_check_mark:\
+i-ㄹ-다-3. custom setter()는 validation check 로직 추가 가능 :white_check_mark:
+
 
 i-ㅁ. class\
 i-ㅁ-가. immutable class\
