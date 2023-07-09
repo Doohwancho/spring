@@ -1,4 +1,4 @@
-package clean_code._01_principle_.객체지향_생활체조_원칙._8.step2;
+package clean_code._01_principle_._01_이해하기_쉬운_코드.객체지향_생활체조_원칙._8.step2;
 
 public class DaisoItems {
 

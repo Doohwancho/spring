@@ -1,4 +1,4 @@
-package clean_code._01_principle_.객체지향_생활체조_원칙._6;
+package clean_code._01_principle_._01_이해하기_쉬운_코드.객체지향_생활체조_원칙._6;
 
 public class Main {
     //50줄 이상 클래스 있으면 나눠라.

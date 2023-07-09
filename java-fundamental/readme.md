@@ -117,11 +117,17 @@ i-ㄴ. comment
 
 i-ㄷ. variables
 
-i-ㄹ. method
+i-ㄹ. function\
+i-ㄹ-가. if\
+i-ㄹ-가-1. if - 왜 if-else문을 비추? :white_check_mark:\
+i-ㄹ-가-2. if - if-else -> switch :white_check_mark:\
+i-ㄹ-가-3. if - if else -> 역조건 :white_check_mark:
+
 
 i-ㅁ. class\
 i-ㅁ-가-1. immutable class :white_check_mark:
 
+i-ㅂ. query
 
 
 j-ㄱ-1. 불변객체 :white_check_mark:\
