@@ -1,4 +1,4 @@
-package clean_code.객체지향_생활체조_원칙._1;
+package clean_code._01_principle_.객체지향_생활체조_원칙._1;
 
 public class Board {
     int[][] data;

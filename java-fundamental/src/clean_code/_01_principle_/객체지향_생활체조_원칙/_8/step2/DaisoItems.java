@@ -1,7 +1,4 @@
-package clean_code.객체지향_생활체조_원칙._8.step2;
-
-import java.util.ArrayList;
-import java.util.List;
+package clean_code._01_principle_.객체지향_생활체조_원칙._8.step2;
 
 public class DaisoItems {
 

@@ -17,11 +17,9 @@ e. generics :white_check_mark:\
 f. access modifier :white_check_mark:\
 g. SOLID :white_check_mark:\
 h. mvc :white_check_mark:\
-
 i. clean code :question:\
 j. functional programming :question:\
 l. how jvm works :question:\
-
 x. exception\
 x. Collection\
 x. java util class\
@@ -111,10 +109,18 @@ h-3. build calculator in mvc + observer pattern :white_check_mark:\
 h-4. build search in mvc pattern using event listener :white_check_mark:
 
 
+i-ㄱ. principle\
+i-ㄱ-가-1. 객체지향 생활체조 원칙 :white_check_mark:\
+i-ㄱ-나-1. rule of 6 :white_check_mark:\
 
-i-1. 이유와 솔루션으로 정리하는 객체지향 생활체조 원칙 :white_check_mark:\
-i-2. rule of 6 :white_check_mark:\
-i-3. clean code is "subjective" :white_check_mark:
+i-ㄴ. comment
+
+i-ㄷ. variables
+
+i-ㄹ. method
+
+i-ㅁ. class\
+i-ㅁ-가-1. immutable class :white_check_mark:
 
 
 

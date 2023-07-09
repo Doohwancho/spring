@@ -1,6 +1,4 @@
-package clean_code.객체지향_생활체조_원칙._8.step1;
-
-import java.util.ArrayList;
+package clean_code._01_principle_.객체지향_생활체조_원칙._8.step1;
 
 public class Main {
 
