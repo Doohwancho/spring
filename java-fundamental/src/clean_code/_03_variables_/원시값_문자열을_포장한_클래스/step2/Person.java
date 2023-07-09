@@ -1,8 +1,8 @@
-package clean_code._01_principle_._01_이해하기_쉬운_코드.객체지향_생활체조_원칙._3.step2;
+package clean_code._03_variables_.원시값_문자열을_포장한_클래스.step2;
 
 public class Person {
 
-    private final Id id;
+    private final Id id; //final -> 불변 변수라 공유하기 좋다.
     private final Age age;
     private final Money money;
 
@@ -14,13 +14,26 @@ public class Person {
 
     public class Id {
         private int value;
+
+        public Id(int value){
+            if(value > 100){ //validation check 가능!
+                throw new RuntimeException();
+            }
+            this.value = value;
+        }
+
+        //add custom method
     }
 
     public class Age {
         private int value;
+
+        //add custom method
     }
 
     public class Money {
         private int value;
+
+        //add custom method
     }
 }

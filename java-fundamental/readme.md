@@ -116,6 +116,7 @@ i-ㄱ-나-1. rule of 6 :white_check_mark:\
 i-ㄴ. comment
 
 i-ㄷ. variables
+i-ㄷ-1. 원시값 & 문자열 포장한 클래스 :white_check_mark:
 
 i-ㄹ. function\
 i-ㄹ-가. if\
