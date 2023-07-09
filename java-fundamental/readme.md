@@ -20,6 +20,7 @@ h. mvc :white_check_mark:\
 i. clean code :question:\
 j. functional programming :question:\
 l. how jvm works :question:\
+x. secure code\
 x. exception\
 x. Collection\
 x. java util class\
@@ -125,6 +126,10 @@ i-ㄹ-가-1. if - 왜 if-else문을 비추? :white_check_mark:\
 i-ㄹ-가-2. if - if-else -> switch :white_check_mark:\
 i-ㄹ-가-3. if - if else -> 역조건 :white_check_mark:
 
+i-ㄹ-나. getter\
+i-ㄹ-나-1. don't ask, just tell :white_check_mark:\
+
+i-ㄹ-다. setter
 
 i-ㅁ. class\
 i-ㅁ-가. immutable class\
