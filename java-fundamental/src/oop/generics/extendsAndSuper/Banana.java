@@ -1,5 +1,0 @@
-package oop.generics.extendsAndSuper;
-
-public class Banana extends Fruit{
-
-}

@@ -72,17 +72,33 @@ c-ㄱ-마-3. optional - build from scratch :white_check_mark:\
 c-ㄱ-마-4. optional - best practices :white_check_mark:\
 c-ㄱ-마-5. optional - how to refactor into optional :white_check_mark:
 
-
-
 c-ㄴ. jdk11
 
 
 d-ㄱ. pop\
 d-ㄱ-가. calculator from pop to oop :white_check_mark:\
-d-ㄱ-나. pop -> oop 도형 예제 :white_check_mark:
+d-ㄱ-나. pop -> oop 도형 예제 :white_check_mark:\
+d-ㄴ. state\
+d-ㄴ-가. immutable object\
+d-ㄴ-가-1. why :white_check_mark:\
+d-ㄴ-가-2. 일급 컬렉션 :white_check_mark:\
+d-ㄴ-나. synchronization\
+d-ㄴ-나-1. synchronized :white_check_mark:\
+d-ㄴ-나-2. volatile :white_check_mark:\
+d-ㄴ-나-3. atomic class :white_check_mark:\
+d-ㄷ. 동적 late binding\
+d-ㄷ-가. composition\
+d-ㄷ-가-1. computer example :white_check_mark:\
+d-ㄷ-나. di\
+d-ㄷ-나-1. email service example :white_check_mark:\
+d-ㄷ.다. ioc
+d-ㄹ. message\
+d-ㄹ-가. dont ask just tell\
+d-ㄹ-가-1. distance example :white_check_mark:\
+d-ㄹ-가-2. bank example :white_check_mark:
 
 
-e-1. what is oop.generics? :white_check_mark:\
+e-1. what is generics? :white_check_mark:\
 e-2. generic method :white_check_mark:\
 e-3. T extends X && T super X :white_check_mark:\
 e-4. wild card :white_check_mark:\
