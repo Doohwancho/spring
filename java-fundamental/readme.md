@@ -17,7 +17,7 @@ e. generics :white_check_mark:\
 f. access modifier :white_check_mark:\
 g. SOLID :white_check_mark:\
 h. mvc :white_check_mark:\
-i. clean code :question:\
+i. clean code\
 j. functional programming :question:\
 l. how jvm works :question:\
 x. secure code\
@@ -96,6 +96,8 @@ d-ㄹ. message\
 d-ㄹ-가. dont ask just tell\
 d-ㄹ-가-1. distance example :white_check_mark:\
 d-ㄹ-가-2. bank example :white_check_mark:
+d-ㅁ. polymorphism\
+d-ㅁ-가-1. 인터페이스로 제약건 메서드만 실행 가능한게 디버깅/코드분석시 장점 :white_check_mark:
 
 
 e-1. what is generics? :white_check_mark:\
@@ -103,7 +105,8 @@ e-2. generic method :white_check_mark:\
 e-3. T extends X && T super X :white_check_mark:\
 e-4. wild card :white_check_mark:\
 e-5. example) builder pattern in abstract class :white_check_mark:\
-e-6. generic method advanced :white_check_mark:
+e-6. generic method advanced :white_check_mark:\
+e-7. example) 제대로 이해했는지 확인해보기 :white_check_mark:
 
 
 f-ㄱ-1. public - anti pattern :white_check_mark:\
