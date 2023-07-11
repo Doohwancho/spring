@@ -100,6 +100,10 @@ Q4. step2 - log method name & params
 ---
 Q5. step3 - monitor time of method
 
+AopDemoApplication을 실행시키면,
+SortUtil에 각종 sort 메서드 위에 붙은 @TimeMonitor로,
+해당 메서드의 실행 시간 파악할 수 있다.
+
 ---
 Q6. step4 - retry operation
 
