@@ -45,5 +45,6 @@ d-x. [swagger api base setup](https://swagger.io/docs/) \
 d-x. [swagger2 implementation](https://www.youtube.com/watch?v=Q27PGBYmHNA&ab_channel=%EC%96%B4%EB%9D%BC%EC%9A%B4%EB%93%9C%ED%97%88%EB%B8%8C%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-AroundHubStudio)
 
 e-ㄱ.openapi\
+e-ㄱ-가. OpenAPI Specification & Swagger Tools - Zero To Master example :white_check_mark:\
 e-ㄴ.openapi-codegen\
-e-ㄴ-가. swagger-code-eStore 예제 :white_check_mark:\
+e-ㄴ-가. swagger-code-eStore 예제 :white_check_mark:
