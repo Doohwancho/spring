@@ -19,7 +19,7 @@ g. SOLID :white_check_mark:\
 h. mvc :white_check_mark:\
 i. clean code\
 j. functional programming :question:\
-l. how jvm works :question:\
+k. how jvm works :question:\
 x. secure code\
 x. exception\
 x. java time\
@@ -96,7 +96,7 @@ d-ㄷ.다. ioc
 d-ㄹ. message\
 d-ㄹ-가. dont ask just tell\
 d-ㄹ-가-1. distance example :white_check_mark:\
-d-ㄹ-가-2. bank example :white_check_mark:
+d-ㄹ-가-2. bank example :white_check_mark:\
 d-ㅁ. polymorphism\
 d-ㅁ-가-1. 인터페이스로 제약건 메서드만 실행 가능한게 디버깅/코드분석시 장점 :white_check_mark:
 
@@ -175,8 +175,14 @@ j-ㅍ-1. functor :white_check_mark:\
 j-x. monad
 
 
-k-1. call by value vs call by reference :white_check_mark:\
-k-2. javacode in method area, heap, stack :white_check_mark:
+k-ㄱ. call by value vs call by reference :white_check_mark:\
+k-ㄴ. javacode in method area, heap, stack :white_check_mark:\
+k-ㄷ. reference\
+k-ㄷ-가-1. strong reference :white_check_mark:\
+k-ㄷ-나-1. weak reference :white_check_mark:\
+k-ㄷ-나-2. weak hashmap :white_check_mark:\
+k-ㄷ-다-1. soft reference :white_check_mark:\
+k-ㄷ-라-1. phantom reference :white_check_mark:
 
 
 
@@ -230,8 +236,6 @@ j-9. [lazy evaluation](https://sthwin.tistory.com/21#:~:text=%EC%9E%90%EB%B0%94%
 j-14..17. [functional interface most frequently used](https://yhmane.tistory.com/203) \
 j-x. [monad](https://www.youtube.com/channel/UCrlZnbV0o2cnUNWdEORTxsw/videos) \
 j-x. [3분 모나드](https://overcurried.com/3%EB%B6%84%20%EB%AA%A8%EB%82%98%EB%93%9C/)
-
-
 
 
 
