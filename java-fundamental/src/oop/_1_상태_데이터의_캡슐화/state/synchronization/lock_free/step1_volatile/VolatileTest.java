@@ -1,4 +1,4 @@
-package oop._1_상태_데이터의_캡슐화.state.synchronization.step2_volatile;
+package oop._1_상태_데이터의_캡슐화.state.synchronization.lock_free.step1_volatile;
 /**
  * ---
  * what is this code?

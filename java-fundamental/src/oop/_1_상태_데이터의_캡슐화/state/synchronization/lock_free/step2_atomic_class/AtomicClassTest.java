@@ -1,4 +1,4 @@
-package oop._1_상태_데이터의_캡슐화.state.synchronization.step3_atomic_class;
+package oop._1_상태_데이터의_캡슐화.state.synchronization.lock_free.step2_atomic_class;
 
 public class AtomicClassTest {
 	

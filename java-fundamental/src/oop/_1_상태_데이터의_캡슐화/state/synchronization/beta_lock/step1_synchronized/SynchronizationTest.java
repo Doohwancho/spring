@@ -1,4 +1,4 @@
-package oop._1_상태_데이터의_캡슐화.state.synchronization.step1_synchronized;
+package oop._1_상태_데이터의_캡슐화.state.synchronization.beta_lock.step1_synchronized;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
