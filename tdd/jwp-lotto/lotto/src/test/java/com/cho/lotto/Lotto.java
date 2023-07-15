@@ -2,8 +2,11 @@ package com.cho.lotto;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.assertj.core.api.Assertions;
@@ -14,9 +17,9 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 public class Lotto {
 
+  public static int MIN_BOUND_OF_LOTTO = 1;
   public static int MAX_BOUND_OF_LOTTO = 45;
   public static int LOTTO_SIZE = 6;
-
 
   List<List<Integer>> buyLotto(int money) throws Exception {
     if(money < 0){
@@ -30,11 +33,13 @@ public class Lotto {
     List<List<Integer>> lists = new ArrayList<>();
 
     for(int i = 0; i < amountToBuy; i++){
-      List<Integer> list = IntStream.generate(
-              () -> random.nextInt(MAX_BOUND_OF_LOTTO)).limit(LOTTO_SIZE)
-          .boxed().collect(Collectors.toList()); //TODO - stream: List<List<Integer>> 스트림 어케 만들지?
+      List<Integer> numbers = IntStream.rangeClosed(MIN_BOUND_OF_LOTTO, MAX_BOUND_OF_LOTTO)
+          .boxed().collect(Collectors.toList()); //1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45
 
-      lists.add(list);
+      Collections.shuffle(numbers, random);  // Shuffle the numbers
+      List<Integer> lottoNumbers = numbers.stream().limit(LOTTO_SIZE).collect(Collectors.toList());
+
+      lists.add(lottoNumbers);
     }
     return lists;
   }
@@ -98,8 +103,22 @@ public class Lotto {
 
     //then
     boolean hasInvalidValue = results.stream().flatMap(List::stream)
-        .anyMatch(value -> value < 0 || value > MAX_BOUND_OF_LOTTO);
+        .anyMatch(value -> value < 0 || value > MAX_BOUND_OF_LOTTO); //TODO - stream: List<List<Integer>> 스트림 어케 만들지?
 
     Assertions.assertThat(hasInvalidValue).isEqualTo(false);
  }
+
+  @ValueSource(ints = {0, 1000, 5000, 14000, 20000})
+  @ParameterizedTest
+  void 모든_로또번호가_유일한지_체크(int money) throws Exception {
+    //when
+    List<List<Integer>> results = buyLotto(money);
+
+    //then
+    for(List<Integer> lotto : results){
+      Set<Integer> uniqueNumbers = new HashSet<>(lotto);
+
+      Assertions.assertThat(uniqueNumbers.size()).isEqualTo(lotto.size());
+    }
+  }
 }
