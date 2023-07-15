@@ -13,8 +13,9 @@ fields
 
 
 a. tdd\
-b. steal: 상품-주문 api 개발로 알아보는 TDD\
-c. steal: mini-atdd-practice\
+b. steal: 상품-주문 api 개발로 알아보는 TDD :white_check_mark:\
+c. steal: mini-atdd-practice :white_check_mark:\
+d. steal: jwp-lotto\
 z. module
 
 
@@ -36,6 +37,8 @@ c-3. refactoring :white_check_mark:\
 c-4. integration test on controller using RestAssured :white_check_mark:\
 c-5. refactoring - controller, service layer :white_check_mark:
 
+
+
 z-1. reset database by platform
 
 
@@ -46,5 +49,7 @@ reference
 b. [실전! 스프링부트 상품 주문 API 개발로 알아보는 TDD](https://github.com/ejoongseok/product-order-service)
 
 c. [atdd-example](https://github.com/msbaek/atdd-example)
+
+d. [jwp-lotto](https://github.com/byunghakjang1230/study-oop-with-lotto)
 
 z-1. [테코블 - 인수테스트에서 테스트 격리하기](https://tecoble.techcourse.co.kr/post/2020-09-15-test-isolation/)
