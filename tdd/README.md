@@ -42,6 +42,9 @@ b-ㅂ. shrink :white_check_mark:
 b-ㅅ. how to find property :white_check_mark:\
 b-ㅅ-가. test complex business logic :white_check_mark:\
 b-ㅅ-가-1. ex - discount 정책 테스트 :white_check_mark:
+b-ㅅ-나. inverse pattern\
+b-ㅅ-나-1. reverse(List) :white_check_mark:\
+b-ㅅ-나-2. 주의! encode -> decode는 원본 변환 알될수도? :white_check_mark:
 
 
 y-ㄱ. steal: 상품-주문 api 개발로 알아보는 TDD :white_check_mark:\
