@@ -10,7 +10,7 @@ import net.jqwik.api.Reporting;
 
 public class WildCardTypes {
   @Property
-  @Report(Reporting.GENERATED)
+//  @Report(Reporting.GENERATED)
   boolean reverseWithWildcardType(@ForAll List<?> original) { //? -> 모든 타입에 대해 체크한다.
     return reverse(reverse(original)).equals(original);
   }

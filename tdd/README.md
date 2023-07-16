@@ -37,8 +37,11 @@ b-ㄹ. optimization\
 b-ㄹ-가. map & filter :white_check_mark:\
 b-ㅁ. debug\
 b-ㅁ-가. random seeds :white_check_mark:\
+b-ㅁ-나. logging inputs :white_check_mark:\
 b-ㅂ. shrink :white_check_mark:
-
+b-ㅅ. how to find property :white_check_mark:\
+b-ㅅ-가. test complex business logic :white_check_mark:\
+b-ㅅ-가-1. ex - discount 정책 테스트 :white_check_mark:
 
 
 y-ㄱ. steal: 상품-주문 api 개발로 알아보는 TDD :white_check_mark:\
@@ -64,6 +67,7 @@ z-1. reset database by platform
 ---\
 reference
 
+b. [jqwik 창시자 blog](https://blog.johanneslink.net/2018/03/24/property-based-testing-in-java-introduction/)
 
 y-ㄱ. [실전! 스프링부트 상품 주문 API 개발로 알아보는 TDD](https://github.com/ejoongseok/product-order-service)
 
