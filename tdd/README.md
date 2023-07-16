@@ -22,13 +22,22 @@ z. module
 ---\
 todos
 
-a-ㄱ.junit4\
-a-ㄴ.junit5 :white_check_mark:\
-a-ㄷ.mockito :white_check_mark:\
-a-ㄹ.mvc :white_check_mark:\
-a-ㄹ-가.mockMvc :white_check_mark:\
-a-ㄹ-sk.restTemplate :white_check_mark:
-
+b-ㄱ. hello world\
+b-ㄱ-1. reverse() :white_check_mark:\
+b-ㄱ-2. fizzbuzz() :white_check_mark:\
+b-ㄴ. syntax\
+b-ㄴ-가. parameter\
+b-ㄴ-가-1. wildcard :white_check_mark:\
+b-ㄴ-가-2. many parameters :white_check_mark:\
+b-ㄴ-가-3. custom method as parameter :white_check_mark:\
+b-ㄷ. knowhow\
+b-ㄷ-가. multiple conditions :white_check_mark:\
+b-ㄷ-나. null check :white_check_mark:\
+b-ㄹ. optimization\
+b-ㄹ-가. map & filter :white_check_mark:\
+b-ㅁ. debug\
+b-ㅁ-가. random seeds :white_check_mark:\
+b-ㅂ. shrink :white_check_mark:
 
 
 
@@ -47,7 +56,7 @@ y-ㄴ-3. refactoring :white_check_mark:\
 y-ㄴ-4. integration test on controller using RestAssured :white_check_mark:\
 y-ㄴ-5. refactoring - controller, service layer :white_check_mark:
 
-y-ㄷ. steal: jwp-lotto\
+y-ㄷ. steal: jwp-lotto
 
 z-1. reset database by platform
 
@@ -56,10 +65,10 @@ z-1. reset database by platform
 reference
 
 
-b. [실전! 스프링부트 상품 주문 API 개발로 알아보는 TDD](https://github.com/ejoongseok/product-order-service)
+y-ㄱ. [실전! 스프링부트 상품 주문 API 개발로 알아보는 TDD](https://github.com/ejoongseok/product-order-service)
 
-c. [atdd-example](https://github.com/msbaek/atdd-example)
+y-ㄴ. [atdd-example](https://github.com/msbaek/atdd-example)
 
-d. [jwp-lotto](https://github.com/byunghakjang1230/study-oop-with-lotto)
+y-ㄷ. [jwp-lotto](https://github.com/byunghakjang1230/study-oop-with-lotto)
 
 z-1. [테코블 - 인수테스트에서 테스트 격리하기](https://tecoble.techcourse.co.kr/post/2020-09-15-test-isolation/)
