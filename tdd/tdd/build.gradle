@@ -9,6 +9,9 @@ group = 'com.tdd'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
+ext.junitJupiterVersion = '5.9.3' //for jqwik
+ext.jqwikVersion = '1.7.4'
+
 repositories {
 	mavenCentral()
 }
@@ -36,11 +39,31 @@ dependencies {
 
 	testImplementation 'org.mockito:mockito-core:2.+'
 
+
+	// aggregate jqwik dependency
+	testImplementation "net.jqwik:jqwik:${jqwikVersion}"
+}
+
+compileTestJava {
+	// To enable argument names in reporting and debugging
+	options.compilerArgs += '-parameters' //for jqwik
 }
 
 
 test {
-	useJUnitPlatform()
+	useJUnitPlatform { //for jqwik
+		includeEngines 'jqwik'
+
+		// Or include several Junit engines if you use them
+		// includeEngines 'jqwik', 'junit-jupiter', 'junit-vintage'
+
+		// includeTags 'fast', 'medium'
+		// excludeTags 'slow'
+	}
+
+	include '**/*Properties.class'
+	include '**/*Test.class'
+	include '**/*Tests.class'
 
 	environment "MY_ENV_VAR", "true"
 }

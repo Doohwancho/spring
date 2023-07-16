@@ -23,9 +23,9 @@ public class Lotto {
   public static final int THIRD_PRIZE = 50000;
   public static final int SECOND_PRIZE = 1500000;
   public static final int FIRST_PRIZE = 2000000000;
-  public static int MIN_BOUND_OF_LOTTO = 1;
-  public static int MAX_BOUND_OF_LOTTO = 45;
-  public static int LOTTO_SIZE = 6;
+  public static final int MIN_BOUND_OF_LOTTO = 1;
+  public static final int MAX_BOUND_OF_LOTTO = 45;
+  public static final int LOTTO_SIZE = 6;
 
   List<List<Integer>> buyLotto(int money) throws Exception {
     if(money < 0){
@@ -79,16 +79,16 @@ public class Lotto {
       //step2) 3,4,5,6 인 경우, switch로 당첨통계에 넣기
       switch(당첨갯수){
         case 3:
-          당첨통계.put(5000, 1);
+          당첨통계.put(FOURTH_PRIZE, 1);
           break;
         case 4:
-          당첨통계.put(50000, 1);
+          당첨통계.put(THIRD_PRIZE, 1);
           break;
         case 5:
-          당첨통계.put(1500000, 1);
+          당첨통계.put(SECOND_PRIZE, 1);
           break;
         case 6:
-          당첨통계.put(2000000000, 1);
+          당첨통계.put(FIRST_PRIZE, 1);
           break;
       }
     }

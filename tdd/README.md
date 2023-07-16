@@ -13,9 +13,8 @@ fields
 
 
 a. tdd\
-b. steal: 상품-주문 api 개발로 알아보는 TDD :white_check_mark:\
-c. steal: mini-atdd-practice :white_check_mark:\
-d. steal: jwp-lotto\
+b. pbt\
+y. steal\
 z. module
 
 
@@ -23,21 +22,32 @@ z. module
 ---\
 todos
 
-
-b-1. hexagonal architecture :white_check_mark:\
-b-2. RestAssured test시 persistent context에 cache 지우기 + Entity의 id 초기화 코드 :white_check_mark:\
-b-3. RestAssured 테스트를 static Class로 만들어 우려먹기 :white_check_mark:\
-b-4. record? in jdk17? :white_check_mark:\
-b-5. product -> order -> payment 전체 로직 flow :white_check_mark:
-
-c-0. init :white_check_mark:\
-c-1. atdd로 작은 요구사항 구현 - case1) domain -> service :white_check_mark:\
-c-2. atdd로 작은 요구사항 구현 - case2) domain <- service :white_check_mark:\
-c-3. refactoring :white_check_mark:\
-c-4. integration test on controller using RestAssured :white_check_mark:\
-c-5. refactoring - controller, service layer :white_check_mark:
+a-ㄱ.junit4\
+a-ㄴ.junit5 :white_check_mark:\
+a-ㄷ.mockito :white_check_mark:\
+a-ㄹ.mvc :white_check_mark:\
+a-ㄹ-가.mockMvc :white_check_mark:\
+a-ㄹ-sk.restTemplate :white_check_mark:
 
 
+
+
+y-ㄱ. steal: 상품-주문 api 개발로 알아보는 TDD :white_check_mark:\
+y-ㄱ-1. hexagonal architecture :white_check_mark:\
+y-ㄱ-2. RestAssured test시 persistent context에 cache 지우기 + Entity의 id 초기화 코드 :white_check_mark:\
+y-ㄱ-3. RestAssured 테스트를 static Class로 만들어 우려먹기 :white_check_mark:\
+y-ㄱ-4. record? in jdk17? :white_check_mark:\
+y-ㄱ-5. product -> order -> payment 전체 로직 flow :white_check_mark:
+
+y-ㄴ. steal: mini-atdd-practice :white_check_mark:\
+y-ㄴ-0. init :white_check_mark:\
+y-ㄴ-1. atdd로 작은 요구사항 구현 - case1) domain -> service :white_check_mark:\
+y-ㄴ-2. atdd로 작은 요구사항 구현 - case2) domain <- service :white_check_mark:\
+y-ㄴ-3. refactoring :white_check_mark:\
+y-ㄴ-4. integration test on controller using RestAssured :white_check_mark:\
+y-ㄴ-5. refactoring - controller, service layer :white_check_mark:
+
+y-ㄷ. steal: jwp-lotto\
 
 z-1. reset database by platform
 
