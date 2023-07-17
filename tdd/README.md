@@ -30,10 +30,10 @@ b-ㄴ-가. parameter\
 b-ㄴ-가-1. wildcard :white_check_mark:\
 b-ㄴ-가-2. many parameters :white_check_mark:\
 b-ㄴ-가-3. custom method as parameter :white_check_mark:\
-b-ㄷ. knowhow\
-b-ㄷ-가. multiple conditions :white_check_mark:\
-b-ㄷ-나. null check :white_check_mark:\
-b-ㄷ-다. metamorphic test :white_check_mark:
+b-ㄴ-나. knowhow\
+b-ㄴ-나-1. multiple conditions :white_check_mark:\
+b-ㄴ-나-2. null check :white_check_mark:\
+b-ㄴ-나-3. metamorphic test :white_check_mark:\
 b-ㄹ. optimization\
 b-ㄹ-가. map & filter :white_check_mark:\
 b-ㅁ. debug\
@@ -45,13 +45,15 @@ b-ㅅ-가. test complex business logic :white_check_mark:\
 b-ㅅ-가-1. ex - discount 정책 테스트 :white_check_mark:
 b-ㅅ-나. inverse pattern\
 b-ㅅ-나-1. reverse(List) :white_check_mark:\
-b-ㅅ-나-2. 주의! encode -> decode는 원본 변환 알될수도? :white_check_mark:
+b-ㅅ-나-2. 주의! encode -> decode는 원본 변환 알될수도? :white_check_mark:\
 b-ㅅ-다. induction\
-b-ㅅ-다-1. ex - sort list of integers :white_check_mark:
+b-ㅅ-다-1. ex - sort list of integers :white_check_mark:\
 b-ㅅ-라. stateful testing\
-b-ㅅ-라-1. ex - stack testing :white_check_mark:
+b-ㅅ-라-1. ex - stack testing :white_check_mark:\
 b-ㅅ-마. 서순 바뀌어도 무관해야 함\
-b-ㅅ-마-1. ex - sort -> filter == filter -> sort :white_check_mark:
+b-ㅅ-마-1. ex - sort -> filter == filter -> sort :white_check_mark:\
+b-ㅅ-사. test oracle\
+b-ㅅ-사-1. ex - java magazine :white_check_mark:
 
 
 

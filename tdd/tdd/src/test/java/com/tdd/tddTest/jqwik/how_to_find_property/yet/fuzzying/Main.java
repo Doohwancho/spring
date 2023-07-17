@@ -1,4 +1,4 @@
-package com.tdd.tddTest.jqwik.how_to_find_property.fuzzying;
+package com.tdd.tddTest.jqwik.how_to_find_property.yet.fuzzying;
 
 public class Main {
   /*

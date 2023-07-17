@@ -1,4 +1,4 @@
-package com.tdd.tddTest.jqwik.how_to_find_property.blackbox_test;
+package com.tdd.tddTest.jqwik.how_to_find_property.yet.blackbox_test;
 
 public class Main {
   /*

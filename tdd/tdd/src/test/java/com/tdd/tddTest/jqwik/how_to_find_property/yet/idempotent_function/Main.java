@@ -1,4 +1,4 @@
-package com.tdd.tddTest.jqwik.how_to_find_property.idempotent_function;
+package com.tdd.tddTest.jqwik.how_to_find_property.yet.idempotent_function;
 
 public class Main {
   /*

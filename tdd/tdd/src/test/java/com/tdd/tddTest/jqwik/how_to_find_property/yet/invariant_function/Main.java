@@ -1,4 +1,4 @@
-package com.tdd.tddTest.jqwik.how_to_find_property.invariant_function;
+package com.tdd.tddTest.jqwik.how_to_find_property.yet.invariant_function;
 
 public class Main {
   /*

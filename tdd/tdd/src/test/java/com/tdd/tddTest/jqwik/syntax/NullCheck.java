@@ -1,4 +1,4 @@
-package com.tdd.tddTest.jqwik.knowhow;
+package com.tdd.tddTest.jqwik.syntax;
 
 import java.util.List;
 import net.jqwik.api.Assume;

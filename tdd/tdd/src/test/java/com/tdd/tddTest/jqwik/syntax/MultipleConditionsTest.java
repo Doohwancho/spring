@@ -1,4 +1,4 @@
-package com.tdd.tddTest.jqwik.knowhow;
+package com.tdd.tddTest.jqwik.syntax;
 
 import net.jqwik.api.Arbitraries;
 import net.jqwik.api.Arbitrary;
