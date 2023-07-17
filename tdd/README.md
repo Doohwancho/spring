@@ -33,6 +33,7 @@ b-ㄴ-가-3. custom method as parameter :white_check_mark:\
 b-ㄷ. knowhow\
 b-ㄷ-가. multiple conditions :white_check_mark:\
 b-ㄷ-나. null check :white_check_mark:\
+b-ㄷ-다. metamorphic test :white_check_mark:
 b-ㄹ. optimization\
 b-ㄹ-가. map & filter :white_check_mark:\
 b-ㅁ. debug\
@@ -51,6 +52,7 @@ b-ㅅ-라. stateful testing\
 b-ㅅ-라-1. ex - stack testing :white_check_mark:
 b-ㅅ-마. 서순 바뀌어도 무관해야 함\
 b-ㅅ-마-1. ex - sort -> filter == filter -> sort :white_check_mark:
+
 
 
 y-ㄱ. steal: 상품-주문 api 개발로 알아보는 TDD :white_check_mark:\
