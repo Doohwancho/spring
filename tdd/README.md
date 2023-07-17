@@ -49,6 +49,8 @@ b-ㅅ-다. induction\
 b-ㅅ-다-1. ex - sort list of integers :white_check_mark:
 b-ㅅ-라. stateful testing\
 b-ㅅ-라-1. ex - stack testing :white_check_mark:
+b-ㅅ-마. 서순 바뀌어도 무관해야 함\
+b-ㅅ-마-1. ex - sort -> filter == filter -> sort :white_check_mark:
 
 
 y-ㄱ. steal: 상품-주문 api 개발로 알아보는 TDD :white_check_mark:\
