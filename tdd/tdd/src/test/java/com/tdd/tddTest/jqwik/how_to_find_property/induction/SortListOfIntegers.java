@@ -8,7 +8,9 @@ public class SortListOfIntegers {
   /*
     dynamic programming 처럼
     proof시, 전체를 부분으로 쪼갠 다음,
-    연역법으로 풀어가는 방식 
+    연역법으로 풀어가는 방식
+
+    Solve a smaller problem first!
    */
   @Property
   boolean sortingAListWorks(@ForAll List<Integer> unsorted) {
