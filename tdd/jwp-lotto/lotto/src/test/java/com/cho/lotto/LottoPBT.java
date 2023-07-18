@@ -34,7 +34,7 @@ public class LottoPBT {
   //너무 오래걸리니까 횟수 제한
   void 구입단위는_천원단위_이어야한다(@ForAll int money) throws Exception {
     Assume.that(money >= 0);
-    Assertions.assertThat(lotto.buyLotto(money).size()).isEqualTo(money / 1000);
+    Assertions.assertThat(lotto.buyLotto(money).size()).isEqualTo(money / lotto.getLottoPrice());
   }
 
   //3번 조건
@@ -67,7 +67,7 @@ public class LottoPBT {
     List<List<Integer>> results = lotto.buyLotto(money);
 
     //then
-    boolean hasInvalidsize = results.stream().anyMatch(list -> list.size() != 6);
+    boolean hasInvalidsize = results.stream().anyMatch(list -> list.size() != lotto.getLottoSize());
 
     Assertions.assertThat(hasInvalidsize).isEqualTo(false);
   }

@@ -30,11 +30,16 @@ class Lotto {
     if (money < 0) {
       throw new MinusCashIsNotAllowedException();
     }
+
+    //step1) 1천원 단위로 로또 매수가 구입 가능해야 한다.
     int amountToBuy = money / price;
+
+
     Random random = new Random();
     List<List<Integer>> lists = new ArrayList<List<Integer>>();
 
     for (int i = 0; i < amountToBuy; i++) {
+      //step2) 1~45까지 숫자를 섞어서 랜덤하게 6자리를 뽑는다.
       List<Integer> numbers = IntStream.rangeClosed(BOUND.MIN_BOUND_OF_LOTTO.getValue(),
               BOUND.MAX_BOUND_OF_LOTTO.getValue())
           .boxed().collect(
@@ -96,7 +101,7 @@ class Lotto {
     당첨통계.entrySet().stream()
         .sorted((a, b) -> a.getKey().getPrizeMoney() - b.getKey().getPrizeMoney()).forEach(
             x -> System.out.println(
-                "?개 일치 (" + x.getKey() + ")- " + x.getValue() + "개")); //TODO - ?개를 어떻겍 엘레강스하게 표현하지?
+                x.getKey().getPrerequisites() + "개 일치 (" + x.getKey().getPrizeName() + ")- " + x.getValue() + "개")); //TODO - ?개를 어떻겍 엘레강스하게 표현하지?
     System.out.println();
 
     //step4) map 돌면서 당첨금액 합산
