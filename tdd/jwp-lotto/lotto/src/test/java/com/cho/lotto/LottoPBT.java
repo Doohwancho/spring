@@ -6,12 +6,10 @@ import java.util.Set;
 import net.jqwik.api.Assume;
 import net.jqwik.api.ForAll;
 import net.jqwik.api.Property;
-import net.jqwik.api.constraints.IntRange;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 public class LottoPBT {
+
   private final Lotto lotto = new Lotto();
 
   /*
@@ -32,14 +30,16 @@ public class LottoPBT {
    */
 
   //2번 조건
-  @Property(tries = 10) //너무 오래걸리니까 횟수 제한
+  @Property(tries = 10)
+  //너무 오래걸리니까 횟수 제한
   void 구입단위는_천원단위_이어야한다(@ForAll int money) throws Exception {
     Assume.that(money >= 0);
-    Assertions.assertThat(lotto.buyLotto(money).size()).isEqualTo(money/1000);
+    Assertions.assertThat(lotto.buyLotto(money).size()).isEqualTo(money / 1000);
   }
 
   //3번 조건
-  @Property(tries = 10) //너무 오래걸리니까 횟수 제한
+  @Property(tries = 10)
+  //너무 오래걸리니까 횟수 제한
   void 로또_숫자범위_1부터_45까지_체크(@ForAll int money) throws Exception {
     //given
     Assume.that(money >= 0);
@@ -49,13 +49,15 @@ public class LottoPBT {
 
     //then
     boolean hasInvalidValue = results.stream().flatMap(List::stream)
-        .anyMatch(value -> value < 0 || value > Lotto.BOUND.MAX_BOUND_OF_LOTTO.getValue()); //TODO - stream: List<List<Integer>> 스트림 어케 만들지?
+        .anyMatch(value -> value < 0 || value
+            > Lotto.BOUND.MAX_BOUND_OF_LOTTO.getValue()); //TODO - stream: List<List<Integer>> 스트림 어케 만들지?
 
     Assertions.assertThat(hasInvalidValue).isEqualTo(false);
   }
 
   //4번 조건
-  @Property(tries = 10) //너무 오래걸리니까 횟수 제한
+  @Property(tries = 10)
+  //너무 오래걸리니까 횟수 제한
   void 로또는_항상_6자리여야_한다(@ForAll int money) throws Exception {
     //given
     Assume.that(money >= 0);
@@ -71,7 +73,8 @@ public class LottoPBT {
   }
 
   //5번 조건
-  @Property(tries = 10) //너무 오래걸리니까 횟수 제한
+  @Property(tries = 10)
+  //너무 오래걸리니까 횟수 제한
   void 모든_로또번호가_유일한지_체크(@ForAll int money) throws Exception {
     //given
     Assume.that(money >= 0);
@@ -80,7 +83,7 @@ public class LottoPBT {
     List<List<Integer>> results = lotto.buyLotto(money);
 
     //then
-    for(List<Integer> lotto : results){
+    for (List<Integer> lotto : results) {
       Set<Integer> uniqueNumbers = new HashSet<>(lotto);
 
       Assertions.assertThat(uniqueNumbers.size()).isEqualTo(lotto.size());

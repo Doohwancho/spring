@@ -20,8 +20,8 @@ public class LottoTest {
     //when & then
     Assertions.assertThatThrownBy(() -> {
           lotto.buyLotto(money);
-    }).isInstanceOf(Exception.class)
-    .hasMessageContaining("마이너스 돈이란 있을 수 없다");
+        }).isInstanceOf(Exception.class)
+        .hasMessageContaining("마이너스 돈이란 있을 수 없다");
   }
 
 //  @Disabled("이거 어떻게 테스트하지?")
@@ -45,10 +45,10 @@ public class LottoTest {
     List<List<Integer>> results = lotto.buyLotto(money);
 
     //then
-    Assertions.assertThat(results.size()).isEqualTo(money / 1000);
+    Assertions.assertThat(results.size()).isEqualTo(money / lotto.getLottoPrice());
   }
-  
-  @Test 
+
+  @Test
   void 로또_번호는_6자리_체크() throws Exception {
     //given
     int money = 14000;
@@ -71,10 +71,11 @@ public class LottoTest {
 
     //then
     boolean hasInvalidValue = results.stream().flatMap(List::stream)
-        .anyMatch(value -> value < 0 || value > Lotto.BOUND.MAX_BOUND_OF_LOTTO.getValue()); //TODO - stream: List<List<Integer>> 스트림 어케 만들지?
+        .anyMatch(value -> value < 0 || value
+            > Lotto.BOUND.MAX_BOUND_OF_LOTTO.getValue()); //TODO - stream: List<List<Integer>> 스트림 어케 만들지?
 
     Assertions.assertThat(hasInvalidValue).isEqualTo(false);
- }
+  }
 
   @ValueSource(ints = {0, 1000, 5000, 14000, 20000})
   @ParameterizedTest
@@ -83,7 +84,7 @@ public class LottoTest {
     List<List<Integer>> results = lotto.buyLotto(money);
 
     //then
-    for(List<Integer> lotto : results){
+    for (List<Integer> lotto : results) {
       Set<Integer> uniqueNumbers = new HashSet<>(lotto);
 
       Assertions.assertThat(uniqueNumbers.size()).isEqualTo(lotto.size());
@@ -94,34 +95,34 @@ public class LottoTest {
   void 로또_1등_당첨금액_체크() throws Exception {
     //given
     List<List<Integer>> 긁은복권모음 = new ArrayList<>();
-    List<Integer> 당첨_6개 = Arrays.asList(1,2,3,4,5,6);
+    List<Integer> 당첨_6개 = Arrays.asList(1, 2, 3, 4, 5, 6);
 
     긁은복권모음.add(당첨_6개);
 
-    List<Integer> 당첨번호 = Arrays.asList(1,2,3,4,5,6);
+    List<Integer> 당첨번호 = Arrays.asList(1, 2, 3, 4, 5, 6);
 
     //when
     int result = lotto.verifyLottoResult(당첨번호, 긁은복권모음);
 
     //then
-    Assertions.assertThat(result).isEqualTo(Lotto.PRIZE.FIRST_PRIZE.getValue());
+    Assertions.assertThat(result).isEqualTo(Lotto.PRIZE.FIRST_PRIZE.getPrizeMoney());
   }
 
   @Test
   void 로또_2등_당첨금액_체크() throws Exception {
-      //given
-      List<List<Integer>> 긁은복권모음 = new ArrayList<>();
-      List<Integer> 당첨_5개 = Arrays.asList(1,2,3,4,5,100);
+    //given
+    List<List<Integer>> 긁은복권모음 = new ArrayList<>();
+    List<Integer> 당첨_5개 = Arrays.asList(1, 2, 3, 4, 5, 100);
 
-      긁은복권모음.add(당첨_5개);
+    긁은복권모음.add(당첨_5개);
 
-      List<Integer> 당첨번호 = Arrays.asList(1,2,3,4,5,6);
+    List<Integer> 당첨번호 = Arrays.asList(1, 2, 3, 4, 5, 6);
 
-      //when
-      int result = lotto.verifyLottoResult(당첨번호, 긁은복권모음);
+    //when
+    int result = lotto.verifyLottoResult(당첨번호, 긁은복권모음);
 
-      //then
-      Assertions.assertThat(result).isEqualTo(Lotto.PRIZE.SECOND_PRIZE.getValue());
+    //then
+    Assertions.assertThat(result).isEqualTo(Lotto.PRIZE.SECOND_PRIZE.getPrizeMoney());
   }
 
 
@@ -129,47 +130,46 @@ public class LottoTest {
   void 로또_3등_당첨금액_체크() throws Exception {
     //given
     List<List<Integer>> 긁은복권모음 = new ArrayList<>();
-    List<Integer> 당첨_4개 = Arrays.asList(1,2,3,4,100,100);
+    List<Integer> 당첨_4개 = Arrays.asList(1, 2, 3, 4, 100, 100);
 
     긁은복권모음.add(당첨_4개);
 
-    List<Integer> 당첨번호 = Arrays.asList(1,2,3,4,5,6);
+    List<Integer> 당첨번호 = Arrays.asList(1, 2, 3, 4, 5, 6);
 
     //when
     int result = lotto.verifyLottoResult(당첨번호, 긁은복권모음);
 
     //then
-    Assertions.assertThat(result).isEqualTo(Lotto.PRIZE.THIRD_PRIZE.getValue());
+    Assertions.assertThat(result).isEqualTo(Lotto.PRIZE.THIRD_PRIZE.getPrizeMoney());
   }
-
 
 
   @Test
   void 로또_4등_당첨금액_체크() throws Exception {
     //given
     List<List<Integer>> 긁은복권모음 = new ArrayList<>();
-    List<Integer> 당첨_3개 = Arrays.asList(1,2,3,100,100,100);
+    List<Integer> 당첨_3개 = Arrays.asList(1, 2, 3, 100, 100, 100);
 
     긁은복권모음.add(당첨_3개);
 
-    List<Integer> 당첨번호 = Arrays.asList(1,2,3,4,5,6);
+    List<Integer> 당첨번호 = Arrays.asList(1, 2, 3, 4, 5, 6);
 
     //when
     int result = lotto.verifyLottoResult(당첨번호, 긁은복권모음);
 
     //then
-    Assertions.assertThat(result).isEqualTo(Lotto.PRIZE.FOURTH_PRIZE.getValue());
+    Assertions.assertThat(result).isEqualTo(Lotto.PRIZE.FOURTH_PRIZE.getPrizeMoney());
   }
 
   @Test
   void 당첨되지_않은_경우_금액_체크() throws Exception {
     //given
     List<List<Integer>> 긁은복권모음 = new ArrayList<>();
-    List<Integer> 꽝 = Arrays.asList(1,2,100,100,100,100);
+    List<Integer> 꽝 = Arrays.asList(1, 2, 100, 100, 100, 100);
 
     긁은복권모음.add(꽝);
 
-    List<Integer> 당첨번호 = Arrays.asList(1,2,3,4,5,6);
+    List<Integer> 당첨번호 = Arrays.asList(1, 2, 3, 4, 5, 6);
 
     //when
     int result = lotto.verifyLottoResult(당첨번호, 긁은복권모음);
@@ -180,35 +180,37 @@ public class LottoTest {
 
   @Test
   void 당첨번호가_null이면_throw_Exception() {
-      //when & then
-      Assertions.assertThatThrownBy(() -> {
-            lotto.verifyLottoResult(null, new ArrayList<>());
-      }).isInstanceOf(Exception.class)
-      .hasMessageContaining("당첨번호가 입력되지 않았습니다.");
+    //when & then
+    Assertions.assertThatThrownBy(() -> {
+          lotto.verifyLottoResult(null, new ArrayList<>());
+        }).isInstanceOf(Exception.class)
+        .hasMessageContaining("당첨번호가 입력되지 않았습니다.");
   }
+
   @Test
   void 당첨번호_갯수가_6개가아니면_throw_Exception() {
-      //when & then
-      Assertions.assertThatThrownBy(() -> {
-            lotto.verifyLottoResult(Arrays.asList(1, 2, 3), new ArrayList<>());
-      }).isInstanceOf(Exception.class)
-      .hasMessageContaining("당첨번호 갯수는 6개여야 합니다.");
+    //when & then
+    Assertions.assertThatThrownBy(() -> {
+          lotto.verifyLottoResult(Arrays.asList(1, 2, 3), new ArrayList<>());
+        }).isInstanceOf(Exception.class)
+        .hasMessageContaining("당첨번호 갯수는 6개여야 합니다.");
   }
 
   @Test
   void 긁은복권모음이_null이면_throw_Exception() {
-      //when & then
-      Assertions.assertThatThrownBy(() -> {
-            lotto.verifyLottoResult(Arrays.asList(1, 2, 3, 4, 5, 6), null);
-      }).isInstanceOf(Exception.class)
-      .hasMessageContaining("긁은복권모음이 입력되지 않았습니다");
+    //when & then
+    Assertions.assertThatThrownBy(() -> {
+          lotto.verifyLottoResult(Arrays.asList(1, 2, 3, 4, 5, 6), null);
+        }).isInstanceOf(Exception.class)
+        .hasMessageContaining("긁은복권모음이 입력되지 않았습니다");
   }
+
   @Test
   void 긁은복권모음이_없으면_throw_Exception() {
-      //when & then
-      Assertions.assertThatThrownBy(() -> {
-            lotto.verifyLottoResult(Arrays.asList(1, 2, 3, 4, 5, 6), new ArrayList<>());
-      }).isInstanceOf(Exception.class)
-      .hasMessageContaining("긁은 복권이 없습니다.");
+    //when & then
+    Assertions.assertThatThrownBy(() -> {
+          lotto.verifyLottoResult(Arrays.asList(1, 2, 3, 4, 5, 6), new ArrayList<>());
+        }).isInstanceOf(Exception.class)
+        .hasMessageContaining("긁은 복권이 없습니다.");
   }
 }
