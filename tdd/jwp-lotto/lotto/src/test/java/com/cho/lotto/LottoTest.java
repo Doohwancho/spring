@@ -29,20 +29,6 @@ public class LottoTest {
         .hasMessageContaining("마이너스 돈이란 있을 수 없다!");
   }
 
-//  @Disabled("이거 어떻게 테스트하지?")
-//  @ParameterizedTest
-//  void 로또_구입_최대금액_제한(int money) throws Exception {
-//    //given
-//    String bigNumber = "2147483648"; // Integer.MAX_VALUE is 2147483647
-//
-//    //when & then
-//    Assertions.assertThatThrownBy(() -> {
-//      int input = Integer.parseInt(bigNumber);
-//      buyLotto(input);
-//    }).isInstanceOf(Exception.class)
-//    .hasMessageContaining("너 미쳤니?");
-//  }
-
   @ValueSource(ints = {0, 1000, 14000, 200000})
   @ParameterizedTest
   void 천원단위로_로또_발급하는지_체크(int money) throws Exception {

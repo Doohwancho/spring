@@ -23,17 +23,16 @@ class Lotto {
   private final static int PREREQUISITES_FOR_FIRST = 6;
   BOUND bound;
   private static final int LOTTO_SIZE = 6;
-  private static final int price = 1000;
+  private static final int LOTTO_PRICE = 1000;
 
 
-  List<List<Integer>> buyLotto(int money) throws Exception {
+  List<List<Integer>> buyLotto(int money) {
     if (money < 0) {
       throw new MinusCashIsNotAllowedException();
     }
 
     //step1) 1천원 단위로 로또 매수가 구입 가능해야 한다.
-    int amountToBuy = money / price;
-
+    int amountToBuy = money / LOTTO_PRICE;
 
     Random random = new Random();
     List<List<Integer>> lists = new ArrayList<List<Integer>>();
@@ -41,9 +40,8 @@ class Lotto {
     for (int i = 0; i < amountToBuy; i++) {
       //step2) 1~45까지 숫자를 섞어서 랜덤하게 6자리를 뽑는다.
       List<Integer> numbers = IntStream.rangeClosed(BOUND.MIN_BOUND_OF_LOTTO.getValue(),
-              BOUND.MAX_BOUND_OF_LOTTO.getValue())
-          .boxed().collect(
-              Collectors.toList()); //1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45
+          BOUND.MAX_BOUND_OF_LOTTO.getValue()).boxed().collect(
+          Collectors.toList()); //1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45
 
       Collections.shuffle(numbers, random);  // Shuffle the numbers
       List<Integer> lottoNumbers = numbers.stream().limit(LOTTO_SIZE).collect(Collectors.toList());
@@ -53,11 +51,11 @@ class Lotto {
     return lists;
   }
 
-  int verifyLottoResult(List<Integer> 당첨번호, List<List<Integer>> 긁은복권모음) throws Exception {
+  int verifyLottoResult(List<Integer> 당첨번호, List<List<Integer>> 긁은복권모음) {
     if (당첨번호 == null) {
       throw new NullLottoNumberInputNotAllowedException();
     }
-    if (당첨번호.size() != 6) {
+    if (당첨번호.size() != LOTTO_SIZE) {
       throw new WinningLottoNumberShouldBeSixDigitsException();
     }
     if (긁은복권모음 == null) {
@@ -101,7 +99,8 @@ class Lotto {
     당첨통계.entrySet().stream()
         .sorted((a, b) -> a.getKey().getPrizeMoney() - b.getKey().getPrizeMoney()).forEach(
             x -> System.out.println(
-                x.getKey().getPrerequisites() + "개 일치 (" + x.getKey().getPrizeName() + ")- " + x.getValue() + "개")); //TODO - ?개를 어떻겍 엘레강스하게 표현하지?
+                x.getKey().getMatchCount() + "개 일치 (" + x.getKey().getPrizeName() + ")- "
+                    + x.getValue() + "개")); //TODO - ?개를 어떻겍 엘레강스하게 표현하지?
     System.out.println();
 
     //step4) map 돌면서 당첨금액 합산
@@ -111,19 +110,18 @@ class Lotto {
   }
 
   enum PRIZE {
-    FIRST_PRIZE(2_000_000_000, PREREQUISITES_FOR_FIRST),
-    SECOND_PRIZE(1_500_000, PREREQUISITES_FOR_SECOND),
-    THIRD_PRIZE(50_000, PREREQUISITES_FOR_THIRD),
-    FOURTH_PRIZE(5_000, PREREQUISITES_FOR_FOURTH);
+    FIRST_PRIZE(2_000_000_000, PREREQUISITES_FOR_FIRST), SECOND_PRIZE(1_500_000,
+        PREREQUISITES_FOR_SECOND), THIRD_PRIZE(50_000, PREREQUISITES_FOR_THIRD), FOURTH_PRIZE(5_000,
+        PREREQUISITES_FOR_FOURTH);
 
 
     private final int prizeMoney;
-    private final int prerequisites;
+    private final int matchCount;
 
 
-    PRIZE(int prizeMoney, int prerequisites) {
+    PRIZE(int prizeMoney, int matchCount) {
       this.prizeMoney = prizeMoney;
-      this.prerequisites = prerequisites;
+      this.matchCount = matchCount;
     }
 
     String getPrizeName() {
@@ -134,14 +132,13 @@ class Lotto {
       return prizeMoney;
     }
 
-    int getPrerequisites() {
-      return prerequisites;
+    int getMatchCount() {
+      return matchCount;
     }
   }
 
   enum BOUND {
-    MIN_BOUND_OF_LOTTO(1),
-    MAX_BOUND_OF_LOTTO(45);
+    MIN_BOUND_OF_LOTTO(1), MAX_BOUND_OF_LOTTO(45);
 
     private final int bound;
 
@@ -164,6 +161,6 @@ class Lotto {
   }
 
   int getLottoPrice() {
-    return price;
+    return LOTTO_PRICE;
   }
 }
