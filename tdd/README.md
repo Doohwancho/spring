@@ -73,7 +73,8 @@ y-ㄴ-4. integration test on controller using RestAssured :white_check_mark:\
 y-ㄴ-5. refactoring - controller, service layer :white_check_mark:
 
 y-ㄷ. steal: jwp-lotto\
-y-ㄷ-가. pbt 적용 :white_check_mark:
+y-ㄷ-가. pbt 적용 :white_check_mark:\
+y-ㄷ-나. enum 적용 :white_check_mark:
 
 z-1. reset database by platform
 

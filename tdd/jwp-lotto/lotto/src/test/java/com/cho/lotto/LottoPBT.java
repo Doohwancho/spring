@@ -49,7 +49,7 @@ public class LottoPBT {
 
     //then
     boolean hasInvalidValue = results.stream().flatMap(List::stream)
-        .anyMatch(value -> value < 0 || value > Lotto.MAX_BOUND_OF_LOTTO); //TODO - stream: List<List<Integer>> 스트림 어케 만들지?
+        .anyMatch(value -> value < 0 || value > Lotto.BOUND.MAX_BOUND_OF_LOTTO.getValue()); //TODO - stream: List<List<Integer>> 스트림 어케 만들지?
 
     Assertions.assertThat(hasInvalidValue).isEqualTo(false);
   }

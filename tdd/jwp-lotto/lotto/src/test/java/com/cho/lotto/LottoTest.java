@@ -58,7 +58,7 @@ public class LottoTest {
     List<List<Integer>> results = lotto.buyLotto(money);
 
     //then
-    boolean hasInvalidsize = results.stream().anyMatch(list -> list.size() != 6);
+    boolean hasInvalidsize = results.stream().anyMatch(list -> list.size() != lotto.getLottoSize());
 
     Assertions.assertThat(hasInvalidsize).isEqualTo(false);
   }
@@ -71,7 +71,7 @@ public class LottoTest {
 
     //then
     boolean hasInvalidValue = results.stream().flatMap(List::stream)
-        .anyMatch(value -> value < 0 || value > Lotto.MAX_BOUND_OF_LOTTO); //TODO - stream: List<List<Integer>> 스트림 어케 만들지?
+        .anyMatch(value -> value < 0 || value > Lotto.BOUND.MAX_BOUND_OF_LOTTO.getValue()); //TODO - stream: List<List<Integer>> 스트림 어케 만들지?
 
     Assertions.assertThat(hasInvalidValue).isEqualTo(false);
  }
@@ -104,7 +104,7 @@ public class LottoTest {
     int result = lotto.verifyLottoResult(당첨번호, 긁은복권모음);
 
     //then
-    Assertions.assertThat(result).isEqualTo(Lotto.FIRST_PRIZE);
+    Assertions.assertThat(result).isEqualTo(Lotto.PRIZE.FIRST_PRIZE.getValue());
   }
 
   @Test
@@ -121,7 +121,7 @@ public class LottoTest {
       int result = lotto.verifyLottoResult(당첨번호, 긁은복권모음);
 
       //then
-      Assertions.assertThat(result).isEqualTo(Lotto.SECOND_PRIZE);
+      Assertions.assertThat(result).isEqualTo(Lotto.PRIZE.SECOND_PRIZE.getValue());
   }
 
 
@@ -139,7 +139,7 @@ public class LottoTest {
     int result = lotto.verifyLottoResult(당첨번호, 긁은복권모음);
 
     //then
-    Assertions.assertThat(result).isEqualTo(Lotto.THIRD_PRIZE);
+    Assertions.assertThat(result).isEqualTo(Lotto.PRIZE.THIRD_PRIZE.getValue());
   }
 
 
@@ -158,7 +158,7 @@ public class LottoTest {
     int result = lotto.verifyLottoResult(당첨번호, 긁은복권모음);
 
     //then
-    Assertions.assertThat(result).isEqualTo(Lotto.FOURTH_PRIZE);
+    Assertions.assertThat(result).isEqualTo(Lotto.PRIZE.FOURTH_PRIZE.getValue());
   }
 
   @Test
