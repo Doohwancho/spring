@@ -19,12 +19,8 @@ g. SOLID :white_check_mark:\
 h. mvc :white_check_mark:\
 i. clean code\
 j. functional programming :question:\
-k. how jvm works :question:\
-x. secure code\
-x. exception\
-x. java time\
-x. enums\
-x. annotation\
+k. how jvm works\
+l. defensive programming\
 x. garbage collector\
 x. debugging
 
@@ -197,6 +193,14 @@ k-ㄷ-다-1. soft reference :white_check_mark:\
 k-ㄷ-라-1. phantom reference :white_check_mark:
 
 
+l-ㄱ. null-handling
+l-ㄱ-가. Optional :white_check_mark:\
+l-ㄱ-나. module - nullify :white_check_mark:\
+l-ㄱ-나-1. Integer null test :white_check_mark:\
+l-ㄱ-나-2. string null test :white_check_mark:\
+l-ㄱ-나-3. List null test :white_check_mark:
+
+
 
 ---\
 Reference
@@ -257,3 +261,5 @@ k-2. [method, stack, heap area](https://www.youtube.com/watch?v=Vd1C3-wHc4Y&ab_c
 
 
 
+l-ㄱ. null-handling\
+l-ㄱ-나. [module - nullify](https://github.com/silentsoft/nullify)
