@@ -1,5 +1,10 @@
 package com.cho.lotto;
 
+import com.cho.lotto.exception.NullLottoNumberInputNotAllowedException;
+import com.cho.lotto.exception.MinusCashIsNotAllowedException;
+import com.cho.lotto.exception.NullScratchedLottoInputException;
+import com.cho.lotto.exception.WinningLottoNumberShouldBeSixDigitsException;
+import com.cho.lotto.exception.ZeroScratchedLottoNowAllowedException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -20,8 +25,8 @@ public class LottoTest {
     //when & then
     Assertions.assertThatThrownBy(() -> {
           lotto.buyLotto(money);
-        }).isInstanceOf(Exception.class)
-        .hasMessageContaining("마이너스 돈이란 있을 수 없다");
+        }).isInstanceOf(MinusCashIsNotAllowedException.class)
+        .hasMessageContaining("마이너스 돈이란 있을 수 없다!");
   }
 
 //  @Disabled("이거 어떻게 테스트하지?")
@@ -183,7 +188,7 @@ public class LottoTest {
     //when & then
     Assertions.assertThatThrownBy(() -> {
           lotto.verifyLottoResult(null, new ArrayList<>());
-        }).isInstanceOf(Exception.class)
+        }).isInstanceOf(NullLottoNumberInputNotAllowedException.class)
         .hasMessageContaining("당첨번호가 입력되지 않았습니다.");
   }
 
@@ -192,7 +197,7 @@ public class LottoTest {
     //when & then
     Assertions.assertThatThrownBy(() -> {
           lotto.verifyLottoResult(Arrays.asList(1, 2, 3), new ArrayList<>());
-        }).isInstanceOf(Exception.class)
+        }).isInstanceOf(WinningLottoNumberShouldBeSixDigitsException.class)
         .hasMessageContaining("당첨번호 갯수는 6개여야 합니다.");
   }
 
@@ -201,8 +206,8 @@ public class LottoTest {
     //when & then
     Assertions.assertThatThrownBy(() -> {
           lotto.verifyLottoResult(Arrays.asList(1, 2, 3, 4, 5, 6), null);
-        }).isInstanceOf(Exception.class)
-        .hasMessageContaining("긁은복권모음이 입력되지 않았습니다");
+        }).isInstanceOf(NullScratchedLottoInputException.class)
+        .hasMessageContaining("긁은복권모음이 입력되지 않았습니다.");
   }
 
   @Test
@@ -210,7 +215,7 @@ public class LottoTest {
     //when & then
     Assertions.assertThatThrownBy(() -> {
           lotto.verifyLottoResult(Arrays.asList(1, 2, 3, 4, 5, 6), new ArrayList<>());
-        }).isInstanceOf(Exception.class)
+        }).isInstanceOf(ZeroScratchedLottoNowAllowedException.class)
         .hasMessageContaining("긁은 복권이 없습니다.");
   }
 }

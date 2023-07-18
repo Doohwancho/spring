@@ -77,7 +77,8 @@ y-ㄷ-가. pbt 적용 :white_check_mark:\
 y-ㄷ-나. enum 적용 :white_check_mark:\
 y-ㄷ-다. stream 적용 :white_check_mark:\
 y-ㄷ-라. clean code\
-y-ㄷ-라-1. remove magic number :white_check_mark:
+y-ㄷ-라-1. remove magic number :white_check_mark:\
+y-ㄷ-마. exception-handling
 
 z-1. reset database by platform
 

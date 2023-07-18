@@ -1,5 +1,10 @@
 package com.cho.lotto;
 
+import com.cho.lotto.exception.MinusCashIsNotAllowedException;
+import com.cho.lotto.exception.NullLottoNumberInputNotAllowedException;
+import com.cho.lotto.exception.NullScratchedLottoInputException;
+import com.cho.lotto.exception.WinningLottoNumberShouldBeSixDigitsException;
+import com.cho.lotto.exception.ZeroScratchedLottoNowAllowedException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -23,10 +28,7 @@ class Lotto {
 
   List<List<Integer>> buyLotto(int money) throws Exception {
     if (money < 0) {
-      throw new Exception("마이너스 돈이란 있을 수 없다!");
-    }
-    if (money > Integer.MAX_VALUE) {
-      throw new Exception("너 미쳤니?");
+      throw new MinusCashIsNotAllowedException();
     }
     int amountToBuy = money / price;
     Random random = new Random();
@@ -48,16 +50,16 @@ class Lotto {
 
   int verifyLottoResult(List<Integer> 당첨번호, List<List<Integer>> 긁은복권모음) throws Exception {
     if (당첨번호 == null) {
-      throw new Exception("당첨번호가 입력되지 않았습니다.");
+      throw new NullLottoNumberInputNotAllowedException();
     }
     if (당첨번호.size() != 6) {
-      throw new Exception("당첨번호 갯수는 6개여야 합니다.");
+      throw new WinningLottoNumberShouldBeSixDigitsException();
     }
     if (긁은복권모음 == null) {
-      throw new Exception("긁은복권모음이 입력되지 않았습니다.");
+      throw new NullScratchedLottoInputException();
     }
     if (긁은복권모음.size() == 0) {
-      throw new Exception("긁은 복권이 없습니다.");
+      throw new ZeroScratchedLottoNowAllowedException();
     }
 
     int 당첨금액 = 0;
