@@ -1,7 +1,7 @@
 package design_pattern.Creational.singleton.step3;
 
 //Thread-safe Lazy Initialization
-public class Singleton {
+class Singleton {
 	
 	private static Singleton uniqueInstance;
 	

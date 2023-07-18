@@ -87,6 +87,18 @@ d-ㄴ-나. synchronization\
 d-ㄴ-나-1. synchronized :white_check_mark:\
 d-ㄴ-나-2. volatile :white_check_mark:\
 d-ㄴ-나-3. atomic class :white_check_mark:\
+d-ㄴ-다. enum\
+d-ㄴ-다-1. what - enum은 클래스다 :white_check_mark:\
+d-ㄴ-다-2. what - calculate :white_check_mark:\
+d-ㄴ-다-3. what - planet :white_check_mark:\
+d-ㄴ-다-4. how-1. 같은 의미끼리 묶기 - table status :white_check_mark:\
+d-ㄴ-다-5. how-1. 같은 의미끼리 묶기 - limit day type :white_check_mark:\
+d-ㄴ-다-6. how-2. 상태와 행위를 한곳에서 관리 - calculate :white_check_mark:\
+d-ㄴ-다-7. how-2. 상태와 행위를 한곳에서 관리 - sales amount type :white_check_mark:\
+d-ㄴ-다-8. how-3. 데이터 그룹 관리 - affiliate :white_check_mark:\
+d-ㄴ-다-9. how-3. 데이터 그룹 관리 - paygroup :white_check_mark:\
+d-ㄴ-다-10. how-4. enumMapper :white_check_mark:
+
 d-ㄷ. 동적 late binding\
 d-ㄷ-가. composition\
 d-ㄷ-가-1. computer example :white_check_mark:\
@@ -206,8 +218,9 @@ b-3. [TCP socket programming - chatting](https://lktprogrammer.tistory.com/64?ca
 c-a. [stream 기초, 고급](https://futurecreator.github.io/2018/08/26/java-8-streams-advanced/) \
 c-a. [java Optional 바르게 쓰기 - 기계인간](https://homoefficio.github.io/2019/10/03/Java-Optional-%EB%B0%94%EB%A5%B4%EA%B2%8C-%EC%93%B0%EA%B8%B0/)
 
-d-가. [calculator from pop to oop](https://github.com/serverwizard/oop-practice)
-
+d-가. [calculator from pop to oop](https://github.com/serverwizard/oop-practice) \
+d-ㄴ-다. [enum 활용사례 3가지](https://github.com/jojoldu/blog-code/tree/master/enum-uses) \
+d-ㄴ-다. [enumMapper 활용](https://github.com/jojoldu/blog-code/blob/master/java/enum-mapper/README.md)
 
 
 e-1..4. [제네릭 기본, generic method, T extends X && T super X, wild card](https://www.youtube.com/watch?v=Vv0PGUxOzq0) \

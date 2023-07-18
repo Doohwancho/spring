@@ -1,7 +1,7 @@
 package design_pattern.Creational.singleton.step1;
 
 //eager initialization method
-public class Singleton {
+class Singleton {
 	
 	//static = 1 instance only guarantees
 	//static 메서드서 밖에 static 변수 사용 가능 

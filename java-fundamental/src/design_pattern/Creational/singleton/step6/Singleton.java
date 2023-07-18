@@ -1,7 +1,7 @@
 package design_pattern.Creational.singleton.step6;
 
 //ENUM singleton method
-public enum Singleton {
+enum Singleton {
 	UNIQUE_INSTANCE;
  
 	// other useful fields here

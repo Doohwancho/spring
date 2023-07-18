@@ -1,7 +1,7 @@
 package design_pattern.Creational.singleton.step5;
 
 //Initialization on demand holder idiom
-public class Singleton {
+class Singleton {
 	private Singleton() {}
 	
 	private static class SingletonHolder {
