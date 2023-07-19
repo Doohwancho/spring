@@ -1,0 +1,10 @@
+Q. 언제 catch 처리 안하고 냅둬야 함?
+
+1. error handling할 방법 없을 때, 차라리 crash fast -> 개발자에게 빨리 알람가게 해서 고치는게 낫다.
+  - ex. Catching an OutOfMemoryError and attempting to continue is likely to result in further errors and system instability
+2. Assertion Error
+  - 버그가 나왔으니까 나온 에러니까, 이 경우엔 crash 하게 냅두는게 좋다.
+3. ClassNotFoundException | NoClassDefFoundError
+  - 런타임 떄, 요구하는 클래스가 없는 경우, 심각한 에러니 바로 crash하게 해야 한다.
+4. StackOverflowError
+  - 재귀 잘못타서 나는 에러니까, fail fast 해서 고치는게 낫다.

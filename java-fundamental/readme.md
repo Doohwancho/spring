@@ -193,12 +193,24 @@ k-ㄷ-다-1. soft reference :white_check_mark:\
 k-ㄷ-라-1. phantom reference :white_check_mark:
 
 
-l-ㄱ. null-handling
+l-ㄱ. null-handling\
 l-ㄱ-가. Optional :white_check_mark:\
 l-ㄱ-나. module - nullify :white_check_mark:\
 l-ㄱ-나-1. Integer null test :white_check_mark:\
 l-ㄱ-나-2. string null test :white_check_mark:\
 l-ㄱ-나-3. List null test :white_check_mark:
+l-ㄴ. exception\
+l-ㄴ-가. error\
+l-ㄴ-가-1. let it crash :white_check_mark:\
+l-ㄴ-나. checked Exception\
+l-ㄴ-나-1. try~catch :white_check_mark:\
+l-ㄴ-나-2. throws로 책임 넘기기 :white_check_mark:\
+l-ㄴ-나-3. IOException handling :white_check_mark:\
+l-ㄴ-나-4. SQLExceptionHandling :white_check_mark:\
+l-ㄴ-나-5. ClassNotFoundException :white_check_mark:\
+l-ㄴ-나-6. InterruptedException :white_check_mark:
+
+l-ㄴ-다. unchecked Exception
 
 
 

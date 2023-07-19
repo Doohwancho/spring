@@ -1,0 +1,22 @@
+---
+How
+
+어짜피 system crash난걸 개발자가 어떻게 할 순 없으니까, crash 나자마자 개발자에게 알람 가도록 처리해야 한다.
+
+그러니 Exception만들 때, 왠만하면 extends Error 하지 마라...
+시스템적 에러만 여기 속하는거다..
+
+
+---
+What
+
+대표적인 예시: OutOfMemoryError(JVM)
+
+---
+Types
+
+1. Linkage Error
+2. ThreadDeath
+3. AssertionError
+4. VirtualMachineError (memory out of leak)
+
