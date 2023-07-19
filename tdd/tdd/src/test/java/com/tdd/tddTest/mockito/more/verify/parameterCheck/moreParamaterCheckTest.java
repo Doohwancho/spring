@@ -36,7 +36,7 @@ public class moreParamaterCheckTest {
     @Test
     public void testSaveBook() {
         //given
-        BookRequest bookRequest = new BookRequest("Mockito In Action", 500, LocalDate.now());
+        BookRequest bookRequest = new BookRequest("Mockito In Action", 1000, LocalDate.now());
         bookService.addBook(bookRequest);
 
         //when
