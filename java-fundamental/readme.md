@@ -209,7 +209,8 @@ l-ㄴ-나-3. IOException handling :white_check_mark:\
 l-ㄴ-나-4. SQLExceptionHandling :white_check_mark:\
 l-ㄴ-나-5. ClassNotFoundException :white_check_mark:\
 l-ㄴ-나-6. InterruptedException :white_check_mark:
-
+l-ㄷ. assert\
+l-ㄷ-가-1. assert vs exception :white_check_mark:\
 l-ㄴ-다. unchecked Exception
 
 
