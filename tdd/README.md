@@ -82,7 +82,8 @@ y-ㄷ-라-1. remove magic number :white_check_mark:\
 y-ㄷ-라-2. sonarLint 적용 :white_check_mark:\
 y-ㄷ-라-3. google code style 적용 :white_check_mark:\
 y-ㄷ-라-4. checkStyle 적용 :white_check_mark:\
-y-ㄷ-마. exception-handling
+y-ㄷ-마. exception-handling :white_check_mark:\
+y-ㄷ-바. test coverage 적용 :white_check_mark:
 
 z-1. reset database by platform
 

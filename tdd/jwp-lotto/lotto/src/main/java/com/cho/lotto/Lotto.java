@@ -38,18 +38,19 @@ class Lotto {
         }
         
         //step1) 1천원 단위로 로또 매수가 구입 가능해야 한다.
-        int amountToBuy = money / LOTTO_PRICE;
+        final int amountToBuy = money / LOTTO_PRICE;
         
-        List<List<Integer>> lists = new ArrayList<>();
+        final List<List<Integer>> lists = new ArrayList<>();
         
         for (int i = 0; i < amountToBuy; i++) {
             //step2) 1~45까지 숫자를 섞어서 랜덤하게 6자리를 뽑는다.
-            List<Integer> numbers = IntStream.rangeClosed(BOUND.MIN_BOUND_OF_LOTTO.getBoundary(),
-                BOUND.MAX_BOUND_OF_LOTTO.getBoundary()).boxed().collect(
-                Collectors.toList()); //1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45
+            final List<Integer> numbers = IntStream.rangeClosed(
+                    BOUND.MIN_BOUND_OF_LOTTO.getBoundary(), BOUND.MAX_BOUND_OF_LOTTO.getBoundary())
+                .boxed().collect(
+                    Collectors.toList()); //1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45
             
             Collections.shuffle(numbers, random);  // Shuffle the numbers
-            List<Integer> lottoNumbers = numbers.stream().limit(LOTTO_SIZE)
+            final List<Integer> lottoNumbers = numbers.stream().limit(LOTTO_SIZE)
                 .collect(Collectors.toList());
             
             lists.add(lottoNumbers);
@@ -79,7 +80,7 @@ class Lotto {
         당첨통계.put(PRIZE.SECOND_PRIZE, 0);
         당첨통계.put(PRIZE.FIRST_PRIZE, 0);
         
-        for (List<Integer> 긁은복권 : 긁은복권모음) {
+        for (final List<Integer> 긁은복권 : 긁은복권모음) {
             //step1) 긁은복권에서 당첨번호가 몇개 걸리는지 stream으로 확인
             int 당첨갯수 = (int) 긁은복권.stream().filter(당첨번호::contains).count();
             
@@ -121,29 +122,27 @@ class Lotto {
     enum PRIZE {
         FIRST_PRIZE(2_000_000_000, PREREQUISITES_FOR_FIRST), SECOND_PRIZE(1_500_000,
             PREREQUISITES_FOR_SECOND), THIRD_PRIZE(50_000, PREREQUISITES_FOR_THIRD), FOURTH_PRIZE(
-            5_000,
-            PREREQUISITES_FOR_FOURTH);
+            5_000, PREREQUISITES_FOR_FOURTH);
         
         
         private final int prizeMoney;
         private final int matchCount;
         
-        
-        PRIZE(int prizeMoney, int matchCount) {
+        PRIZE(final int prizeMoney, final int matchCount) {
             this.prizeMoney = prizeMoney;
             this.matchCount = matchCount;
         }
         
         String getPrizeName() {
-            return name();
+            return this.name();
         }
         
         int getPrizeMoney() {
-            return prizeMoney;
+            return this.prizeMoney;
         }
         
         int getMatchCount() {
-            return matchCount;
+            return this.matchCount;
         }
     }
     
@@ -152,24 +151,20 @@ class Lotto {
         
         private final int boundary;
         
-        BOUND(int boundary) {
+        BOUND(final int boundary) {
             this.boundary = boundary;
         }
         
-        String getNameOfBound() {
-            return name();
-        }
-        
         int getBoundary() {
-            return boundary;
+            return this.boundary;
         }
     }
     
     int getLottoSize() {
-        return LOTTO_SIZE;
+        return Lotto.LOTTO_SIZE;
     }
     
     int getLottoPrice() {
-        return LOTTO_PRICE;
+        return Lotto.LOTTO_PRICE;
     }
 }

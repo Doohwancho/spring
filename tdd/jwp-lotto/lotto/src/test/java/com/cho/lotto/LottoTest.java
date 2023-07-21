@@ -1,5 +1,6 @@
 package com.cho.lotto;
 
+import com.cho.lotto.Lotto.BOUND;
 import com.cho.lotto.exception.MinusCashIsNotAllowedException;
 import com.cho.lotto.exception.NullLottoNumberInputNotAllowedException;
 import com.cho.lotto.exception.NullScratchedLottoInputException;
