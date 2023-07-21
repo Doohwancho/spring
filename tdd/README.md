@@ -79,6 +79,7 @@ y-ㄷ-나-1. TODO - ?개를 어떻겍 엘레강스하게 표현하지? 를 enum�
 y-ㄷ-다. stream 적용 :white_check_mark:\
 y-ㄷ-라. clean code\
 y-ㄷ-라-1. remove magic number :white_check_mark:\
+y-ㄷ-라-2. linter 적용 :white_check_mark:\
 y-ㄷ-마. exception-handling
 
 z-1. reset database by platform
