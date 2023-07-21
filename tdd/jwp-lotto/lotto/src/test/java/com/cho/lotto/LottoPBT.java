@@ -11,6 +11,7 @@ import org.assertj.core.api.Assertions;
 public class LottoPBT {
     
     private final Lotto lotto = new Lotto();
+    private final int TRIALS = 10;
 
   /*
     어떻게 buyLotto()를 pbt로 테스트하지?
@@ -30,17 +31,17 @@ public class LottoPBT {
    */
     
     //2번 조건
-    @Property(tries = 10)
+    @Property(tries = TRIALS)
     //너무 오래걸리니까 횟수 제한
-    void 구입단위는_천원단위_이어야한다(@ForAll int money) throws Exception {
+    void 구입단위는_천원단위_이어야한다(@ForAll final int money) throws Exception {
         Assume.that(money >= 0);
         Assertions.assertThat(lotto.buyLotto(money)).hasSize(money / lotto.getLottoPrice());
     }
     
     //3번 조건
-    @Property(tries = 10)
+    @Property(tries = TRIALS)
     //너무 오래걸리니까 횟수 제한
-    void 로또_숫자범위_1부터_45까지_체크(@ForAll int money) throws Exception {
+    void 로또_숫자범위_1부터_45까지_체크(@ForAll final int money) throws Exception {
         //given
         Assume.that(money >= 0);
         
@@ -56,9 +57,9 @@ public class LottoPBT {
     }
     
     //4번 조건
-    @Property(tries = 10)
+    @Property(tries = TRIALS)
     //너무 오래걸리니까 횟수 제한
-    void 로또는_항상_6자리여야_한다(@ForAll int money) throws Exception {
+    void 로또는_항상_6자리여야_한다(@ForAll final int money) throws Exception {
         //given
         Assume.that(money >= 0);
         boolean flag = false;
@@ -74,9 +75,9 @@ public class LottoPBT {
     }
     
     //5번 조건
-    @Property(tries = 10)
+    @Property(tries = TRIALS)
     //너무 오래걸리니까 횟수 제한
-    void 모든_로또번호가_유일한지_체크(@ForAll int money) throws Exception {
+    void 모든_로또번호가_유일한지_체크(@ForAll final int money) throws Exception {
         //given
         Assume.that(money >= 0);
         

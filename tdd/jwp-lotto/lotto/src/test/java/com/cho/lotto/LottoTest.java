@@ -21,7 +21,7 @@ class LottoTest {
     
     @ValueSource(ints = {-1000, -1000000, Integer.MIN_VALUE})
     @ParameterizedTest
-    void 로또_구입_금액이_음수면_안된다(int money) throws Exception {
+    void 로또_구입_금액이_음수면_안된다(final int money) throws Exception {
         //when & then
         Assertions.assertThatThrownBy(() -> {
                 lotto.buyLotto(money);
@@ -31,7 +31,7 @@ class LottoTest {
     
     @ValueSource(ints = {0, 1000, 14000, 200000})
     @ParameterizedTest
-    void 천원단위로_로또_발급하는지_체크(int money) throws Exception {
+    void 천원단위로_로또_발급하는지_체크(final int money) throws Exception {
         //when
         List<List<Integer>> results = lotto.buyLotto(money);
         
@@ -57,7 +57,7 @@ class LottoTest {
     
     @ValueSource(ints = {0, 1000, 5000, 14000, 20000})
     @ParameterizedTest
-    void 로또_숫자범위_1부터_45까지_체크(int money) throws Exception {
+    void 로또_숫자범위_1부터_45까지_체크(final int money) throws Exception {
         //when
         List<List<Integer>> results = lotto.buyLotto(money);
         
@@ -71,7 +71,7 @@ class LottoTest {
     
     @ValueSource(ints = {0, 1000, 5000, 14000, 20000})
     @ParameterizedTest
-    void 모든_로또번호가_유일한지_체크(int money) throws Exception {
+    void 모든_로또번호가_유일한지_체크(final int money) throws Exception {
         //when
         List<List<Integer>> results = lotto.buyLotto(money);
         
@@ -173,11 +173,11 @@ class LottoTest {
     @Test
     void 당첨번호가_null이면_throw_Exception() {
         //given
-        List emptyList = new ArrayList<>();
+        List 긁은복권모음 = new ArrayList<>();
         
         //when & then
         Assertions.assertThatThrownBy(() ->
-                lotto.verifyLottoResult(null,emptyList)
+                lotto.verifyLottoResult(null, 긁은복권모음)
             ).isInstanceOf(NullLottoNumberInputNotAllowedException.class)
             .hasMessageContaining("당첨번호가 입력되지 않았습니다.");
     }
@@ -186,11 +186,11 @@ class LottoTest {
     void 당첨번호_갯수가_6개가아니면_throw_Exception() {
         //given
         List<Integer> 당첨번호 = Arrays.asList(1, 2, 3);
-        List emptyList = new ArrayList<>();
-    
+        List 긁은복권모음 = new ArrayList<>();
+        
         //when & then
         Assertions.assertThatThrownBy(() -> {
-                lotto.verifyLottoResult(당첨번호, emptyList);
+                lotto.verifyLottoResult(당첨번호, 긁은복권모음);
             }).isInstanceOf(WinningLottoNumberShouldBeSixDigitsException.class)
             .hasMessageContaining("당첨번호 갯수는 6개여야 합니다.");
     }
@@ -212,7 +212,7 @@ class LottoTest {
         //given
         List<Integer> 당첨번호 = Arrays.asList(1, 2, 3, 4, 5, 6);
         ArrayList<List<Integer>> 긁은복권모음 = new ArrayList<>();
-    
+        
         //when & then
         Assertions.assertThatThrownBy(() -> {
                 lotto.verifyLottoResult(당첨번호, 긁은복권모음);
