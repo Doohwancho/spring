@@ -147,7 +147,7 @@ i-ㄴ-다. 확장성 있는 코드
 
 i-ㄴ. comment
 
-i-ㄷ. variables
+i-ㄷ. variables\
 i-ㄷ-1. 원시값 & 문자열 포장한 클래스 :white_check_mark:\
 i-ㄷ-2. 축약어 풀어써라 :white_check_mark:
 
