@@ -1,0 +1,35 @@
+---
+Checked Exceptions
+
+
+ClassNotFoundException : Class.forName(), .loadClass() 했을 때, 클래스가 없는 경우
+CloneNotSupportedException : objA.clone() 했는데, objA가 implements Cloneable 안한 경우
+IllegalityAccessException : 리플렉션 같은걸로 객체 생성해서 접근하려는데, 아직 생성 안된 경우? 해당 객체의 생성자/메서드/필드에 접근 못할 때?
+InstantiationException : new 로 클래스의 객체 생성하려는데, interface나 abstract class라서 생성 안되는 경우
+NoSuchFieldException : 어떤 객체의 필드 접근하려는데, 해당 필드가 없는 경우
+NoSuchMethodException : 리플렉션을 통해 특정 객체의 메서드 접근하려는데, 없는 경우
+
+
+
+---
+Unchecked Exception
+
+
+list of RuntimeExceptions
+
+ArithmeticException : divide by zero 같은 경우 쓴다
+ArrayStoreException : 객체 array에 값 저장하려는데, 다른 타입의 객체 넣을 떄
+ClassCastException : 형변환 하려는 클래스 타입이 없는 경우
+IllegalStateException : 객체가 메서드를 수행하기에 적절하지 않은 상태일 때 (인수 값이 뭐였어도 어짜피 실패했을 메서드)
+IllegalArgumentException : 허용되지 않는 값이 인수로 건네졌을 때 실패한 경우(null은 따로 NullPointerException으로 처리)
+  - illegalThreadStateException : indicate that a thread is not in an appropriate state for the requested operation.
+  - NumberFormatException : String -> number type 변환하려는데, String이 적절한 형태가 아니라 던지는 에러
+NullPointerException : null이 허용되지 않은 메서드의 파라미터로 null이 들어왔을 때
+IllegalMonitorStateException : 쓰레드가 monitor로 락된곳에 들어가려다 반려당해서 wait()당했을 때
+IndexOutOfBoundsException : 인덱스의 범위를 넘어섰을 때
+  - ArrayIndexOutOfBoundsException : array size가 10인데, 11번째에 값을 넣으려고 했다거나..
+  - StringIndexOutOfBoundsExceptions : String size가 10인데, 11번째 .charAt(11); 하려고 했다거나..
+NegativeArraySizeException : array 선언시, 사이즈를 마이너스로 넣은 경우
+SecurityException : 시큐리티 매니저에 의해, 보안문제 일어났을 때 씀
+UnsupportedOperationException : 호출한 메서드를 지원하지 않을 때
+ConcurrentModificationException : 허용하지 않는 동시 수정이 발견됐을 때

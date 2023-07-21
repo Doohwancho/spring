@@ -1,0 +1,15 @@
+
+---
+When
+
+Q. 언제 exception 쓰고 언제 assert 씀?
+
+
+1. 시스템 내부의 내 control 안에 있는 코드는 코드 잘 짜면 되니까 Exception 안터진다고 가정,
+내 시스템 외부 코드(ex. external api)나, file IO의 경우, 내 control 바깥 영역이기 때문에 exception 쓴다.
+
+2. exception의 본질은 기능 하나가 오작동해도 시스템 전체가 crash나지 않고 계속 돌아가게 만드는 것에 있다.
+
+3. assert의 본질은 개발단계에서 이 기능 안되면 crash가 나야하는걸 fail-fast로 빨리 감지하기 위해 사용한다.
+
+4. 정적분석툴(ex. sonarlint) 등을 활용해 코드 취약점 분석해주는걸 보고 힌트 얻기 + assert와 같이 활용해 개발단계에서 에러 최소화 한다.

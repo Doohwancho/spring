@@ -137,8 +137,12 @@ h-4. build search in mvc pattern using event listener :white_check_mark:
 
 
 i-ㄱ. principle\
+i-ㄱ-가. 이해하기 쉬운 코드\
 i-ㄱ-가-1. 객체지향 생활체조 원칙 :white_check_mark:\
-i-ㄱ-나-1. rule of 6 :white_check_mark:\
+i-ㄱ-가-2. rule of 6 :white_check_mark:\
+i-ㄱ-가-3. 표준 - checkStyle (intellij plugin) :white_check_mark:\
+i-ㄴ-나. 변형하기 쉬운 코드\
+i-ㄴ-다. 확장성 있는 코드
 
 i-ㄴ. comment
 
@@ -157,7 +161,6 @@ i-ㄹ-다. setter\
 i-ㄹ-다-1. don't ask, just tell :white_check_mark:\
 i-ㄹ-다-2. 의도치 않은 필드(ex. id)의 setter() 방어 :white_check_mark:\
 i-ㄹ-다-3. custom setter()는 validation check 로직 추가 가능 :white_check_mark:
-
 
 i-ㅁ. class\
 i-ㅁ-가. immutable class\
@@ -192,13 +195,12 @@ k-ㄷ-나-2. weak hashmap :white_check_mark:\
 k-ㄷ-다-1. soft reference :white_check_mark:\
 k-ㄷ-라-1. phantom reference :white_check_mark:
 
-
 l-ㄱ. null-handling\
 l-ㄱ-가. Optional :white_check_mark:\
 l-ㄱ-나. module - nullify :white_check_mark:\
 l-ㄱ-나-1. Integer null test :white_check_mark:\
 l-ㄱ-나-2. string null test :white_check_mark:\
-l-ㄱ-나-3. List null test :white_check_mark:
+l-ㄱ-나-3. List null test :white_check_mark:\
 l-ㄴ. exception\
 l-ㄴ-가. error\
 l-ㄴ-가-1. let it crash :white_check_mark:\
@@ -208,10 +210,21 @@ l-ㄴ-나-2. throws로 책임 넘기기 :white_check_mark:\
 l-ㄴ-나-3. IOException handling :white_check_mark:\
 l-ㄴ-나-4. SQLExceptionHandling :white_check_mark:\
 l-ㄴ-나-5. ClassNotFoundException :white_check_mark:\
-l-ㄴ-나-6. InterruptedException :white_check_mark:
+l-ㄴ-나-6. InterruptedException :white_check_mark:\
+l-ㄴ-나-7. exception chaining :white_check_mark:\
+l-ㄴ-나-8. wrap low level exception with high level exception :white_check_mark:\
+l-ㄴ-다. unchecked Exception\
+l-ㄴ-다-1. enum으로 Exception Error code 묶어 관리 :white_check_mark:\
+l-ㄴ-라. 예외처리 3가지 방법\
+l-ㄴ-라-1. 1. 예외 복구:white_check_mark:\
+l-ㄴ-라-2. 2. 예외 전환 :white_check_mark:\
+l-ㄴ-라-3. 3. 예외 처리 회피 :white_check_mark:\
+l-ㄴ-마. 구현방법론\
+l-ㄴ-마-1. 실패원자적으로 만들기 - 불변객체 :white_check_mark:\
+l-ㄴ-마-2. 실패원자적으로 만들기 - 가변객체 안에서 validation check :white_check_mark:\
+l-ㄴ-마-3. 실패원자적으로 만들기 - 임시 복사본 객체에서 처리 후 실패하면 throw Exception :white_check_mark:\
 l-ㄷ. assert\
-l-ㄷ-가-1. assert vs exception :white_check_mark:\
-l-ㄴ-다. unchecked Exception
+l-ㄷ-가-1. assert vs exception :white_check_mark:
 
 
 
