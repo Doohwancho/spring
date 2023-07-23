@@ -1,6 +1,0 @@
-package effective_java._2장_객체_생성과_파괴.객쳬_생성.생성자_대신_static_factory_pattern;
-
-public enum Color {
-	RED,
-	BLUE
-}

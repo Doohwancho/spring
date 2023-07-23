@@ -1,4 +1,4 @@
-package oop._1_상태_데이터의_캡슐화.state.immutable_object.example;
+package oop._1_상태_데이터의_캡슐화.state.immutable_object.example.reminder;
 
 import java.util.Date;
 

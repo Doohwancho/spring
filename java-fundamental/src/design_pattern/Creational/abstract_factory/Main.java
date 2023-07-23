@@ -1,16 +1,6 @@
 package design_pattern.Creational.abstract_factory;
 
-public class Main {
-    public static void main(String args[]){
-        ComputerFactory computerFactory = new ComputerFactory();
-        computerFactory.createComputer("LG");
-    }
-}
-
-
 /*
-
-
 ---
 diff 팩토리 메서드 패턴 추상 팩토리 메서드 패턴
 
@@ -25,3 +15,10 @@ diff 팩토리 메서드 패턴 추상 팩토리 메서드 패턴
 
 
  */
+public class Main {
+    public static void main(String args[]){
+        ComputerFactory computerFactory = new ComputerFactory();
+        computerFactory.createComputer("LG");
+    }
+}
+
