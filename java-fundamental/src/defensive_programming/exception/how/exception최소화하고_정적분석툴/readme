@@ -1,0 +1,6 @@
+---
+when
+
+
+만드는 모든 함수에 인자 validation check에 개발자가 실수 할 수 있는 부분까지 Exception으로 박지 말고,
+개발자의 마이너, 디테일한 실수는 linter로 잡자.

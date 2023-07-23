@@ -203,6 +203,8 @@ l-ㄱ-나. module - nullify :white_check_mark:\
 l-ㄱ-나-1. Integer null test :white_check_mark:\
 l-ㄱ-나-2. string null test :white_check_mark:\
 l-ㄱ-나-3. List null test :white_check_mark:\
+l-ㄱ-다. how\
+l-ㄱ-다-1. 모든 메서드의 인자가 object일 때마다 null validation check하지 말라 :white_check_mark:\
 l-ㄴ. exception\
 l-ㄴ-가. error\
 l-ㄴ-가-1. let it crash :white_check_mark:\
@@ -225,9 +227,16 @@ l-ㄴ-마. 구현방법론\
 l-ㄴ-마-1. 실패원자적으로 만들기 - 불변객체 :white_check_mark:\
 l-ㄴ-마-2. 실패원자적으로 만들기 - 가변객체 안에서 validation check :white_check_mark:\
 l-ㄴ-마-3. 실패원자적으로 만들기 - 임시 복사본 객체에서 처리 후 실패하면 throw Exception :white_check_mark:\
+l-ㄴ-바. 정적분석툴\
+l-ㄴ-바-1. 개발자 실수할 수 있는 부분도 exception으로 범벅하지 말고 linter를 쓰자 :white_check_mark:\
 l-ㄷ. assert\
 l-ㄷ-가-1. assert vs exception :white_check_mark:
-
+l-ㄹ. enum over string\
+l-ㄹ-가-1. 동서남북 예제 :white_check_mark:\
+l-ㅁ. magic number :white_check_mark:\
+l-ㅂ. early exit\
+l-ㅂ-가-1. nested if-else -> early exit 예제 :white_check_mark:\
+l-ㅂ-가-2. wrong advice: oop style :white_check_mark:
 
 2장 객체 생성과 파괴\
 아이템 1. 생성자 대신 정적 팩터리 메서드를 고려하라 :white_check_mark:\
