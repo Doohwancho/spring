@@ -52,7 +52,7 @@ c-ㄱ-나-1. stream - 1. 스트림 만들기 :white_check_mark:\
 c-ㄱ-나-2. stream - 2. 가공하기 :white_check_mark:\
 c-ㄱ-나-3. stream - 3. 결과 만들기 :white_check_mark:\
 c-ㄱ-나-4. stream - 4. 고급(동작 순서, 성능향상, 재사용, 지연처리, null-safe 스트림 생성, shortcuts) :white_check_mark:\
-c-ㄱ-나-5. stream - 5. parallel stream performance test :white_check_mark:
+c-ㄱ-나-5. stream - 5. parallel stream performance test :white_check_mark:\
 c-ㄱ-다-1. lambda - why lambda is created :white_check_mark:\
 c-ㄱ-다-2. lambda - 참조 지역변수는 final로 선언하라 :white_check_mark:\
 c-ㄱ-다-3. lambda - functional interface :white_check_mark:\
@@ -85,18 +85,6 @@ d-ㄴ-나. synchronization\
 d-ㄴ-나-1. synchronized :white_check_mark:\
 d-ㄴ-나-2. volatile :white_check_mark:\
 d-ㄴ-나-3. atomic class :white_check_mark:\
-d-ㄴ-다. enum\
-d-ㄴ-다-1. what - enum은 클래스다 :white_check_mark:\
-d-ㄴ-다-2. what - calculate :white_check_mark:\
-d-ㄴ-다-3. what - planet :white_check_mark:\
-d-ㄴ-다-4. how-1. 같은 의미끼리 묶기 - table status :white_check_mark:\
-d-ㄴ-다-5. how-1. 같은 의미끼리 묶기 - limit day type :white_check_mark:\
-d-ㄴ-다-6. how-2. 상태와 행위를 한곳에서 관리 - calculate :white_check_mark:\
-d-ㄴ-다-7. how-2. 상태와 행위를 한곳에서 관리 - sales amount type :white_check_mark:\
-d-ㄴ-다-8. how-3. 데이터 그룹 관리 - affiliate :white_check_mark:\
-d-ㄴ-다-9. how-3. 데이터 그룹 관리 - paygroup :white_check_mark:\
-d-ㄴ-다-10. how-4. enumMapper :white_check_mark:
-
 d-ㄷ. 동적 late binding\
 d-ㄷ-가. composition\
 d-ㄷ-가-1. computer example :white_check_mark:\
@@ -109,6 +97,29 @@ d-ㄹ-가-1. distance example :white_check_mark:\
 d-ㄹ-가-2. bank example :white_check_mark:\
 d-ㅁ. polymorphism\
 d-ㅁ-가-1. 인터페이스로 제약건 메서드만 실행 가능한게 디버깅/코드분석시 장점 :white_check_mark:
+d-ㅂ. 상태 데이터의 캡슐화\
+d-ㅂ-가. enum\
+d-ㅂ-가-1. what - enum은 클래스다 :white_check_mark:\
+d-ㅂ-가-2. what - calculate :white_check_mark:\
+d-ㅂ-가-3. what - planet :white_check_mark:\
+d-ㅂ-가-4. how-1. 같은 의미끼리 묶기 - table status :white_check_mark:\
+d-ㅂ-가-5. how-1. 같은 의미끼리 묶기 - limit day type :white_check_mark:\
+d-ㅂ-가-6. how-2. 상태와 행위를 한곳에서 관리 - calculate :white_check_mark:\
+d-ㅂ-가-7. how-2. 상태와 행위를 한곳에서 관리 - sales amount type :white_check_mark:\
+d-ㅂ-가-8. how-3. 데이터 그룹 관리 - affiliate :white_check_mark:\
+d-ㅂ-가-9. how-3. 데이터 그룹 관리 - paygroup :white_check_mark:\
+d-ㅂ-가-10. how-4. enumMapper :white_check_mark:
+d-ㅂ-나. nested class\
+d-ㅂ-나-1. 멤버 클래스 - custom list with iterator :white_check_mark:\
+d-ㅂ-나-2. 멤버 클래스 - :white_check_mark:\
+d-ㅂ-나-3. 정적 멤버 클래스 - builder pattern :white_check_mark:\
+d-ㅂ-나-4. 정적 멤버 클래스 - utility class :white_check_mark:\
+d-ㅂ-나-5. 익명 클래스 - Arrays.sort()에 들어가는 new Comparator :white_check_mark:\
+d-ㅂ-나-6. 익명 클래스 - event listener :white_check_mark:\
+d-ㅂ-나-7. 익명 클래스 - calculator :white_check_mark:\
+d-ㅂ-나-8. 지역 클래스 - registration form :white_check_mark:
+
+
 
 
 e-1. what is generics? :white_check_mark:\
@@ -259,17 +270,17 @@ l-ㅂ-가-2. wrong advice: oop style :white_check_mark:
 
 
 4장 클래스와 인터페이스\
-아이템 15. 클래스와 멤버의 접근 권한을 최소화하라\
-아이템 16. public 클래스에서는 public 필드가 아닌 접근자 메서드를 사용하라\
-아이템 17. 변경 가능성을 최소화하라\
-아이템 18. 상속보다는 컴포지션을 사용하라\
-아이템 19. 상속을 고려해 설계하고 문서화하라. 그러지 않았다면 상속을 금지하라\
-아이템 20. 추상 클래스보다는 인터페이스를 우선하라\
-아이템 21. 인터페이스는 구현하는 쪽을 생각해 설계하라\
-아이템 22. 인터페이스는 타입을 정의하는 용도로만 사용하라\
-아이템 23. 태그 달린 클래스보다는 클래스 계층구조를 활용하라\
-아이템 24. 멤버 클래스는 되도록 static으로 만들라\
-아이템 25. 톱레벨 클래스는 한 파일에 하나만 담으라
+아이템 15. 클래스와 멤버의 접근 권한을 최소화하라 :white_check_mark:\
+아이템 16. public 클래스에서는 public 필드가 아닌 접근자 메서드를 사용하라 :white_check_mark:\
+아이템 17. 변경 가능성을 최소화하라 :white_check_mark:\
+아이템 18. 상속보다는 컴포지션을 사용하라 :white_check_mark:\
+아이템 19. 상속을 고려해 설계하고 문서화하라. 그러지 않았다면 상속을 금지하라 :white_check_mark:\
+아이템 20. 추상 클래스보다는 인터페이스를 우선하라 :white_check_mark:\
+아이템 21. 인터페이스는 구현하는 쪽을 생각해 설계하라 :white_check_mark:\
+아이템 22. 인터페이스는 타입을 정의하는 용도로만 사용하라 :white_check_mark:\
+아이템 23. 태그 달린 클래스보다는 클래스 계층구조를 활용하라 :white_check_mark:\
+아이템 24. 멤버 클래스는 되도록 static으로 만들라 :white_check_mark:\
+아이템 25. 톱레벨 클래스는 한 파일에 하나만 담으라 :white_check_mark:
 
 
 5장 제네릭\
