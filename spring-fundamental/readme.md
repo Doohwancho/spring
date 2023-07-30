@@ -154,7 +154,8 @@ o-5. Exception 종류 (checked, unchecked) :white_check_mark:\
 o-6. exception handling tips :white_check_mark:\
 o-7. exception handling in @Transactional :white_check_mark:\
 o-8. spring retry on controller & service :white_check_mark:\
-o-9. exception 메시지를 class -> enum으로 구현 :white_check_mark:
+o-9. exception 메시지를 class -> enum으로 구현 :white_check_mark:\
+o-10. business exception :white_check_mark:
 
 p-1. bean & scope :white_check_mark:\
 p-2. Environment(ex. Profile) :white_check_mark:\
