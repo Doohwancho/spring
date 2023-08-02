@@ -47,4 +47,11 @@ d-x. [swagger2 implementation](https://www.youtube.com/watch?v=Q27PGBYmHNA&ab_ch
 e-ㄱ.openapi\
 e-ㄱ-가. OpenAPI Specification & Swagger Tools - Zero To Master example :white_check_mark:\
 e-ㄴ.openapi-codegen\
-e-ㄴ-가. swagger-code-eStore 예제 :white_check_mark:
+e-ㄴ-가. swagger-code-eStore 예제 :white_check_mark:\
+e-ㄴ-나. ecommerce 예제 :white_check_mark:\
+e-ㄴ-나-1. jpa interface implements 확장해서 custom jpql 작성하기 :white_check_mark:
+e-ㄴ-나-2. codegen :white_check_mark:\
+e-ㄴ-나-3. hateoas :?:\
+e-ㄴ-나-4. etag :?:\
+e-ㄴ-나-5. security :white_check_mark:\
+e-ㄴ-나-6. test :white_check_mark:

@@ -1,0 +1,31 @@
+---
+what
+
+
+개방 폐쇄의 원칙
+확장에는 열려 있고, 변경에는 닫혀 있다
+기능을 추가하거나 변경하면서 그것을 사용하는 코드는 수정하지 않는다.
+
+
+---
+example
+
+
+problem:
+결제Controller -> 신안카드결제Service
+여기서, 우리카드결제Service를 붙이고 싶다. 어떻게 해야하나?
+
+
+case1) 우리카드결제Controller를 별도로 만들고, 우리카드결제Service를 붙이기
+Q. 왜 이런식으로 함?
+A. 그래야 기존에 결제Controller && 신안카드결제Service 코드 안건드리지
+
+근데 문제가, 기존 결제 컨트롤러 & 서비스 코드랑 많이 겹침
+
+
+case2) 결제Controller에서 결제메서드에 if-else로 분기쳐서 우리카드결제Service도 붙이기
+이러면 문제가 농협카드Service같은거 추가될 때마다, 서비스만 건드리는게 아니라, 컨트롤러도 건드려야 함.
+
+
+case3) 기존 우리카드결제Service를 받는 결제Interface만들고, 우리카드결제Service implements 결제 Interface 받게 함
+이러면 컨트롤러 안건드리면서, 새로운 카드서비스 추가되면, implements 결제Interface만 하면 됨
