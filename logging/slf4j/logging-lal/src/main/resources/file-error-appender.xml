@@ -1,0 +1,27 @@
+<included>
+  <appender name="FILE-ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>./log/error/error-${BY_DATE}.log</file>
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>ERROR</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+    <encoder>
+      <pattern>${LOG_PATTERN}</pattern>
+    </encoder>
+    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+      <fileNamePattern>./backup/error/error-%d{yyyy-MM-dd}.%i.log</fileNamePattern> <!-- TODO - 파일 이름에 시간 포함 -->
+      <maxFileSize>100MB</maxFileSize>  <!-- TODO - log file이 100mb 넘으면 삭제  -->
+      <maxHistory>30</maxHistory> <!-- TODO - 보관기간 30일 넘으면 삭제-->
+      <totalSizeCap>3GB</totalSizeCap> <!-- TODO - 전체 로그 사이즈가 3gb가 넘었을 때 삭제 -->
+    </rollingPolicy>
+  </appender>
+</included>
+<!--
+TODO - error log example
+
+log/error/error-2021-07-12.log
+
+[2021-07-12 23:14:40:15402] [32m[http-nio-8080-exec-2][0;39m [1;31mERROR[0;39m [1;37m[com.livenow.slf4jlogbacklab.Slf4jRestControllerAdvice.notFoundException:[33m33[0;39m][0;39m - CommonException: NotFoundException: Cannot find Team by input value. Input: 좋은 팀
+[2021-07-12 23:14:42:17670] [32m[http-nio-8080-exec-4][0;39m [1;31mERROR[0;39m [1;37m[com.livenow.slf4jlogbacklab.Slf4jRestControllerAdvice.notFoundException:[33m33[0;39m][0;39m - CommonException: NotFoundException: Cannot find Team by input value. Input: 좋은 팀
+-->
