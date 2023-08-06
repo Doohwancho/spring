@@ -14,16 +14,17 @@ A. java fundamental
 B. spring fundamental
 C. spring secuirty
 D. spring jpa
-E. api
+O. spring batch
+J. spring actuator
 F. spring wetflux
+M. spring cloud
+E. api
+L. concurrency issue
 G. logging
 H. TDD
-I. regex
-J. spring actuator
-K. message queue
-L. concurrency issue
-M. spring cloud
 N. DDD
-O. spring batch
+K. message queue
 P. UML
+I. regex
+Q. ?
 Z. module

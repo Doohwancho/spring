@@ -96,7 +96,7 @@ d-ㄹ-가. dont ask just tell\
 d-ㄹ-가-1. distance example :white_check_mark:\
 d-ㄹ-가-2. bank example :white_check_mark:\
 d-ㅁ. polymorphism\
-d-ㅁ-가-1. 인터페이스로 제약건 메서드만 실행 가능한게 디버깅/코드분석시 장점 :white_check_mark:
+d-ㅁ-가-1. 인터페이스로 제약건 메서드만 실행 가능한게 디버깅/코드분석시 장점 :white_check_mark:\
 d-ㅂ. 상태 데이터의 캡슐화\
 d-ㅂ-가. enum\
 d-ㅂ-가-1. what - enum은 클래스다 :white_check_mark:\

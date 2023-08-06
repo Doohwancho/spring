@@ -19,12 +19,15 @@ e. steal: jpa-best-practices-cheese10yun\
 f. jpa-best-practices\
 g. steal: JY_Commerce\
 h. steal: jpa_quickstart
+z. playground\
 
 
 
 
 ---\
 Todos
+
+
 
 
 a-1. 객체와 테이블 매핑: @Entity :white_check_mark:\
@@ -116,6 +119,9 @@ h-8. subquery :white_check_mark:\
 h-9. pagination read query :white_check_mark:\
 h-10. jpql의 criteria를 이용한 where절 조건검색 :white_check_mark:\
 h-11. @ToString(exclude = ...) for avoiding circular reference :white_check_mark:
+
+
+z-1. jpashop 복습 :white_check_mark:
 
 ---\
 Reference
