@@ -1,15 +1,15 @@
 package org.example.jpashop.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.jpashop.controller.OrderController.OrderSearch;
 import org.example.jpashop.domain.Delivery;
 import org.example.jpashop.domain.Member;
 import org.example.jpashop.domain.Order;
 import org.example.jpashop.domain.OrderItem;
 import org.example.jpashop.domain.item.Item;
-import org.example.jpashop.repository.ItemRepository;
-import org.example.jpashop.repository.MemberRepository;
-import org.example.jpashop.repository.OrderRepository;
-import org.example.jpashop.dto.OrderSearch;
+import org.example.jpashop.repository.jpql.ItemRepository;
+import org.example.jpashop.repository.jpql.OrderRepository;
+import org.example.jpashop.repository.queryDSL.MemberJpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +22,7 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
 
-    private final MemberRepository memberRepository;
+    private final MemberJpaRepository memberRepository;
 
     private final ItemRepository itemRepository;
 

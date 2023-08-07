@@ -1,4 +1,4 @@
-package org.example.jpashop.api;
+package org.example.jpashop.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.example.jpashop.domain.Member;
+import org.example.jpashop.dto.MemberDto;
 import org.example.jpashop.service.MemberService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -30,8 +31,8 @@ public class MemberApiController {
     @GetMapping("/api/v2/members")
     public Result membersV2() {
         List<Member> findMembers = memberService.findMembers();
-        List<MemberDto> collect = findMembers.stream()
-            .map(m -> new MemberDto(m.getName()))
+        List<MemberTestDto> collect = findMembers.stream()
+            .map(m -> new MemberTestDto(m.getUserName()))
             .collect(Collectors.toList());
         
         return new Result(collect.size(), collect);
@@ -45,13 +46,6 @@ public class MemberApiController {
         private T data;
     }
     
-    @Data
-    @AllArgsConstructor
-    static class MemberDto {
-        
-        private String name;
-    }
-    
     @PostMapping("/api/v1/members")
     public CreateMemberResponse saveMemberV1(@RequestBody @Valid Member member) {
         Long id = memberService.join(member);
@@ -62,7 +56,7 @@ public class MemberApiController {
     public CreateMemberResponse saveMemberV2(@RequestBody @Valid CreateMemberRequest request) {
         
         Member member = new Member();
-        member.setName(request.getName());
+        member.setUserName(request.getName());
         
         Long id = memberService.join(member);
         return new CreateMemberResponse(id);
@@ -75,7 +69,7 @@ public class MemberApiController {
     ) {
         memberService.update(id, request.getName());
         Member findMember = memberService.findOne(id);
-        return new UpdateMemberResponse(findMember.getId(), findMember.getName());
+        return new UpdateMemberResponse(findMember.getId(), findMember.getUserName());
     }
     
     @Data
@@ -106,6 +100,15 @@ public class MemberApiController {
         
         public CreateMemberResponse(Long id) {
             this.id = id;
+        }
+    }
+    
+    @Data
+    private class MemberTestDto {
+        
+        String userName;
+        public MemberTestDto(String userName) {
+            this.userName = userName;
         }
     }
 }

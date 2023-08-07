@@ -1,4 +1,4 @@
-package org.example.jpashop.repository;
+package org.example.jpashop.repository.jpql;
 
 import java.util.List;
 import javax.persistence.EntityManager;

@@ -1,0 +1,50 @@
+package org.example.jpashop.jpa_basic;
+
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
+import org.example.jpashop.domain.Member;
+import org.example.jpashop.domain.Team;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+@Transactional
+class PersistAndFlushTest {
+    @Autowired
+    EntityManager em;
+    
+    @Test
+    public void testEntity() {
+        Team teamA = new Team("Team A");
+        Team teamB = new Team("Team B");
+        em.persist(teamA);
+        em.persist(teamB);
+        
+        Member member1 = new Member("member1", 10, teamA);
+        Member member2 = new Member("member2", 20, teamA);
+        
+        Member member3 = new Member("member3", 30, teamB);
+        Member member4 = new Member("member4", 40, teamB);
+        
+        em.persist(member1);
+        em.persist(member2);
+        em.persist(member3);
+        em.persist(member4);
+        
+        // flush
+        em.flush();
+        em.clear();
+        /**
+         * clears the persistence context, causing all managed entities to become detached.
+         * This method can be used to avoid memory leaks or to reset the state of the EntityManager.
+         */
+        
+        List<Member> members = em.createQuery("select m from Member m", Member.class) //그럼 이건 실제 db에서 땡겨오는거네
+            .getResultList();
+        
+        Assertions.assertEquals(4, members.size());
+    }
+}

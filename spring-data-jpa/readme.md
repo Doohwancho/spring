@@ -121,7 +121,8 @@ h-10. jpql의 criteria를 이용한 where절 조건검색 :white_check_mark:\
 h-11. @ToString(exclude = ...) for avoiding circular reference :white_check_mark:
 
 
-z-1. jpashop 복습 :white_check_mark:
+z-1. jpashop 복습 :white_check_mark:\
+z-2. jpa-queryDSL 복습 :white_check_mark:
 
 ---\
 Reference

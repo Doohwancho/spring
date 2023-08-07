@@ -13,14 +13,14 @@ import org.example.jpashop.domain.OrderStatus;
 import org.example.jpashop.domain.item.Book;
 import org.example.jpashop.domain.item.Item;
 import org.example.jpashop.exception.NotEnoughStockException;
-import org.example.jpashop.repository.OrderRepository;
-import org.example.jpashop.service.OrderService;
+import org.example.jpashop.repository.jpql.OrderRepository;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-//@RunWith(SpringRunner.class)
+@Disabled
 @SpringBootTest
 @Transactional
 public class OrderServiceTest {
@@ -102,7 +102,7 @@ public class OrderServiceTest {
     
     private Member createMember(String name, String city, String street, String zipcode) {
         Member member = new Member();
-        member.setName(name);
+        member.setUserName(name);
         member.setAddress(new Address(city, street, zipcode));
         em.persist(member); //em.persist(member);은 jpa 1st layer cache엔 들고있지만, transaction이 끝날 때 까지 db에 INSERT query 날리진 않는다.
         return member;

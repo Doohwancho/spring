@@ -1,10 +1,12 @@
 package org.example.jpashop.controller;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.example.jpashop.domain.Member;
 import org.example.jpashop.domain.Order;
+import org.example.jpashop.domain.OrderStatus;
 import org.example.jpashop.domain.item.Item;
-import org.example.jpashop.dto.OrderSearch;
 import org.example.jpashop.service.ItemService;
 import org.example.jpashop.service.MemberService;
 import org.example.jpashop.service.OrderService;
@@ -54,5 +56,16 @@ public class OrderController {
     public String cancelOrder(@PathVariable("orderId") Long orderId) {
         orderService.cancelOrder(orderId);
         return "redirect:/orders";
+    }
+    
+    
+    
+    @Getter
+    @Setter
+    public class OrderSearch {
+        
+        private String memberName;
+        
+        private OrderStatus orderStatus;
     }
 }

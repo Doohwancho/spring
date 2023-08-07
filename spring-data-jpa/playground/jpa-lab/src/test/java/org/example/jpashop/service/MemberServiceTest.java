@@ -1,14 +1,14 @@
 package org.example.jpashop.service;
 
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import org.example.jpashop.domain.Member;
-import org.example.jpashop.repository.MemberRepository;
-import org.example.jpashop.service.MemberService;
-import org.junit.jupiter.api.Test;
+import org.example.jpashop.repository.queryDSL.MemberJpaRepository;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -20,7 +20,7 @@ public class MemberServiceTest {
     private MemberService memberService;
     
     @Autowired
-    private MemberRepository memberRepository;
+    private MemberJpaRepository memberRepository;
     
     @Autowired
     EntityManager em;
@@ -29,7 +29,7 @@ public class MemberServiceTest {
     public void 회원가입() {
         //given
         Member member = new Member();
-        member.setName("kim");
+        member.setUserName("kim");
         
         //when
         Long savedId = memberService.join(member);
@@ -44,10 +44,10 @@ public class MemberServiceTest {
     public void 중복_회원_예외() {
         //given
         Member member1 = new Member();
-        member1.setName("kim");
+        member1.setUserName("kim");
         
         Member member2 = new Member();
-        member2.setName("kim");
+        member2.setUserName("kim");
         
         //when
         //then

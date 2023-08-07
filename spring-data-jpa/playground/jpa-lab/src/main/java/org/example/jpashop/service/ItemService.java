@@ -2,7 +2,7 @@ package org.example.jpashop.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.jpashop.domain.item.Item;
-import org.example.jpashop.repository.ItemRepository;
+import org.example.jpashop.repository.jpql.ItemRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

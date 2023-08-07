@@ -1,9 +1,11 @@
 package org.example.jpashop.controller;
 
+import javax.validation.constraints.NotEmpty;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.example.jpashop.domain.Address;
 import org.example.jpashop.domain.Member;
-import org.example.jpashop.dto.MemberForm;
 import org.example.jpashop.service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +35,7 @@ public class MemberController {
         Address address = new Address(form.getCity(), form.getStreet(), form.getZipcode());
 
         Member member = new Member();
-        member.setName(form.getName());
+        member.setUserName(form.getName());
         member.setAddress(address);
 
         memberService.join(member);
@@ -45,4 +47,18 @@ public class MemberController {
         model.addAttribute("members", memberService.findMembers());
         return "members/memberList";
     }
+    
+    
+    @Getter
+    @Setter
+    public class MemberForm {
+        
+        @NotEmpty(message = "회원 이름은 필수입니다.")
+        private String name;
+        
+        private String city;
+        private String street;
+        private String zipcode;
+    }
+    
 }

@@ -1,7 +1,8 @@
 package org.example.jpashop.controller;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.example.jpashop.dto.BookForm;
+import lombok.Setter;
 import org.example.jpashop.domain.item.Book;
 import org.example.jpashop.service.ItemService;
 import org.springframework.stereotype.Controller;
@@ -80,4 +81,18 @@ public class ItemController {
 
         return "redirect:/items";
     }
+    
+    
+    @Getter
+    @Setter
+    public class BookForm {
+        
+        private Long id;
+        private String name;
+        private int price;
+        private int stockQuantity;
+        private String author;
+        private String isbn;
+    }
+    
 }

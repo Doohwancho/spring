@@ -1,4 +1,4 @@
-package org.example.jpashop.repository;
+package org.example.jpashop.repository.jpql;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -7,9 +7,9 @@ import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
+import org.example.jpashop.controller.OrderController.OrderSearch;
 import org.example.jpashop.domain.Member;
 import org.example.jpashop.domain.Order;
-import org.example.jpashop.dto.OrderSearch;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
