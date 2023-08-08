@@ -35,7 +35,16 @@ public class MemberServiceTest {
         Long savedId = memberService.join(member);
         
         //then
-        em.flush(); //flush() synchronize the persistence context to the underlying database. It forces any pending changes to be written to the database immediately and also flushes the EntityManager's internal cache.
+        em.flush();
+        //TODO - Q. MemberServiceTest.java에서, 그냥 Long savedId = memberService.join(member); 만 하면 되는데, em.flush(); 도 따로 해주네, 왜지?
+        
+        //A. write-behind에 sql문 담기고 아직 db에 안쏜 상태 예방하려고구나.
+    
+        //flush() synchronize the persistence context to the underlying database.
+        // It forces any pending changes to be written to the database immediately and also flushes the EntityManager's internal cache.
+        
+        //그래야 그 다음 코드인 assertEquals(member, memberRepository.findOne(savedId)); 을 했을 때,
+        // db에서 실제 값이 있어야 땡겨올 수 있지.
         
         assertEquals(member, memberRepository.findOne(savedId));
     }

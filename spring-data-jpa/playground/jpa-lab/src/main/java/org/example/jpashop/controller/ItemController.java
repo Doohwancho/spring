@@ -60,9 +60,7 @@ public class ItemController {
     }
 
     /**
-     * 주의!
-     *
-     * controller에서 파라미터로 받은 BookForm 객체는 영속성 객체가 아니다.
+     * TODO - controller에서 파라미터로 받은 BookForm 객체는 영속성 객체가 아니다.
      * itemService.saveItem(bookForm); 하면, detached 객체 넣었다고 에러남.
      * 따라서 @Entity 표시한 영속성 객체인 Book을 새로 만들어서 넣어주자.
      */

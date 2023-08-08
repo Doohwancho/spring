@@ -42,7 +42,7 @@ public class OrderRepository {
             jpql += " where o.status = :status"; //아 조건에 부합하지 않으면, 이런식으로 jpql을 붙이네?
         }
         
-        if (StringUtils.hasText(orderSearch.getMemberName())) {
+        if (StringUtils.hasText(orderSearch.getMemberName())) { //TODO - jpql에서 동적쿼리하기. String concat 이용. 불편 그 잡채. queryDSL 쓰자.
             if (isFirstCondition) {
                 jpql += " where";
                 isFirstCondition = false;
@@ -67,6 +67,7 @@ public class OrderRepository {
         return query.getResultList();
     }
     
+    //TODO - Criteria - 김영한 피셜, 현업에서는 Criteria 너무 비직관적/복잡해서 queryDSL 위주로 쓴다
     public List<Order> findAllByCriteria(OrderSearch orderSearch) {
         
         CriteriaBuilder cb = em.getCriteriaBuilder();

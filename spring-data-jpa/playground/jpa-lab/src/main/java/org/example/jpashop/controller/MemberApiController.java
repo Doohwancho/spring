@@ -40,7 +40,7 @@ public class MemberApiController {
     
     @Data
     @AllArgsConstructor
-    static class Result<T> {
+    static class Result<T> { //TODO - java generics on Controller layer
         
         private int count;
         private T data;

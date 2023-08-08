@@ -1,20 +1,10 @@
-package org.example.jpashop.queryDSL_syntax;
+package org.example.jpashop.queryDSL_syntax.where;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.example.jpashop.domain.QMember.member;
-import static org.example.jpashop.domain.QTeam.team;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-import com.querydsl.core.Tuple;
-import com.querydsl.core.types.dsl.Expressions;
-import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
-import javax.transaction.Transactional;
 import org.example.jpashop.domain.Member;
-import org.example.jpashop.domain.QMember;
 import org.example.jpashop.domain.Team;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,12 +12,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
+import static org.example.jpashop.domain.QMember.member;
 @SpringBootTest
 @Transactional
-@DisplayName("jqpl vs Querydsl 비교")
-class BasicTest {
-    
+public class WhereTest {
     @Autowired
     EntityManager em;
     
@@ -63,29 +53,18 @@ class BasicTest {
     }
     
     @Test
-    @DisplayName("JPQL 이용한 쿼리 테스트")
-    void jpql() {
-        String qlString = "select m from Member m " +
-            "where m.userName = :userName";
-        String userName = "member1";
-        
-        Member findMember = em.createQuery(qlString, Member.class)
-            .setParameter("userName", userName)
-            .getSingleResult();
-        
-        assertThat(findMember.getUserName()).isEqualTo(userName);
-    }
-    
-    @Test
-    @DisplayName("Querydsl를 이용한 쿼리 테스트")
-    void querydsl() {
+    @DisplayName("where절 쿼리 테스트")
+    void search() {
         String username = "member1";
+        int age = 10;
         
         Member findMember = queryFactory
             .selectFrom(member)
-            .where(member.userName.eq(username))
+            .where(member.userName.eq(username),
+                member.age.eq(age))
             .fetchOne();
         
         assertThat(findMember.getUserName()).isEqualTo(username);
+        assertThat(findMember.getAge()).isEqualTo(age);
     }
 }

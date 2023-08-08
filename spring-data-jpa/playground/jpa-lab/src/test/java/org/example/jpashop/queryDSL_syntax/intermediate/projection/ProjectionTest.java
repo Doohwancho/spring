@@ -1,4 +1,4 @@
-package org.example.jpashop.queryDSL_syntax;
+package org.example.jpashop.queryDSL_syntax.intermediate.projection;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.example.jpashop.domain.QMember.member;
@@ -11,9 +11,9 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
-import org.example.jpashop.dto.MemberDto;
 import org.example.jpashop.domain.Member;
 import org.example.jpashop.domain.Team;
+import org.example.jpashop.dto.MemberDto;
 import org.example.jpashop.dto.QMemberDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -24,7 +24,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 @Transactional
 @DisplayName("Querydsl 중급 예제 테스트 클래스")
-class IntermediateTest {
+class ProjectionTest {
     
     @Autowired
     EntityManager em;
@@ -60,7 +60,7 @@ class IntermediateTest {
             .fetch();
         
         for (Tuple tuple : result) {
-            System.out.println(tuple);
+            System.out.println(tuple); //[member1, 10]
         }
     }
     
@@ -75,7 +75,7 @@ class IntermediateTest {
             .fetch();
         
         for (MemberDto memberDto : result) {
-            System.out.println(memberDto);
+            System.out.println(memberDto); //MemberDto(username=null, age=10)
         }
     }
     
@@ -90,7 +90,7 @@ class IntermediateTest {
             .fetch();
         
         for (MemberDto memberDto : result) {
-            System.out.println(memberDto);
+            System.out.println(memberDto); //MemberDto(username=null, age=10)
         }
     }
     
@@ -119,73 +119,6 @@ class IntermediateTest {
         
         for (MemberDto memberDto : result) {
             System.out.println(memberDto);
-        }
-    }
-    
-    @Test
-    @DisplayName("동적 쿼리 Where 테스트")
-    void dynamic_query_where() {
-        String username = "member1";
-        Integer age = null;
-        
-        List<Member> result = searchMember(username, age);
-    }
-    
-    private List<Member> searchMember(String username, Integer age) {
-        return queryFactory
-            .selectFrom(member)
-            .where(usernameEq(username), ageEq(age))
-            .fetch();
-    }
-    
-    private BooleanExpression usernameEq(String username) {
-        if (username == null) {
-            return null;
-        }
-        return member.userName.eq(username);
-    }
-    
-    private BooleanExpression ageEq(Integer age) {
-        if (age == null) {
-            return null;
-        }
-        return member.age.eq(age);
-    }
-    
-    @Test
-    @DisplayName("벌크 수정 테스트")
-    void bulk_update() {
-        long count = queryFactory.
-            update(member)
-            .set(member.userName, "비회원")
-            .where(member.age.lt(29))
-            .execute();
-        
-        assertThat(count).isEqualTo(2);
-    }
-    
-    @Test
-    @DisplayName("벌크 삭제 테스트")
-    void bulk_delete() {
-        long count = queryFactory.
-            delete(member)
-            .where(member.age.lt(30))
-            .execute();
-        
-        assertThat(count).isEqualTo(2);
-    }
-    
-    @Test
-    @DisplayName("SQL Function 테스트")
-    void sql_function() {
-        List<String> result = queryFactory
-            .select(Expressions.stringTemplate("function('concat', {0}, {1}, {2}, {3})"
-                , "Name: ", member.userName, " Age: ", member.age.stringValue()))
-            .from(member)
-            .fetch();
-        
-        for (String value : result) {
-            System.out.println(value);
         }
     }
 }

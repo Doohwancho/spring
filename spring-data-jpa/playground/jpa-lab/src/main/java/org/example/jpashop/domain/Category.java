@@ -28,7 +28,7 @@ public class Category {
     
     private String name;
     
-    //TODO - @ManyToMany, item : category = N:M (중간에 category_item 끼고 1:N:M:1)
+    //TODO - entity modeling, 연관관계 : @ManyToMany, item : category = N:M (중간에 category_item 끼고 1:N:M:1)
     @ManyToMany
     @JoinTable(name = "category_item",
         joinColumns = @JoinColumn(name = "category_id"),
@@ -39,10 +39,10 @@ public class Category {
     @JoinColumn(name = "parent_id")
     private Category parent;
     
-    @OneToMany(mappedBy = "parent")
+    @OneToMany(mappedBy = "parent") //self referencing category 구현
     private List<Category> child = new ArrayList<>();
     
-    public void addChildCategory(Category child) { //이거 잊지마!
+    public void addChildCategory(Category child) { //self referencing시 이거 잊지마!
         this.child.add(child);
         child.setParent(this);
     }

@@ -27,9 +27,8 @@ public class Member {
     @Embedded //TODO - user-defined class도 jpa가 알아들을 수 있게 마크.
     private Address address;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member") //TODO - Member : Order = 1 : N (양방향). 그래서 @OneToMany 붙여줌
     private List<Order> orders = new ArrayList<>();
-    
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")

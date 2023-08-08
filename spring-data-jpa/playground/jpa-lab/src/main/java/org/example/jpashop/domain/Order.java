@@ -30,6 +30,9 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL) //TODO - cascade 넣으면, 여기에 save하면, 알아서 persist(); 날아감. 이 프로젝트에 OrderItem과 Delivery는 Order 이외 다른곳 참조 안함. 여기가 유일함. 그래서 cascade줘도 위험하지 않다.
     private List<OrderItem> orderItems = new ArrayList<>();
 
+    //TODO - 연관관계: @OneToOne에서 누가 주인인게 좋을까?
+    //A. 더 자주 참조하는 쪽이 주인인게 더 좋다.
+    // order -> delivery 더 자주 참조하니까, order가 주인이 되는게 좋다.
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL) //cascade 넣으면, 여기에 save하면, 알아서 persist(); 날아감. 이 프로젝트에 OrderItem과 Delivery는 Order 이외 다른곳 참조 안함. 여기가 유일함. 그래서 cascade줘도 위험하지 않다.
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
@@ -40,12 +43,13 @@ public class Order {
     //TODO - Member:Order = 1:N 양방향일 떄, 주인인 Order에서 하인인 Member 더하기는 가능한데, 하인인 Member에서 주인인 Order더하긴 안되니까,(Order attribute에 null이 됨) 수동으로 더해주는 것.
     public void setMember(Member member) {
         this.member = member;
-        member.getOrders().add(this); //주인에서 하인을 더할 수 있다.
+        member.getOrders().add(this); //주인에서 하인을 더할 수 있다. 따라서 하인인 member에서 .getOrders()로 주인을 부른 후, 하인인 member를 더하는 것.
     }
 
     public void addOrderItem(OrderItem orderItem) {
         this.orderItems.add(orderItem);
-        orderItem.setOrder(this); //TODO - Q. Order:OrderItem = 1:N 양방향일 떄, 주인인 OrderItem에서 하인인 Order 더하기는 가능하니까, 얜 필요 없는거 아닐까?
+        orderItem.setOrder(this);
+        //TODO - Q. Order:OrderItem = 1:N 양방향일 떄, 주인인 OrderItem에서 하인인 Order 더하기는 가능하니까, 얜 필요 없는거 아닐까?
         //아니면 양방향 매핑 떄는, setter할 떄, 주인하인 상관없이 다른쪽도 더해주는 코드가 반드시 있어야 하나? 그러나 보다.
     }
 

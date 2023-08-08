@@ -31,7 +31,7 @@ public abstract class Item {
     private int price;
     private int stockQuantity;
     
-    @ManyToMany(mappedBy = "items")
+    @ManyToMany(mappedBy = "items") //TODO - entity modeling, 연관관계: Item : Category = N:M, Item : Category_Item : Category = 1 : N : M : 1
     private List<Category> categories = new ArrayList<>();
     
     public void addStock(int quantity) {
