@@ -9,7 +9,7 @@ plugins {
 
 group = 'me.hajoo'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
+sourceCompatibility = 15
 
 configurations {
     compileOnly {
@@ -64,3 +64,4 @@ configurations {
 compileQuerydsl {
     options.annotationProcessorPath = configurations.querydsl
 }
+targetCompatibility = JavaVersion.VERSION_15

@@ -123,7 +123,8 @@ h-11. @ToString(exclude = ...) for avoiding circular reference :white_check_mark
 
 z-1. jpashop 복습 :white_check_mark:\
 z-2. jpa-queryDSL 복습 :white_check_mark:\
-z-3. 연관관계 복습 :white_check_mark:
+z-3. 연관관계 복습 :white_check_mark:\
+z-4. n+1 문제를 fetch join으로 해결! :white_check_mark:
 
 ---\
 Reference
