@@ -34,7 +34,8 @@ Todo
 
 a-1. simple spring batch MVP :white_check_mark:\
 a-2. read csv -> apply date & id -> print :white_check_mark:\
-a-3. what is batch? play around with simple batch file :white_check_mark:
+a-3. what is batch? play around with simple batch file :white_check_mark:\
+a-4. simple listener :white_check_mark:
 
 b-1. spring-batch build.gradle :white_check_mark:
 
