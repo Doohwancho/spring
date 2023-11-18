@@ -13,6 +13,7 @@ import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 @Configuration
 @EnableBatchProcessing
@@ -44,6 +45,7 @@ public class SimpleBatch {
             .build();
     }
     
+    @Primary //spring에서 같은 타입의 메서드 여러개를 Bean 등록시 스프링 컨테이너가 헤깔려하니까, 한놈을 higher priority 부여하는 것
     @Bean
     public Job firstJob(JobBuilderFactory jobBuilderFactory, Step firstStep1, Step secondStep1) { //Step 파라미터명은 메서드 명과 일치시킨다.
         return jobBuilderFactory.get("uppercaseJob") //"uppercaseJob" becomes name of the job (to identify batch job in spring context)

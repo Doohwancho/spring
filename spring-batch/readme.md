@@ -16,6 +16,7 @@ c. job
 d. steps
 e. tasklet
 f. chunk
+g. test batch
 
 x. bulletproof jobs
 x. transactional management
@@ -56,6 +57,8 @@ e-3. external class :white_check_mark:
 f-1. jdbc chunk :white_check_mark:\
 f-2. mybatis chunk :white_check_mark:\
 f-3. jpa chunk :white_check_mark:
+
+g-1. simple batch test :white_check_mark:
 
 ---\
 Reference
