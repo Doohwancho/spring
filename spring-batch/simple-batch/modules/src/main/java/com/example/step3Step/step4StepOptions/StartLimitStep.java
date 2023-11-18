@@ -17,29 +17,29 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableBatchProcessing
 public class StartLimitStep {
-    @Autowired
-    public JobBuilderFactory jobBuilderFactory;
-    @Autowired public StepBuilderFactory stepBuilderFactory;
-
-    @Bean
-    public Job ExampleJob(){
-
-        Job exampleJob = jobBuilderFactory.get("exampleJob")
-                .start(Step())
-                .build();
-
-        return exampleJob;
-    }
-
-    @Bean
-    @JobScope
-    public Step Step() {
-        return stepBuilderFactory.get("step")
-                .tasklet((contribution, chunkContext) -> {
-                    log.info("Step!");
-                    return RepeatStatus.FINISHED;
-                })
-                .build();
+//    @Autowired
+//    public JobBuilderFactory jobBuilderFactory;
+//    @Autowired public StepBuilderFactory stepBuilderFactory;
+//
+//    @Bean
+//    public Job ExampleJob(){
+//
+//        Job exampleJob = jobBuilderFactory.get("exampleJob")
+//                .start(Step())
+//                .build();
+//
+//        return exampleJob;
+//    }
+//
+//    @Bean
+//    @JobScope
+//    public Step Step() {
+//        return stepBuilderFactory.get("step")
+//                .tasklet((contribution, chunkContext) -> {
+//                    log.info("Step!");
+//                    return RepeatStatus.FINISHED;
+//                })
+//                .build();
 
 
 //        //step1) startLimit
@@ -86,5 +86,5 @@ public class StartLimitStep {
 //                .faultTolerant()
 //                .noRollback(NullPointerException.class) // NullPointerException 발생  rollback이 되지 않게 설정
 //                .build();
-    }
+//    }
 }

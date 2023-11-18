@@ -13,32 +13,33 @@ import org.springframework.batch.repeat.RepeatStatus;
 
 
 @Slf4j
-public class BusinessTasklet implements Tasklet, StepExecutionListener {
+public class BusinessTasklet { //delete this and use below!
+//public class BusinessTasklet implements Tasklet, StepExecutionListener {
 
-    @Override
-    @BeforeStep
-    public void beforeStep(StepExecution stepExecution) {
-        log.info("Before Step Start!");
-    }
-
-    @Override
-    @AfterStep
-    public ExitStatus afterStep(StepExecution stepExecution) {
-
-        log.info("After Step Start!");
-
-        return ExitStatus.COMPLETED;
-    }
-
-    @Override
-    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-
-        //비즈니스 로직
-        for (int idx = 0; idx < 10; idx++) {
-            log.info("[idx] = " + idx);
-        }
-
-        return RepeatStatus.FINISHED;
-    }
+//    @Override
+//    @BeforeStep
+//    public void beforeStep(StepExecution stepExecution) {
+//        log.info("Before Step Start!");
+//    }
+//
+//    @Override
+//    @AfterStep
+//    public ExitStatus afterStep(StepExecution stepExecution) {
+//
+//        log.info("After Step Start!");
+//
+//        return ExitStatus.COMPLETED;
+//    }
+//
+//    @Override
+//    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
+//
+//        //비즈니스 로직
+//        for (int idx = 0; idx < 10; idx++) {
+//            log.info("[idx] = " + idx);
+//        }
+//
+//        return RepeatStatus.FINISHED;
+//    }
 
 }

@@ -15,38 +15,38 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableBatchProcessing
 public class MethodInvokeAdapter {
-    @Autowired
-    public JobBuilderFactory jobBuilderFactory;
-    @Autowired public StepBuilderFactory stepBuilderFactory;
-
-    @Bean
-    public Job TaskletJob(){
-
-        Job customJob = jobBuilderFactory.get("taskletJob")
-                .start(TaskStep())
-                .build();
-
-        return customJob;
-    }
-
-    @Bean
-    public Step TaskStep(){
-        return stepBuilderFactory.get("taskletStep")
-                .tasklet(myTasklet()).build();
-    }
-
-    @Bean
-    public CustomService service() {
-        return new CustomService ();
-    }
-
-    @Bean
-    public MethodInvokingTaskletAdapter myTasklet() {
-        MethodInvokingTaskletAdapter adapter = new MethodInvokingTaskletAdapter();
-
-        adapter.setTargetObject(service());
-        adapter.setTargetMethod("businessLogic");
-
-        return adapter;
-    }
+//    @Autowired
+//    public JobBuilderFactory jobBuilderFactory;
+//    @Autowired public StepBuilderFactory stepBuilderFactory;
+//
+//    @Bean
+//    public Job TaskletJob(){
+//
+//        Job customJob = jobBuilderFactory.get("taskletJob")
+//                .start(TaskStep())
+//                .build();
+//
+//        return customJob;
+//    }
+//
+//    @Bean
+//    public Step TaskStep(){
+//        return stepBuilderFactory.get("taskletStep")
+//                .tasklet(myTasklet()).build();
+//    }
+//
+//    @Bean
+//    public CustomService service() {
+//        return new CustomService ();
+//    }
+//
+//    @Bean
+//    public MethodInvokingTaskletAdapter myTasklet() {
+//        MethodInvokingTaskletAdapter adapter = new MethodInvokingTaskletAdapter();
+//
+//        adapter.setTargetObject(service());
+//        adapter.setTargetMethod("businessLogic");
+//
+//        return adapter;
+//    }
 }

@@ -15,28 +15,28 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableBatchProcessing
 public class SingleStep {
-
-    @Autowired
-    public JobBuilderFactory jobBuilderFactory;
-    @Autowired public StepBuilderFactory stepBuilderFactory;
-
-    @Bean
-    public Job ExampleJob(){
-
-        Job exampleJob = jobBuilderFactory.get("exampleJob")
-                .start(Step())
-                .build();
-
-        return exampleJob;
-    }
-
-    @Bean
-    public Step Step() {
-        return stepBuilderFactory.get("step")
-                .tasklet((contribution, chunkContext) -> {
-                    log.info("Step!");
-                    return RepeatStatus.FINISHED;
-                })
-                .build();
-    }
+//
+//    @Autowired
+//    public JobBuilderFactory jobBuilderFactory;
+//    @Autowired public StepBuilderFactory stepBuilderFactory;
+//
+//    @Bean
+//    public Job ExampleJob(){
+//
+//        Job exampleJob = jobBuilderFactory.get("exampleJob")
+//                .start(Step())
+//                .build();
+//
+//        return exampleJob;
+//    }
+//
+//    @Bean
+//    public Step Step() {
+//        return stepBuilderFactory.get("step")
+//                .tasklet((contribution, chunkContext) -> {
+//                    log.info("Step!");
+//                    return RepeatStatus.FINISHED;
+//                })
+//                .build();
+//    }
 }

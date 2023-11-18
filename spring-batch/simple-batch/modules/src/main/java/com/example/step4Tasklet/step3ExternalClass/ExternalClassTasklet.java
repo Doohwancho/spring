@@ -14,24 +14,24 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableBatchProcessing
 public class ExternalClassTasklet {
-    @Autowired
-    public JobBuilderFactory jobBuilderFactory;
-    @Autowired public StepBuilderFactory stepBuilderFactory;
-
-    @Bean
-    public Job TaskletJob(){
-
-        Job customJob = jobBuilderFactory.get("taskletJob")
-                .start(TaskStep())
-                .build();
-
-        return customJob;
-    }
-
-    @Bean
-    public Step TaskStep(){
-        return stepBuilderFactory.get("taskletStep")
-                .tasklet(new BusinessTasklet())
-                .build();
-    }
+//    @Autowired
+//    public JobBuilderFactory jobBuilderFactory;
+//    @Autowired public StepBuilderFactory stepBuilderFactory;
+//
+//    @Bean
+//    public Job TaskletJob(){
+//
+//        Job customJob = jobBuilderFactory.get("taskletJob")
+//                .start(TaskStep())
+//                .build();
+//
+//        return customJob;
+//    }
+//
+//    @Bean
+//    public Step TaskStep(){
+//        return stepBuilderFactory.get("taskletStep")
+//                .tasklet(new BusinessTasklet())
+//                .build();
+//    }
 }
