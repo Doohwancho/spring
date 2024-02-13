@@ -22,6 +22,7 @@ j. functional programming :question:\
 k. how jvm works\
 l. defensive programming\
 m. effective java\
+n. 1 brc\
 x. garbage collector\
 x. debugging
 
@@ -372,6 +373,11 @@ l-ㅂ-가-2. wrong advice: oop style :white_check_mark:
 아이템 90. 직렬화된 인스턴스 대신 직렬화 프록시 사용을 검토하라
 
 
+n-0. create 1 billion rows text file
+n-1. baseline code
+n-2. jdk17+ version
+n-3. parallel
+n-4. parallel in 1MB chunk
 
 
 ---\

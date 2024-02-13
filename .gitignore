@@ -711,3 +711,9 @@ mvnw.cmd
 bin/
 .classpath
 .project
+
+
+### start of 1brc ###
+measurements.txt
+
+### end of 1brc ###
