@@ -1,4 +1,4 @@
-package io.one_billion_rows_challenge.step03_process_lines_in_parallel;
+package io.one_billion_rows_challenge.step02_parallel;
 
 import java.io.IOException;
 import java.nio.file.Files;

@@ -1,4 +1,4 @@
-package io.one_billion_rows_challenge.step04_parallel_but_in_chunk;
+package io.one_billion_rows_challenge.step04_parallel_in_1MB_chunk;
 /*
  *  Copyright 2023 The original authors
  *
@@ -118,6 +118,7 @@ public class CalculateAverage_MeanderingProgrammer {
         @Override
         public ByteBuffer next() {
             ByteBuffer buffer = null;
+            //step1. ByteBuffer에 1MB chunk 크기의 파일을 받는다.
             try {
                 buffer = this.channel.map(FileChannel.MapMode.READ_ONLY, this.read, this.nextChunkSize());
             }
@@ -126,11 +127,15 @@ public class CalculateAverage_MeanderingProgrammer {
             }
             // Logic to clamp buffer to last complete line
             int bufferSize = buffer.limit();
+            
+            //step2. 파싱을 편하게 하기 위해, Barcelona;18.3\n 에서 중간에 끊지 말고, 맨 마지막인 \n에서 끊는다.
             while (buffer.get(bufferSize - 1) != '\n') {
                 bufferSize--;
             }
             buffer.limit(bufferSize);
             this.read += bufferSize;
+            
+            //step3. 1MB chunk 사이즈인 ByteBuffer를 리턴한다.
             return buffer;
         }
         
@@ -145,7 +150,7 @@ public class CalculateAverage_MeanderingProgrammer {
     private static class RowReader implements Iterator<Row> {
         
         private final ByteBuffer buffer;
-        private final byte[] nameBuffer;
+        private final byte[] nameBuffer; //100byte 짜리 값을 옮기기 위한 목적의 바이트 array
         
         public RowReader(ByteBuffer buffer) {
             this.buffer = buffer;
@@ -160,21 +165,23 @@ public class CalculateAverage_MeanderingProgrammer {
         /*
             head measurements.txt
             
-            Boise;2.5
-            Barcelona;18.3
-            Ouahigouya;47.1
-            Parakou;29.7
-            Vilnius;-0.2
-            Monaco;15.4
-            Dikson;-17.2
-            Cape Town;12.4
-            Jerusalem;18.4
-            Palm Springs;20.0
+            Boise;2.5\n
+            Barcelona;18.3\n
+            Ouahigouya;47.1\n
+            Parakou;29.7\n
+            Vilnius;-0.2\n
+            Monaco;15.4\n
+            Dikson;-17.2\n
+            Cape Town;12.4\n
+            Jerusalem;18.4\n
+            Palm Springs;20.0\n
          */
         @Override
         public Row next() {
             var index = 0;
             var current = buffer.get();
+            
+            //step7. Barcelona;18.3\n 에서 세미콜론 이전까지의 NameBuffer에 담겨있는 애는 String 객체로 만든다.
             while (current != ';') {
                 this.nameBuffer[index] = current;
                 index++;
@@ -182,14 +189,18 @@ public class CalculateAverage_MeanderingProgrammer {
             }
             var name = new String(this.nameBuffer, 0, index, StandardCharsets.UTF_8);
             
+            //step8. Barcelona;18.3\n에서 세미콜론 이후에 Double 값은 value에 담는다.
             var negative = false;
             var value = 0;
             current = buffer.get();
             while (current != '\n') {
+                //step9. Double 값이 마이너스인 경우, 기억해 두었다가, 추후 -1을 곱해준다.
                 if (current == '-') {
                     negative = true;
                 }
+                //step10. Double의 값을 한자리 씩 읽고, String으로 변환해서 value에 recursive하게 저장하는 방법. int로 저장한다.
                 else if (current != '.') {
+                    //step11. Double 형태인 12.3은 int 타입의 123로 저장되고(CPU단에서 int 처리 속도가 Double 처리 속도보다 더 빠름), 맨 마지막에 min,max,sum 구할 때 /10으로 나눠서 12.3 이런식으로 변환된다.
                     value = (value * 10) + (current - '0');
                 }
                 current = buffer.get();
@@ -198,6 +209,7 @@ public class CalculateAverage_MeanderingProgrammer {
                 value *= -1;
             }
             
+            //step12. Row((String)name, (int)value)을 반환한다.
             return new Row(name, value);
         }
     }
@@ -243,19 +255,29 @@ public class CalculateAverage_MeanderingProgrammer {
     }
     
     private static void run() throws Exception {
+        //step0. ChunkReader()로 1brc measurements.txt파일을 1MB chunk단위로 끊어 읽게끔 설정한다.
         var reader = new ChunkReader(Paths.get(FILE));
+        
+        //step4. iterator을 추출한다.
         var iterator = Spliterators.spliterator(reader, reader.estimateIterations(), Spliterator.IMMUTABLE);
-        var measurements = StreamSupport.stream(iterator, true)
+        
+        //step5. iterator로 1MB chunk 단위로 파일을 읽는데, 멀티코어-병렬로 읽는다.
+        var measurements = StreamSupport.stream(iterator, true) //step4. parallel()을 사용해 멀티코어로 1MB chunk를 읽는다.
             .flatMap(buffer -> toMeasurements(buffer).entrySet().stream())
-            .collect(Collectors.toConcurrentMap(
+            .collect(Collectors.toConcurrentMap( //step14. concurretMap을 통해 TreeMap으로 merge하는데, collector를 통해 머지하는 코드
                 entry -> entry.getKey(),
                 entry -> entry.getValue(),
                 Measurement::merge));
+        
+        //step15. print TreeMap
         System.out.println(new TreeMap<>(measurements));
     }
     
     private static Map<String, Measurement> toMeasurements(ByteBuffer buffer) {
+        //step6. 1MB Buffer를 받아, Row<Name, Value> 단위로 반환해주는 iterator를 생성한다.
         var iterator = Spliterators.spliteratorUnknownSize(new RowReader(buffer), Spliterator.IMMUTABLE);
+        
+        //step13. 각 row의 min/max/mean/count를 Collection.collector로 계산하는건, 1MB chunk를 받은 코어가 각자 처리한다.(병렬처리 X)
         return StreamSupport.stream(iterator, false)
             .collect(Collectors.toMap(
                 row -> row.name(),

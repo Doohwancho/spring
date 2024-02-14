@@ -1,4 +1,4 @@
-package io.one_billion_rows_challenge.step02_jdk17_plus_ver;
+package io.one_billion_rows_challenge.step01_baseline;
 
 import static java.util.stream.Collectors.*;
 

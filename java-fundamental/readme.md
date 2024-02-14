@@ -376,8 +376,8 @@ l-ㅂ-가-2. wrong advice: oop style :white_check_mark:
 
 n-0. create 1 billion rows text file :white_check_mark:\
 n-1. baseline code :white_check_mark:\
-n-2. jdk17+ version :white_check_mark:\
-n-3. parallel :white_check_mark:\
+n-2. parallel :white_check_mark:\
+n-3. parallel in 10MB chunk :white_check_mark:\
 n-4. parallel in 1MB chunk :white_check_mark:
 
 o-1. unsafe로 객체생성 없이 메모리 접근하기 :white_check_mark:

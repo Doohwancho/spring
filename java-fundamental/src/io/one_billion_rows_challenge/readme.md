@@ -5,7 +5,9 @@
 
 measurements.txt 파일이 10억개의 rows가 있다.
 
-최대한 빠른 시간 안에 전부 읽자
+1. 최대한 빠른 시간 안에 전부 읽어서 
+2. 각 city당 min/mean/max 를 정리하고 
+3. 출력하자
 
 
 ```
@@ -23,18 +25,29 @@ Jerusalem;18.4
 Palm Springs;20.0
 ```
 
-
-# B. 실험 환경
-
-1. 1brc's 실험환경
-    - eight cores of a Hetzner AX161 dedicated server (32 core AMD EPYC™ 7502P (Zen2), 128 GB RAM).
-2. my pc
-    - arm64, 1 CPU, 8 core, 16GiB RAM
-
+# B. Index
+- step1. 3분 22초
+  - jdk17
+- step2. 1분 35초
+   - openjdk21
+   - parallel 
+- step3. 35초
+  - jdk21 GraalVM
+  - parallel, but read files in 10MB chunks using FileChannel library
+  - `final byte[] buffer = new byte[128];` 로 값 옮길 때 재활용
+- step4. 23초
+   - jdk21 GraalVM
+   - parallel, but read files in 1MB chunks using FileChannel library
 
 # C. How
 
-## a. how to change jdk using asdf?
+## a. 실험 환경
+1. 1brc's 실험환경
+   - eight cores of a Hetzner AX161 dedicated server (32 core AMD EPYC™ 7502P (Zen2), 128 GB RAM).
+2. my pc
+   - arm64, 1 CPU, 8 core, 16GiB RAM
+
+## b. how to change jdk using asdf?
 
 ```
 asdf current
@@ -42,7 +55,7 @@ asdf list java
 asdf local java ${java-version}
 ```
 
-## b. how to download 1 billion rows in .txt?
+## c. how to download 1 billion rows in .txt?
 
 ```
 cd step00-create-txt-with-massive-rows/
@@ -50,13 +63,13 @@ javac CreateMeasurements.java
 java CreateMeasurements
 ```
 
-## c. how to run?
+## d. how to run?
 ```
 javac CalculateAverage.java
 time java CalculateAverage
 ```
 
-## d. how to interpret 'time' command's outcome?
+## e. how to interpret 'time' command's outcome?
 
 ```
 ex) java CalculateAverage  191.55s user 5.38s system 99% cpu 3:17.40 total
@@ -76,28 +89,15 @@ ex) java CalculateAverage  191.55s user 5.38s system 99% cpu 3:17.40 total
 5. 3:17.40 total
     - elapsed real time from start to finish of the command you ran
 
+   
+# D. Details
 
-
-# D. Outcome
-
-
-## step01 - Map<key, value>
-
-### 1. jdk8: 3분 17초
-```
-191.55s user
-5.38s system
-99% cpu
-3:17.40 total
-```
-
-
------------------------------------------------
-## step02 - treemap
+## step01 - Collector
 
 ### 0. idea
-1. Map<K,V>로 읽지 말고 TreeMap<K,V>로 읽어보자
-2. jdk8 말고 17버전을 쓰면 빨라지지 않을까?
+1. jdk17
+2. Collections.collector 로 1 billion rows의 min/mean/max 계산을 빨리 해보자.
+
 
 #### 0-1. collector
 The collector has four components.
@@ -141,7 +141,6 @@ Map<String, ResultRow> measurements = new TreeMap<>(Files.lines(Paths.get(FILE))
     .collect(groupingBy(m -> m.station(), collector)));
 ```
 
-
 ### 1. jdk17: 3분 22초
 
 ```
@@ -150,19 +149,17 @@ Map<String, ResultRow> measurements = new TreeMap<>(Files.lines(Paths.get(FILE))
 98% cpu
 3:22.42 total
 ```
+- 혹시나 해서 jdk8 버전도 테스트 해봤는데, jdk17버전과 성능상 비슷하다.
 
-- 오히려 더 느려졌다.
-- jdk8 -> 17로 바꾼다고 성능개선이 일어나지는 않는 듯 하다.
-- Map으로 읽나 트리맵으로 읽나 큰 성능개선은 없었다.
 
 -----------------------------------------------
-## step03 - process lines in parallel
+## step02 - process lines in parallel
 
 ### 0. idea
 
 파일 읽는걸 병렬처리 해보자
 
-step2 code는 single core에서만 도는데,\
+step1 code는 single core에서만 도는데,\
 이 방식은 여러 코어에서 병렬로 돔
 
 ```java
@@ -216,34 +213,71 @@ jdk21에 experimental 기능중에 하나인 경량 쓰레드인 fibers가 .para
 CPU 사용량만 봐도, 150%나 높은걸 보면, 수 많은 경량 쓰레드인 fibers가 CPU를 동시에 점유하려고 하기 때문에 저렇게 높히 올라간 것으로 보인다.
 
 
+---
+## step03 - parallel, but read files in 10MB chunks
+
+### 0. idea
+#### 0-1. parallel()
+파일을 여러 코어에서 병렬로 읽는다
+
+#### 0-2. 10MB chunk씩 끊어 읽기
+NIO의 FileChannel을 파일 전체를 한번에 읽는게 아니라, 10MB단위로 끊어서 parallel()로 여러 코어들이 읽으면 빨라진다. 
+
+#### 0-3. MappedByteBuffer로 memory de-allocation 없이 덮어쓰면서 재사용하기 
+파일을 10MB chunk 단위로 끊어 읽을 때,
+MappedByteBuffer 단위로 읽고,
+
+```
+final byte[] buffer = new byte[128];
+```
+여기에 필요한 값을 담아서 쓴다.
+
+그것이 city's name이던, Double 값이던.
+
+
+### 1. jdk17: 2분 17초
+```
+130.87s user
+6.61s system
+99% cpu
+2:17.50 total
+```
+
+- 여태까지는 java.nio.file.Files 라이브러리를 썼는데, 그와 더불어 java.nio.channel 라이브러리를 썼더니 성능향상이 있었다.
+- 그런데 fibers 전용인지 jdk21과 압도적인 성능차이가 난다.
+
+
+### 2. openjdk21: 44초
+```
+159.59s user
+16.36s system
+397% cpu
+44.293 total
+```
+
+경량 쓰레드를 쓸 때마다 CPU 점유율이 미친듯이 오르는 단점과는 별개로, 성능 차이 또한 미친듯이 많이 난다.
+
+
+
 -----------------------------------------------
 ## step04 - parallel, but read files in 1MB chunks
 
 ### 0. idea
+step3과 차이점은, 10MB chunk -> 1MB chunk로 바뀐 것과, Double을 int처럼 처리한 것 두가지다.
 
-1. The ChunkReader Class read the file using chunck size of 1MB as ByteBuffer object. 
-2. Then, the RowReader class takes these chunks as input and split it to individual rows containing City names and temperatures. 
-3. Finally using the measurement class the operations on these rows are performed and results are aggregated in a concurrent map.
 
----
-- 전체 파일을 한번에 parallel로 읽는게 아니라, manageable chunks로 나눠서 읽으면, memory overload를 피할 수 있다. 
-- parallel processing techniques 중 하나라고 한다.
+1. parallel
+   - [160.5 -> 18]
+2. 10MB로 파일을 끊어서 병렬처리하다가, 1MB 단위로 끊어 읽으니 성능이 유의미하게 개선되었다!
+    - 전체 파일을 한번에 parallel로 읽는게 아니라, manageable chunks로 나눠서 읽으면, memory overload를 피할 수 있다.
+    - parallel processing techniques 중 하나라고 한다.
+    - local pc 기준, 아래 두 테크닉 포함해서 12초 시간개선이 되었다.
+3. memory de-allocation 피하기
+    - [18 -> 6.5]
+   - city이름을 옮길 때, `byte[] nameBuffer`를 쓰는데, 딱 필요한 길이의 bytecode size만 length로 빼고 new String(byte[], 0, length);로 써서, memory de-allocation step을 스킵할 수 있었다.   
+4. 12.3에서 Double 값이 소숫점 한자리인데, 메모리 저장할 땐 int type에 123로 저장하고, 맨 마지막에 min,max,mean 계산할 때만 /10 해서 Double type으로 변환하는 방식
+    - Double type은 소숫점 처리하는 계산 때문에 CPU단에서 int type 숫자 처리보다 느리다.
 
-#### 0-1. main concepts
-
-1. Parallel Process Chunks [160.5 -> 18] [twobiers]
-   - Rather than reading data top to bottom and attempting to parallelize processing with batches of the parsed data, 
-   - we read chunks of data (about 1 MB) and parrallelize processing per chunk.
-2. Share Byte Array when Deserializing [18 -> 6.5] [Various]
-    - When deserializing names after going through the effort of processing one byte at a time when processing a chunk of data we can re-use a single byte array to store the characters that make up the name. This removes the need to allocate and de-allocate memory for the buffer.
-    - We can then use the new String(byte[], 0, length) constructor to create the String without worrying about clearing the underlying byte array as we provide a length.
-3. Store ints Compute Doubles at End [6.5 -> 6.2] [None]
-4. Use oracle GraalVM [6.2 -> 5.3] [None]
-5. Process ByteBuffer for Name then Value [5.3 -> 4.7] [None]
-    - Rather than processing the ByteBuffer in a single while (current != '\n') with a condition
-    - to switch from getting the name to calculating the integer value on (current == ';') the
-    - logic was split into 2 separate loops.
-    - The first, while (current != ';') and a second, while (current != '\n').
 
 
 ### 1. jdk17: 30초
