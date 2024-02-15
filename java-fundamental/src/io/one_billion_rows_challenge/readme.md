@@ -34,10 +34,21 @@ Palm Springs;20.0
 - step3. 35초
   - jdk21 GraalVM
   - parallel, but read files in 10MB chunks using FileChannel library
-  - `final byte[] buffer = new byte[128];` 로 값 옮길 때 재활용
+  - `final byte[] buffer = new byte[128];` 로 값 옮길 때 재활용(skip memory de-allocation)
 - step4. 23초
    - jdk21 GraalVM
    - parallel, but read files in 1MB chunks using FileChannel library
+  - `final byte[] buffer = new byte[128];` 로 값 옮길 때 재활용(skip memory de-allocation)
+  - int로 처리했다가, 맨 마지막에 /10 해서 Double로 변환 
+- step5. 17초
+  - jdk17, openjdk21
+  - parallel, 근데 코어 갯수만큼 쪼개서 처리함
+  - `final byte[] buffer = new byte[64];` 로 값 옮길 때 재활용(skip memory de-allocation)
+  - SWAR for finding ';'
+  - branchless (skipping if-else by using bitmap 연산)
+  - String type의 Double 숫자를 int로 파싱한 후, 맨 마지막 연산 때에만 Double로 변환
+  - custom hashmap that skips safety checks + String 객체 안받고 byte[]로 받아서 객체 생성 시간 & 메모리 아낌
+
 
 # C. How
 
@@ -277,6 +288,9 @@ step3과 차이점은, 10MB chunk -> 1MB chunk로 바뀐 것과, Double을 int�
    - city이름을 옮길 때, `byte[] nameBuffer`를 쓰는데, 딱 필요한 길이의 bytecode size만 length로 빼고 new String(byte[], 0, length);로 써서, memory de-allocation step을 스킵할 수 있었다.   
 4. 12.3에서 Double 값이 소숫점 한자리인데, 메모리 저장할 땐 int type에 123로 저장하고, 맨 마지막에 min,max,mean 계산할 때만 /10 해서 Double type으로 변환하는 방식
     - Double type은 소숫점 처리하는 계산 때문에 CPU단에서 int type 숫자 처리보다 느리다.
+    - Integers are simpler to handle than floating-point numbers (doubles) for the CPU
+    - Integers consume less memory compared to doubles (typically 4 bytes for an int vs. 8 bytes for a double on most modern architectures).
+    - This reduced memory footprint can lead to better cache utilization, allowing more data to fit in the CPU cache and reducing the need to fetch data from the main memory
 
 
 
@@ -303,6 +317,66 @@ step3과 차이점은, 10MB chunk -> 1MB chunk로 바뀐 것과, Double을 int�
 272% cpu
 23.853 total
 ```
+
+
+---
+## step05 - SWAR
+
+### 0. idea
+- key ideas
+    - jdk17, openjdk21
+    - parallel, 근데 코어 갯수만큼 쪼개서 처리함
+    - `final byte[] buffer = new byte[64];` 로 값 옮길 때 재활용(skip memory de-allocation)
+    - SIMD Within A Register (SWAR) for finding ‘;’.
+        - Iterates over a long, instead of a byte.
+    - branchless parse(skipping if-else by using bitmap 연산)
+        - if-else 를 쓰면, CPU에서 성능 최적화 하기 위해 예측하고, 틀리면 수정하는데, if-else 자체를 없애면 이 구간 스킵 가능. 
+        - branch mis-prediction으로 인한 성능저하 예방.
+    - String type의 Double 숫자를 int로 파싱한 후, 맨 마지막 연산 때에만 Double로 변환
+        - Integers are simpler to handle than floating-point numbers (doubles) for the CPU
+        - Integers consume less memory compared to doubles (typically 4 bytes for an int vs. 8 bytes for a double on most modern architectures).
+        - This reduced memory footprint can lead to better cache utilization, allowing more data to fit in the CPU cache and reducing the need to fetch data from the main memory
+    - custom hashmap that skips safety checks + String 객체 안받고 byte[]로 받아서 객체 생성 시간 & 메모리 아낌
+
+
+#### 0-1. what is SWAR?
+
+- stands for SIMD(Single Instruction, Multiple Data) Within A Register
+- a technique for performing multiple, parallel operations on a single data word within a processor's register.
+- This approach utilizes the full width of a register to execute the same operation on multiple smaller data elements simultaneously
+- SWAR enables a form of Single Instruction, Multiple Data (SIMD) operations without the need for specialized SIMD hardware or instructions.
+- The key to SWAR is the ability to apply bitwise operations, addition, subtraction, and other arithmetic operations across these smaller data units in parallel
+- particularly good at
+    1. fast searching and counting
+        - Quickly searching for occurrences of a particular byte within a word or counting the number of set bits
+    2. Parallel Comparisons
+        - Performing parallel comparisons or masking operations on multiple data elements at once.
+    3. Text Processing
+        - Accelerating text processing tasks, such as finding delimiters or parsing numbers from strings
+
+
+### 1. jdk17: 17초
+```
+30.79s user
+9.23s system
+236% cpu
+16.918 total
+```
+
+- jdk21 GraalVM의 가상 쓰레드를 사용하지 않고 jdk17에서도 이정도의 성능을 낸게 새삼 대단하다 느껴진다.
+
+### 2. openjdk21: 17초
+```
+33.05s user
+9.18s system
+243% cpu
+17.327 total
+```
+
+
+
+
+
 
 
 -----------------------------------------------
