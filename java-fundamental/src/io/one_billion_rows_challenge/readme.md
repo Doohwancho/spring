@@ -44,9 +44,15 @@ Palm Springs;20.0
   - jdk17, openjdk21
   - parallel, 근데 코어 갯수만큼 쪼개서 처리함
   - `final byte[] buffer = new byte[64];` 로 값 옮길 때 재활용(skip memory de-allocation)
-  - SWAR for finding ';'
-  - branchless (skipping if-else by using bitmap 연산)
+  - SIMD Within A Register (SWAR) for finding ‘;’.
+      - Iterates over a long, instead of a byte.
+  - branchless parse(skipping if-else by using bitmap 연산)
+      - if-else 를 쓰면, CPU에서 성능 최적화 하기 위해 예측하고, 틀리면 수정하는데, if-else 자체를 없애면 이 구간 스킵 가능.
+      - branch mis-prediction으로 인한 성능저하 예방.
   - String type의 Double 숫자를 int로 파싱한 후, 맨 마지막 연산 때에만 Double로 변환
+      - Integers are simpler to handle than floating-point numbers (doubles) for the CPU
+      - Integers consume less memory compared to doubles (typically 4 bytes for an int vs. 8 bytes for a double on most modern architectures).
+      - This reduced memory footprint can lead to better cache utilization, allowing more data to fit in the CPU cache and reducing the need to fetch data from the main memory
   - custom hashmap that skips safety checks + String 객체 안받고 byte[]로 받아서 객체 생성 시간 & 메모리 아낌
 
 
@@ -323,20 +329,15 @@ step3과 차이점은, 10MB chunk -> 1MB chunk로 바뀐 것과, Double을 int�
 ## step05 - SWAR
 
 ### 0. idea
-- key ideas
-    - jdk17, openjdk21
-    - parallel, 근데 코어 갯수만큼 쪼개서 처리함
-    - `final byte[] buffer = new byte[64];` 로 값 옮길 때 재활용(skip memory de-allocation)
-    - SIMD Within A Register (SWAR) for finding ‘;’.
-        - Iterates over a long, instead of a byte.
-    - branchless parse(skipping if-else by using bitmap 연산)
-        - if-else 를 쓰면, CPU에서 성능 최적화 하기 위해 예측하고, 틀리면 수정하는데, if-else 자체를 없애면 이 구간 스킵 가능. 
-        - branch mis-prediction으로 인한 성능저하 예방.
-    - String type의 Double 숫자를 int로 파싱한 후, 맨 마지막 연산 때에만 Double로 변환
-        - Integers are simpler to handle than floating-point numbers (doubles) for the CPU
-        - Integers consume less memory compared to doubles (typically 4 bytes for an int vs. 8 bytes for a double on most modern architectures).
-        - This reduced memory footprint can lead to better cache utilization, allowing more data to fit in the CPU cache and reducing the need to fetch data from the main memory
-    - custom hashmap that skips safety checks + String 객체 안받고 byte[]로 받아서 객체 생성 시간 & 메모리 아낌
+
+1. 1.4GiB 파일을 코어 갯수만큼(8 core) 8등분 segment로 쪼갬
+2. java는 big endian인데, small endian으로 바꿔서 읽도록 수정함 
+3. 각 코어(8개)에서 병렬로 아래의 작업을 수행함 
+4. SWAR로 'Barcelona;18.3' 에서 ';'의 위치를 찾음
+5. ';'의 이전 문자열을 String으로 변환하지 않고 byte[]로 바로 custom hashmap에 validation check 없이 다이렉트로 저장함 (skipping new String Object creation)
+6. ';'이후 18.3을 branchless (skipping if-else using bitmask)로 int로 변형해서 custom hashmap에 저장함
+7. 이 값들을 옮길 때 64 byte sites buffer array를 memory de-allocation 없이 덮어쓰기로 재사용하면서 저장 
+8. java Collections' collector로 .stream().parallel()로 8코어들에서 작업한 결과물 들을 합침
 
 
 #### 0-1. what is SWAR?
