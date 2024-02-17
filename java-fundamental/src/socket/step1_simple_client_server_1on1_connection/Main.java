@@ -1,4 +1,4 @@
-package socket.simpleOneOnOneConnection;
+package socket.step1_simple_client_server_1on1_connection;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

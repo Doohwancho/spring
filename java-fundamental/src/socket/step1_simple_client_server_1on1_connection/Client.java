@@ -1,4 +1,4 @@
-package socket.simpleOneOnOneConnection;
+package socket.step1_simple_client_server_1on1_connection;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -9,6 +9,17 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 
+/*
+진행 흐름
+
+- client
+  1. Socket에 OutputStream에 문자열을 byte[]로 담아
+  2. 서버와 TCP 연결 수립된 서버 소켓으로 byte[] Stream을 보낸다.
+  3. InputStream을 만들어 서버 소켓으로 온 byte[]를 문자열로 바꿔서 출력한다.
+  4. OutputStream, InputStream 스트림 자원을 반환한다.
+  5. 소켓을 닫는다.
+
+ */
 
 public class Client {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package socket.chat;
+package socket.step2_chat.client;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;

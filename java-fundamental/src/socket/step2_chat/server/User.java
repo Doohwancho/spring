@@ -1,4 +1,4 @@
-package socket.chat;
+package socket.step2_chat.server;
 
 import java.io.DataOutputStream;
 import java.net.Socket;
@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 public class User {
-    HashMap<String,DataOutputStream> clientmap = new HashMap<String,DataOutputStream>(); 
+    HashMap<String,DataOutputStream> clientmap = new HashMap<String,DataOutputStream>();  //TODO - thread-safe hashmap을 쓰자. ex. ConcurrentHashMap
 
 	public synchronized void addClient(String name,Socket socket) {                                                                        
 		try {

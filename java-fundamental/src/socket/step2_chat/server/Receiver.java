@@ -1,10 +1,8 @@
-package socket.chat;
+package socket.step2_chat.server;
 
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
-
-import socket.chat.User;
 
 public class Receiver implements Runnable{
 

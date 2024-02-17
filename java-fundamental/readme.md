@@ -24,6 +24,7 @@ l. defensive programming\
 m. effective java\
 n. 1 brc\
 o. unsafe\
+p. socket\
 x. garbage collector\
 x. debugging
 
@@ -382,6 +383,10 @@ n-4. parallel in 1MB chunk :white_check_mark:\
 n-5. SWAR :white_check_mark:
 
 o-1. unsafe로 객체생성 없이 메모리 접근하기 :white_check_mark:
+
+p-1. 1:1 = client:server chat (IO) :white_check_mark:\
+p-2. N:1 = client:server chat (IO) :white_check_mark:\
+p-3. N:1 = client:server chat (NIO) :white_check_mark:
 
 ---\
 Reference

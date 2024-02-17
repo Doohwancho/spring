@@ -1,4 +1,4 @@
-package socket.chat;
+package socket.step2_chat.server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -8,11 +8,11 @@ import java.net.Socket;
 public class Server {
     public static void main(String arg[]) {
         //접속한 Client와 통신하기 위한 Socket
-        Socket socket = null;    
+        Socket socket = null;
         //채팅방에 접속해 있는 Client 관리 객체                
         User user = new User();        
         //Client 접속을 받기 위한 ServerSocket            
-        ServerSocket server_socket=null;              
+        ServerSocket server_socket=null;
         
         int count = 0;                            
         Thread thread[]= new Thread[10];  //최대 접속 인원 10명       
