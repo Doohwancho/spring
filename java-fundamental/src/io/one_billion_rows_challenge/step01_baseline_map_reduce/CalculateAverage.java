@@ -1,4 +1,4 @@
-package io.one_billion_rows_challenge.step01_baseline;
+package io.one_billion_rows_challenge.step01_baseline_map_reduce;
 
 import static java.util.stream.Collectors.*;
 

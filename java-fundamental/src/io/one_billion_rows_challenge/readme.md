@@ -114,14 +114,29 @@ ex) java CalculateAverage  191.55s user 5.38s system 99% cpu 3:17.40 total
    
 # D. Details
 
-## step01 - Collector
+## step01 - Map Reduce
 
 ### 0. idea
 1. jdk17
-2. Collections.collector 로 1 billion rows의 min/mean/max 계산을 빨리 해보자.
+2. Map-reduce(Collections.collector) 로 1 billion rows의 min/mean/max 계산을 빨리 해보자.
+
+#### 0-1. map-reduce
+
+Q. what is map reduce?
+
+1. map 
+   1. takes a set of input:value key pair 
+   2. transform them into intermediary key/value pair
+   3. goal is to split into same but many chunks in order to apply same task to all of them in parallel
+2. calculation
+   1. takes intermediary key/value pair from map task (chunk)
+   2. apply same calculation(usually shuffle or sort) to every chunk
+3. reduce
+   1. aggregate those chunks
+   2. combine those chunks into smaller set 
 
 
-#### 0-1. collector
+#### 0-2. collector (from reduce)
 The collector has four components.
 1. supplier
 2. accumulator
@@ -179,7 +194,7 @@ Map<String, ResultRow> measurements = new TreeMap<>(Files.lines(Paths.get(FILE))
 
 ### 0. idea
 
-파일 읽는걸 병렬처리 해보자
+map reduce에서 파일 읽는걸 병렬처리 해보자
 
 step1 code는 single core에서만 도는데,\
 이 방식은 여러 코어에서 병렬로 돔
@@ -239,6 +254,10 @@ CPU 사용량만 봐도, 150%나 높은걸 보면, 수 많은 경량 쓰레드�
 ## step03 - parallel, but read files in 10MB chunks
 
 ### 0. idea
+map reduce에서 파일 읽는걸 병렬처리로 하는데,
+
+chunk단위를 10MB로 쪼개서 읽어보자 
+
 #### 0-1. parallel()
 파일을 여러 코어에서 병렬로 읽는다
 
@@ -285,6 +304,10 @@ final byte[] buffer = new byte[128];
 ## step04 - parallel, but read files in 1MB chunks
 
 ### 0. idea
+map reduce에서 파일 쪼개서 읽는걸 병렬로 하는데,
+
+파일을 쪼개는 단위를 1MB로 해보자. 
+
 step3과 차이점은, 10MB chunk -> 1MB chunk로 바뀐 것과, Double을 int처럼 처리한 것 두가지다.
 
 
@@ -335,16 +358,21 @@ step3과 차이점은, 10MB chunk -> 1MB chunk로 바뀐 것과, Double을 int�
 
 ### 0. idea
 
-1. 1.4GiB 파일을 코어 갯수만큼(8 core) 8등분 segment로 쪼갬
-2. java는 big endian인데, small endian으로 바꿔서 읽도록 수정함 
-3. 각 코어(8개)에서 병렬로 아래의 작업을 수행함 
-4. SWAR로 'Barcelona;18.3' 에서 ';'의 위치를 찾음
-5. ';'의 이전 문자열을 String으로 변환하지 않고 byte[]로 바로 custom hashmap에 validation check 없이 다이렉트로 저장함 (skipping new String Object creation)
-6. ';'이후 18.3을 branchless (skipping if-else using bitmask)로 int로 변형해서 custom hashmap에 저장함
-7. 이 값들을 옮길 때 64 byte sites buffer array를 memory de-allocation 없이 덮어쓰기로 재사용하면서 저장 
-8. java Collections' collector로 .stream().parallel()로 8코어들에서 작업한 결과물 들을 합침
+1. map-reduce 하기 이전 전초작업으로 1.4GiB 파일을 코어 갯수만큼(8 core) 8등분 segment로 쪼갬
+2. java는 big endian인데, small endian으로 바꿔서 파일을 읽도록 수정함 
+3. 각 코어(8개)에서 병렬로 map reduce를 수행함
+4. map 단계에서 chunk로 쪼개는데, 여러 optimization technique들이 적용된 
+   1. 이 때, key:value에서 SWAR로 'Barcelona;18.3' 에서 ';'의 위치를 찾음
+   2. ';'의 이전 문자열을 String으로 변환하지 않고 byte[]로 바로 custom hashmap에 validation check 없이 다이렉트로 저장함 (skipping new String Object creation)
+   3. ';'이후 Double type의 18.3을 int로 변형해서 custom hashmap에 저장함
+   4. branchless (skipping if-else using bitmask)로 1 branch mis-prediction 당 5ns cost를 save (1 billion rows의 20%가 branch mis-prediction만 일어나도 200ms)
+   5. 이 key:value pair chunk들을 옮길 때 64 byte sites buffer array를 memory de-allocation 없이 덮어쓰기로 재사용하면서 저장 
+5. calculation 단계에서 나눴던 여러 같은 단위의 key:pair chunk들(Measurement)을 처리(min, max, mean, count calculation)를 virtual thread로 엄청 많은 가상 쓰레드가 생성되어 처리  
+6. step5에서 처리한 chunk들의 결과값을 reduce 단계에서 합침 
+   1. java Collections' collector로 TreeMap 자료구조로 합침
+7. 결과를 콘솔에 출력함
 
-
+ 
 #### 0-1. what is SWAR?
 
 - stands for SIMD(Single Instruction, Multiple Data) Within A Register
