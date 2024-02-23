@@ -52,6 +52,8 @@ Palm Springs;20.0
   - branchless parse(skipping if-else by using bitmap 연산)
       - if-else 를 쓰면, CPU에서 성능 최적화 하기 위해 예측하고, 틀리면 수정하는데, if-else 자체를 없애면 이 구간 스킵 가능.
       - branch mis-prediction으로 인한 성능저하 예방.
+      - 1 branch mis-predict cost 5ns인데, 1 billion의 20%만 miss나도 10^9 * (1/5) * 5ns = 200ms 의 시간을 아낄 수 있다.
+      - royvanrijn이 측정한 branchless method으로 11000 ms를 성능 최적화 했다고 하는데, 11초이면 유의미한 차이인 듯 하다. 
   - String type의 Double 숫자를 int로 파싱한 후, 맨 마지막 연산 때에만 Double로 변환
       - Integers are simpler to handle than floating-point numbers (doubles) for the CPU
       - Integers consume less memory compared to doubles (typically 4 bytes for an int vs. 8 bytes for a double on most modern architectures).
