@@ -59,6 +59,11 @@ Palm Springs;20.0
       - Integers consume less memory compared to doubles (typically 4 bytes for an int vs. 8 bytes for a double on most modern architectures).
       - This reduced memory footprint can lead to better cache utilization, allowing more data to fit in the CPU cache and reducing the need to fetch data from the main memory
   - custom hashmap that skips safety checks + String 객체 안받고 byte[]로 받아서 객체 생성 시간 & 메모리 아낌
+- step6. 15.301초
+  - jdk21 GraalVM
+  - step5과 비교했을 때, 개념적으로 새로운 개념이 들어간 것 같지는 않다. 좀 더 세밀해진 branch prediction 정도?
+  - 2MB chunk로 쪼갠걸, 다시 1/3등분 해서 멀티 쓰레드가 parallel로 처리한다.
+  - hash collision을 방지하기 위해 hash size를 max_city_size인 1000보다 훨씬 큰 13만으로 설정했다.
 
 
 # C. How
@@ -415,8 +420,47 @@ step3과 차이점은, 10MB chunk -> 1MB chunk로 바뀐 것과, Double을 int�
 18.966 total
 ```
 
+---
+## step06 - 
 
+### 0. idea
+1. direct memory access (reducing overhead of read/write operation)
+   1. memory mapping
+      1. `FileChannel.map()` allows direct memory access 
+      2. efficient for large file i/o than traditional i/o stream
+   2. [Arena](https://cr.openjdk.org/~pminborg/panama/21/v1/javadoc/java.base/java/lang/foreign/Arena.html)
+      1. jdk21의 project panama에서 나온 기능
+      2. arena controls the lifecycle of native memory segments, providing 1. flexible allocations and 2. timely disallocation
+      3. `fileChannel.map(FileChannel.MapMode.READ_ONLY, 0, fileSize, java.lang.foreign.Arena.global()).address();`
+   3. sun.misc.Unsafe
+      1. directly reading memory, bypassing safety checks of JVM
+      2. but be careful of memory corruption
+2. parallel
+   1. create a worker thread per available core 
+   2. first divide files into segments, 2MB chunks
+      - 2MB size가 너무 작지도, 크지도 않은 사이즈라, 엄청 많은 virtual thread들 중에서 먼저 끝낸애가 있으면 바로바로 2MB씩 쪼개서 처리할 수 있는 사이즈 같다.
+      - 사이즈가 너무 작아지면, 엄청 잘게 쪼갠다는 건데, 그러면 load balancing 측면에서는 유리해지지만, thread context switching 측면에서는 불리해지는데, 적절한 size가 2MB인 듯 하다.
+   3. and multiple threads takes part in those segment to process parallely
+   4. subprocess for resource cleanup
+       1. main process가 값을 return하는 동안, sub-process가 memory mapping cleanup을 해준다.
+3. branchless programming
+   1. branchless number parsing
+   2. goal: reduce cpu branch mis-prediction
+4. lookup tables and masking for parsing
+   1. when parsing data, instead of arithmetic or branch operations, utilize lookup tables & bitmask operation
+   2. especially efficient for data with delimiter in between
+5. hash 충돌 최소화 하기위한 hash size를 크게 하기
+    - max_city 갯수가 1000개인데, hash table size를 13만으로 정한건, 넉넉한 hash table size + avoid hash-collision 만큼 충분히 큼 (city 이름이 1000개니까, 13만개면 hash-collision 최대한 피할 수 있지 않을까? -> memory 엄청 써서 cpu optimize 한 방법
+    - 다만, Result 객체 13만개가 들어갈 공간만큼 RAM 메모리 확보해야 하니까, RAM 사이즈, heap area가 커야한다.
 
+### 1. how to run?
+```
+javac --enable-preview --release 21 CalculateAverage_thomaswue.java
+java --enable-preview CalculateAverage_thomaswue
+```
+
+### 2. jdk21 GraalVM: 15.3초
+- 8.82s user 8.35s system 112% cpu 15.301 total
 
 
 

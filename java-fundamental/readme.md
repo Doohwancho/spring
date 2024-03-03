@@ -381,6 +381,7 @@ n-2. parallel :white_check_mark:\
 n-3. parallel in 10MB chunk :white_check_mark:\
 n-4. parallel in 1MB chunk :white_check_mark:\
 n-5. SWAR :white_check_mark:\
+n-6. more optimized in detail from step5.SWAR :white_check_mark:
 
 o-1. unsafe로 객체생성 없이 메모리 접근하기 :white_check_mark:
 
@@ -449,3 +450,5 @@ k-2. [method, stack, heap area](https://www.youtube.com/watch?v=Vd1C3-wHc4Y&ab_c
 
 l-ㄱ. null-handling\
 l-ㄱ-나. [module - nullify](https://github.com/silentsoft/nullify)
+
+n-6. [fastest java solution from 1brc](https://github.com/gunnarmorling/1brc/blob/main/src/main/java/dev/morling/onebrc/CalculateAverage_thomaswue.java)
