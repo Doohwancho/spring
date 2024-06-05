@@ -1,0 +1,35 @@
+---
+step2. chatting app
+
+
+A. 사용 라이브러리
+
+java.net.Socket;
+java.net.ServerSocket
+java._4_io
+
+B. 사용 객체
+
+Socket
+Stream
+BufferedReader
+Thread
+ConcurrentHashmap
+
+
+C. 진행 흐름
+
+---
+Client
+1. 서버와 연결할 Socket, 서버 소켓으로부터 받을 문자열을 담을 InputStream, 내가 서버소켓으로 보낼 문자열을 담을 OutputStream, 내가 서버로 보낼 문자열을 잠시 담을 byte[] 타입의 ReaderBuffer 생성
+2. Send extends Thread로 새 쓰레드를 생성해서, 사용자 콘솔 입력값을 String으로 받고, OutputStream에 담아 Socket으로 보냄
+3. 클라이언트의 메인 쓰레드는 서버로부터 데이터 읽는 것만 담당
+
+
+---
+Server
+1. Client와 통신하기 위한 Socket 생성
+2. 1 클라이언트당 1 User.java 객체에서 관리함 HashMap<String_유저이름, DataOutputStream>
+3. Receiver.java 객체에서 1 유저당 1 User, 1 Socket, 1 DataInputStream 관리함
+4. Receiver Implements Runnable로 쓰레드 받아서, Thread[10] 개로 총 10개 소켓을 염
+5. 최대 10개 유저에게서 온 InputStream에서 문자열 읽어다가 User.sendMsg()에서 HashMap<String,DataOutputStream>에 담긴 OutputStream을 통해 모든 유저에게 메시지를 전송함

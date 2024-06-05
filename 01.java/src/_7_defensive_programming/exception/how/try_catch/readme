@@ -1,0 +1,9 @@
+Q. catch하고 아무 처리 안할거면?
+A. catch 자체 없이 그냥 남기는게 낫다.
+
+그러면 fail fast -> 빨리 고칠 수 있는데,
+catch 남기고, 에러 핸들링 처리 안하면?
+1. 에러는 계속 발생하는데, 앱은 계속 돌아감
+2. 일주일 뒤에 jvm, _1_syntax._2_syntax_details.memory - out of leak로 터지고, 문제 원인이 뭔지 복구하려는데, 찾기 어려움.
+
+
