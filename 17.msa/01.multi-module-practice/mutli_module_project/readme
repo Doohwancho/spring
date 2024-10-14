@@ -1,0 +1,44 @@
+---
+Q. module간 통신
+
+
+api-sample의 서비스에서 common-core에 repository를 걍
+
+`import com.cho.mynote.repository.MyNoteRepository;`
+
+해서 쓰기 가능
+
+
+이거 막으려고 port니 뭐니 해서 모듈간 외부 포트 public 열어놓은것으로만으로 소통하고 내부에 repository 는 소통 못시키는 식으로 막아놓는 듯?
+
+
+---
+Q. multi-module 에서 gradle script 실행순서
+
+
+Gradle 스크립트 실행 순서는 아래와 같습니다.
+
+```gradle
+rootProject.name = 'mutli_module_project'
+include 'common-core'
+include 'api-sample'
+include 'rabbitmq-sample'
+```
+
+여기서 실행 순서는
+
+0. settings.gradle에서 모듈 리스트 등록
+1. root's build.gradle
+2. common-core's build.gradle
+3. api-sample's build.gradle
+4. rabbitmq-sample's build.gradle
+
+
+
+
+---
+Q. why have common-core? why not have common-dependencies on root's build.gradle
+
+
+1. The common-core module likely contains shared code, utilities, or configurations used across multiple modules.
+2. While you can define common dependencies in the root build.gradle, having a separate module allows you to encapsulate shared functionality and promote code reuse.

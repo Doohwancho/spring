@@ -1,0 +1,5 @@
+rootProject.name = 'mutli_module_project'
+include 'common-core'
+include 'api-sample'
+include 'rabbitmq-sample'
+

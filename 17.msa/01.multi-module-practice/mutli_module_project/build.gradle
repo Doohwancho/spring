@@ -1,0 +1,68 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.0.5'
+    id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'com.cho'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+subprojects {
+    group = 'com.cho'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = '11'
+
+    apply plugin: 'java'
+    apply plugin: 'java-library'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    // 관리하는 모듈의 공통 dependencies
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
+
+//안해도 되는데 아래 3가지 이유 때문에 한다고 함
+// 1. 모듈 간 의존성 관리: 서브 모듈 간의 의존성을 명시적으로 선언할 수 있습니다.
+// 2. 모듈별 설정: 각 모듈에 대한 특정 설정을 중앙에서 관리할 수 있습니다.
+// 3. 가독성: 프로젝트 구조를 한눈에 파악할 수 있습니다.
+
+// project(':rabbitmq-sample') { // 컴파일 시 multi-module-database 로딩
+//     dependencies {
+//         compileOnly project(':common-core')
+//     }
+// }
+
+// project(':api-sample') { // 컴파일 시 multi-module-database 로딩
+//     dependencies {
+//         compileOnly project(':common-core')
+//     }
+// }
+
+// project(':common-core') {
+//     bootJar { enabled = false }
+//     jar { enabled = true }
+// }
