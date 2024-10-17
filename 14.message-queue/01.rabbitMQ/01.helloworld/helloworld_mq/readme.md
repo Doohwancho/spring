@@ -72,3 +72,11 @@ producer -> exchange 까진 잘 갔으니까 ack=true 뜨는데,\
 exchange -> queue 실패한걸\
 confirm이 알려줌 
 
+
+# E. Error
+메시지 에러처리 하는 custom handler 등록하는 방법  
+
+NOTE: Such a simple handler is not generally needed since the framework will log the failed message itself; for a real
+application, some additional action might be taken, for example write the bad message to a database.
+
+

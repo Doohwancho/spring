@@ -16,12 +16,13 @@ c. pub/sub model\
 d. routing\
 e. topics\
 f. rpc\
-g. publisher confirm\
-h. error-handle: dead-letter exchange\
-i. error-handle: retries\
-j. performance: scale out\
-k. performance: load balancing\
-l. msa
+g. error-handle: publisher confirm\
+h. error-handle: global handler\
+x. error-handle: dead-letter exchange\
+x. error-handle: retries\
+x. performance: scale out\
+x. performance: load balancing\
+x. msa
 
 
 ---\
@@ -30,4 +31,5 @@ Resources
 
 a-1. [hello world from rabbitMQ documentation's get-started](https://www.rabbitmq.com/tutorials/tutorial-one-java) \
 a-1. [hello world code example](https://github.com/spring-projects/spring-amqp-samples) \
-d-1. [confirm from exchange](https://github.dev/spring-projects/spring-amqp-samples)
+g-1. [confirm from exchange](https://github.dev/spring-projects/spring-amqp-samples) \
+h-1. [global error handler](https://github.dev/spring-projects/spring-amqp-samples)
