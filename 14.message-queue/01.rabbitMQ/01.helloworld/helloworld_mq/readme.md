@@ -80,3 +80,7 @@ NOTE: Such a simple handler is not generally needed since the framework will log
 application, some additional action might be taken, for example write the bad message to a database.
 
 
+# F. json 
+queue에서 메시지를 보내거나 받을 때, format을 json type으로 할 수도 있다.
+
+spring app 끼리 message로 통신하는게 아니라, 다른 형식의 앱과 통신할 때 쓰인다. 
