@@ -1,9 +1,23 @@
 # A. What
 rabbitmq(message queue) experiments
 
-- 구조
-  - producer -> router(direct/fanout/topic/header exchange) queue -> consumer
-
+- producer -> router(direct/fanout/topic/header exchange) -> queue or stream -> consumer
+	1. producer
+		  - producer의 메시지는 특정 topic/tag 붙일 수 있고, 특정 topic/tag에 따라 consumer가 가려받는 형태
+	2. exchange
+		- types(direct/fanout(roundrobin)/topic/header) 기준으로 queue/stream에게 보내는 router
+	3. queue or stream
+		  1. queue: message are consumed and removed, used 1 time.
+		  2. stream: Messages are retained and can be replayed; used for high-throughput, event streaming.
+	4. consumer
+		- 메시지를 topic, tag 별로 가려받음
+		- message 타입 말고 다른 프로토콜(e.g rpg, json)으로도 받을 수 있음.
+- monitoring:
+	- docs: https://www.rabbitmq.com/docs/monitoring
+- managing:
+	- error handling
+		1. confirms: producer -> exchange에게 보내면 ack:ok 뜨는데, exchange->queue 못보내면 error 던져주는게 confirm. reliable publishing을 위한 exception 처리 도움
+	- docs: https://www.rabbitmq.com/docs/manage-rabbitmq
 
 
 # B. How to run?
