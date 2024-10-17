@@ -1,7 +1,7 @@
 # A. What
 rabbitmq(message queue) experiments
 
-- 구조 
+- 구조
   - producer -> router(direct/fanout/topic/header exchange) queue -> consumer
 
 
@@ -60,7 +60,7 @@ exchange: producer에서 받은 message를 queue로 라우팅 해주는 애
 ## d-2. confirms
 producer -> exchange(router) 보낸거 성공하면 ack=true 뜸\
 문제는, exchange -> queue 보낼 때 실패하면 producer가 알 방법이 없잖음?\
-그걸 알려주는게 confirm 
+그걸 알려주는게 confirm
 
 confirm file's three scenarios:
 - case1) 메시지를 올바른 queue에 올바른 router(default exchange "")에 보내는 것
@@ -70,17 +70,29 @@ confirm file's three scenarios:
 흥미로운건 case2인데,\
 producer -> exchange 까진 잘 갔으니까 ack=true 뜨는데,\
 exchange -> queue 실패한걸\
-confirm이 알려줌 
+confirm이 알려줌
 
 
 # E. Error
-메시지 에러처리 하는 custom handler 등록하는 방법  
+메시지 에러처리 하는 custom handler 등록하는 방법
 
 NOTE: Such a simple handler is not generally needed since the framework will log the failed message itself; for a real
 application, some additional action might be taken, for example write the bad message to a database.
 
 
-# F. json 
+# F. json
 queue에서 메시지를 보내거나 받을 때, format을 json type으로 할 수도 있다.
 
-spring app 끼리 message로 통신하는게 아니라, 다른 형식의 앱과 통신할 때 쓰인다. 
+spring app 끼리 message로 통신하는게 아니라, 다른 형식의 앱과 통신할 때 쓰인다.
+
+
+
+# G. queue vs stream
+
+1. Queue: Messages are consumed and removed; used for one-time message delivery.
+2. Stream: Messages are retained and can be replayed; used for high-throughput, event streaming.
+
+
+stream built for high throughput, low latency messaging
+
+ex. event sourcing, data pipeline, log aggregation, etc
