@@ -9,8 +9,9 @@ modularize kafka
 Concepts
 
 
-a. kafka + kafdrop + flink on docker-compose
-b. springboot + kafka
+a. kafka + kafdrop + flink on docker-compose\
+b. springboot + kafka\
+c. 선착순 시스템(multi-module 시스템에서, producer가 선착순 100명한테만 카프카한테 쿠폰 발행하면, 그걸 구독하던 쿠폰-모듈 consumer가 메시지 받아 쿠폰 처리 & exception 처리)
 
 
 
@@ -24,3 +25,5 @@ b-1. [springboot kafka course](https://github.dev/RameshMF/springboot-kafka-cour
 b-2. kafka docker-compose.yml 추가 :white_check_mark:\
 b-3. wikimedia-producer :white_check_mark:\
 b-4. wikimedia-consumer-jpa :white_check_mark:
+
+c-1. [FCFS-event](https://github.dev/emsthf/first-come-first-served-event/)
