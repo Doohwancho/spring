@@ -16,6 +16,7 @@ d. MockMvc\
 e. REST-Assured\
 f. Mockito\
 g. Spock\
+h. jmh\
 z. steal
 
 
@@ -57,6 +58,8 @@ f-10. test double 4: dummy :white_check_mark:\
 f-11. test double 5: fake :white_check_mark:\
 f-12. exception handling in mockito :white_check_mark:
 
+h-1. sum(for문) vs sum(stream) 성능 벤치마크 :white_check_mark:
+
 ---\
 reference
 
@@ -90,6 +93,8 @@ f-1. [Mockito를 이용한 unit test](https://www.crocus.co.kr/1556?category=395
 f-2. [mockito-best-practice](https://codechacha.com/ko/mockito-best-practice/) \
 f-3..8. [mock basic concepts](https://effortguy.tistory.com/141) \
 f-9..12. [goal of mockito, test double, exception handling](https://github.com/dinesh-varyani/mockito)
+
+h-1. sum 벤치마크 (for vs stream)[https://pompitzz.github.io/blog/Java/jmh_and_asyncProfiler.html#jmh-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC]
 
 z. [spring-guide.git](https://github.com/cheese10yun/spring-guide/blob/master/docs/test-guide.md) \
 z. [JUnit 5 Test - MockMvc, Mockito, JPA 미완성](https://theheydaze.tistory.com/218?category=935990) \

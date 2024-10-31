@@ -1,0 +1,9 @@
+# how to run jmh?
+
+step1. build.gradle에서 실험 옵션 맞추기
+docs: https://github.com/melix/jmh-gradle-plugin
+
+step2. run
+```
+./gradlew -Dorg.gradle.java.home=/Users/cho-cho/.asdf/installs/java/zulu-11.60.19 jmh
+```
