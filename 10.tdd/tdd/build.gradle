@@ -21,11 +21,75 @@ ext.jqwikVersion = '1.7.4'
 jmh {
 	jmhVersion = '1.35'
 	includeTests = true // Allows to include test sources into generate JMH jar, i.e. use it when benchmarks depend on the test classes.
-	iterations = 5 // Number of measurement iterations to do.
-	warmupIterations = 3 // Number of warmup iterations to do.
-	fork = 2 // How many times to forks a single benchmark. Use 0 to disable forking altogether
-	benchmarkMode = ['thrpt', 'avgt'] //// Benchmark mode. Available modes are: [Throughput/thrpt, AverageTime/avgt, SampleTime/sample, SingleShotTime/ss, All/all]
+	fork = 1 // 각 포크는 완전히 새로운 JVM 프로세스에서 실행된다. JVM의 상태나 이전 실행의 영향을 받지 않는 격리된 환경을 제공한다. 시스템 노이즈나 JVM 최적화의 영향을 줄일 수 있다.
+	warmupIterations = 2 // jvm은 처음에 코드를 인터프리터로 실행하다가 자주 실행되는 코드는 JIT 컴파일로 넘겨서 최적화 하기 때문에, 워밍업 없이 측정하면 초기의 비최적화된 실행 시간이 포함되어 부정확한 결과가 나온다. 실제 운영 환경에서도 코드는 워밍업된 상태로 실행되므로, 워밍업 후 측정이 더 현실적이다.
+	iterations = 2 // 여러 번 측정하여 통계적으로 유의미한 결과를 얻는다. 외부 요인(GC, 시스템 부하 등)의 영향을 줄일 수 있다.
+	benchmarkMode = ['all'] // Benchmark mode.
+	//1. Throughput/thrpt,
+	// 단위 시간당 작업 처리량 (operations/millisecond)
+	// 쓰루풋은 높을 수록 좋음 -> forSum > streamSum
+//	Benchmark                                                        Mode     Cnt     Score    Error   Units
+//	tddTest.SumBenchmark.forSum                                     thrpt       2  3187.173           ops/ms
+//	tddTest.SumBenchmark.streamSum                                  thrpt       2  3081.277           ops/ms
+
+//2. AverageTime/avgt,
+// 작업당 평균 실행 시간 (milliseconds/operation)
+// 낮을수록 좋음 -> heap이 젤 좋다.
+//	Benchmark                                                        Mode     Cnt     Score    Error   Units
+//	tddTest.SortBenchmark.testHeap                                   avgt       2     1.544            ms/op
+//	tddTest.SortBenchmark.testQuickSelect                            avgt       2     3.661            ms/op
+//	tddTest.SortBenchmark.testSort                                   avgt       2    63.212            ms/op
+
+
+//3. SampleTime/sample,
+//	실행 시간의 분포를 보여줌 (percentile 값들)
+//	p0.50 = 중간값, p0.90 = 90% 케이스의 실행시간
+//	성능의 일관성과 outlier를 파악할 수 있음
+//	testHeap이랑 testQuickSort는 99% percentile 안으로 각각 2.6ms/op, 2.9ms/op 안으로 처리되는데,
+//  testSort는 99% percentile 안으로 175ms/op 가 걸린다 -> 더 불안정하다.
+
+//	Benchmark                                                        Mode     Cnt     Score    Error   Units
+//	tddTest.SortBenchmark.testHeap                                 sample   13082     1.528 ±  0.018   ms/op
+//	tddTest.SortBenchmark.testHeap:testHeap·p0.00                  sample             1.442            ms/op
+//	tddTest.SortBenchmark.testHeap:testHeap·p0.50                  sample             1.460            ms/op
+//	tddTest.SortBenchmark.testHeap:testHeap·p0.90                  sample             1.585            ms/op
+//	tddTest.SortBenchmark.testHeap:testHeap·p0.95                  sample             1.675            ms/op
+//	tddTest.SortBenchmark.testHeap:testHeap·p0.99                  sample             2.634            ms/op
+//	tddTest.SortBenchmark.testHeap:testHeap·p0.999                 sample             6.423            ms/op
+//	tddTest.SortBenchmark.testHeap:testHeap·p0.9999                sample            43.578            ms/op
+//	tddTest.SortBenchmark.testHeap:testHeap·p1.00                  sample            47.841            ms/op
+//	tddTest.SortBenchmark.testQuickSelect                          sample   12787     1.563 ±  0.020   ms/op
+//	tddTest.SortBenchmark.testQuickSelect:testQuickSelect·p0.00    sample             1.401            ms/op
+//	tddTest.SortBenchmark.testQuickSelect:testQuickSelect·p0.50    sample             1.473            ms/op
+//	tddTest.SortBenchmark.testQuickSelect:testQuickSelect·p0.90    sample             1.659            ms/op
+//	tddTest.SortBenchmark.testQuickSelect:testQuickSelect·p0.95    sample             1.817            ms/op
+//	tddTest.SortBenchmark.testQuickSelect:testQuickSelect·p0.99    sample             2.900            ms/op
+//	tddTest.SortBenchmark.testQuickSelect:testQuickSelect·p0.999   sample            11.208            ms/op
+//	tddTest.SortBenchmark.testQuickSelect:testQuickSelect·p0.9999  sample            33.810            ms/op
+//	tddTest.SortBenchmark.testQuickSelect:testQuickSelect·p1.00    sample            35.062            ms/op
+//	tddTest.SortBenchmark.testSort                                 sample     313    63.997 ±  3.855   ms/op
+//	tddTest.SortBenchmark.testSort:testSort·p0.00                  sample            57.868            ms/op
+//	tddTest.SortBenchmark.testSort:testSort·p0.50                  sample            58.917            ms/op
+//	tddTest.SortBenchmark.testSort:testSort·p0.90                  sample            68.970            ms/op
+//	tddTest.SortBenchmark.testSort:testSort·p0.95                  sample            85.905            ms/op
+//	tddTest.SortBenchmark.testSort:testSort·p0.99                  sample           175.238            ms/op
+//	tddTest.SortBenchmark.testSort:testSort·p0.999                 sample           288.358            ms/op
+//	tddTest.SortBenchmark.testSort:testSort·p0.9999                sample           288.358            ms/op
+//	tddTest.SortBenchmark.testSort:testSort·p1.00                  sample           288.358            ms/op
+
+// 4. SingleShotTime/ss,
+//	단일 cold start 성능
+//	워밍업 없이 한 번만 실행
+//	초기화 비용이나 JIT 컴파일 전 성능을 측정할 때 유용
+//	testHeap이 성능이 제일 좋다.
+
+//	Benchmark                                                        Mode     Cnt     Score    Error   Units
+//	tddTest.SortBenchmark.testHeap                                     ss       2     2.341            ms/op
+//	tddTest.SortBenchmark.testQuickSelect                              ss       2     5.459            ms/op
+//	tddTest.SortBenchmark.testSort                                     ss       2    60.121            ms/op
+
 	timeUnit = 'ms'
+//	threads = 4  // 오해: jmh에 쓰레드는, 벤치마킹에 사용할 쓰레드를 측정하는거고, 실제 array.sort()나 .stream()에 여러 쓰레드가 사용하는건 jvm,os가 정한다. 따라서 console.log()에 분명 stream(map_reduce) 연산인데 thread:1 나왔다고 이상해 하지 말자.,
 }
 
 repositories {

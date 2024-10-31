@@ -58,7 +58,8 @@ f-10. test double 4: dummy :white_check_mark:\
 f-11. test double 5: fake :white_check_mark:\
 f-12. exception handling in mockito :white_check_mark:
 
-h-1. sum(for문) vs sum(stream) 성능 벤치마크 :white_check_mark:
+h-1. sum(for문) vs sum(stream) 성능 벤치마크 :white_check_mark:\
+h-2. jmh의 다양한 테스트 파라미터 이해(fork, warm, iteration의 중요성) && 모드별 결과값 해석법 이해 :white_check_mark:
 
 ---\
 reference
