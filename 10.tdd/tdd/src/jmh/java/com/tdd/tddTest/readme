@@ -12,5 +12,5 @@ case1) 모두 run 하는 경우
 
 case2) 특정 클래스만 run 하는 경우
 ```
-./gradlew -Dorg.gradle.java.home=/Users/cho-cho/.asdf/installs/java/zulu-11.60.19 jmh -Pjmh.includes=SortBenchmark
+./gradlew -Dorg.gradle.java.home=/Users/cho-cho/.asdf/installs/java/zulu-11.60.19 jmh -PjmhIncludes=ThreadPerformanceBenchmark
 ```

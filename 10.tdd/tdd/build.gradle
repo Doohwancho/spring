@@ -89,7 +89,17 @@ jmh {
 //	tddTest.SortBenchmark.testSort                                     ss       2    60.121            ms/op
 
 	timeUnit = 'ms'
-//	threads = 4  // 오해: jmh에 쓰레드는, 벤치마킹에 사용할 쓰레드를 측정하는거고, 실제 array.sort()나 .stream()에 여러 쓰레드가 사용하는건 jvm,os가 정한다. 따라서 console.log()에 분명 stream(map_reduce) 연산인데 thread:1 나왔다고 이상해 하지 말자.,
+	//@State(Scope.Thread) -> thread별로 인스턴스 생성
+	//@State(Scope.Benchmark) -> 동일 테스트 내 모든 thread에서 동일 instance 공유(multi-threading test)
+	//@State(Scope.Group) -> thread 그룹마다 instance를 생성
+	//threads = 4
+
+	//./gradlew jmh 하면 다 테스트하는데,
+	//특정 파일들만 테스트 하게하는 코드
+	//ex) `./gradlew jmh -PjmhIncludes=ThreadPerformanceBenchmark`
+	if (project.hasProperty('jmhIncludes')) {
+		includes = [project.jmhIncludes]
+	}
 }
 
 repositories {
