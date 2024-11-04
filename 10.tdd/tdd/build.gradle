@@ -20,7 +20,9 @@ ext.jqwikVersion = '1.7.4'
 
 jmh {
 	jmhVersion = '1.35'
-	includeTests = true // Allows to include test sources into generate JMH jar, i.e. use it when benchmarks depend on the test classes.
+	includeTests = false // Allows to include test sources into generate JMH jar, i.e. use it when benchmarks depend on the test classes.
+	includes = ['.*Benchmark.*']  // Only include benchmark classes
+
 	fork = 1 // 각 포크는 완전히 새로운 JVM 프로세스에서 실행된다. JVM의 상태나 이전 실행의 영향을 받지 않는 격리된 환경을 제공한다. 시스템 노이즈나 JVM 최적화의 영향을 줄일 수 있다.
 	warmupIterations = 2 // jvm은 처음에 코드를 인터프리터로 실행하다가 자주 실행되는 코드는 JIT 컴파일로 넘겨서 최적화 하기 때문에, 워밍업 없이 측정하면 초기의 비최적화된 실행 시간이 포함되어 부정확한 결과가 나온다. 실제 운영 환경에서도 코드는 워밍업된 상태로 실행되므로, 워밍업 후 측정이 더 현실적이다.
 	iterations = 2 // 여러 번 측정하여 통계적으로 유의미한 결과를 얻는다. 외부 요인(GC, 시스템 부하 등)의 영향을 줄일 수 있다.
@@ -100,6 +102,11 @@ jmh {
 	if (project.hasProperty('jmhIncludes')) {
 		includes = [project.jmhIncludes]
 	}
+
+	//로그 설정
+	jvmArgs = [
+		'-Dlogback.configurationFile=jmh-log-config.xml'
+	]
 }
 
 repositories {
@@ -136,6 +143,11 @@ dependencies {
 	//jmh
 	jmh 'org.openjdk.jmh:jmh-core:1.35'
 	jmh 'org.openjdk.jmh:jmh-generator-annprocess:1.35'
+	jmh 'org.springframework:spring-context'
+	jmh 'org.springframework.boot:spring-boot-starter-data-redis'
+	jmh 'io.lettuce:lettuce-core'
+	jmh 'org.projectlombok:lombok'
+	jmhAnnotationProcessor 'org.projectlombok:lombok'
 }
 
 compileTestJava {

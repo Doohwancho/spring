@@ -1,4 +1,4 @@
-package com.tdd.tddTest;
+package com.tdd.tddTest._01_helloworld;
 
 import com.tdd.tddTest.util.Sum;
 import org.openjdk.jmh.annotations.Benchmark;

@@ -1,4 +1,4 @@
-package com.tdd.tddTest;
+package com.tdd.tddTest._02_multi_thread;
 
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
