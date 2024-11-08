@@ -28,13 +28,14 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 
 @BenchmarkMode(Mode.All)
-@OutputTimeUnit(TimeUnit.MILLISECONDS)
 @State(Scope.Benchmark)
+@OutputTimeUnit(TimeUnit.MILLISECONDS)
+@Fork(1)
 @Warmup(iterations = 2, time = 1)
 @Measurement(iterations = 2, time = 1)
-@Fork(1)
 public class ThreadPerformanceBenchmark {
     
+    //case1) 쓰레드 숫자에 따라 다르게 테승트 하는 경우
     @Param({"1", "2", "4", "8"})
     private int threadCount;
     
@@ -54,6 +55,7 @@ public class ThreadPerformanceBenchmark {
     
     @Benchmark
     @Group("multiThreaded") //jmh internally uses int threadCount; parameter to determine number of threads
+    @GroupThreads(8) //case2) 쓰레드 숫자를 8개로 고정해놓고 테스트를 하는 경우
     public void multiThreadedIncrement(Blackhole blackhole) {
         blackhole.consume(counter.incrementAndGet());
     }

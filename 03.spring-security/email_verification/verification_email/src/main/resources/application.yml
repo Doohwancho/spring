@@ -1,0 +1,24 @@
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: doohwancho1993@gmail.com
+    password: "16자리 google account - app password" #for app-name "monolith_ecommerce"
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  task:
+    scheduling:
+      pool:
+        size: 5
+
+verification:
+  code:
+    length: 6
+    expiry-minutes: 5
+    max-attempts: 3
+  rate-limit:
+    requests-per-second: 1

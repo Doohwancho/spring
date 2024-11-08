@@ -20,6 +20,7 @@ g. jwt-refresh-token :white_check_mark:\
 h. react+springboot+jwt :white_check_mark:\
 i. jwt+refresh-token+redis :white_check_mark:\
 j. tdd-security :white_check_mark:\
+k. email-verification :white_check_mark:\
 x. CORS
 
 
@@ -87,6 +88,7 @@ i-11. integration test - logout :white_check_mark:\
 i-12. content-type: application/json :white_check_mark:\
 i-13. mock test - reissue refresh token :white_check_mark:
 
+k-1. google email verification module :white_check_mark:
 
 
 ---\
