@@ -1,9 +1,14 @@
 spring:
+  config:
+    #confidential이 적힌 파일 import.
+    #.gitignore에는 제외되었지만,
+    #spring: mail: username:, password: 가 적힌 application-secret.yml을 적고, import한다.
+    import: application-secret.yml
   mail:
     host: smtp.gmail.com
     port: 587
-    username: doohwancho1993@gmail.com
-    password: "16자리 google account - app password" #for app-name "monolith_ecommerce"
+#    username: ${YOUR_EMAIL_ADDRESS}
+#    password: ${16자리 google account's app password}
     properties:
       mail:
         smtp:
