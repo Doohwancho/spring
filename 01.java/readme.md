@@ -22,7 +22,7 @@ j. _10_functional programming :question:\
 k. how jvm works\
 l. defensive programming\
 m. effective java\
-n. 1 brc\
+n. 1 brc (moved to computer-science/parallel_programming/)
 o. performance.unsafe\
 p. _5_socket\
 x. garbage collector\
@@ -373,15 +373,6 @@ l-ㅂ-가-2. wrong advice: _2_oop style :white_check_mark:
 아이템 88. readObject 메서드는 방어적으로 작성하라\
 아이템 89. 인스턴스 수를 통제해야 한다면 readResolve보다는 열거 타입을 사용하라\
 아이템 90. 직렬화된 인스턴스 대신 직렬화 프록시 사용을 검토하라
-
-
-n-0. create 1 billion rows text file :white_check_mark:\
-n-1. baseline code + map reduce :white_check_mark:\
-n-2. parallel :white_check_mark:\
-n-3. parallel in 10MB chunk :white_check_mark:\
-n-4. parallel in 1MB chunk :white_check_mark:\
-n-5. SWAR :white_check_mark:\
-n-6. more optimized in detail from step5.SWAR :white_check_mark:
 
 o-1. unsafe로 객체생성 없이 메모리 접근하기 :white_check_mark:
 
